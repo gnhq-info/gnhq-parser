@@ -1,0 +1,553 @@
+
+<html>
+<!--Йо-хо-хо!!-->
+<title>Вестник Московской городской избирательной комиссии - электронное периодическое издание</title>
+<head>
+    <meta name="WebPartPageExpansion" content="full">
+    <meta name="ProgId" content="SharePoint.WebPartPage.Document">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="Description" content="">
+    <meta name="Keywords" content="">
+    <meta name="Abstract" content="">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="/include/ms.css" type="text/css">
+    <link rel="stylesheet" href="/_layouts/styles/jquery-ui-1.7.2.css" type="text/css">    
+    <script type="text/javascript" src="/include/js/prototype.js"></script>
+    <script type="text/javascript" src="/include/js/builder.js"></script>
+	<script type="text/javascript" src="/include/js/scriptaculous.js?load=effects"></script>
+	<script type="text/javascript" src="/include/js/lightbox.js"></script>
+	<link rel="stylesheet" href="/include/css/lightbox.css" type="text/css" media="screen">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+    <meta name="authors" content="">
+    <meta name="revisit-after" content="2 days">
+    <meta name="robots" content="index, follow">
+    <meta name="distribution" content="GLOBAL">
+    <meta name="classification" content="">
+    <meta name="copyright" content="">
+    <meta http-equiv="reply-to" content="">
+    <META NAME="ROBOTS" CONTENT="NOHTMLINDEX"/>
+    <robotsmetatag></robotsmetatag>
+    <META NAME="ROBOTS" CONTENT="NOHTMLINDEX"/>
+    
+	<link rel="alternate" type="application/rss+xml" title="Новости сайта Вестник МГИКа" href="RssFeed.aspx">
+</head>
+<body leftmargin="0" topmargin="0">
+    <div style="position: absolute; left: 528px; top: 46px; z-index: 0">
+        <a href="mailto:webadmin@mgik.mos.ru" title="Отправить замечания и пожелания">
+            <img src="/images/ico-e.jpg" border="0" alt="Отправить замечания и пожелания"></a>
+    </div>
+   <!-- <div style="position: absolute; left: 582px; top: 74px; z-index: 0" class="small">
+        125009, г.Москва, ул. Моховая , д.11, корп.Е, стр.8<br>
+        Приёмная Мосгоризбиркома: 633-51-56, 633-51-37<br>
+        тел. редакции: 633-51-49<span lang="ru">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span><a target="_blank" href="http://maps.google.ru/maps?f=q&hl=ru&geocode=&q=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0,+%D1%83%D0%BB.+%D0%9C%D0%BE%D1%85%D0%BE%D0%B2%D0%B0%D1%8F,+%D0%B4.+11,+%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81+%D0%95,+%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%B8%D0%B5+8&sll=55.354135,40.297852&sspn=21.261007,54.140625&ie=UTF8&source=embed&ll=55.759819,37.604485&spn=0.02434,0.077505&z=14&iwloc=A"
+            class="small" title="Схема проезда">Схема проезда</a>
+    </div>-->
+    <form name="aspnetForm" method="post" action="doc-Inside.aspx?RgmFolderID=a406f46e-6790-4f9c-88bd-4c112de9cc0c&amp;RgmDocID=415f673e-32d3-45aa-9de8-f71a6e009572" id="aspnetForm">
+<input type="hidden" name="MSO_PageHashCode" id="MSO_PageHashCode" value="40264713241924" />
+<input type="hidden" name="MSOWebPartPage_PostbackSource" id="MSOWebPartPage_PostbackSource" value="" />
+<input type="hidden" name="MSOTlPn_SelectedWpId" id="MSOTlPn_SelectedWpId" value="" />
+<input type="hidden" name="MSOTlPn_View" id="MSOTlPn_View" value="0" />
+<input type="hidden" name="MSOTlPn_ShowSettings" id="MSOTlPn_ShowSettings" value="False" />
+<input type="hidden" name="MSOGallery_SelectedLibrary" id="MSOGallery_SelectedLibrary" value="" />
+<input type="hidden" name="MSOGallery_FilterString" id="MSOGallery_FilterString" value="" />
+<input type="hidden" name="MSOTlPn_Button" id="MSOTlPn_Button" value="none" />
+<input type="hidden" name="__REQUESTDIGEST" id="__REQUESTDIGEST" value="0x22AE10F05797510EC8385AA734F22CE13F1B3DC08C5563B10450E477895E078B00FBB48A9293EED90C204146D54B732103505B0A44F9399368C76595976BD566,15 Jan 2012 19:54:05 -0000" />
+<input type="hidden" name="MSOSPWebPartManager_DisplayModeName" id="MSOSPWebPartManager_DisplayModeName" value="Browse" />
+<input type="hidden" name="MSOWebPartPage_Shared" id="MSOWebPartPage_Shared" value="" />
+<input type="hidden" name="MSOLayout_LayoutChanges" id="MSOLayout_LayoutChanges" value="" />
+<input type="hidden" name="MSOLayout_InDesignMode" id="MSOLayout_InDesignMode" value="" />
+<input type="hidden" name="MSOSPWebPartManager_OldDisplayModeName" id="MSOSPWebPartManager_OldDisplayModeName" value="Browse" />
+<input type="hidden" name="MSOSPWebPartManager_StartWebPartEditingName" id="MSOSPWebPartManager_StartWebPartEditingName" value="false" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUBMA9kFgJmD2QWAgIJD2QWBgIED2QWAgIBD2QWAmYPDxYCHgdWaXNpYmxlaGRkAggPZBYCAgMPZBYCZg8PFgIfAGhkZAIKD2QWAgIBD2QWAmYPDxYCHwBoZGRkinxeCR0IqsftFrzxQTHpHEdDMZQ=" />
+
+<script> var MSOWebPartPageFormName = 'aspnetForm';</script><script type="text/javascript" language="javascript" src="/_layouts/1049/init.js?rev=4NepkrWd0FWTIcraT0rSzA%3D%3D"></script>
+<script type="text/javascript" language="javascript" src="/_layouts/1049/init.js?rev=4NepkrWd0FWTIcraT0rSzA%3D%3D"></script><script type="text/javascript" language="javascript" src="/_layouts/1049/core.js?rev=IQJ4IP5OTO5CmLdfSZj2sg%3D%3D" defer></script><script type="text/javascript" language="javascript" src="/_layouts/1049/non_ie.js?rev=yfNry4hY0Gwa%2FPDNGrqXVg%3D%3D"></script>
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCwKU1Kz1AQKzq6XVCQKzq7mwAgKv/bXwCwKv/bHwCwKD9L79DAL2oYfXAQL2nPL/AwL2nN6kCwLH0rK/DQLH0saaBkkFxZhq3T8hrlv19fMyf8bIvdHS" />
+        
+        <table border="0" cellpadding="0" style="border-collapse: collapse" width="100%"
+            height="100%" id="table1">
+            <tr>
+                <td valign="top" height="115" width="100%">
+                    <table border="0" width="100%" cellpadding="0" style="border-collapse: collapse"
+                        height="115">
+                        <tr>
+                            <td width="554" height="115">
+                                <a href="default.aspx" class="menu" title="ВЕСТНИК Московской городской избирательной комиссии">
+                                    <img border="0" src="images/logo.jpg" width="554" height="115" alt="На главную"></a></td>
+                            <td background="images/hb.jpg">
+                            	<table width="100%" height="100%" border="0">
+                            		<tr>
+                            			<td  class="small" valign="bottom" style="padding-bottom: 20px; padding-left: 20px;">
+                                 125009, г.Москва, ул. Моховая , д.11, корп.Е, стр.8<br>
+                                 Приёмная Мосгоризбиркома: тел. 633-51-56<br>
+        <a target="_blank" href="http://maps.google.ru/maps?f=q&hl=ru&geocode=&q=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0,+%D1%83%D0%BB.+%D0%9C%D0%BE%D1%85%D0%BE%D0%B2%D0%B0%D1%8F,+%D0%B4.+11,+%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81+%D0%95,+%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%B8%D0%B5+8&sll=55.354135,40.297852&sspn=21.261007,54.140625&ie=UTF8&source=embed&ll=55.759819,37.604485&spn=0.02434,0.077505&z=14&iwloc=A"
+            class="small" title="Схема проезда">Схема проезда</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+                            <td background="images/hb.jpg" width="50">
+                                <img border="0" src="images/logo1.jpg" width="81" height="115" hspace="10"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+					<td height="33" background="images/mb.jpg" style="padding-left:20px">
+						
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td id="MSOZoneCell_WebPartWPQ2" vAlign="top"><table TOPLEVEL border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td valign="top"><div WebPartID="99f73e38-c48c-44cc-8264-28309b2a01aa" HasPers="false" id="WebPartWPQ2" width="100%" class="ms-WPBody" allowDelete="false" style="" ><SPAN style="display:none" ID="Span1WPQ2"><input type="submit" name="ctl00$m$g_db6a759d_4aa0_4103_8758_657b8d520166$ctl00" value="?" /></SPAN><SPAN style="display:none" ID="Span2WPQ2"><input name="ctl00$m$g_db6a759d_4aa0_4103_8758_657b8d520166$ctl01" type="text" /></SPAN><SCRIPT LANGUAGE="JavaScript">
+<!-- 
+    function doWPQ2(s)
+    {
+        Span2WPQ2.firstChild.value = s;
+        Span1WPQ2.firstChild.click();
+    }
+//-->
+</SCRIPT><table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" ID="Table3" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+  <tr>
+    <td><a class="menu" href="default.aspx" title="Главная" target=""><nobr>Главная</nobr></a></td>
+    <td width="15" height="33" background="images/mdel.jpg"> </td>
+    <td><a class="menu" href="list-Inside-doc-WholePage.aspx?RgmFolderID=												&#xA;													023a97a1-b212-4a7d-985f-0ad36b66e473" title="Календарь выборов в г.Москве" target=""><nobr>Календарь выборов в г.Москве</nobr></a></td>
+    <td width="15" height="33" background="images/mdel.jpg"> </td>
+    <td><a class="menu" href="doc-Inside.aspx?RgmFolderID=												&#xA;													8555a1b9-1cf3-4f96-9624-8c547b5735f6&amp;RgmDocID=a80a25b3-051c-4972-8830-fe0462530298" title="Редакционный совет" target=""><nobr>Редакционный совет</nobr></a></td>
+    <td width="15" height="33" background="images/mdel.jpg"> </td>
+  </tr>
+</table></div></td>
+			</tr>
+		</table></td>
+	</tr>
+</table>
+
+					</td>
+				</tr>	
+            
+            <tr>
+                <td valign="top" height="46" background="images/smb.jpg">
+                    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" height="46">
+                        <tr>
+                            <td  align="left" valign="top">
+                                <a href="list-Inside.aspx?RgmFolderID=2d4020f3-9cb2-4fd4-adbd-6a59168bbe0a" class="menu" title="Информация для избирателей">
+                                    <img border="0" src="images/sm1.jpg" width="122" height="46" ></a></td>
+                            <td  align="left" valign="top">
+                                <a href="list-Inside.aspx?RgmFolderID=2fb99465-0918-4abc-b722-78f40de82495" class="menu" title="Территориальные избирательные комиссии">
+                                    <img border="0" src="images/sm2.jpg" width="174" height="46"></a></td>
+                            <td  align="left" valign="top">
+                                <a href="list-Inside.aspx?RgmFolderID=4a013ecd-47fa-4c3d-95d4-452ef363e54e" class="menu" title="Политические партии">
+                                    <img border="0" src="images/sm3.jpg" width="103" height="46"></a></td>
+                            <td  align="left" valign="top">
+                                <a href="VotingSystem.aspx?RgmFolderID=e274803f-2bae-468c-b627-879e7ab51454" class="menu"  title="Интернет-опросы">
+                                    <img border="0" src="images/sm4.jpg" width="91" height="46" hspace="5"></a></td>
+                            
+                            <td width="100%" height="46" align="right">
+									<table width="100%" border="0" style="border-collapse: collapse">
+										<tr>
+											<td width="*">
+											</td>
+											<td  align="right" valign="top" width="32">
+                                				<a href="http://www.facebook.com/sharer.php?u=vestnik.mgik.mos.ru&t=Сайт+Вестник+Московской+Городской+Избирательной+Комиссии" 
+                                				   class="menu"  title="Опубликовать ссылку на Facebook">
+                                				   <div style="margin-top:8px">
+			                                    	<img border="0" src="images/facebook.png" height="28" width="28">
+			                                    	</div>
+			                                    </a>
+			                                 </td>
+			                                 <td  align="right" valign="top" width="32">
+                                				<a href="http://www.twitter.com/home?status=www.vestnik.mgik.mos.ru" class="menu" title="Опубликовать ссылку в Twitter">
+                                					<div style="margin-top:8px">
+	                                					<img border="0" src="images/twitter.png" height="28" width="28" >
+                                					</div>
+                                				</a>
+											 </td>
+
+											<td  align="right" valign="top" width="32">
+                                				<a href="RssFeed.aspx" class="menu"  title="Подписка на RSS-ленту">
+                                					<div style="margin-left:3px; margin-right:10px; margin-bottom:7px; margin-top:7px">
+				                                    	<img border="0" src="images/feedSimple.png" height="32">
+			                                    	</div>
+			                                    </a>
+			                                 </td>
+
+											<td width="272" align="center" valign="top"   valign="middle">
+												
+<table TOPLEVEL border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td valign="top"><div WebPartID="00000000-0000-0000-0000-000000000000" HasPers="true" id="WebPartWPQ1" width="100%" class="ms-WPBody" OnlyForMePart="true" allowDelete="false" style="" ><SPAN style="display:none" ID="Span1WPQ1"><input type="submit" name="ctl00$PlaceHolderForSearchWebPart$g_1a2771d6_cde8_4a45_a547_9e2e60e2c17d$ctl00" value="?" /></SPAN><SPAN style="display:none" ID="Span2WPQ1"><input name="ctl00$PlaceHolderForSearchWebPart$g_1a2771d6_cde8_4a45_a547_9e2e60e2c17d$ctl01" type="text" /></SPAN><SCRIPT LANGUAGE="JavaScript">
+<!-- 
+    function doWPQ1(s)
+    {
+        Span2WPQ1.firstChild.value = s;
+        Span1WPQ1.firstChild.click();
+    }
+//-->
+</SCRIPT><table class="tableindex" cellspacing="0" cellpadding="0" width="100%" id="Table1" style="border-collapse: collapse">
+    <tr>
+        <td valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" align="left" style="border-collapse: collapse">                                            
+                <tr>
+                    <td background="images/search1.jpg" width="30" height="30" style="padding-left:15px" class="white">
+                        Поиск:</td>
+                    <td background="images/search1.jpg" width="156" height="30" style="padding-left:15px" class="white">
+                        <input name="ctl00$PlaceHolderForSearchWebPart$g_1a2771d6_cde8_4a45_a547_9e2e60e2c17d$SearchText" type="text" id="ctl00_PlaceHolderForSearchWebPart_g_1a2771d6_cde8_4a45_a547_9e2e60e2c17d_SearchText" title="Введите текст для поиска" onkeydown="javascript:if (event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('ctl00_PlaceHolderForSearchWebPart_g_1a2771d6_cde8_4a45_a547_9e2e60e2c17d_btnSearch').click();}};" style="width:100%;" />
+                    </td>
+                    <td background="images/search1.jpg" width="46" style="padding-left:15px" class="white">
+                        <input type="submit" name="ctl00$PlaceHolderForSearchWebPart$g_1a2771d6_cde8_4a45_a547_9e2e60e2c17d$btnSearch" value="" id="ctl00_PlaceHolderForSearchWebPart_g_1a2771d6_cde8_4a45_a547_9e2e60e2c17d_btnSearch" title="Найти" style="border-width:0px;height:31px;width:30px;background-image:url('images/ico-s.jpg');" />
+                    </td>  
+                </tr>                  
+                <tr>
+					 <td height="14" style="font-size:xx-small" background="images/search2.jpg" width="272" colspan="3"></td>
+				</tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
+</div></td>
+	</tr>
+</table>
+
+											</td>
+										</tr>
+									</table>									
+							</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <table border="0" width="100%" cellpadding="0" style="border-collapse: collapse"
+                        height="100%">
+                        <tr>
+                            <td valign="top" style="padding-left: 20px; padding-top: 20px;" width="272px">
+                                
+
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td id="MSOZoneCell_WebPartWPQ3" vAlign="top"><table TOPLEVEL border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td valign="top"><div WebPartID="9a05a34f-d16d-43f5-9e8d-39490626e1f9" HasPers="false" id="WebPartWPQ3" width="100%" class="ms-WPBody" allowDelete="false" style="" ><SPAN style="display:none" ID="Span1WPQ3"><input type="submit" name="ctl00$m$g_e8460356_bfa4_4725_b5b4_57c7d649f6b5$ctl00" value="?" /></SPAN><SPAN style="display:none" ID="Span2WPQ3"><input name="ctl00$m$g_e8460356_bfa4_4725_b5b4_57c7d649f6b5$ctl01" type="text" /></SPAN><SCRIPT LANGUAGE="JavaScript">
+<!-- 
+    function doWPQ3(s)
+    {
+        Span2WPQ3.firstChild.value = s;
+        Span1WPQ3.firstChild.click();
+    }
+//-->
+</SCRIPT><table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+  <tr>
+    <td colspan="2" background="images/lm.jpg" width="272" height="26" class="white"><nobr> 								
+							Мосгоризбирком</nobr></td>
+  </tr>
+  <tr>
+    <td class="menuleft"> </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Состав комиссии" href="doc-Inside.aspx?RgmFolderID=5e1f140f-d591-4b2f-b684-e3bb8b3a0638&amp;RgmDocID=8a336b31-34d7-4255-9edf-41b2f676b563" target="">Состав комиссии</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Аппарат комиссии" href="doc-Inside.aspx?RgmFolderID=501a9acc-43ef-43e2-a13d-55ae33a1f67b&amp;RgmDocID=bf346f84-3e08-478a-9525-8efe144ab746" target="&#xA;													_blank&#xA;												">Аппарат комиссии</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Заседания комиссии" href="list-Inside.aspx?RgmFolderID=77825529-caf8-45b5-add3-afd97803db08" target="">Заседания комиссии</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Решения комиссии" href="list-Inside-doc-WholePage.aspx?RgmFolderID=6e61cb3e-daba-4059-b33b-499385168e99" target="">Решения комиссии</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Информация  Московской городской избирательной комиссии" href="list-Inside-doc-WholePage.aspx?RgmFolderID=fbb3b52a-8b6d-4afc-b8f5-be84ee6fcfca" target="">Информация  Московской городской избирательной комиссии</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Доска почёта" href="doc-Inside.aspx?RgmFolderID=ac431ff3-3516-41c2-84c1-91f8fe54f52e&amp;RgmDocID=fc340c20-2f4e-4a56-ab8e-94f680c54119" target="">Доска почёта</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Обучение" href="list-Inside-doc-WholePage.aspx?RgmFolderID=1f6f8f49-8988-43c3-962f-6fb719e971fb" target="">Обучение</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Международное сотрудничество" href="list-Inside-doc-WholePage.aspx?RgmFolderID=091a5b03-f53b-4542-a16b-82bb596905dd" target="">Международное сотрудничество</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Архив новостей" href="list-Inside-doc-WholePage.aspx?RgmFolderID=8e6d91f4-e0d6-4fa1-860c-ca1c20122647" target="">Архив новостей</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr class="small">
+    <td> </td>
+  </tr>
+  <tr>
+    <td colspan="2" background="images/lm.jpg" width="272" height="26" class="white"><nobr> 								
+							СМИ</nobr></td>
+  </tr>
+  <tr>
+    <td class="menuleft"> </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Обзоры публикаций СМИ" href="list-Inside-doc-WholePage.aspx?RgmFolderID=981659bb-f5b9-4eb4-aae2-36452b4aa69d" target="">Обзоры публикаций СМИ</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Информация для СМИ" href="list-Inside-doc-WholePage.aspx?RgmFolderID=a2b56e16-fbdd-4230-9025-966c5e68283f" target="">Информация для СМИ</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Контакты для СМИ" href="doc-Inside.aspx?RgmFolderID=afb636d9-15ee-4a61-ac4c-a4731ad31d14&amp;RgmDocID=9000d3b7-d11d-444c-9f76-512d55adb465" target="">Контакты для СМИ</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr class="small">
+    <td> </td>
+  </tr>
+  <tr>
+    <td colspan="2" background="images/lm.jpg" width="272" height="26" class="white"><nobr> 								
+							Законодательство</nobr></td>
+  </tr>
+  <tr>
+    <td class="menuleft"> </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Федеральные нормативные правовые акты" href="list-Inside-doc-WholePage.aspx?RgmFolderID=d80a3095-058c-42f3-bcc6-3e082e8fa2b1" target="">Федеральные нормативные правовые акты</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Нормативные правовые акты города Москвы" href="list-Inside-doc-WholePage.aspx?RgmFolderID=afef3a83-2cdb-44d8-a9c4-25aa176fa348" target="">Нормативные правовые акты города Москвы</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Проекты законов о выборах и референдумах" href="list-Inside-doc-WholePage.aspx?RgmFolderID=545a6dbc-11ee-4b6e-becd-6d15dcb1bcd0" target="">Проекты законов о выборах и референдумах</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr class="small">
+    <td> </td>
+  </tr>
+  <tr>
+    <td colspan="2" background="images/lm.jpg" width="272" height="26" class="white"><nobr> 								
+							Судебная практика</nobr></td>
+  </tr>
+  <tr>
+    <td class="menuleft"> </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Постановления и определения Конституционного Суда РФ" href="list-Inside-doc-WholePage.aspx?RgmFolderID=529cb52c-6cf6-46df-8a4c-23f9c1f34cb7&amp;RgmDocID=adc7304c-1296-4db7-be3b-00339143024a" target="">Постановления и определения Конституционного Суда РФ</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Решения Верховного Суда РФ" href="list-Inside-doc-WholePage.aspx?RgmFolderID=2a9e9156-6cfe-454d-b8cd-d5d2b1ce2eed&amp;RgmDocID=42a4b8d3-0093-464b-b511-00b5bba4c440" target="">Решения Верховного Суда РФ</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="menuleft" style="padding-left: 25px;">
+      <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse">
+        <td width="6px" valign="top" style="padding-top:4px"><img border="0" src="images/b1.gif"></td>
+        <td style="padding-left: 4px;"><a class="menuleft" title="Решения судов города Москвы" href="list-Inside-doc-WholePage.aspx?RgmFolderID=ec548daf-d4df-401a-9319-20c4a77f4387&amp;RgmDocID=45ec51de-8ada-4d43-a64a-011a00882351" target="">Решения судов города Москвы</a></td>
+      </table>
+    </td>
+  </tr>
+  <tr class="small">
+    <td> </td>
+  </tr>
+</table></div></td>
+			</tr>
+		</table></td>
+	</tr>
+</table>
+
+                            </td>
+                            <td valign="top" style="padding: 20px">
+                                <table width="100%">                                 	
+                                    <tr>
+                                        <td width="100%">
+                                            
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td id="MSOZoneCell_WebPartWPQ4" vAlign="top"><table TOPLEVEL border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td valign="top"><div WebPartID="41fd4e4a-36c4-401f-960e-19c0898ecdda" HasPers="false" id="WebPartWPQ4" width="100%" class="ms-WPBody" allowDelete="false" style="" ><SPAN style="display:none" ID="Span1WPQ4"><input type="submit" name="ctl00$m$g_18212c35_a8e7_4dd0_87b2_2fffe5be9eca$ctl00" value="?" /></SPAN><SPAN style="display:none" ID="Span2WPQ4"><input name="ctl00$m$g_18212c35_a8e7_4dd0_87b2_2fffe5be9eca$ctl01" type="text" /></SPAN><SCRIPT LANGUAGE="JavaScript">
+<!-- 
+    function doWPQ4(s)
+    {
+        Span2WPQ4.firstChild.value = s;
+        Span1WPQ4.firstChild.click();
+    }
+//-->
+</SCRIPT><table class="tableindex" cellspacing="1" cellpadding="0" width="100%" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+  <tr class="default">
+    <td class="default">
+      <table cellspacing="0" cellpadding="6" width="100%">
+        <tr class="default">
+          <td valign="top" class="default"><div>&nbsp;</div><div>&nbsp;<strong>Адрес:&nbsp;</strong>123154, Город Москва, Народного Ополчения ул., д.33, корп. 1<br /><strong>Тел:</strong> 8-499-192-97-26<br />&nbsp;</div><p><iframe frameborder="0" height="350" marginheight="0" marginwidth="0" scrolling="no" src="http://maps.google.ru/maps?f=q&amp;source=s_q&amp;hl=ru&amp;geocode=&amp;q=%D0%93%D0%BE%D1%80%D0%BE%D0%B4+%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0,+%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE+%D0%9E%D0%BF%D0%BE%D0%BB%D1%87%D0%B5%D0%BD%D0%B8%D1%8F+%D1%83%D0%BB.,+%D0%B4.33,+%D0%BA%D0%BE%D1%80%D0%BF.+1&amp;aq=&amp;sll=55.354135,40.297852&amp;sspn=24.690308,56.513672&amp;vpsrc=6&amp;ie=UTF8&amp;hq=&amp;hnear=%D1%83%D0%BB.+%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE+%D0%9E%D0%BF%D0%BE%D0%BB%D1%87%D0%B5%D0%BD%D0%B8%D1%8F,+33+%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81+1,+%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0&amp;ll=55.786432,37.480337&amp;spn=0.023647,0.055189&amp;t=m&amp;z=14&amp;iwloc=A&amp;output=embed" width="425"></iframe><br /><small><a href="http://maps.google.ru/maps?f=q&amp;source=embed&amp;hl=ru&amp;geocode=&amp;q=%D0%93%D0%BE%D1%80%D0%BE%D0%B4+%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0,+%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE+%D0%9E%D0%BF%D0%BE%D0%BB%D1%87%D0%B5%D0%BD%D0%B8%D1%8F+%D1%83%D0%BB.,+%D0%B4.33,+%D0%BA%D0%BE%D1%80%D0%BF.+1&amp;aq=&amp;sll=55.354135,40.297852&amp;sspn=24.690308,56.513672&amp;vpsrc=6&amp;ie=UTF8&amp;hq=&amp;hnear=%D1%83%D0%BB.+%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE+%D0%9E%D0%BF%D0%BE%D0%BB%D1%87%D0%B5%D0%BD%D0%B8%D1%8F,+33+%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81+1,+%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0&amp;ll=55.786432,37.480337&amp;spn=0.023647,0.055189&amp;t=m&amp;z=14&amp;iwloc=A" style="text-align: left; color: #0000ff">Просмотреть увеличенную карту</a></small>&gt;</p></td>
+        </tr>
+      </table>
+      <div align="right"><a class="small" target="_blank" href="doc-print.aspx?RgmDocID=415f673e-32d3-45aa-9de8-f71a6e009572">
+                Версия для печати
+              </a></div>
+    </td>
+  </tr>
+</table></div></td>
+			</tr>
+		</table></td>
+	</tr>
+</table>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="100%">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="100%">
+                                        
+                                        </td>
+                                    </tr>                                    
+                                    <tr>
+                                        <td width="100%">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="100%">
+                                        
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" valign="top" style="padding-left: 20px; padding-right: 20px; padding-top: 20px;">
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table border="0" width="100%" background="images/smb.jpg" height="46">
+                        <tr>
+                            <td align="center">
+                                <span lang="ru"><a href="http://www.gov.ru/" target="_blank" title="Официальная Россия">Официальная<br>
+                                    Россия</a></span></td>
+                            <td align="center">
+                                <span lang="ru"><a href="http://www.duma.gov.ru/" target="_blank" title="Государственная Дума">Государственная<br>
+                                    Дума</a></span></td>
+                            <td align="center">
+                                <span lang="ru"><a href="http://www.cikrf.ru/" target="_blank" title="Центральная избирательная комиссия">Центральная избирательная<br>
+                                    комиссия РФ</a></span></td>
+                            <td align="center">
+                                <span lang="ru"><a href="http://www.mos.ru/" target="_blank" title="Правительство Москвы">Правительство<br>
+                                    Москвы</a></span></td>
+                            <td align="center">
+                                <span lang="ru"><a href="http://duma.mos.ru/" target="_blank" title="Москвоская городская Дума">Московская<br>
+                                    городская Дума</a></span></td>
+                            <td align="center">
+                                <span lang="ru"><a href="http://www.moscow_city.izbirkom.ru/" target="_blank" title="Московская городская избираетльная комиссия">Московская городская<br>
+                                    избирательная комиссия</a></span></td>
+                            <td align="center">
+                                <span lang="ru"><a href="http://www.mospravda.ru/" target="_blank" title="Московская правда">Московская<br>
+                                    правда</a></span></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="small" height="25" style="padding: 10px" bgcolor="#EBEBEB" colspan="2">
+                    <p align="center">
+                        © vestnik.mgik.mos.ru Все права защищены<span lang="ru">.</span> Свидетельство о
+                        регистрации: Эл № ФС77-35425 от 26 февраля 2009г.<br>
+                        Адрес Московской городской избирательной комиссии: 125009, г.Москва, ул. Моховая
+                        , д.11, корп.Е, стр.8&nbsp;&nbsp; <a target="_blank" href="http://maps.google.ru/maps?f=q&hl=ru&geocode=&q=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0,+%D1%83%D0%BB.+%D0%9C%D0%BE%D1%85%D0%BE%D0%B2%D0%B0%D1%8F,+%D0%B4.+11,+%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81+%D0%95,+%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%B8%D0%B5+8&sll=55.354135,40.297852&sspn=21.261007,54.140625&ie=UTF8&source=embed&ll=55.759819,37.604485&spn=0.02434,0.077505&z=14&iwloc=A"
+                            class="small" title="Схема проезда">Схема проезда</a><br>
+                                 Приёмная Мосгоризбиркома: тел. 633-51-56<br>                        
+                        
+                        Адрес электронной почты «Вестника Московской городской избирательной комиссии»:
+                        <a href="mailto:webadmin@mgik.mos.ru" class="small" title="Отправить замечания и пожелания">webadmin@mgik.mos.ru</a>
+                </td>
+            </tr>
+        </table>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+var __wpmExportWarning='Данная страница для веб-части была персонализирована. В результате одно или более свойств веб-части могут содержать конфиденциальную информацию. Убедитесь, что свойства содержат безопасную информацию. После экспорта этой веб-части, просмотрите свойства в файле описания веб-части (.WebPart) с помощью текстового редактора типа Блокнот.';var __wpmCloseProviderWarning='Вы закрываете эту веб-часть.  В данный момент она предоставляет данные другим веб-частям, и эти подключения будут удалены, если данная веб-часть будет закрыта.  Для того чтобы закрыть эту веб-часть, нажмите OK.  Для сохранения веб-части, нажмите Отмена.';var __wpmDeleteWarning='Вы хотите окончательно удалить данную Веб-часть.  Вы уверены?  Для удаления данной Веб-части, нажмите OK.  Для сохранения Веб-части, нажмите Отмена.';//]]>
+</script>
+</form>
+</body>
+</html>

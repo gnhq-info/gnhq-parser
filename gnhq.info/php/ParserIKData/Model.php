@@ -22,6 +22,12 @@ abstract class ParserIKData_Model
         return md5($this->getFullName());
     }
 
+    /**
+     * @param string $name
+     * @param array$arguments
+     * @throws Exception
+     * @return Ambigous <NULL, multitype:>|ParserIKData_Model
+     */
     public function __call($name, $arguments)
     {
         $param = substr($name, 3);

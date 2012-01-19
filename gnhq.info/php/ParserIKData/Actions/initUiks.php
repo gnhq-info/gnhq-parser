@@ -10,3 +10,4 @@ $warehouse->loadAllOkrugs();
 $warehouse->loadAllTiks();
 
 var_dump(ParserIKData_Model_Okrug::getAllOBjects());
+var_dump(ParserIKData_Model_TIK::getAllOBjects());

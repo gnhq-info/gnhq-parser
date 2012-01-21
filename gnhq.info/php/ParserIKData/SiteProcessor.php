@@ -2,7 +2,8 @@
 class ParserIKData_SiteProcessor
 {
     const SITE = 'http://mosgorizbirkom.ru/';
-    const PAGE_HIERARCHY = 'list-Inside-doc-WholePage.aspx?RgmFolderID=bbe8fc2b-08b9-4971-9c70-00409d8db963';
+    //const PAGE_HIERARCHY = 'list-Inside-doc-WholePage.aspx?RgmFolderID=bbe8fc2b-08b9-4971-9c70-00409d8db963';
+    const PAGE_HIERARCHY = 'list-Inside-doc-WholePage.aspx?RgmFolderID=0ca2051d-085f-4228-b283-af0b0b582c3c';
     const PAGE_TIK_H = 'list-Inside.aspx?RgmFolderID=2fb99465-0918-4abc-b722-78f40de82495';
 
     private $_debugCnt = 0;
@@ -54,7 +55,7 @@ class ParserIKData_SiteProcessor
 
 
         // tiks
-        $tikString = 'Территориальная избирательная комиссия';
+        $tikString = 'Сведения об избирательных участках';
         foreach($okrugLinks as $okrugName => $okrugLink) {
             //print_r($okrugName .': ' . $okrugLink . PHP_EOL);
             $okrug = ParserIKData_Model_Okrug::createFromPageInfo($okrugName, $okrugLink, array());
@@ -66,7 +67,8 @@ class ParserIKData_SiteProcessor
             $tikLinks = $this->_getMiner()->getLinks($tikTags);
             // print_r($tikLinks);
             foreach ($tikLinks as $tikName => $tikLink) {
-                $tik = ParserIKData_Model_TIK::createFromPageInfo($tikName, $tikLink, array());
+                $tikRealName = trim(str_replace($tikString, '', $tikName));
+                $tik = ParserIKData_Model_TIK::createFromPageInfo($tikRealName, $tikLink, array());
                 $okrug->addTik($tik);
             }
         }

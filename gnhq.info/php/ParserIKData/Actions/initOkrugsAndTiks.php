@@ -1,12 +1,13 @@
 <?php
 include_once 'include.php';
 
+
 /**
  * @var ParserIKData_Warehouse_Interface
  */
-$warehouse = new ParserIKData_Warehouse_Csv();
+$warehouse = $serviceLocator->getWarehouse();
 
-$processor = new ParserIKData_SiteProcessor();
+$processor = new ParserIKData_Site_Mosgor();
 
 // создание объектов по первой иерерхии
 $processor->initModelsByHierarchy();

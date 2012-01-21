@@ -68,6 +68,7 @@ class ParserIKData_SiteProcessor
             // print_r($tikLinks);
             foreach ($tikLinks as $tikName => $tikLink) {
                 $tikRealName = trim(str_replace($tikString, '', $tikName));
+                $tikRealName = $this->_clearStringData($tikRealName, true);
                 $tik = ParserIKData_Model_TIK::createFromPageInfo($tikRealName, $tikLink, array());
                 $okrug->addTik($tik);
             }
@@ -141,6 +142,77 @@ class ParserIKData_SiteProcessor
         }
     }
 
+
+
+    /**
+     * @param ParserIKData_Model_TIK $tik
+     */
+    public function createTikUiks(ParserIKData_Model_TIK $tik)
+    {
+        $loader = new ParseIKData_Loader(self::SITE . html_entity_decode($tik->getLink()), true);
+        $page = $loader->load();
+        $forPrintString = 'Версия для печати';
+        $this->_getParser()->setPageSource($page);
+        $data = $this->_getParser()->findSurroundingTags($forPrintString);
+        $links = $this->_getMiner()->getLinks($data);
+        reset($links);
+        $printVersionLink = current($links);
+        $loader->setSource(self::SITE . $printVersionLink);
+        $printVersionPage = $loader->load();
+
+        $string = 'Описание границ';
+        $table = $this->_getParser()->setPageSource($printVersionPage)->findMinContainingTag($string, 'table');
+        $this->_createUiksByTable($table, $tik);
+
+        // patch for Щукино - two tables on page
+        if ($tik->getUniqueId() == ParserIKData_Model_TIK::findByModifiedName('Щукино')->getUniqueId()) {
+            $table = $this->_getParser()->findMinContainingTag('2992', 'table');
+            $this->_createUiksByTable($table, $tik);
+        }
+        print_r($tik->getFullName(). ' processed' . PHP_EOL);
+    }
+
+    /**
+     * @param html $table
+     * @param ParserIKData_Model_TIK $tik
+     */
+    private function _createUiksByTable($table, $tik)
+    {
+        if (!$table) {
+            return;
+        }
+        $rows = $this->_getMiner()->extractRows($table, 100);
+        foreach ($rows as $row) {
+            $cells = $this->_getMiner()->extractCells($row, 100);
+            $uik = $this->_createUikFromTableCells($cells, $tik);
+        }
+    }
+
+    /**
+     * @param string $cells[]
+     * @param ParserIKData_Model_TIK @tik
+     * @return ParserIKData_Model_UIK|null
+     */
+    private function _createUikFromTableCells($cells, $tik)
+    {
+        foreach ($cells as $i => $cell) {
+            $cells[$i] = $this->_clearStringData($cell);
+            if ($i == 0 && !is_numeric($cells[$i])) {
+                return null;
+            }
+        }
+        $existingUik = ParserIKData_Model_UIK::getFromPool($cells[0]);
+        if (!$existingUik) {
+            $uik = ParserIKData_Model_UIK::createFromPageInfo($cells[0], '', array());
+            /* @var $uik ParserIKData_Model_UIK */
+            $uik->setBorderDescription($cells[1])->setPlace($cells[2])->setVotingPlace($cells[3])->_friendSetTik($tik);
+            $tik->addUik($uik);
+            return $uik;
+        } else {
+            print_r($tik->getFullName() . ': ' .implode('|' ,$cells) . PHP_EOL . str_repeat('!', 20). PHP_EOL);
+            return null;
+        }
+    }
 
 
     /**

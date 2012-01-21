@@ -9,6 +9,34 @@ class ParserIKData_Parser
     private $_nextOffset = 0;
 
     /**
+     * минимальный тэг заданного типа, содержащий строку
+     * @param string $needle
+     * @param string $tag
+     * @return string|false
+     */
+    public function findMinContainingTag($needle, $tag)
+    {
+        $pos = mb_strpos($this->_pageSource, $needle, null, $this->_getEncoding());
+        if ($pos === false) {
+            return false;
+        }
+        $prevPos = $openPos = -1;
+        $openTag = '<' . $tag;
+        $closeTag = '</'.$tag.'>';
+        while ($openPos < $pos && $openPos !== false) {
+            $prevPos = $openPos;
+            $openPos = mb_strpos($this->_pageSource, $openTag, $openPos+1, $this->_getEncoding());
+        }
+        $closePos = mb_strpos($this->_pageSource, $closeTag, $prevPos + 1, $this->_getEncoding());
+        if ($closePos === false || $closePos < $pos) {
+            return false;
+        }
+        $len = $closePos + mb_strlen($closeTag, $this->_getEncoding()) - $prevPos;
+        $result = mb_substr($this->_pageSource, $prevPos, $len, $this->_getEncoding());
+        return $result;
+    }
+
+    /**
      * @param $needle
      * @return string[]
      */
@@ -36,32 +64,20 @@ class ParserIKData_Parser
      */
     public function stringInBetween($haystack, $from, $to, $includeEnds = false)
     {
-        $enc = mb_detect_encoding($haystack);
-        $fromPos = strpos($haystack, $from, 0);//, $enc);
-        if (!$fromPos) {
-            return null;
-        }
-        $toPos  = strpos($haystack, $to, $fromPos);//, $enc);
-        if (!$toPos) {
-            return null;
-        }
-        // print_r($fromPos. ':'.$toPos.PHP_EOL);
-        if ($includeEnds) {
-            $res = substr($haystack, $fromPos, ($toPos - $fromPos + strlen($to)));
-        } else {
-            $res = substr($haystack, $fromPos + strlen($from), ($toPos - $fromPos - strlen($from)));
-        }
-        return $res;
+        $extracter = new Lib_String_Extracter();
+        return $extracter->stringInBetween($haystack, $from, $to, $includeEnds);
     }
 
     /**
      * @param string $pageSource
+     * @return ParserIKData_Parser
      */
     public function setPageSource($pageSource)
     {
         $this->_pageSource = $pageSource;
         $this->_len = mb_strlen($this->_pageSource);
         $this->_nextOffset = 0;
+        return $this;
     }
 
 
@@ -106,6 +122,15 @@ class ParserIKData_Parser
     {
         return mb_substr($this->_pageSource, $i, 1);
     }
+
+    /**
+     * @return string
+     */
+    private function _getEncoding()
+    {
+        return mb_detect_encoding($this->_pageSource);
+    }
+
 
     /**
      * @return string

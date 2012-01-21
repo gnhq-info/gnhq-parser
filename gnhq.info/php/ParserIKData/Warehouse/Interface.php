@@ -7,7 +7,7 @@ interface ParserIKData_Warehouse_Interface
     public function saveAllOkrugs();
 
     /**
-     * @return ParserIKData_Model_Okrug[]
+     * @return ParserIKData_Warehouse_Interface
      */
     public function loadAllOkrugs();
 
@@ -17,7 +17,7 @@ interface ParserIKData_Warehouse_Interface
     public function saveAllTiks();
 
     /**
-     * @return ParserIKData_Model_TIK[]
+     * @return ParserIKData_Warehouse_Interface
      */
     public function loadAllTiks();
 
@@ -27,7 +27,7 @@ interface ParserIKData_Warehouse_Interface
     public function saveAllUiks();
 
     /**
-     * @return ParserIKData_Model_UIK[]
+     * @return ParserIKData_Warehouse_Interface
      */
     public function loadAllUiks();
 

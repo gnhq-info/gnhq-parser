@@ -12,11 +12,12 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     }
 
     /**
-     * @return ParserIKData_Model_Okrug[]
+     * @return ParserIKData_Warehouse_Interface
      */
     public function loadAllOkrugs()
     {
-        return $this->_loadFromFile($this->_getOkrugFile(), 'ParserIKData_Model_Okrug');
+        $this->_loadFromFile($this->_getOkrugFile(), 'ParserIKData_Model_Okrug');
+        return $this;
     }
 
     /**
@@ -28,11 +29,12 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     }
 
     /**
-     * @return ParserIKData_Model_TIK[]
+     * @return ParserIKData_Warehouse_Interface
      */
     public function loadAllTiks()
     {
-        return $this->_loadFromFile($this->_getTikFile(), 'ParserIKData_Model_TIK');
+        $this->_loadFromFile($this->_getTikFile(), 'ParserIKData_Model_TIK');
+        return $this;
     }
 
     /**
@@ -40,15 +42,16 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
      */
     public function saveAllUiks()
     {
-        return $this;
+        return $this->_saveToFile($this->_getUikFile(), 'ParserIKData_Model_UIK');
     }
 
     /**
-     * @return ParserIKData_Model_UIK[]
+     * @return ParserIKData_Warehouse_Interface
      */
     public function loadAllUiks()
     {
-        return array();
+        $this->_loadFromFile($this->_getUikFile(), 'ParserIKData_Model_UIK');
+        return $this;
     }
 
 
@@ -104,6 +107,14 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     private function _getTikFile()
     {
         return $this->_getDirectory() . 'tik.csv';
+    }
+
+    /**
+    * @return string
+    */
+    private function _getUikFile()
+    {
+        return $this->_getDirectory() . 'uik.csv';
     }
 
     /**

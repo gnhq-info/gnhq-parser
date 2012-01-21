@@ -32,4 +32,31 @@ class Lib_String_Extracter
         }
         return mb_substr($string, $eStart, $eFinish - $eStart);
     }
+
+    /**
+    * @param string $haystack
+    * @param string $from
+    * @param string $to
+    * @param boolean $includeEnds
+    * @return string|null
+    */
+    public function stringInBetween($haystack, $from, $to, $includeEnds = false)
+    {
+        $enc = mb_detect_encoding($haystack);
+        $fromPos = strpos($haystack, $from, 0);//, $enc);
+        if (!$fromPos) {
+            return null;
+        }
+        $toPos  = strpos($haystack, $to, $fromPos);//, $enc);
+        if (!$toPos) {
+            return null;
+        }
+        // print_r($fromPos. ':'.$toPos.PHP_EOL);
+        if ($includeEnds) {
+            $res = substr($haystack, $fromPos, ($toPos - $fromPos + strlen($to)));
+        } else {
+            $res = substr($haystack, $fromPos + strlen($from), ($toPos - $fromPos - strlen($from)));
+        }
+        return $res;
+    }
 }

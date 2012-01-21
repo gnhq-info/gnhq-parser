@@ -18,7 +18,7 @@ class ParserIKData_Model_Okrug extends ParserIKData_Model
      */
     public function getUniqueId()
     {
-        return self::_calcNormalizedHash($this->getAbbr());
+        return $this->getAbbr();
     }
 
     /**
@@ -58,8 +58,7 @@ class ParserIKData_Model_Okrug extends ParserIKData_Model
     public static function findByModifiedName($modifiedName, $ignoreStrings = array())
     {
         $name = self::_normalizeName($modifiedName, $ignoreStrings);
-        $hash = self::_calcNormalizedHash($name);
-        return self::getFromPool($hash);
+        return self::getFromPool($name);
     }
 
 

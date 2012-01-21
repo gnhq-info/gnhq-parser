@@ -112,6 +112,7 @@ class ParserIKData_Model_TIK extends ParserIKData_Model
         $name = trim($name);
         $name = mb_strtolower($name, mb_detect_encoding($name));
         $name = str_replace(chr(209).chr(129), chr(99), $name); // fix for Чертаново Северное
+        $name = str_replace('ё', 'е', $name);
 
         /* to parts */
         $lenForUnification = 6;

@@ -273,7 +273,7 @@ class ParserIKData_Site_Mosgor
         $members     = array();
         foreach ($sostavParts as $k => $part) {
 
-            $part = str_replace('&ndash;', '', strip_tags($part));
+            $part = $this->_clearStringData($part, true);
 
             if (!trim($part)) {
                 continue;
@@ -344,13 +344,14 @@ class ParserIKData_Site_Mosgor
      */
     private function _clearStringData($string, $stripTags = true)
     {
+        $encoding = mb_detect_encoding($string);
         $string = trim($string);
-        $string = str_replace('&nbsp;', '', $string);
+        $string = str_replace(array('&nbsp;','&ndash;'), array('',''), $string);
         $string = html_entity_decode($string);
         if ($stripTags) {
             $string = strip_tags($string);
         }
-        $string = iconv('cp1251', 'utf-8', iconv('utf-8', 'cp1251//ignore', $string));
+        $string = iconv('cp1251', $encoding, iconv($encoding, 'cp1251//ignore', $string));
         $string = trim($string);
         return $string;
     }

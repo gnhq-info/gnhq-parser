@@ -1,13 +1,11 @@
 <?php
+/**
+ * Парсер сайта мосгоризбиркома
+ * @author admin
+ */
 class ParserIKData_Site_Mosgor
 {
-    const SITE = 'http://mosgorizbirkom.ru/';
-    //const PAGE_HIERARCHY = 'list-Inside-doc-WholePage.aspx?RgmFolderID=bbe8fc2b-08b9-4971-9c70-00409d8db963';
-    const PAGE_HIERARCHY = 'list-Inside-doc-WholePage.aspx?RgmFolderID=0ca2051d-085f-4228-b283-af0b0b582c3c';
-    const PAGE_TIK_H = 'list-Inside.aspx?RgmFolderID=2fb99465-0918-4abc-b722-78f40de82495';
-
     private $_debugCnt = 0;
-
     /**
      * @var ParserIKData_Parser
      */
@@ -17,49 +15,29 @@ class ParserIKData_Site_Mosgor
      */
     private $_miner = null;
 
-    /**
-     * @return ParserIKData_Parser
-     */
-    private function _getParser()
-    {
-        if ($this->_parser === null) {
-            $this->_parser = new ParserIKData_Parser();
-        }
-        return $this->_parser;
-    }
-    /**
-     * @return ParserIKData_DataMiner
-     */
-    private function _getMiner()
-    {
-        if ($this->_miner === null) {
-            $this->_miner = new ParserIKData_DataMiner();
-        }
-        return $this->_miner;
-    }
+
 
     /**
      * создание всех объектов по первой иерархии (страница Информация территориальных избирательных комиссий)
-     * @return void
+     * @return ParserIKData_Site_Mosgor
      */
     public function initModelsByHierarchy()
     {
-        $loader = new ParseIKData_Loader(self::SITE . self::PAGE_HIERARCHY, true);
+        $loader = new ParseIKData_Loader($this->_getSite() . $this->_getCValue('hierarchy.page'), true);
         $result = $loader->load();
 
         // find links
-        $okrugString = 'административный округ';
+        $okrugString = $this->_getCValue('hierarchy.okrugIndicator');
         $this->_getParser()->setPageSource($result);
         $okrugTags = $this->_getParser()->findSurroundingTags($okrugString);
         $okrugLinks = $this->_getMiner()->getLinks($okrugTags);
 
-
         // tiks
-        $tikString = 'Сведения об избирательных участках';
+        $tikString = $this->_getCValue('hierarchy.tikIndicator');
         foreach($okrugLinks as $okrugName => $okrugLink) {
             //print_r($okrugName .': ' . $okrugLink . PHP_EOL);
             $okrug = ParserIKData_Model_Okrug::createFromPageInfo($okrugName, $okrugLink, array());
-            $src = self::SITE . $okrugLink;
+            $src = $this->_getSite() . $okrugLink;
             $loader->setSource($src);
             $tikResult = $loader->load();
             $this->_getParser()->setPageSource($tikResult);
@@ -73,15 +51,16 @@ class ParserIKData_Site_Mosgor
                 $okrug->addTik($tik);
             }
         }
+        return $this;
     }
 
     /**
-     * @return void
+     * @return ParserIKData_Site_Mosgor
      */
     public function loadTikDataForOkrugs()
     {
-        $okrugString = 'административном округе';
-        $src = self::SITE . 'list-Inside.aspx?RgmFolderID=2fb99465-0918-4abc-b722-78f40de82495';
+        $okrugString = $this->_getCValue('tikdata.okrugIndicator');
+        $src = $this->_getSite() . $this->_getCValue('tikdata.page');
         $loader = new ParseIKData_Loader($src, true);
         $result = $loader->load();
         $this->_getParser()->setPageSource($result);
@@ -94,21 +73,21 @@ class ParserIKData_Site_Mosgor
                 $okrug->setTikDataLink($link);
             }
         }
+        return $this;
     }
 
     /**
-     * @return void
+     * @return ParserIKData_Site_Mosgor
      */
     public function loadTikAddressAndSostavLinks()
     {
         foreach (ParserIKData_Model_Okrug::getAllObjects() as $okrug) {
-
             /* loading tik links */
             $src = $okrug->getTikDataLink();
-            $loader = new ParseIKData_Loader(self::SITE . $src, true);
+            $loader = new ParseIKData_Loader($this->_getSite() . $src, true);
             $result = $loader->load();
             $this->_getParser()->setPageSource($result);
-            $tikTags = $this->_getParser()->findSurroundingTags('район');
+            $tikTags = $this->_getParser()->findSurroundingTags($this->_getCValue('tikdata.tikIndicator'));
             $tikTagLinks = $this->_getMiner()->getLinks($tikTags);
 
             foreach ($tikTagLinks as $tikName => $tikLink) {
@@ -122,45 +101,42 @@ class ParserIKData_Site_Mosgor
 
         foreach (ParserIKData_Model_TIK::getAllOBjects() as $tik) {
             if ($tik->getSelfInfoLink() != '') {
-                $loader = new ParseIKData_Loader(self::SITE . $tik->getSelfInfoLink(), true);
+                $loader = new ParseIKData_Loader($this->_getSite() . $tik->getSelfInfoLink(), true);
                 $result = $loader->load();
                 $this->_getParser()->setPageSource($result);
 
-                $tik->setSostavLink($this->_findLinkForPhraze('Состав ТИК'));
-                $tik->setAddressLink($this->_findLinkForPhraze('Адрес мест'));
+                $tik->setSostavLink($this->_findLinkForPhraze($this->_getCValue('tikaddress.sostavIndicator')));
+                $tik->setAddressLink($this->_findLinkForPhraze($this->_getCValue('tikaddress.addressIndicator')));
             }
         }
+        return $this;
     }
 
 
-
+    /**
+     * @return ParserIKData_Site_Mosgor
+     */
     public function loadTikData()
     {
         foreach (ParserIKData_Model_TIK::getAllOBjects() as $tik) {
             $this->_loadTikAddress($tik);
             $this->_loadTikSostav($tik);
         }
+        return $this;
     }
-
-
 
     /**
      * @param ParserIKData_Model_TIK $tik
+     * @return ParserIKData_Site_Mosgor
      */
     public function createTikUiks(ParserIKData_Model_TIK $tik)
     {
-        $loader = new ParseIKData_Loader(self::SITE . html_entity_decode($tik->getLink()), true);
+        $loader = new ParseIKData_Loader($this->_getSite() . html_entity_decode($tik->getLink()), true);
         $page = $loader->load();
-        $forPrintString = 'Версия для печати';
-        $this->_getParser()->setPageSource($page);
-        $data = $this->_getParser()->findSurroundingTags($forPrintString);
-        $links = $this->_getMiner()->getLinks($data);
-        reset($links);
-        $printVersionLink = current($links);
-        $loader->setSource(self::SITE . $printVersionLink);
+        $loader->setSource($this->_getSite() . $this->_getPrintVersionLink($page));
         $printVersionPage = $loader->load();
 
-        $string = 'Описание границ';
+        $string = $this->_getCValue('uik.tableIndicator');
         $table = $this->_getParser()->setPageSource($printVersionPage)->findMinContainingTag($string, 'table');
         $this->_createUiksByTable($table, $tik);
 
@@ -170,6 +146,7 @@ class ParserIKData_Site_Mosgor
             $this->_createUiksByTable($table, $tik);
         }
         print_r($tik->getFullName(). ' processed' . PHP_EOL);
+        return $this;
     }
 
     /**
@@ -214,6 +191,19 @@ class ParserIKData_Site_Mosgor
         }
     }
 
+    /**
+     * @param string $page
+     * @return string
+     */
+    private function _getPrintVersionLink($page)
+    {
+        $this->_getParser()->setPageSource($page);
+        $data = $this->_getParser()->findSurroundingTags($this->_getCValue("printVersionIndicator"));
+        $links = $this->_getMiner()->getLinks($data);
+        reset($links);
+        $printVersionLink = current($links);
+        return $printVersionLink;
+    }
 
     /**
      * @param ParserIKData_Model_TIK $tik
@@ -221,17 +211,19 @@ class ParserIKData_Site_Mosgor
      */
     private function _loadTikAddress($tik)
     {
-        $loader = new ParseIKData_Loader(self::SITE . $tik->getAddressLink(), true);
+        $loader = new ParseIKData_Loader($this->_getSite() . $tik->getAddressLink(), true);
         $result = $loader->load();
 
-        $address = $this->_clearStringData($this->_getParser()->stringInBetween($result, '<strong>Адрес:', '</p>', false));
-        $pos = strpos($address, 'Тел:');
+        $address = $this->_clearStringData($this->_getParser()
+            ->stringInBetween($result, $this->_getCValue('tikaddress.addressStart'), $this->_getCValue('tikaddress.addressFinish'), false));
+        $pos = strpos($address, $this->_getCValue('tikaddress.addressPhoneStart'));
         if ($pos > 0) {
             $address = substr($address, 0, $pos);
         }
 
-        $phone   = $this->_clearStringData($this->_getParser()->stringInBetween($result, 'Тел:</strong>', '</p>', false));
-        $phone = str_replace(array('Просмотреть увеличенную карту', '>'), array('',''), $phone);
+        $phone   = $this->_clearStringData($this->_getParser()
+            ->stringInBetween($result, $this->_getCValue('tikaddress.phoneStart'), $this->_getCValue('tikaddress.phoneFinish'), false));
+        $phone = $this->_excludeCArray('tikaddress.phoneExcludes', $phone);
 
         return $tik->setAddress($address)->setPhone($phone);
     }
@@ -242,10 +234,11 @@ class ParserIKData_Site_Mosgor
      */
     private function _loadTikSostav($tik)
     {
-        $loader = new ParseIKData_Loader(self::SITE . $tik->getSostavLink(), true);
+        $loader = new ParseIKData_Loader($this->_getSite() . $tik->getSostavLink(), true);
         $result = $loader->load();
 
-        $sostavHtml = $this->_getParser()->stringInBetween($result, '<td valign="top" class="default">', '</td>', false);
+        $sostavHtml = $this->_getParser()
+            ->stringInBetween($result, $this->_getCValue('tiksostav.start'), $this->_getCValue('tiksostav.finish'), false);
         $this->_parseAndLoadSostavData($sostavHtml, $tik);
         return $tik;
     }
@@ -273,7 +266,7 @@ class ParserIKData_Site_Mosgor
     private function _parseAndLoadSostavData($sostav, $tik)
     {
         $sostav = $this->_clearStringData($sostav, false);
-        $sostavParts = explode('</div>', $sostav);
+        $sostavParts = explode($this->_getCValue('tiksostav.separator'), $sostav);
         $chief       = null;
         $deputy      = null;
         $secretary   = null;
@@ -285,24 +278,24 @@ class ParserIKData_Site_Mosgor
             if (!trim($part)) {
                 continue;
             }
-            if (mb_stristr($part, 'Члены', null, mb_detect_encoding($part)) !== false) {
+            if (mb_stristr($part, $this->_getCValue('tiksostav.memberStringIndicator'), null, mb_detect_encoding($part)) !== false) {
                 continue;
             }
             if ($this->_getChief($part)) {
                 $chief = $this->_getChief($part);
-                $chief = str_replace(array('Председатель', 'комиссии', '-'), array('', '', ''), $chief);
+                $chief = $this->_excludeCArray('tiksostav.chiefExcludes', $chief);
                 $chief = trim($chief);
                 continue;
             }
             if ($this->_getDeputy($part)) {
                 $deputy = $this->_getDeputy($part);
-                $deputy = str_replace(array('Заместитель', 'председателя', 'комиссии', '-'), array('', '', '', ''), $deputy);
+                $deputy = $this->_excludeCArray('tiksostav.deputyExcludes', $deputy);
                 $deputy = trim($deputy);
                 continue;
             }
             if ($this->_getSecretary($part)) {
                 $secretary = $this->_getSecretary($part);
-                $secretary = str_replace(array('Секретарь', 'комиссии', '-'), array('', '', ''), $secretary);
+                $secretary = $this->_excludeCArray('tiksostav.secretaryExcludes', $secretary);
                 $secretary = trim($secretary);
                 continue;
             }
@@ -319,7 +312,7 @@ class ParserIKData_Site_Mosgor
 
     private function _getChief($string)
     {
-        if (mb_stripos($string, 'Председатель') !== false) {
+        if (mb_stripos($string, $this->_getCValue('tiksostav.chiefIndicator')) !== false) {
             return $string;
         } else {
             return false;
@@ -328,7 +321,7 @@ class ParserIKData_Site_Mosgor
 
     private function _getDeputy($string)
     {
-        if (mb_stripos($string, 'Заместитель') !== false) {
+        if (mb_stripos($string, $this->_getCValue('tiksostav.deputyIndicator')) !== false) {
             return $string;
         } else {
             return false;
@@ -337,7 +330,7 @@ class ParserIKData_Site_Mosgor
 
     private function _getSecretary($string)
     {
-        if (mb_stripos($string, 'Секретарь') !== false) {
+        if (mb_stripos($string, $this->_getCValue('tiksostav.secretaryIndicator')) !== false) {
             return $string;
         } else {
             return false;
@@ -360,5 +353,76 @@ class ParserIKData_Site_Mosgor
         $string = iconv('cp1251', 'utf-8', iconv('utf-8', 'cp1251//ignore', $string));
         $string = trim($string);
         return $string;
+    }
+
+    /**
+     * @return Ambigous <string, NULL>
+     */
+    private function _getSite()
+    {
+        return $this->_getCValue('site');
+    }
+
+    /**
+     * @param string $key
+     * @return string|null
+     */
+    private function _getCValue($key)
+    {
+        return $this->_getConfig()->getValue($key);
+    }
+
+    /**
+     * @param string $key
+     * @return array|null
+     */
+    private function _getCArray($key)
+    {
+        return $this->_getConfig()->getArray($key);
+    }
+
+    /**
+     * @param string $key
+     * @param string $string
+     * @return string
+     */
+    private function _excludeCArray($key, $string)
+    {
+        $array = $this->_getCArray($key);
+        if (!$array) {
+            return $string;
+        }
+        $replace = array_fill(0, count($array), '');
+        return str_replace($array, $replace, $string);
+    }
+
+    /**
+     * @return ParserIKData_Config
+     */
+    private function _getConfig()
+    {
+        $config = ParserIKData_ServiceLocator::getInstance()->getConfigForFile('mosgor.ini');
+        return $config;
+    }
+
+    /**
+    * @return ParserIKData_Parser
+    */
+    private function _getParser()
+    {
+        if ($this->_parser === null) {
+            $this->_parser = new ParserIKData_Parser();
+        }
+        return $this->_parser;
+    }
+    /**
+     * @return ParserIKData_DataMiner
+     */
+    private function _getMiner()
+    {
+        if ($this->_miner === null) {
+            $this->_miner = new ParserIKData_DataMiner();
+        }
+        return $this->_miner;
     }
 }

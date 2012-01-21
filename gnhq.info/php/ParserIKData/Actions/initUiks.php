@@ -4,7 +4,7 @@ include_once 'include.php';
 /**
  * @var ParserIKData_Warehouse_Interface
  */
-$warehouse = $serviceLocator->getWarehouse();
+$warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 $warehouse->loadAllOkrugs()->loadAllTiks();
 
 $processor = new ParserIKData_Site_Mosgor();

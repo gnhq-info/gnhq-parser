@@ -16,6 +16,17 @@ class ParserIKData_Config
         }
     }
 
+    /**
+     * @param string $key
+     * @return array
+     */
+    public function getArray($key)
+    {
+        $val = $this->getValue($key);
+        $var = trim($val, '[]');
+        return explode(';', $var);
+    }
+
     public function __construct($file)
     {
         if (!file_exists($file)) {

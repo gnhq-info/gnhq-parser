@@ -43,6 +43,15 @@ class ParserIKData_ServiceLocator
     }
 
     /**
+     * @param string $file
+     * @return ParserIKData_Config
+     */
+    public function getConfigForFile($file)
+    {
+        return new ParserIKData_Config($this->_getConfigDirectory() . $file);
+    }
+
+    /**
      * @return ParserIKData_Config
      */
     private function _getConfig()
@@ -55,12 +64,19 @@ class ParserIKData_ServiceLocator
      */
     private function _getConfigFilePath()
     {
+        return $this->_getConfigDirectory() . $this->_configFileName;
+    }
+
+    /**
+     * @return string
+     */
+    private function _getConfigDirectory()
+    {
         $dir = __DIR__;
         $dir = rtrim($dir, DIRECTORY_SEPARATOR);
         $parts = explode(DIRECTORY_SEPARATOR, $dir);
         unset($parts[count($parts)-1]);
         $dir = implode(DIRECTORY_SEPARATOR, $parts);
-        return $dir . DIRECTORY_SEPARATOR . $this->_configFileName;
+        return $dir . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR;
     }
-
 }

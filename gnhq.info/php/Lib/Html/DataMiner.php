@@ -1,5 +1,5 @@
 <?php
-class ParserIKData_DataMiner
+class Lib_Html_DataMiner
 {
     private $_extracter = null;
 

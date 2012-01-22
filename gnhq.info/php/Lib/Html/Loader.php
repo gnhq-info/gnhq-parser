@@ -1,23 +1,57 @@
 <?php
-class ParseIKData_Loader
+class Lib_Html_Loader
 {
     private $_src;
     private $_useCache;
     private $_outputCharset = 'utf-8';
+    private $_cacheDir;
 
-    public function __construct($src, $useCache = true)
+    public function __construct($src, $useCache = true, $outputCharset = null)
     {
         $this->_src = $src;
         $this->_useCache = $useCache;
+        if ($outputCharset) {
+            $this->_outputCharset = $outputCharset;
+        }
+    }
+
+    /**
+     * @param string $dir
+     * @return Lib_Html_Loader
+     */
+    public function setCacheDir($dir)
+    {
+        $this->_cacheDir = $dir;
+        return $this;
     }
 
     /**
      * @param string $src
-     * @return ParseIKData_Loader
+     * @return Lib_Html_Loader
      */
     public function setSource($src)
     {
         $this->_src = $src;
+        return $this;
+    }
+
+    /**
+     * @param boolean $useCache
+     * @return Lib_Html_Loader
+     */
+    public function setUseCache($useCache)
+    {
+        $this->_useCache = (bool)$useCache;
+        return $this;
+    }
+
+    /**
+     * @param string $outputCharset
+     * @return Lib_Html_Loader
+     */
+    public function setOutputCharset($outputCharset)
+    {
+        $this->_outputCharset = $outputCharset;
         return $this;
     }
 
@@ -74,8 +108,7 @@ class ParseIKData_Loader
      */
     private function _getCacheFilename()
     {
-        $path = __DIR__ . DIRECTORY_SEPARATOR . 'Cache' . DIRECTORY_SEPARATOR;
-        return $path . $this->_buildCacheKey();
+        return rtrim($this->_cacheDir, DIRECTORY_SEPARATOR) .  DIRECTORY_SEPARATOR . $this->_buildCacheKey();
     }
 
     private function _buildCacheKey()

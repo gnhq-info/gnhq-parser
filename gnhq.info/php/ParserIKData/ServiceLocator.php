@@ -1,5 +1,5 @@
 <?php
-class ParserIKData_ServiceLocator
+class ParserIKData_ServiceLocator // implements Singleton
 {
     private $_configFileName = 'services.ini';
 

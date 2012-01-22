@@ -1,0 +1,1872 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//RU">
+<html>
+<head>
+<base href="http://www.moscow_city.vybory.izbirkom.ru/">
+<title>Сведения о проводящихся выборах и референдумах</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+
+<script type="text/javascript">
+
+	var st1 = null; // переменная, хранящая ссылку на SortableTable, !=null для сортируемых таблиц
+
+	function getXls() {
+
+		var sortorder = "0";
+		if ((st1!=null)&&(st1.sortDesc!=null)) {
+
+			if (st1.sortDesc) {
+				sortorder = "1";
+			}
+			else if (!st1.sortDesc) {
+				sortorder = "-1";
+			}
+		}
+
+		
+
+		window.location.assign("http://www.moscow_city.vybory.izbirkom.ru/servlet/ExcelReportVersion?"+
+								"region=77&"+
+								"sub_region=77&"+
+								"root=1000150&"+
+						
+								"global=true&"+
+								"vrn=100100028713299&"+
+								"tvd=100100028713458&"+
+								"type=233&"+
+								"vibid=100100028713458&"+
+								"condition=&"+
+								"action=show&"+
+								"version=null&"+
+								"prver=0&"+
+								"sortorder="+sortorder);
+	}
+	
+</script>
+
+</head>
+
+<body text="#000000" link="#0000ff" vlink="#0000ff" alink="#ff0000" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" bottommargin="0">
+
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr>
+		<td align="center" width="100%">
+			
+		</td>
+	</tr>
+</table>
+	
+	
+
+<!-- http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city -->
+<link href="header/77/77.css" rel="stylesheet" type="text/css">
+<table border="0" cellpadding="0" cellspacing="0" height="81px" width="100%">
+	<tbody><a href="http://www.moscow_city.izbirkom.ru">
+
+		<tr>
+			<td rowspan="2" align="center" valign="top" width="16%">
+				<a href="http://www.moscow_city.izbirkom.ru"><img border="0" src="header/77/gerb.jpg" alt="gerb.gif" align="middle"/></a>
+				<br/>
+				<img src="header/77/e.gif" height="1" width="202"/>
+			</td>
+			<td align="center" background="header/77/bg_1.gif" height="80" valign="top" width="84%">
+				<br/>
+				<br/>
+				<h4>
+					<font color="#FF0000">МОСКОВСКАЯ ГОРОДСКАЯ ИЗБИРАТЕЛЬНАЯ КОМИССИЯ</font>
+				</h4>
+			</td>
+		</tr></a>
+		<tr style="padding:0;border-spacing:0;height:1px;">
+			<td background="header/77/line_hor.gif" colspan="2" style="padding:0;border-spacing:0;height:1px;"></td>
+		</tr>
+		<tr>
+			<td align="center" bgcolor="#0f10a8" height="20" colspan="2">		
+			      
+			    <nobr>
+					&nbsp;&nbsp;
+					<a href="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show_komissia&region=77&sub_region=77&type=100&vrnorg=0&vrnkomis=0" style="text-decoration: none;color:#FFFFFF">Избирательные комиссии</a>
+					&nbsp;&nbsp;
+				</nobr>
+				<font color="#ffffff">&nbsp;&nbsp;|&nbsp;&nbsp;</font>
+				<nobr>
+					&nbsp;&nbsp;
+					<a href="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city" style="text-decoration: none;color:#FFFFFF">Выборы и референдумы</a>
+					&nbsp;&nbsp;	
+				</nobr>
+				<font color="#ffffff">&nbsp;&nbsp;|&nbsp;&nbsp;</font>
+				<nobr>
+					&nbsp;&nbsp;
+					<a href="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show_npa" style="text-decoration: none;color:#FFFFFF">Нормативная база</a>
+					&nbsp;&nbsp;		
+				</nobr>
+				<font color="#ffffff">&nbsp;&nbsp;|&nbsp;&nbsp;</font>
+				<nobr>
+					&nbsp;&nbsp;
+					<a href="http://www.moscow_city.izbirkom.ru/spravochn" style="text-decoration: none;color:#FFFFFF">Справочная информация</a>
+					&nbsp;&nbsp;		
+				</nobr>
+				
+								
+			      
+			</td>
+		</tr>
+	
+		
+<tr>
+	<td align="center" height="20" colspan="2">
+		<nobr><a href="http://www.moscow_city.izbirkom.ru"style="text-decoration: none;color:black">Главная страница</a>	
+	</td>
+</tr></tbody>
+</table>
+	
+
+<table width="100%" cellpadding="0" cellspacing="0" height="80%" style="padding-left: 3px; padding-right: 3px;">
+
+
+	
+	<tr valign="top" height="20px">
+		<td width="100%" align="center" height="20px" valign="top"><!-- history -->
+			 &gt; <a href=region/moscow_city?action=show&root_a=1000150&vrn=100100028713299&region=77&global=true&type=0&root=1000149&prver=0&pronetvd=null&tvd=100100028713457>Город Москва</a> &gt; <a href=region/moscow_city?action=show&root_a=1000150&vrn=100100028713299&region=77&global=true&type=0&root=1000150&prver=0&pronetvd=null&tvd=100100028713458>Город Москва - Восточная</a>
+		</td>
+	</tr>
+	
+
+	
+	<tr valign="top" height="20px">
+		<td width="100%" align="center" height="20px" valign="top">
+		
+			<form name="go_reg">Нижестоящие избирательные комиссии:  <select name="gs"><option val="">---</option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000001&amp;tvd=2772000306450&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306450">1 район Богородское</option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000002&amp;tvd=2772000306451&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306451">3 район Восточное Измайлово </option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000003&amp;tvd=2772000306452&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306452">4 район Гольяново </option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000004&amp;tvd=2772000306453&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306453">5 район Ивановское </option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000005&amp;tvd=2772000306454&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306454">6 район Измайлово </option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000006&amp;tvd=2772000306455&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306455">8 район Метрогородок </option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000007&amp;tvd=2772000306456&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306456">11 район Перово</option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000008&amp;tvd=2772000306457&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306457">12 район Восточный</option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000009&amp;tvd=2772000306458&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306458">13 район Преображенское</option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000010&amp;tvd=2772000306459&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306459">14 район Северное Измайлово</option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000011&amp;tvd=2772000306460&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306460">15 район Соколиная гора</option><option value="http://www.moscow_city.vybory.izbirkom.ru/region/moscow_city?action=show&amp;global=true&amp;root=772000012&amp;tvd=2772000306461&amp;vrn=100100028713299&amp;prver=0&amp;pronetvd=null&amp;region=77&amp;sub_region=77&amp;type=233&amp;vibid=2772000306461">16 район Сокольники</option></select>  <input type="Button" name="go" value="Перейти" onClick="if(this.form.gs.value!='' && this.form.gs.value!='---')self.location=this.form.gs.value"></form>
+
+		
+		</td>
+	</tr>
+	
+
+	
+	<tr valign="top" align="left">
+		<td >
+				
+			<a href="javascript:getXls();">Версия для печати</a>
+			<br><br>
+				
+		</td>
+	</tr>
+	
+	<tr valign="top" height="100%">
+		<td valign="top" height="100%">
+			<link href="css/233.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="js/sorter.js"></script>
+<table border="0" cellpadding="3" width="100%" cellspacing="1" bgcolor="white">
+   <tr class="w2">
+      <td bgcolor="#555555" class="headers" align="center"><b>Сводная таблица результатов выборов</b>
+      </td>
+   </tr>
+   <tr class="w2">
+      <td bgcolor="#555555" class="headers" align="center"><b>Выборы депутатов Государственной Думы Федерального Собрания Российской Федерации шестого созыва</b>
+      </td>
+   </tr>
+</table>
+<table width="100%">
+   <tr>
+      <td align="center">
+					Дата голосования:&nbsp; 04.12.2011</td>
+   </tr>
+</table>
+<table border="0" cellpadding="5" cellspacing="1" width="100%" bgcolor="ffffff">
+   <tr style="padding:0;border-spacing:0;height:2px;">
+      <td background="img/pix.gif" colspan="2" style="padding:0;border-spacing:0;height:2px;"></td>
+   </tr>
+   <tr bgcolor="eeeeee">
+      <td valign="top" width="45%"><b>Наименование Избирательной комиссии</b>
+      </td>
+      <td>Город Москва - Восточная</td>
+   </tr>
+   <tr style="padding:0;border-spacing:0;height:2px;">
+      <td background="img/e.gif" colspan="2" style="padding:0;border-spacing:0;height:2px;"></td>
+   </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" height="20px" bgcolor="white">
+   <tr class="w2">
+      <td bgcolor="#555555" class="headers" align="left">
+						&nbsp;Сводная таблица результатов выборов</td>
+      <td bgcolor="#555555" class="headers" align="right">	
+	                	&nbsp;
+	                </td>
+   </tr>
+</table>
+<table style="width:100%;border-color:#000000" vspace="0" cellpadding="0" cellspacing="0" border="1px">
+   <tr style="height:100%" valign="top" align="left">
+      <td style="height:100%;" valign="top" align="left">
+         <table border="0" bgcolor="#ffffff" cellpadding="2" cellspacing="1" align="left" vspace="0">
+            <tr bgcolor="#FFFFFF">
+               <td style="color:black" align="center" width="200" colspan="2"></td>
+               <td style="color:black" align="center">
+                  <nobr><b>Сумма</b>
+                  </nobr>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>1</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число избирателей, внесенных в список избирателей</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>677927</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>2</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число избирательных бюллетеней, полученных участковой избирательной комиссией</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>598643</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>3</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число избирательных бюллетеней, выданных избирателям, проголосовавшим досрочно</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>4</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число избирательных бюллетеней, выданных избирателям в помещении для голосования</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>423263</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>5</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число избирательных бюллетеней, выданных избирателям вне помещения для голосования </nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>12600</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>6</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число погашенных избирательных бюллетеней</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>162782</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>7</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число избирательных бюллетеней в переносных ящиках для голосования</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>12580</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>8</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число избирательных бюллетеней в стационарных ящиках для голосования</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>419835</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>9</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число недействительных избирательных бюллетеней</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>8248</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>10</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число действительных избирательных бюллетеней</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>424167</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>11</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число открепительных удостоверений, полученных участковой избирательной комиссией</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>16332</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>12</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число открепительных удостоверений, выданных избирателям на избирательном участке</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>13494</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>13</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число избирателей, проголосовавших по открепительным удостоверениям на избирательном участке</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>14418</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>14</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число погашенных неиспользованных открепительных удостоверений</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2838</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>15</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число открепительных удостоверений, выданных избирателям территориальной избирательной комиссией</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1669</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>16</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число утраченных открепительных удостоверений</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>17</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>Число утраченных избирательных бюллетеней</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>18</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>Число избирательных бюллетеней, не учтенных при получении </nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td style="color:black"></td>
+               <td style="color:black" colspan="2">
+                  <nobr><b>&nbsp;</b>
+                  </nobr>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>19</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>1. Политическая партия СПРАВЕДЛИВАЯ РОССИЯ</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>47149</b>
+                  </nobr><br>10.90%
+	                                                    </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>20</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>2. Политическая партия "Либерально-демократическая партия России"</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>37767</b>
+                  </nobr><br>8.73%
+	                                                    </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>21</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>3. Политическая партия "ПАТРИОТЫ РОССИИ" </nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>5134</b>
+                  </nobr><br>1.19%
+	                                                    </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>22</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>4. Политическая партия "Коммунистическая партия Российской Федерации"</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>77031</b>
+                  </nobr><br>17.81%
+	                                                    </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>23</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>5. Политическая партия "Российская объединенная демократическая партия "ЯБЛОКО"</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>33241</b>
+                  </nobr><br>7.69%
+	                                                    </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td width="5%" style="color:black">
+                  <nobr>24</nobr>
+               </td>
+               <td style="color:black" align="left" width="50">
+                  <nobr>6. Всероссийская политическая партия "ЕДИНАЯ РОССИЯ"</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>220883</b>
+                  </nobr><br>51.08%
+	                                                    </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td width="5%" style="color:black">
+                  <nobr>25</nobr>
+               </td>
+               <td style="color:black" align="left" width="200">
+                  <nobr>7. Всероссийская политическая партия "ПРАВОЕ ДЕЛО"</nobr>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2962</b>
+                  </nobr><br>0.68%
+	                                                    </td>
+            </tr>
+         </table>
+      </td>
+      <td width="90%"><div style="width:100%; bgcolor:white;overflow:scroll"><table border="0" bgcolor="#ffffff" cellpadding="2" cellspacing="1" style="width:100%;overflow:scroll" vspace="0" align="left">
+            <tr bgcolor="#FFFFFF" valign="top">
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306450&type=233">район Богородское</a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306451&type=233">район Восточное Измайлово </a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306452&type=233">район Гольяново </a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306453&type=233">район Ивановское </a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306454&type=233">район Измайлово </a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306455&type=233">район Метрогородок </a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306456&type=233">район Перово</a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306457&type=233">район Восточный</a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306458&type=233">район Преображенское</a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306459&type=233">район Северное Измайлово</a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306460&type=233">район Соколиная гора</a></nobr>
+               </td>
+               <td style="color:black" align="center">
+                  <nobr><a style="TEXT-DECORATION: none" href="http://www.moscow_city.vybory.izbirkom.ru/region/region/moscow_city?action=show&amp;tvd=100100028713458&amp;vrn=100100028713299&amp;region=77&amp;global=true&amp;sub_region=77&amp;prver=0&amp;pronetvd=null&vibid=2772000306461&type=233">район Сокольники</a></nobr>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>63266</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>44621</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>105262</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>80298</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>63050</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>23888</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>84035</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>7867</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>50652</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>56182</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>60025</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>38781</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>44950</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>40600</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>103200</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>67350</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>54200</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>22150</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>77550</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>8000</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>42150</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>55613</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>51795</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>31085</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>35282</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>28306</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>63945</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>47955</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>45567</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>17793</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>49823</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4254</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>37613</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>29414</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>40065</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>23246</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>889</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>812</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1475</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1390</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1238</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>368</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1289</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>214</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1273</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1078</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1066</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1508</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>8779</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>11482</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>37780</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>18005</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>7395</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3989</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>26438</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3532</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3264</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>25121</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>10664</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>6333</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>889</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>812</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1475</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1390</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1235</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>355</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1288</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>214</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1273</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1076</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1066</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1507</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>34775</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>28203</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>63354</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>47875</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>45365</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>17755</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>49425</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4187</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>37367</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>28626</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>39700</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>23203</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>878</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>472</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1117</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>733</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>766</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>502</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>865</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>104</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1332</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>625</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>506</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>348</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>34786</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>28543</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>63712</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>48532</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>45834</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>17608</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>49848</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4297</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>37308</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>29077</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>40260</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>24362</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>1084</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1240</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2605</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1930</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1605</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>555</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1835</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>480</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1185</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1356</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1302</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1155</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>1048</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1189</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2226</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1638</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1191</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>447</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1537</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>152</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>908</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1083</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1103</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>972</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>1403</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1083</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1450</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1378</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1154</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>467</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1614</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>232</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1272</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1023</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2025</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1317</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>36</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>51</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>379</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>292</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>414</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>108</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>298</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>328</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>277</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>273</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>199</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>183</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>611</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>60</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>88</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>77</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>55</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>80</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>410</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>64</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>64</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>79</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>78</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>0</b>
+                  </nobr><br>
+               </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2</b>
+                  </nobr><br>
+               </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td style="color:black"><br>
+               </td>
+               <td style="color:black" colspan="2"><br>
+               </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>3740</b>
+                  </nobr><br>10.49%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3087</b>
+                  </nobr><br>10.64%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>7437</b>
+                  </nobr><br>11.47%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4635</b>
+                  </nobr><br>9.41%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4706</b>
+                  </nobr><br>10.10%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1750</b>
+                  </nobr><br>9.66%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>5552</b>
+                  </nobr><br>10.95%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>908</b>
+                  </nobr><br>20.63%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4457</b>
+                  </nobr><br>11.53%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3947</b>
+                  </nobr><br>13.29%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4151</b>
+                  </nobr><br>10.18%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2779</b>
+                  </nobr><br>11.25%
+			                                        </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>3329</b>
+                  </nobr><br>9.33%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2681</b>
+                  </nobr><br>9.24%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>5451</b>
+                  </nobr><br>8.41%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4806</b>
+                  </nobr><br>9.76%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>4669</b>
+                  </nobr><br>10.02%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1681</b>
+                  </nobr><br>9.28%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3796</b>
+                  </nobr><br>7.49%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>678</b>
+                  </nobr><br>15.41%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2791</b>
+                  </nobr><br>7.22%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2431</b>
+                  </nobr><br>8.18%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3273</b>
+                  </nobr><br>8.03%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2181</b>
+                  </nobr><br>8.83%
+			                                        </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>361</b>
+                  </nobr><br>1.01%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>446</b>
+                  </nobr><br>1.54%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>780</b>
+                  </nobr><br>1.20%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>632</b>
+                  </nobr><br>1.28%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>532</b>
+                  </nobr><br>1.14%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>197</b>
+                  </nobr><br>1.09%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>465</b>
+                  </nobr><br>0.92%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>55</b>
+                  </nobr><br>1.25%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>472</b>
+                  </nobr><br>1.22%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>417</b>
+                  </nobr><br>1.40%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>430</b>
+                  </nobr><br>1.05%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>347</b>
+                  </nobr><br>1.40%
+			                                        </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>7210</b>
+                  </nobr><br>20.22%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>5864</b>
+                  </nobr><br>20.21%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>10409</b>
+                  </nobr><br>16.06%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>9695</b>
+                  </nobr><br>19.68%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>7976</b>
+                  </nobr><br>17.12%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2449</b>
+                  </nobr><br>13.52%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>7522</b>
+                  </nobr><br>14.83%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>935</b>
+                  </nobr><br>21.25%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>6288</b>
+                  </nobr><br>16.27%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>5846</b>
+                  </nobr><br>19.68%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>7478</b>
+                  </nobr><br>18.34%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>5359</b>
+                  </nobr><br>21.69%
+			                                        </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>2563</b>
+                  </nobr><br>7.19%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2655</b>
+                  </nobr><br>9.15%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>5149</b>
+                  </nobr><br>7.94%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2976</b>
+                  </nobr><br>6.04%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3789</b>
+                  </nobr><br>8.13%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1110</b>
+                  </nobr><br>6.13%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2702</b>
+                  </nobr><br>5.33%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>335</b>
+                  </nobr><br>7.61%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3368</b>
+                  </nobr><br>8.72%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>3014</b>
+                  </nobr><br>10.15%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2799</b>
+                  </nobr><br>6.87%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>2781</b>
+                  </nobr><br>11.25%
+			                                        </td>
+            </tr>
+            <tr bgcolor="#CCCCCC">
+               <td align="right" style="color:black">
+                  <nobr><b>17364</b>
+                  </nobr><br>48.69%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>13560</b>
+                  </nobr><br>46.73%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>34070</b>
+                  </nobr><br>52.55%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>25368</b>
+                  </nobr><br>51.49%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>23881</b>
+                  </nobr><br>51.25%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>10320</b>
+                  </nobr><br>56.99%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>29543</b>
+                  </nobr><br>58.26%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>1350</b>
+                  </nobr><br>30.67%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>19632</b>
+                  </nobr><br>50.81%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>13160</b>
+                  </nobr><br>44.31%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>21885</b>
+                  </nobr><br>53.68%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>10750</b>
+                  </nobr><br>43.50%
+			                                        </td>
+            </tr>
+            <tr bgcolor="#FFFFFF">
+               <td align="right" style="color:black">
+                  <nobr><b>219</b>
+                  </nobr><br>0.61%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>250</b>
+                  </nobr><br>0.86%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>416</b>
+                  </nobr><br>0.64%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>420</b>
+                  </nobr><br>0.85%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>281</b>
+                  </nobr><br>0.60%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>101</b>
+                  </nobr><br>0.56%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>268</b>
+                  </nobr><br>0.53%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>36</b>
+                  </nobr><br>0.82%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>300</b>
+                  </nobr><br>0.78%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>262</b>
+                  </nobr><br>0.88%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>244</b>
+                  </nobr><br>0.60%
+			                                        </td>
+               <td align="right" style="color:black">
+                  <nobr><b>165</b>
+                  </nobr><br>0.67%
+			                                        </td>
+            </tr>
+         </table><br></div></td>
+   </tr>
+</table>
+		</td>
+	</tr>
+
+</table>
+<br/>
+
+<!-- HotLog -->
+<script type="text/javascript" language="javascript">
+hotlog_js="1.0";
+hotlog_r=""+Math.random()+"&s=1005771&im=0&r="+escape(document.referrer)+"&pg="+
+escape(window.location.href);
+document.cookie="hotlog=1; path=/"; hotlog_r+="&c="+(document.cookie?"Y":"N");
+</script>
+<script type="text/javascript" language="javascript1.1">
+hotlog_js="1.1";hotlog_r+="&j="+(navigator.javaEnabled()?"Y":"N")
+</script>
+<script type="text/javascript" language="javascript1.2">
+hotlog_js="1.2";
+hotlog_r+="&wh="+screen.width+'x'+screen.height+"&px="+
+(((navigator.appName.substring(0,3)=="Mic"))?screen.colorDepth:screen.pixelDepth)</script>
+<script type="text/javascript" language="javascript1.3">hotlog_js="1.3"</script>
+<script type="text/javascript" language="javascript">hotlog_r+="&js="+hotlog_js;
+document.write("<a href='http://click.hotlog.ru/?1005771' target='_top'><img "+
+" src='http://hit7.hotlog.ru/cgi-bin/hotlog/count?"+
+hotlog_r+"&' border=0 width=0 height=0 alt=HotLog><\/a>")
+</script>
+<noscript>
+<a href="http://click.hotlog.ru/?1005771" target="_top">
+<img src="http://hit7.hotlog.ru/cgi-bin/hotlog/count?s=1005771&amp;im=0" border="0"
+width="0" height="0" alt="HotLog"></a>
+</noscript>
+<!-- /HotLog -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26136728-1']);
+  _gaq.push(['_setDomainName', 'izbirkom.ru']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</body>
+</html>

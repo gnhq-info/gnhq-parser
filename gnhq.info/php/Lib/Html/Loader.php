@@ -5,6 +5,7 @@ class Lib_Html_Loader
     private $_useCache;
     private $_outputCharset = 'utf-8';
     private $_cacheDir;
+    private $_inputEncoding = null;
 
     public function __construct($src, $useCache = true, $outputCharset = null)
     {
@@ -22,6 +23,16 @@ class Lib_Html_Loader
     public function setCacheDir($dir)
     {
         $this->_cacheDir = $dir;
+        return $this;
+    }
+
+    /**
+     * @param string $enc
+     * @return Lib_Html_Loader
+     */
+    public function setInputEncoding($enc)
+    {
+        $this->_inputEncoding = $enc;
         return $this;
     }
 
@@ -118,6 +129,7 @@ class Lib_Html_Loader
 
     private function _encode($string)
     {
-        return iconv(mb_detect_encoding($string), $this->_outputCharset . '//IGNORE', $string);
+        $enc =  $this->_inputEncoding ? $this->_inputEncoding : mb_detect_encoding($string);
+        return iconv($enc, $this->_outputCharset . '//IGNORE', $string);
     }
 }

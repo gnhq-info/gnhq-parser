@@ -1,4 +1,8 @@
 <?php
+include_once('Model/Okrug.php');
+include_once('Model/TIK.php');
+include_once('Model/UIK.php');
+
 /**
  * @method string getFullName
  * @method string getLink

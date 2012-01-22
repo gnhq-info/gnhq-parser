@@ -3,23 +3,17 @@
  * Парсер сайта мосгоризбиркома
  * @author admin
  */
-class ParserIKData_Site_Mosgor
+class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
 {
     private $_debugCnt = 0;
-    /**
-     * @var Lib_Html_Parser
-     */
-    private $_parser = null;
-    /**
-     * @var Lib_Html_DataMiner
-     */
-    private $_miner = null;
 
     /**
-     * @var Lib_Html_Loader
-     */
-    private $_loader = null;
-
+    * @return string
+    */
+    protected function _getConfigFileName()
+    {
+        return 'mosgor.ini';
+    }
 
     /**
      * создание всех объектов по первой иерархии (страница Информация территориальных избирательных комиссий)
@@ -238,20 +232,6 @@ class ParserIKData_Site_Mosgor
 
 
     /**
-     * @param string $phraze
-     * @return string
-     */
-    private function _findLinkForPhraze($phraze)
-    {
-        $link = null;
-        $tags = $this->_getParser()->findSurroundingTags($phraze);
-        $links = $this->_getMiner()->getLinks($tags);
-        reset($links);
-        $link = current($links);
-        return html_entity_decode($link);
-    }
-
-    /**
      * @param string $sostav
      * @param ParserIKData_Model_TIK $tik
      * @return ParserIKData_Model_TIK
@@ -328,117 +308,5 @@ class ParserIKData_Site_Mosgor
         } else {
             return false;
         }
-    }
-
-    /**
-     * @param string $string
-     * @param boolean $stripTags
-     * @return string
-     */
-    private function _clearStringData($string, $stripTags = true)
-    {
-        $encoding = mb_detect_encoding($string);
-        $string = trim($string);
-        $string = str_replace(array('&nbsp;','&ndash;'), array('',''), $string);
-        $string = html_entity_decode($string);
-        if ($stripTags) {
-            $string = strip_tags($string);
-        }
-        $string = iconv('cp1251', $encoding, iconv($encoding, 'cp1251//ignore', $string));
-        $string = trim($string);
-        return $string;
-    }
-
-    /**
-     * @return Ambigous <string, NULL>
-     */
-    private function _getSite()
-    {
-        return $this->_getCValue('site');
-    }
-
-    /**
-     * @param string $key
-     * @return string|null
-     */
-    private function _getCValue($key)
-    {
-        return $this->_getConfig()->getValue($key);
-    }
-
-    /**
-     * @param string $key
-     * @return array|null
-     */
-    private function _getCArray($key)
-    {
-        return $this->_getConfig()->getArrayValue($key);
-    }
-
-    /**
-     * @param string $key
-     * @param string $string
-     * @return string
-     */
-    private function _excludeCArray($key, $string)
-    {
-        $array = $this->_getCArray($key);
-        if (!$array) {
-            return $string;
-        }
-        $replace = array_fill(0, count($array), '');
-        return str_replace($array, $replace, $string);
-    }
-
-    /**
-     * @return Lib_Config_Interface
-     */
-    private function _getConfig()
-    {
-        $config = ParserIKData_ServiceLocator::getInstance()->getConfigForFile('mosgor.ini');
-        return $config;
-    }
-
-    /**
-    * @return Lib_Html_Parser
-    */
-    private function _getParser()
-    {
-        if ($this->_parser === null) {
-            $this->_parser = new Lib_Html_Parser();
-        }
-        return $this->_parser;
-    }
-    /**
-     * @return Lib_Html_DataMiner
-     */
-    private function _getMiner()
-    {
-        if ($this->_miner === null) {
-            $this->_miner = new Lib_Html_DataMiner();
-        }
-        return $this->_miner;
-    }
-
-    /**
-     * @param string $url
-     * @param boolean $useCache
-     * @return Ambigous <string, boolean>
-     */
-    private function _getPageContent($url, $useCache)
-    {
-        return $this->_getLoader()->setSource($this->_getSite() . $url)->setUseCache($useCache)->load();
-    }
-
-    /**
-     * @return Lib_Html_Loader
-     */
-    private function _getLoader()
-    {
-        if ($this->_loader === null) {
-            $this->_loader = new Lib_Html_Loader('', true);
-            $this->_loader->setCacheDir(rtrim(APPLICATION_DIR_ROOT, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'Cache');
-        }
-        return $this->_loader;
     }
 }

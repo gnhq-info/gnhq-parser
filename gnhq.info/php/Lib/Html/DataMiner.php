@@ -18,6 +18,20 @@ class Lib_Html_DataMiner
     }
 
     /**
+     * @param array $tags
+     * @return array
+     */
+    public function getOptions($tags)
+    {
+        $results = array();
+        foreach ($tags as $tag) {
+            $pTag = $this->_getOption($tag);
+            $results[$pTag['text']] = $pTag['value'];
+        }
+        return $results;
+    }
+
+    /**
      * @param string $table
      * @param int $maxRows
      * @return string[]
@@ -37,6 +51,16 @@ class Lib_Html_DataMiner
         return $this->_extractLastLevelChildren('<td', '</td>', $maxCells, $row);
     }
 
+
+    /**
+     * @param string $select
+     * @param int $maxOptions
+     * @return multitype:Ambigous <string, false, boolean>
+     */
+    public function extractOptions($select, $maxOptions)
+    {
+        return $this->_extractLastLevelChildren('<option', '</option>', $maxOptions, $select);
+    }
 
     /**
      * @param string $start
@@ -68,6 +92,17 @@ class Lib_Html_DataMiner
             'name'  => $name
         );
     }
+
+    private function _getOption($tag)
+    {
+        $value = $this->_getExtracter()->mbExtract('value="', '"', $tag, false);
+        $text  = $this->_getExtracter()->mbExtract('>', '<', $tag, false);
+        return array(
+        	'value' => $value,
+            'text'  => $text
+        );
+    }
+
 
     /**
      * @return Lib_String_Extracter

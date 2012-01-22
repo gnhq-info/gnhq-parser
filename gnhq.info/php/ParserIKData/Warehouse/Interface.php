@@ -1,4 +1,6 @@
 <?php
+include_once ('Csv.php');
+
 interface ParserIKData_Warehouse_Interface
 {
     /**

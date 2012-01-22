@@ -7,7 +7,7 @@ class ParserIKData_Site_Mosgor
 {
     private $_debugCnt = 0;
     /**
-     * @var ParserIKData_Parser
+     * @var Lib_Html_Parser
      */
     private $_parser = null;
     /**
@@ -400,12 +400,12 @@ class ParserIKData_Site_Mosgor
     }
 
     /**
-    * @return ParserIKData_Parser
+    * @return Lib_Html_Parser
     */
     private function _getParser()
     {
         if ($this->_parser === null) {
-            $this->_parser = new ParserIKData_Parser();
+            $this->_parser = new Lib_Html_Parser();
         }
         return $this->_parser;
     }

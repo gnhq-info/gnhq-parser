@@ -1,5 +1,5 @@
 <?php
-class ParserIKData_Parser
+class Lib_Html_Parser
 {
     const MAX_AMOUNT = 1000;
 
@@ -70,7 +70,7 @@ class ParserIKData_Parser
 
     /**
      * @param string $pageSource
-     * @return ParserIKData_Parser
+     * @return Lib_Html_Parser
      */
     public function setPageSource($pageSource)
     {

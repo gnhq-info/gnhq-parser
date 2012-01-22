@@ -372,7 +372,7 @@ class ParserIKData_Site_Mosgor
      */
     private function _getCArray($key)
     {
-        return $this->_getConfig()->getArray($key);
+        return $this->_getConfig()->getArrayValue($key);
     }
 
     /**
@@ -391,7 +391,7 @@ class ParserIKData_Site_Mosgor
     }
 
     /**
-     * @return ParserIKData_Config
+     * @return Lib_Config_Interface
      */
     private function _getConfig()
     {

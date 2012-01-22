@@ -21,3 +21,6 @@ $processor->loadTikData();
 
 // сохранение данных
 $warehouse->saveAllOkrugs()->saveAllTiks();
+
+print PHP_EOL . 'Данные успешно загружены' . PHP_EOL;
+exit(0);

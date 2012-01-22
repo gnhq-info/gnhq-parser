@@ -13,3 +13,6 @@ foreach (ParserIKData_Model_TIK::getAllOBjects() as $tik) {
     $processor->createTikUiks($tik);
 }
 $warehouse->saveAllUiks();
+
+print PHP_EOL . 'Адреса УИКов успешно загружены' . PHP_EOL;
+exit(0);

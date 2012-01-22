@@ -4,7 +4,7 @@ class ParserIKData_ServiceLocator
     private $_configFileName = 'services.ini';
 
     /**
-     * @var ParserIKData_Config
+     * @var Lib_Config_Interface
      */
     private $_config;
 
@@ -20,7 +20,7 @@ class ParserIKData_ServiceLocator
     {
         if (self::$_instance === null) {
             $item = new self();
-            $item->_config = new ParserIKData_Config($item->_getConfigFilePath());
+            $item->_config = new Lib_Config_IniFile(array('iniFile' => $item->_getConfigFilePath()));
             self::$_instance = $item;
         }
         return self::$_instance;
@@ -44,15 +44,15 @@ class ParserIKData_ServiceLocator
 
     /**
      * @param string $file
-     * @return ParserIKData_Config
+     * @return Lib_Config_Interface
      */
     public function getConfigForFile($file)
     {
-        return new ParserIKData_Config($this->_getConfigDirectory() . $file);
+        return new Lib_Config_IniFile(array('iniFile' => $this->_getConfigDirectory() . $file));
     }
 
     /**
-     * @return ParserIKData_Config
+     * @return Lib_Config_Interface
      */
     private function _getConfig()
     {

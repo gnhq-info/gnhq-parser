@@ -51,6 +51,25 @@ class Lib_Html_DataMiner
         return $this->_extractLastLevelChildren('<td', '</td>', $maxCells, $row);
     }
 
+    /**
+     * @param string $string
+     * @param int $max
+     * @return multitype:Ambigous <string, false, boolean>
+     */
+    public function extractBold($string, $max)
+    {
+        return $this->_extractLastLevelChildren('<b>', '</b>', $max, $string);
+    }
+
+    /**
+    * @param string $string
+    * @param int $max
+    * @return multitype:Ambigous <string, false, boolean>
+    */
+    public function extractNobr($string, $max)
+    {
+        return $this->_extractLastLevelChildren('<nobr>', '</nobr>', $max, $string);
+    }
 
     /**
      * @param string $select

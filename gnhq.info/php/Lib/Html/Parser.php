@@ -16,7 +16,7 @@ class Lib_Html_Parser
      */
     public function findMinContainingTag($needle, $tag)
     {
-        $pos = mb_strpos($this->_pageSource, $needle, null, $this->_getEncoding());
+        $pos = mb_strpos($this->_pageSource, $needle, $this->_nextOffset, $this->_getEncoding());
         if ($pos === false) {
             return false;
         }
@@ -33,6 +33,8 @@ class Lib_Html_Parser
         }
         $len = $closePos + mb_strlen($closeTag, $this->_getEncoding()) - $prevPos;
         $result = mb_substr($this->_pageSource, $prevPos, $len, $this->_getEncoding());
+
+        $this->_nextOffset = $closePos + mb_strlen($closeTag, $this->_getEncoding());
         return $result;
     }
 

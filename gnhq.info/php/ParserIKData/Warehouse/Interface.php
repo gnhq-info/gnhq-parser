@@ -33,4 +33,14 @@ interface ParserIKData_Warehouse_Interface
      */
     public function loadAllUiks();
 
+    /**
+    * @return ParserIKData_Warehouse_Interface
+    */
+    public function saveElectionResults($electionCode, $resultType);
+
+    /**
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function loadElectionResults($electionCode, $resultType);
+
 }

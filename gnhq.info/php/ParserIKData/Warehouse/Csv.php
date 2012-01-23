@@ -54,6 +54,23 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
         return $this;
     }
 
+    /**
+    * @return ParserIKData_Warehouse_Interface
+    */
+    public function saveElectionResults($electionCode, $resultType)
+    {
+        return $this->_saveToFile($this->_getElectionResultsFile($electionCode, $resultType), 'ParserIKData_Model_Protocol412');
+    }
+
+    /**
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function loadElectionResults($electionCode, $resultType)
+    {
+        $this->_loadFromFile($this->_getElectionResultsFile($electionCode, $resultType), 'ParserIKData_Model_Protocol412');
+        return $this;
+    }
+
 
     /**
      * @param string $fileName
@@ -107,6 +124,16 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     private function _getTikFile()
     {
         return $this->_getDirectory() . 'tik.csv';
+    }
+
+    /**
+     * @param string $electionCode
+     * @param string $resultType
+     * @return string
+     */
+    private function _getElectionResultsFile($electionCode, $resultType)
+    {
+        return $this->_getDirectory() . 'result_'.$electionCode.'_'.$resultType.'.csv';
     }
 
     /**

@@ -2,6 +2,7 @@
 include_once('Model/Okrug.php');
 include_once('Model/TIK.php');
 include_once('Model/UIK.php');
+include_once('Model/Protocol412.php');
 
 /**
  * @method string getFullName
@@ -68,7 +69,7 @@ abstract class ParserIKData_Model
      * @param string $fullName
      * @param string $link
      * @param array $extraOparams
-     * @return ParserIKData_Model_Okrug
+     * @return ParserIKData_Model
      */
     public static function createFromPageInfo($fullName, $link, $extraParams)
     {

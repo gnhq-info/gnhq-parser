@@ -15,11 +15,14 @@ foreach ($okrugLinks as $okrug => $link) {
     $tikLinks = array_merge($tikLinks, $processor->getTIKLinks($link));
 }
 
-foreach ($tikLinks as $tik => $link) {
-    var_dump($tik);
-    var_dump($link);
+foreach ($tikLinks as $tikName => $link) {
     $table = $processor->getResultTable($link);
-    $cells = $processor->getResultsFromTable($table);
-    var_dump($cells);
-    die();
+    $data = $processor->getResultsFromTable($table);
+    foreach ($data as $uikName => $uikData) {
+        $processor->createResult($uikName, $uikData);
+    }
+    print_r($tikName . ' processed' . PHP_EOL . str_repeat('-', 20) . PHP_EOL);
 }
+
+$warehouse->saveElectionResults('412', ParserIKData_Model_Protocol412::TYPE_OF);
+print ('official results loaded');

@@ -59,7 +59,7 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Abstract
                 if ($k == 0) {
                     $rowCells[$j] = $this->_prepareHeaderCellValue($cell);
                 } else {
-                    $rowCells[$j] = $this->_prepareCellValue($cell);
+                    $rowCells[$j] = $this->_prepareCellValue($cell, true);
                 }
             }
             $cells[$k] = $rowCells;
@@ -68,9 +68,30 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Abstract
         $results = array();
         foreach ($cells as $k => $row) {
             $name = array_shift($row);
-            $results[$name] = $row;
+            $i = 1;
+            foreach ($row as $j => $v) {
+                $results[$name][$i] = $v;
+                $i++;
+            }
         }
         return $results;
+    }
+
+
+    /**
+     * @param string $uikName
+     * @param array $data
+     * @return ParserIKData_Model_Protocol412
+     */
+    public function createResult($uikName, $data)
+    {
+        $uikNumber = str_replace('УИК №', '', $uikName);
+        $result = ParserIKData_Model_Protocol412::createFromPageInfo($uikNumber, '', array());
+        /* @var $result ParserIKData_Model_Protocol412 */
+        $result->setTypeOf();
+        $result->setData($data);
+        $result->setIkTypeUIK();
+        return $result;
     }
 
 
@@ -83,7 +104,7 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Abstract
         $results = array();
         foreach ($cells as $k => $row) {
             foreach ($row as $j => $cell) {
-                if ($cell) {
+                if ($cell !== '') {
                     $results[$j][$k] = $cell;
                 }
             }
@@ -105,9 +126,10 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Abstract
 
     /**
      * @param html $cell
+     * @param boolean $skipPercent
      * @return Ambigous <multitype:Ambigous, multitype:Ambigous <string, false, boolean> >
      */
-    private function _prepareCellValue($cell)
+    private function _prepareCellValue($cell, $skipPercent)
     {
         $bolds = $this->_getMiner()->extractBold($cell, 5);
         if (!is_array($bolds) || count($bolds) == 1) {
@@ -118,7 +140,11 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Abstract
         $remaining = str_replace($bold, '', $cell);
         $numericValue = trim(strip_tags($bold));
         $percentValue = trim(strip_tags($remaining));
-        return array('numeric' => $numericValue, 'percent' => $percentValue);
+        if ($skipPercent) {
+            return $numericValue;
+        } else {
+            return array('numeric' => $numericValue, 'percent' => $percentValue);
+        }
     }
 
     /**

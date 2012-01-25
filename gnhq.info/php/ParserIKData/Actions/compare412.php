@@ -8,15 +8,17 @@ $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 $warehouse->loadAllOkrugs()->loadAllTiks()->loadAllUiks();
 $warehouse->loadElectionResults('412', ParserIKData_Model_Protocol412::TYPE_GN);
 $gnResults = ParserIKData_Model_Protocol412::getAllOBjects();
+usort($gnResults, function($a, $b){return ($a->getFullName() < $b->getFullName() ? '-1' : 1);});
 
 $warehouse->loadElectionResults('412', ParserIKData_Model_Protocol412::TYPE_OF);
 
+$cnt = 1;
 foreach ($gnResults as $gnResult) {
     /* @var $gnResult ParserIKData_Model_Protocol412 */
     $dualResult = $gnResult->getDualProtocol();
 
     if (printCond($gnResult)) {
-        print 'УИК № ' . $gnResult->getFullName();
+        print str_pad($cnt, 3, ' ', STR_PAD_RIGHT) . 'УИК № ' . $gnResult->getFullName();
         if ($gnResult->getUik() instanceof ParserIKData_Model_UIK) {
             print ' ТИК '. $gnResult->getUik()->getTik()->getFullName();
             print ' ' . $gnResult->getUik()->getTik()->getOkrug()->getAbbr() . PHP_EOL;
@@ -25,6 +27,7 @@ foreach ($gnResults as $gnResult) {
         printUikResult($dualResult);
         print str_repeat('-', 25);
         print PHP_EOL.PHP_EOL;
+        $cnt++;
     }
 }
 

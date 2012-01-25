@@ -40,7 +40,7 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Abstract
      */
     public function getResultTable($link)
     {
-        $this->_getParser()->setPageSource($this->_getPageContent($link, true));
+        $this->_getParser()->setPageSource($this->_getPageContent($link, $this->_getCValue('useCache')));
         $totalTable = $this->_getParser()->findMinContainingTag($this->_getCValue('totalTableIndicator'), 'table');
         $resultTable = $this->_getParser()->findMinContainingTag($this->_getCValue('resultTableIndicator'), 'table');
         return $resultTable;
@@ -153,7 +153,7 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Abstract
      */
     private function _getLowerLinks($page)
     {
-        $page = $this->_getPageContent($page, true);
+        $page = $this->_getPageContent($page, $this->_getCValue('useCache'));
         $select = $this->_lowerIKsSelect($page);
         $options = $this->_getMiner()->extractOptions($select, 50);
         $optionData = $this->_getMiner()->getOptions($options);

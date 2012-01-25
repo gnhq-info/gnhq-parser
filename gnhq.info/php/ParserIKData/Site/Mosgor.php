@@ -45,7 +45,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
                 $tik = ParserIKData_Model_TIK::createFromPageInfo($tikRealName, $tikLink, array());
                 $okrug->addTik($tik);
             }
-            print($okrugName . ' processed'.PHP_EOL);
+            print($okrugName . ' initialized' . PHP_EOL);
         }
 
         return $this;
@@ -67,6 +67,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
             if ($okrug) {
                 $okrug->setTikDataLink($link);
             }
+            print($okrug->getFullName() . ' tik data loaded' . PHP_EOL);
         }
         return $this;
     }
@@ -100,6 +101,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
                 $tik->setSostavLink($this->_findLinkForPhraze($this->_getCValue('tikaddress.sostavIndicator')));
                 $tik->setAddressLink($this->_findLinkForPhraze($this->_getCValue('tikaddress.addressIndicator')));
             }
+            print ($tik->getFullName() . ' data loaded' . PHP_EOL);
         }
         return $this;
     }

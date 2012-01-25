@@ -15,6 +15,11 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     const IkTYPE_TIK = 'TIK';
     const IkTYPE_OIK = 'OIK';
 
+    public function getUniqueId()
+    {
+        return $this->getFullName() . ':' . $this->getIkType() . ':' . $this->getType();
+    }
+
     public function isTypeGn()
     {
         return $this->_properties['Type'] == self::TYPE_GN;

@@ -21,7 +21,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
      */
     public function initModelsByHierarchy()
     {
-        $result = $this->_getPageContent($this->_getCValue('hierarchy.page'), true);
+        $result = $this->_getPageContent($this->_getCValue('hierarchy.page'), $this->_getCValue('hierarchy.useCache'));
 
         // find links
         $okrugString = $this->_getCValue('hierarchy.okrugIndicator');
@@ -34,7 +34,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
         foreach($okrugLinks as $okrugName => $okrugLink) {
             //print_r($okrugName .': ' . $okrugLink . PHP_EOL);
             $okrug = ParserIKData_Model_Okrug::createFromPageInfo($okrugName, $okrugLink, array());
-            $tikResult = $this->_getPageContent($okrugLink, true);
+            $tikResult = $this->_getPageContent($okrugLink, $this->_getCValue('hierarchy.useCache'));
             $this->_getParser()->setPageSource($tikResult);
             $tikTags = $this->_getParser()->findSurroundingTags($tikString);
             $tikLinks = $this->_getMiner()->getLinks($tikTags);
@@ -45,7 +45,9 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
                 $tik = ParserIKData_Model_TIK::createFromPageInfo($tikRealName, $tikLink, array());
                 $okrug->addTik($tik);
             }
+            print($okrugName . ' processed'.PHP_EOL);
         }
+
         return $this;
     }
 
@@ -55,7 +57,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
     public function loadTikDataForOkrugs()
     {
         $okrugString = $this->_getCValue('tikdata.okrugIndicator');
-        $result = $this->_getPageContent($this->_getCValue('tikdata.page'), true);
+        $result = $this->_getPageContent($this->_getCValue('tikdata.page'), $this->_getCValue('tikdata.useCache'));
         $this->_getParser()->setPageSource($result);
         $okrugTags = $this->_getParser()->findSurroundingTags($okrugString);
         $okrugTikLinks = $this->_getMiner()->getLinks($okrugTags);
@@ -76,7 +78,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
     {
         foreach (ParserIKData_Model_Okrug::getAllObjects() as $okrug) {
             /* loading tik links */
-            $result = $this->_getPageContent($okrug->getTikDataLink(), true);
+            $result = $this->_getPageContent($okrug->getTikDataLink(), $this->_getCValue('tikdata.useCache'));
             $this->_getParser()->setPageSource($result);
             $tikTags = $this->_getParser()->findSurroundingTags($this->_getCValue('tikdata.tikIndicator'));
             $tikTagLinks = $this->_getMiner()->getLinks($tikTags);
@@ -92,7 +94,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
 
         foreach (ParserIKData_Model_TIK::getAllOBjects() as $tik) {
             if ($tik->getSelfInfoLink() != '') {
-                $result = $this->_getPageContent($tik->getSelfInfoLink(), true);
+                $result = $this->_getPageContent($tik->getSelfInfoLink(), $this->_getCValue('tikdata.useCache'));
                 $this->_getParser()->setPageSource($result);
 
                 $tik->setSostavLink($this->_findLinkForPhraze($this->_getCValue('tikaddress.sostavIndicator')));
@@ -121,9 +123,9 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
      */
     public function createTikUiks(ParserIKData_Model_TIK $tik)
     {
-        $page = $this->_getPageContent(html_entity_decode($tik->getLink()), true);
+        $page = $this->_getPageContent(html_entity_decode($tik->getLink()), $this->_getCValue('uik.useCache'));
 
-        $printVersionPage = $this->_getPageContent($this->_getPrintVersionLink($page), true);
+        $printVersionPage = $this->_getPageContent($this->_getPrintVersionLink($page), $this->_getCValue('uik.useCache'));
 
         $string = $this->_getCValue('uik.tableIndicator');
         $table = $this->_getParser()->setPageSource($printVersionPage)->findMinContainingTag($string, 'table');
@@ -200,7 +202,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
      */
     private function _loadTikAddress($tik)
     {
-        $result = $this->_getPageContent($tik->getAddressLink(), true);
+        $result = $this->_getPageContent($tik->getAddressLink(), $this->_getCValue('tikdata.useCache'));
 
         $address = $this->_clearStringData($this->_getParser()
             ->stringInBetween($result, $this->_getCValue('tikaddress.addressStart'), $this->_getCValue('tikaddress.addressFinish'), false));
@@ -222,7 +224,7 @@ class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
      */
     private function _loadTikSostav($tik)
     {
-        $result = $this->_getPageContent($tik->getSostavLink(), true);
+        $result = $this->_getPageContent($tik->getSostavLink(), $this->_getCValue('tikdata.useCache'));
 
         $sostavHtml = $this->_getParser()
             ->stringInBetween($result, $this->_getCValue('tiksostav.start'), $this->_getCValue('tiksostav.finish'), false);

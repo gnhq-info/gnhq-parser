@@ -92,6 +92,7 @@ class Lib_Db_MySql
      */
     private function _query($query)
     {
+        //var_dump($query);
         $result = mysql_query($query, $this->_getConnection());
         if ($error = mysql_error($this->_connection)) {
             throw new Exception('Wrong DB query '.$query. ' error : '.$error);

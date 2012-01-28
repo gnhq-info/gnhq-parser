@@ -81,6 +81,15 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     */
     public function saveElectionResults($electionCode, $resultType)
     {
+        $this->_mysql->query('DELETE FROM '. $this->_getElectionResultsTable($electionCode) . '
+        	WHERE ResultType = "'.mysql_real_escape_string($resultType). '"');
+        foreach (ParserIKData_Model_Protocol412::getAllOBjects() as $protocol) {
+            /* @var $protocol ParserIKData_Model_Protocol412 */
+            if ($protocol->getType() == $resultType) {
+                $this->_mysql->query($this->_insertProtocol412Query($protocol));
+            }
+        }
+
         return $this;
     }
 
@@ -89,19 +98,14 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
      */
     public function loadElectionResults($electionCode, $resultType)
     {
+        $this->_loadFromTable(
+            $this->_getElectionResultsTable($electionCode),
+        	'ParserIKData_Model_Protocol412',
+        	'ResultType = "'.mysql_real_escape_string($resultType).'"'
+        );
         return $this;
     }
 
-
-    /**
-     * @param string $table
-     * @param string $modelClass
-     * @return ParserIKData_Warehouse_MySql
-     */
-    private function _saveToTable($table, $modelClass)
-    {
-        return $this;
-    }
 
     /**
      * @param ParserIKData_Model_Okrug $okrug
@@ -131,6 +135,24 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     }
 
     /**
+    * @param ParserIKData_Model_Protocol412 $protocol
+    * @return string
+    */
+    private function _insertProtocol412Query($protocol)
+    {
+        $data = $protocol->toArray();
+        return sprintf('insert into '.$this->_getElectionResultsTable('412').
+            	' (IkFullName, IkType, ResultType, Line1, Line2, Line3, Line4, Line5, Line6, Line7, Line8, Line9, Line10,
+            	Line11, Line12, Line13, Line14, Line15, Line16, Line17, Line18, Line19, Line20, Line21, Line22, Line23, Line24, Line25)
+                values("%s", "%s", "%s", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)',
+            $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11],
+            $data[12], $data[13], $data[14], $data[15], $data[16], $data[17], $data[18], $data[19], $data[20], $data[21],
+            $data[22], $data[23], $data[24], $data[25], $data[26], $data[27]
+        );
+    }
+
+
+    /**
     * @param ParserIKData_Model_UIK $uik
     * @return string
     */
@@ -148,11 +170,12 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     /**
      * @param string $fileName
      * @param string $modelClass
+     * @param string $where
      * @return multitype:NULL
      */
-    private function _loadFromTable($tableName, $modelClass)
+    private function _loadFromTable($tableName, $modelClass, $where = null)
     {
-        $dbRes = $this->_mysql->select('*', $tableName);
+        $dbRes = $this->_mysql->select('*', $tableName, $where);
         while ($arr = mysql_fetch_row($dbRes)) {
             $result[] = $modelClass::fromArray($arr);
         }
@@ -180,9 +203,9 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
      * @param string $resultType
      * @return string
      */
-    private function _getElectionResultsTable($electionCode, $resultType)
+    private function _getElectionResultsTable($electionCode)
     {
-        return 'result_'.$electionCode.'_'.$resultType;
+        return 'result_'.$electionCode;
     }
 
     /**

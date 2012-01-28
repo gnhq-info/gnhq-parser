@@ -1,0 +1,1 @@
+C:\php\php.exe ../ParserIKData/Actions/initOkrugsAndTiks.php

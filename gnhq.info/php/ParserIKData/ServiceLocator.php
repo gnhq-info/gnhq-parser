@@ -35,11 +35,29 @@ class ParserIKData_ServiceLocator // implements Singleton
         if (!class_exists($className, true)) {
             throw new Exception ('Class '.$className. ' does not exist!');
         }
-        $warehouse = new $className;
+        $warehouse = new $className($this);
         if (!$warehouse instanceof ParserIKData_Warehouse_Interface) {
             throw new Exception ('Class '.$className. ' does not implement ParserIKData_Warehouse_Interface!');
         }
         return $warehouse;
+    }
+
+    /**
+     * @return Lib_Db_MySql
+     */
+    public function getMySql()
+    {
+        $mysqlConf = new Lib_Db_Config($this->getMySqlConfig());
+        $mysql = new Lib_Db_MySql($mysqlConf);
+        return $mysql;
+    }
+
+    /**
+     * @return Lib_Config_Interface
+     */
+    public function getMySqlConfig()
+    {
+         return $this->getConfigForFile('mysql.ini');
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 include_once ('Csv.php');
+include_once ('MySql.php');
 
 interface ParserIKData_Warehouse_Interface
 {

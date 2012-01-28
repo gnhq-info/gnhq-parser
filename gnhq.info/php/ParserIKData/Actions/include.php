@@ -10,6 +10,9 @@ include_once '../../Lib/Html/Parser.php';
 
 include_once '../../Lib/Config/Interface.php';
 
+include_once '../../Lib/Db/Config.php';
+include_once '../../Lib/Db/MySql.php';
+
 include_once '../ServiceLocator.php';
 
 include_once '../Site/Abstract.php';

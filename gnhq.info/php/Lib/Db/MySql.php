@@ -30,6 +30,36 @@ class Lib_Db_MySql
         mysql_select_db($dbName, $this->_getConnection());
     }
 
+
+    /**
+     * @param string $what
+     * @param string $from
+     * @param string $where
+     * @param string $limit
+     * @param string $order
+     * @return array()
+     */
+    public function selectAssoc($what, $from, $where = null, $limit = null, $order = null)
+    {
+        $result = $this->select($what, $from, $where, $limit, $order);
+        if(!$result) {
+            return array();
+        } else {
+            $data = array();
+            while ($row = mysql_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+    }
+
+    /**
+     * @param string $what
+     * @param string $from
+     * @param string $where
+     * @param string $limit
+     * @param string $order
+     */
     public function select($what, $from, $where = null, $limit = null, $order = null)
     {
         $query = 'SELECT '.$what . ' FROM ' .$from;
@@ -43,17 +73,9 @@ class Lib_Db_MySql
             $query .= ' LIMIT ' . $limit;
         }
 
-        $result = $this->_query($query);
-        if(!$result) {
-            return array();
-        } else {
-            $data = array();
-            while ($row = mysql_fetch_assoc($result)) {
-                $data[] = $row;
-            }
-            return $data;
-        }
+        return $this->_query($query);
     }
+
 
     /**
      * @param string $query
@@ -64,9 +86,17 @@ class Lib_Db_MySql
         return $this->_query($query);
     }
 
+    /**
+     * @param string $query
+     * @return resource
+     */
     private function _query($query)
     {
-        return mysql_query($query, $this->_getConnection());
+        $result = mysql_query($query, $this->_getConnection());
+        if ($error = mysql_error($this->_connection)) {
+            throw new Exception('Wrong DB query '.$query. ' error : '.$error);
+        }
+        return $result;
     }
 
     /**

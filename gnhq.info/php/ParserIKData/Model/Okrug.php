@@ -98,8 +98,11 @@ class ParserIKData_Model_Okrug extends ParserIKData_Model
      */
     public function toArray()
     {
-        $data = parent::toArray();
-        array_unshift($data, $this->getAbbr());
+        $data = array();
+        $data[] = $this->getAbbr();
+        $data[] = $this->getFullName();
+        $data[] = $this->getLink();
+        $data[] = $this->getTikDataLink();
         return $data;
     }
 

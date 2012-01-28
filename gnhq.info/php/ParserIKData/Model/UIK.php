@@ -61,7 +61,7 @@ class ParserIKData_Model_UIK extends ParserIKData_Model
         $data['BorderDescription'] = $arr[2];
         $data['Place']             = $arr[3];
         $data['VotingPlace']       = $arr[4];
-        $data['Linke']             = $arr[5];
+        $data['Link']              = $arr[5];
         $item = parent::fromArray($data);
         /* @var $item ParserIKData_Model_UIK*/
         $item->getTik()->addUik($item);

@@ -1,7 +1,6 @@
 <?php
 include_once 'include.php';
 
-
 /**
  * @var ParserIKData_Warehouse_Interface
  */
@@ -20,7 +19,7 @@ $processor->loadTikAddressAndSostavLinks();
 $processor->loadTikData();
 
 // сохранение данных
-$warehouse->saveAllOkrugs();//->saveAllTiks();
+$warehouse->saveAllOkrugs()->saveAllTiks();
 
 print PHP_EOL . 'Данные успешно загружены' . PHP_EOL;
 exit(0);

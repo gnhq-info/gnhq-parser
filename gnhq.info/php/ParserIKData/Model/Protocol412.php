@@ -67,9 +67,22 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
      */
     public function equalPartyResults($cmpResult)
     {
-        return $this->equalResults($cmpResult,
-            array(self::INDEX_ER, self::INDEX_KPRF, self::INDEX_LDPR, self::INDEX_PD, self::INDEX_PR, self::INDEX_SR, self::INDEX_YABLOKO)
-        );
+        return $this->equalResults($cmpResult, $this->_getPartyIndices());
+    }
+
+    /**
+     * @return array
+     */
+    public function getPartyResults()
+    {
+        $data = $this->getData();
+        $partyIndices = $this->_getPartyIndices();
+        foreach ($data as $i => $k) {
+            if (!in_array($i, $partyIndices)) {
+                unset($data[$i]);
+            }
+        }
+        return $data;
     }
 
     /**
@@ -180,6 +193,17 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     }
 
     /**
+     * @param string $resultType
+     * @param ParserIKData_Model_UIK $uik
+     * @return ParserIKData_Model_Protocol412
+     */
+    public static function getUikResult($resultType, $uik)
+    {
+        $uniqueId = self::_formUniqueId($uik->getFullName(), self::IkTYPE_UIK, $resultType);
+        return ParserIKData_Model_Protocol412::getFromPool($uniqueId);
+    }
+
+    /**
      * (non-PHPdoc)
      * @see ParserIKData_Model::toArray()
      */
@@ -216,7 +240,18 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     */
     private function _getDualUniqueId()
     {
-        return $this->getFullName() . ':' . $this->getIkType() . ':' . ($this->isTypeGn() ? self::TYPE_OF : self::TYPE_GN);
+        return self::_formUniqueId($this->getFullName(),  $this->getIkType(), ($this->isTypeGn() ? self::TYPE_OF : self::TYPE_GN));
+    }
+
+    /**
+     * @param string $fullName
+     * @param string $ikType
+     * @param string $resultType
+     * @return string
+     */
+    private static function _formUniqueId($fullName, $ikType, $resultType)
+    {
+        return $fullName . ':' . $ikType . ':' . $resultType;
     }
 
     /**
@@ -227,6 +262,11 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     {
         $data = $this->getData();
         return $data[$index];
+    }
+
+    private function _getPartyIndices()
+    {
+        return array(self::INDEX_ER, self::INDEX_KPRF, self::INDEX_LDPR, self::INDEX_PD, self::INDEX_PR, self::INDEX_SR, self::INDEX_YABLOKO);
     }
 
 }

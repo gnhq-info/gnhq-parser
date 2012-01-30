@@ -3,7 +3,7 @@ class Lib_Html_Loader
 {
     private $_src;
     private $_useCache;
-    private $_outputCharset = 'utf-8';
+    private $_outputCharset = 'UTF-8';
     private $_cacheDir;
     private $_inputEncoding = null;
 
@@ -130,6 +130,10 @@ class Lib_Html_Loader
     private function _encode($string)
     {
         $enc =  $this->_inputEncoding ? $this->_inputEncoding : mb_detect_encoding($string);
-        return iconv($enc, $this->_outputCharset . '//IGNORE', $string);
+        if ($enc === $this->_outputCharset) {
+            return $string;
+        } else {
+            return iconv($enc, $this->_outputCharset . '//IGNORE', $string);
+        }
     }
 }

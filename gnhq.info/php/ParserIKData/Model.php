@@ -3,6 +3,7 @@ include_once('Model/Okrug.php');
 include_once('Model/TIK.php');
 include_once('Model/UIK.php');
 include_once('Model/Protocol412.php');
+include_once('Model/Report412.php');
 
 /**
  * @method string getFullName

@@ -44,4 +44,14 @@ interface ParserIKData_Warehouse_Interface
      */
     public function loadElectionResults($electionCode, $resultType);
 
+    /**
+    * @return ParserIKData_Warehouse_Interface
+    */
+    public function saveElectionReports($electionCode);
+
+    /**
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function loadElectionReports($electionCode);
+
 }

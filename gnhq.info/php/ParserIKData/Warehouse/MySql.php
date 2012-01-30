@@ -106,6 +106,19 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
         return $this;
     }
 
+    public function saveElectionReports($electionCode)
+    {
+        return $this;
+    }
+
+    /**
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function loadElectionReports($electionCode)
+    {
+        return $this;
+    }
+
 
     /**
      * @param ParserIKData_Model_Okrug $okrug
@@ -196,6 +209,15 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     private function _getTikTable()
     {
         return 'tik';
+    }
+
+    /**
+    * @param string $electionCode
+    * @return string
+    */
+    private function _getElectionReportsTable($electionCode)
+    {
+        return 'report_'.$electionCode;
     }
 
     /**

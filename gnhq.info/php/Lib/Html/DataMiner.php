@@ -66,6 +66,16 @@ class Lib_Html_DataMiner
     * @param int $max
     * @return multitype:Ambigous <string, false, boolean>
     */
+    public function extractA($string, $max)
+    {
+        return $this->_extractLastLevelChildren('<a ', '</a>', $max, $string);
+    }
+
+    /**
+    * @param string $string
+    * @param int $max
+    * @return multitype:Ambigous <string, false, boolean>
+    */
     public function extractNobr($string, $max)
     {
         return $this->_extractLastLevelChildren('<nobr>', '</nobr>', $max, $string);

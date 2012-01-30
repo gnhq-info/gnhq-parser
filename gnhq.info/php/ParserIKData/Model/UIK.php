@@ -41,6 +41,15 @@ class ParserIKData_Model_UIK extends ParserIKData_Model
         return $this->setTikUniqueId($tik->getUniqueId());
     }
 
+    /**
+     * @param string $resultType
+     * @return Ambigous <ParserIKData_Model_Protocol412, NULL>
+     */
+    public function getElection412Result($resultType)
+    {
+        return ParserIKData_Model_Protocol412::getUikResult($resultType, $this);
+    }
+
     public function toArray()
     {
         $data = array();

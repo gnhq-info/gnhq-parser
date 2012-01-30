@@ -52,16 +52,29 @@ class ParserIKData_Site_Gn412 extends ParserIKData_Site_Abstract
      */
     private function _explodePreffix($report, $preffix)
     {
-        $author = $this->_clearString($this->_getParser()->stringInBetween($preffix, 'last">', '[', false));
-        $authorParts = explode(',', $author);
-        $author = $authorParts[count($authorParts)-1];
-        $report->setAuthor($this->_clearString($author));
+        $authorUikString = $this->_clearString($this->_getParser()->stringInBetween($preffix, 'last">', '[', false));
+        $report->setAuthor(str_replace('Наблюдатель ', '', $this->_clearString($this->_getAuthor($authorUikString))));
+
         $shortDescr = $this->_getParser()->stringInBetween($preffix, '[', ']', false);
         $shortDescr = $this->_clearString($shortDescr);
         $report->setShort($shortDescr);
         return $report;
     }
 
+    /**
+     * @param string $authorUikString
+     * @return string
+     */
+    private function _getAuthor($authorUikString)
+    {
+        if (strpos($authorUikString, ',') > 0) {
+            $authorParts = explode(',', $authorUikString);
+            return $authorParts[count($authorParts)-1];
+        } elseif (strpos($authorUikString, ')') > 0 ) {
+            $authorParts = explode(')', $authorUikString);
+            return $authorParts[count($authorParts)-1];
+        }
+    }
 
     /**
      * @var string $string

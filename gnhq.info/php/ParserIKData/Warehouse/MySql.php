@@ -108,6 +108,11 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
 
     public function saveElectionReports($electionCode)
     {
+        $reports = ParserIKData_Model_Report412::getAllOBjects();
+        $this->_mysql->truncateTable($this->_getElectionReportsTable($electionCode));
+        foreach ($reports as $report) {
+            $this->_mysql->query($this->_insertReportQuery($report, $electionCode));
+        }
         return $this;
     }
 
@@ -116,6 +121,7 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
      */
     public function loadElectionReports($electionCode)
     {
+        $this->_loadFromTable($this->_getElectionReportsTable($electionCode), 'ParserIKData_Model_Report412');
         return $this;
     }
 
@@ -179,6 +185,20 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
                 $data[0], $data[1], $data[2], $data[3], $data[4], $data[5]
         );
     }
+
+    /**
+    * @param ParserIKData_Model_Report412 $report
+    * @param string $electionCode
+    * @return string
+    */
+    private function _insertReportQuery($report, $electionCode)
+    {
+        $data = $report->toArray();
+        $data = $this->_escapeArray($data);
+        return sprintf('insert into '.$this->_getElectionReportsTable($electionCode).' (uik, ocenka, author, shortDescr, fullReport, link)
+            	values("%d", "%s", "%s", "%s", "%s", "%s")', $data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+    }
+
 
     /**
      * @param string $fileName

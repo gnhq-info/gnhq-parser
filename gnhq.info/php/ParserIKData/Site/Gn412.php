@@ -41,7 +41,11 @@ class ParserIKData_Site_Gn412 extends ParserIKData_Site_Abstract
             $preffix = mb_substr($content, 0, $tableStart, $enc);
             $postfix = mb_substr($content, $tableEnd, -1, $enc);
             $this->_explodePreffix($report, $preffix);
+            $full = strip_tags($postfix, '<p><br><strong><b><h1><h2><h3><h4><h5><h6><table><tr><td><br/>');
+            $full = $this->_clearStringData($full, false);
+            $report->setFullReport($full);
         }
+        return $report;
     }
 
 

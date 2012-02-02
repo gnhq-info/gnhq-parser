@@ -70,6 +70,44 @@ class Lib_Html_Parser
         return $extracter->stringInBetween($haystack, $from, $to, $includeEnds);
     }
 
+    public function stripAttributes()
+    {
+        $res = "";
+        $inTag = false; $inTagName = false;
+        $len = strlen($this->_pageSource);
+        for ($i = 0; $i < $len; $i++) {
+            $cChar = substr($this->_pageSource, $i, 1);
+            if ($cChar == "<") {
+                $inTag = true;
+                $inTagName = true;
+            }
+
+
+            if ($inTag) {
+                if ($inTagName == true) {
+                    if ($cChar == " ") {
+                        $inTagName = false;
+                    }
+                } else {
+                    if (ctype_alpha($cChar)) {
+
+                    }
+                }
+            }
+
+            if ($cChar == ">" && $inTag) {
+                $inTag = false;
+            }
+
+            if (!$inTag || ($inTag && $inTagName))  {
+                $res .= $cChar;
+            }
+        }
+        return $res;
+    }
+
+
+
     /**
      * @param string $pageSource
      * @return Lib_Html_Parser
@@ -81,6 +119,8 @@ class Lib_Html_Parser
         $this->_nextOffset = 0;
         return $this;
     }
+
+
 
 
     /**

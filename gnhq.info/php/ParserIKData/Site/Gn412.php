@@ -37,12 +37,19 @@ class ParserIKData_Site_Gn412 extends ParserIKData_Site_Abstract
             $content = $this->_getParser()->setPageSource($data)->findMinContainingTag('id="content"', 'div');
             $enc = $this->_getSiteEncoding();
             $tableStart = mb_strpos($content, '<table', 0, $enc);
-            $tableEnd = mb_strpos($content, '</table>', 0, $enc) + mb_strlen('</table>', $enc);
-            $preffix = mb_substr($content, 0, $tableStart, $enc);
-            $postfix = mb_substr($content, $tableEnd, -1, $enc);
+            if ($tableStart === false) {
+                $tableEnd = 0;
+                $preffix = "";
+                $postfix = $content;
+            } else {
+                $tableEnd = mb_strpos($content, '</table>', 0, $enc) + mb_strlen('</table>', $enc);
+                $preffix = mb_substr($content, 0, $tableStart, $enc);
+                $postfix = mb_substr($content, $tableEnd, -1, $enc);
+            }
             $this->_explodePreffix($report, $preffix);
             $full = strip_tags($postfix, '<p><br><strong><b><h1><h2><h3><h4><h5><h6><table><tr><td><br/>');
             $full = $this->_clearStringData($full, false);
+            $full = $this->_getParser()->setPageSource($full)->stripAttributes();
             $report->setFullReport($full);
         }
         return $report;

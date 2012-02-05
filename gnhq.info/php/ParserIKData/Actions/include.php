@@ -1,6 +1,14 @@
 <?php
 set_time_limit(0);
-define('BASE_INCLUDE_DIR', 'C:\git\gnhq.info\gnhq\gnhq.info\php\\');
+
+$dir = __DIR__;
+$dirParts = explode(DIRECTORY_SEPARATOR, $dir);
+unset($dirParts[count($dirParts)-1]);
+unset($dirParts[count($dirParts)-1]);
+define('BASE_INCLUDE_DIR', implode(DIRECTORY_SEPARATOR, $dirParts) . DIRECTORY_SEPARATOR );
+unset($dir);
+unset($dirParts);
+
 define('APPLICATION_DIR_ROOT', BASE_INCLUDE_DIR . 'ParserIKData\\');
 define('LIB_DIR_ROOT', BASE_INCLUDE_DIR . 'Lib\\');
 

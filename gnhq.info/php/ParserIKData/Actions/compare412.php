@@ -17,7 +17,7 @@ foreach ($gnResults as $gnResult) {
     /* @var $gnResult ParserIKData_Model_Protocol412 */
     $dualResult = $gnResult->getDualProtocol();
 
-    if (printCond($gnResult)) {
+    if ($dualResult && printCond($gnResult)) {
         print str_pad($cnt, 3, ' ', STR_PAD_RIGHT) . 'УИК № ' . $gnResult->getFullName();
         if ($gnResult->getUik() instanceof ParserIKData_Model_UIK) {
             print ' ТИК '. $gnResult->getUik()->getTik()->getFullName();

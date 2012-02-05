@@ -1,6 +1,7 @@
 <?php
 /**
  * @method array getData()        'результаты'
+ * @method int|null getClaimCount()
  *
  * @method ParserIKData_Model_Protocol412 setData()
  *
@@ -213,6 +214,7 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
         $data[] = $this->getFullName();
         $data[] = $this->getIkType();
         $data[] = $this->getType();
+        $data[] = ($this->getClaimCount() ? intval($this->getClaimCount()) : 0);
         $data = array_merge($data, $this->getData());
         return $data;
     }
@@ -224,9 +226,10 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     public static function fromArray($arr)
     {
         $data = array();
-        $data['FullName'] = array_shift($arr);
-        $data['IkType']   = array_shift($arr);
-        $data['Type']     = array_shift($arr);
+        $data['FullName']   = array_shift($arr);
+        $data['IkType']     = array_shift($arr);
+        $data['Type']       = array_shift($arr);
+        $data['ClaimCount'] = array_shift($arr);
         array_unshift($arr, '');
         unset($arr[0]);
         $data['Data']     = $arr;

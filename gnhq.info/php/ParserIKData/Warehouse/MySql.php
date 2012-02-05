@@ -11,8 +11,8 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     private $_mysqlConfig = null;
 
     /**
-    * @return ParserIKData_Warehouse_Interface
-    */
+     * @return ParserIKData_Warehouse_Interface
+     */
     public function saveAllOkrugs()
     {
         $okrugs = ParserIKData_Model_Okrug::getAllOBjects();
@@ -77,8 +77,8 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @return ParserIKData_Warehouse_Interface
-    */
+     * @return ParserIKData_Warehouse_Interface
+     */
     public function saveElectionResults($electionCode, $resultType)
     {
         $this->_mysql->query('DELETE FROM '. $this->_getElectionResultsTable($electionCode) . '
@@ -99,7 +99,7 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     public function loadElectionResults($electionCode, $resultType)
     {
         $this->_loadFromTable(
-            $this->_getElectionResultsTable($electionCode),
+        $this->_getElectionResultsTable($electionCode),
         	'ParserIKData_Model_Protocol412',
         	'ResultType = "'.mysql_real_escape_string($resultType).'"'
         );
@@ -127,6 +127,41 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
 
 
     /**
+     * @param string $electionCode
+     * @param string $watchType
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function saveElectionWatches($electionCode, $watchType)
+    {
+        $this->_mysql->query('DELETE FROM '. $this->_getElectionWatchesTable($electionCode) . '
+            	WHERE WatchType = "'.mysql_real_escape_string($watchType). '"');
+        foreach (ParserIKData_Model_Watch412::getAllOBjects() as $watch) {
+            /* @var $watch ParserIKData_Model_Watch412 */
+            if ($watch->getType() == $watchType) {
+                $this->_mysql->query($this->_insertWatch412Query($watch));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $electionCode
+     * @param string $watchType
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function loadElectionWatches($electionCode, $watchType)
+    {
+        $this->_loadFromTable(
+            $this->_getElectionWatchesTable($electionCode),
+            	'ParserIKData_Model_Watch412',
+            	'WatchType = "'.mysql_real_escape_string($watchType).'"'
+        );
+        return $this;
+    }
+
+
+    /**
      * @param ParserIKData_Model_Okrug $okrug
      * @return string
      */
@@ -139,9 +174,9 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @param ParserIKData_Model_TIK $tik
-    * @return string
-    */
+     * @param ParserIKData_Model_TIK $tik
+     * @return string
+     */
     private function _insertTIKQuery($tik)
     {
         $data = $tik->toArray();
@@ -149,32 +184,46 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
         return sprintf('insert into '.$this->_getTikTable().
         	' (OkrugAbbr, FullName, Address, Phone, Chief, Deputy, Secretary, Members, SelfInfoLink, AddressLink, SostavLink, Link)
             values("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")',
-            $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11]
+        $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11]
         );
     }
 
     /**
-    * @param ParserIKData_Model_Protocol412 $protocol
-    * @return string
-    */
+     * @param ParserIKData_Model_Protocol412 $protocol
+     * @return string
+     */
     private function _insertProtocol412Query($protocol)
     {
         $data = $protocol->toArray();
         return sprintf('insert into '.$this->_getElectionResultsTable('412').
-            	' (IkFullName, IkType, ResultType, Line1, Line2, Line3, Line4, Line5, Line6, Line7, Line8, Line9, Line10,
+            	' (IkFullName, IkType, ResultType, ClaimCount, Line1, Line2, Line3, Line4, Line5, Line6, Line7, Line8, Line9, Line10,
             	Line11, Line12, Line13, Line14, Line15, Line16, Line17, Line18, Line19, Line20, Line21, Line22, Line23, Line24, Line25)
-                values("%s", "%s", "%s", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)',
-            $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11],
-            $data[12], $data[13], $data[14], $data[15], $data[16], $data[17], $data[18], $data[19], $data[20], $data[21],
-            $data[22], $data[23], $data[24], $data[25], $data[26], $data[27]
+                values("%s", "%s", "%s", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)',
+        $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11],
+        $data[12], $data[13], $data[14], $data[15], $data[16], $data[17], $data[18], $data[19], $data[20], $data[21],
+        $data[22], $data[23], $data[24], $data[25], $data[26], $data[27], $data[28]
         );
     }
 
 
     /**
-    * @param ParserIKData_Model_UIK $uik
+    * @param ParserIKData_Model_Watch412 $watch
     * @return string
     */
+    private function _insertWatch412Query($watch)
+    {
+        $data = $watch->toArray();
+        return sprintf('insert into '.$this->_getElectionWatchesTable('412').
+                	' (uik, WatchType, code) values(%d, "%s", %d)',
+            $data[0], $data[1], $data[2]
+        );
+    }
+
+
+    /**
+     * @param ParserIKData_Model_UIK $uik
+     * @return string
+     */
     private function _insertUIKQuery($uik)
     {
         $data = $uik->toArray();
@@ -182,15 +231,15 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
         return sprintf('insert into '.$this->_getUikTable().
             	' (TikUniqueId, FullName, BorderDescription, Place, VotingPlace, Link)
                 values("%s", "%s", "%s", "%s", "%s", "%s")',
-                $data[0], $data[1], $data[2], $data[3], $data[4], $data[5]
+        $data[0], $data[1], $data[2], $data[3], $data[4], $data[5]
         );
     }
 
     /**
-    * @param ParserIKData_Model_Report412 $report
-    * @param string $electionCode
-    * @return string
-    */
+     * @param ParserIKData_Model_Report412 $report
+     * @param string $electionCode
+     * @return string
+     */
     private function _insertReportQuery($report, $electionCode)
     {
         $data = $report->toArray();
@@ -232,9 +281,9 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @param string $electionCode
-    * @return string
-    */
+     * @param string $electionCode
+     * @return string
+     */
     private function _getElectionReportsTable($electionCode)
     {
         return 'report_'.$electionCode;
@@ -242,7 +291,6 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
 
     /**
      * @param string $electionCode
-     * @param string $resultType
      * @return string
      */
     private function _getElectionResultsTable($electionCode)
@@ -251,8 +299,17 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @return string
-    */
+     * @param string $electionCode
+     * @return string
+     */
+    private function _getElectionWatchesTable($electionCode)
+    {
+        return 'watch_'.$electionCode;
+    }
+
+    /**
+     * @return string
+     */
     private function _getUikTable()
     {
         return 'uik';

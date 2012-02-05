@@ -45,6 +45,7 @@ CREATE TABLE `result_412` (
   `IkFullName` varchar(100) DEFAULT NULL,
   `IkType` varchar(5) NOT NULL,
   `ResultType` varchar(5) NOT NULL,
+  `ClaimCount` int(11) DEFAULT '0',
   `Line1` int(11) NOT NULL,
   `Line2` int(11) NOT NULL,
   `Line3` int(11) NOT NULL,
@@ -104,6 +105,16 @@ CREATE TABLE `uik` (
   `VotingPlace` text,
   `Link` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`FullName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Table structure for table `watch_412` */
+
+DROP TABLE IF EXISTS `watch_412`;
+
+CREATE TABLE `watch_412` (
+  `uik` int(11) DEFAULT NULL,
+  `WatchType` char(2) DEFAULT NULL,
+  `code` int(4) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

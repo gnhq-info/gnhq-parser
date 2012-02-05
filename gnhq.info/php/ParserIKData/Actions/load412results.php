@@ -1,4 +1,5 @@
 <?php
+// loading official results from cik site
 include_once 'include.php';
 
 /**

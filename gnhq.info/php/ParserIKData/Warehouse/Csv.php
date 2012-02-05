@@ -4,8 +4,8 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     const DELIMETER = ';';
     const ENCLOSURE = '"';
     /**
-    * @return ParserIKData_Warehouse_Interface
-    */
+     * @return ParserIKData_Warehouse_Interface
+     */
     public function saveAllOkrugs()
     {
         return $this->_saveToFile($this->_getOkrugFile(), 'ParserIKData_Model_Okrug');
@@ -55,14 +55,18 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @return ParserIKData_Warehouse_Interface
-    */
+     * @param string $electionCode
+     * @param string $resultType
+     * @return ParserIKData_Warehouse_Interface
+     */
     public function saveElectionResults($electionCode, $resultType)
     {
         return $this->_saveToFile($this->_getElectionResultsFile($electionCode, $resultType), 'ParserIKData_Model_Protocol412');
     }
 
     /**
+     * @param string $electionCode
+     * @param string $resultType
      * @return ParserIKData_Warehouse_Interface
      */
     public function loadElectionResults($electionCode, $resultType)
@@ -72,14 +76,16 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @return ParserIKData_Warehouse_Interface
-    */
+     * @param string $electionCode
+     * @return ParserIKData_Warehouse_Interface
+     */
     public function saveElectionReports($electionCode)
     {
         return $this->_saveToFile($this->_getElectionReportsFile($electionCode), 'ParserIKData_Model_Report412');
     }
 
     /**
+     * @param string $electionCode
      * @return ParserIKData_Warehouse_Interface
      */
     public function loadElectionReports($electionCode)
@@ -88,6 +94,25 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
         return $this;
     }
 
+
+    /**
+     * @param string $electionCode
+     * @param string $watchType
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function saveElectionWatches($electionCode, $watchType)
+    {
+        return $this->_saveToFile($this->_getElectionWatchesFile($electionCode, $watchType), 'ParserIKData_Model_Watch412');
+    }
+
+    /**
+     * @return ParserIKData_Warehouse_Interface
+     */
+    public function loadElectionWatches($electionCode, $watchType)
+    {
+        $this->_loadFromFile($this->_getElectionWatchesFile($electionCode, $watchType), 'ParserIKData_Model_Watch412');
+        return $this;
+    }
 
     /**
      * @param string $fileName
@@ -144,9 +169,9 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @param string $electionCode
-    * @return string
-    */
+     * @param string $electionCode
+     * @return string
+     */
     private function _getElectionReportsFile($electionCode)
     {
         return $this->_getDirectory() . 'report_'.$electionCode.'.csv';
@@ -163,8 +188,18 @@ class ParserIKData_Warehouse_Csv implements ParserIKData_Warehouse_Interface
     }
 
     /**
-    * @return string
-    */
+     * @param string $electionCode
+     * @param string $watchType
+     * @return string
+     */
+    private function _getElectionWatchesFile($electionCode, $watchType)
+    {
+        return $this->_getDirectory() . 'watch_'.$electionCode.'_'.$watchType.'.csv';
+    }
+
+    /**
+     * @return string
+     */
     private function _getUikFile()
     {
         return $this->_getDirectory() . 'uik.csv';

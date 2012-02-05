@@ -5,6 +5,8 @@ $dirParts[] = 'php';
 $dirParts[] = 'ParserIKData';
 $dirParts[] = 'Actions';
 $dirParts[] = 'include.php';
-$baseIncludeFilePath = implode(DIRECTORY_SEPARATOR, $dirParts);
+$logicIncludeFilePath = implode(DIRECTORY_SEPARATOR, $dirParts);
+
+include_once $logicIncludeFilePath;
 
 echo 'hahaha';

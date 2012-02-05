@@ -2,3 +2,4 @@ order allow,deny
 allow from all
 
 DirectoryIndex index.php
+AddDefaultCharset utf-8

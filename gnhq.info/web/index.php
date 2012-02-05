@@ -9,4 +9,4 @@ $logicIncludeFilePath = implode(DIRECTORY_SEPARATOR, $dirParts);
 
 include_once $logicIncludeFilePath;
 
-echo 'hahaha';
+include 'tpl/index.tpl';

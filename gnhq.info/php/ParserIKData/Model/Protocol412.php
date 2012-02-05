@@ -24,6 +24,8 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     const INDEX_ER = 24;
     const INDEX_PD = 25;
 
+    const SIGNIFICANT_DIFFER = 10;
+
     /**
      * @return ParserIKData_Model_UIK|NULL
      */

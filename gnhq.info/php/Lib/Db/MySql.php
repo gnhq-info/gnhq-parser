@@ -15,7 +15,7 @@ class Lib_Db_MySql
 
     public function __destruct()
     {
-        if ($this->_connection) {
+        if (is_resource($this->_connection)) {
             mysql_close($this->_connection);
         }
     }

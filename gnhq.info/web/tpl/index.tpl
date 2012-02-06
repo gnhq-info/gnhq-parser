@@ -36,7 +36,7 @@
 					</select>
 				</div>
 				<div class="span3" id="currentStats" style="text-align: right!important; vertical-align: top!important; width: 200px;">
-					<div><strong id="uikCount">0</strong> участков</div>
+					<div><strong id="uikCount"><?php echo $view->totalUikCount;?></strong> участков</div>
 					<div>На <strong id="varyIkCount">0</strong > участках данные ЦИК расходятся с протоколами</div>
 				</div>
 				<div class="span3" id="uikMenu">

@@ -16,8 +16,14 @@ $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 $warehouse->loadAllOkrugs();
 $warehouse->loadElectionWatches('412', 'GN');
 
+$watchGateway = new ParserIKData_Gateway_Watch412();
+
 $view = new stdClass();
 $view->okrugs = ParserIKData_Model_Okrug::getAllOBjects();
 $view->watches = ParserIKData_Model_Watch412::getAllObjects();
+
+$view->totalUikCount = $watchGateway->getTotalUiksCount();
+
+
 
 include 'tpl/index.tpl';

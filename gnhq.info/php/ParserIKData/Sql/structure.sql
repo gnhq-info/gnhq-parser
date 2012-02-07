@@ -70,7 +70,9 @@ CREATE TABLE `result_412` (
   `Line22` int(11) NOT NULL,
   `Line23` int(11) NOT NULL,
   `Line24` int(11) NOT NULL,
-  `Line25` int(11) NOT NULL
+  `Line25` int(11) NOT NULL,
+  KEY `ik` (`IkFullName`,`IkType`),
+  KEY `ResultType` (`ResultType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `tik` */
@@ -90,7 +92,9 @@ CREATE TABLE `tik` (
   `AddressLink` varchar(255) DEFAULT NULL,
   `SostavLink` varchar(255) DEFAULT NULL,
   `Link` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`FullName`)
+  `Uid` char(20) DEFAULT NULL,
+  PRIMARY KEY (`FullName`),
+  KEY `OkrugAbbr` (`OkrugAbbr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `uik` */
@@ -104,7 +108,8 @@ CREATE TABLE `uik` (
   `Place` text,
   `VotingPlace` text,
   `Link` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`FullName`)
+  PRIMARY KEY (`FullName`),
+  KEY `TikUniqueId` (`TikUniqueId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `watch_412` */

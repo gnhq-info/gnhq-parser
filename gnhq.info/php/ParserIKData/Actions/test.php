@@ -12,18 +12,18 @@ $gateway = new ParserIKData_Gateway_Protocol412();
 
 
 
-$okrugAbbr = 'ЦАО';
-$uikNum = null;
+$okrugAbbr = null;
+$uikNum = 1;
 $watchOf = null;
 $watchGn = ParserIKData_Model_Protocol412::TYPE_GN;
 
 $warehouse->loadAllOkrugs();
 
-foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
-    /* @var $okrug ParserIKData_Model_Okrug */
-    $okrugAbbr = $okrug->getAbbr();
+// foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
+//     /* @var $okrug ParserIKData_Model_Okrug */
+//     $okrugAbbr = $okrug->getAbbr();
 
-    echo str_repeat(' ', 10) . $okrugAbbr . PHP_EOL;
+//     echo str_repeat(' ', 10) . $okrugAbbr . PHP_EOL;
 
     $off = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchOf, false, false);
     _debugPringDiagram($off->getDiagramData(true, 2));
@@ -37,7 +37,7 @@ foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
     $gnProtocolClean = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, true, true);
     _debugPringDiagram($gnProtocolClean->getDiagramData(true, 2));
 
-}
+// }
 
 
 function _debugPringDiagram($diagData)

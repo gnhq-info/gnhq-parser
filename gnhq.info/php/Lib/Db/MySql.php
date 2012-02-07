@@ -42,6 +42,19 @@ class Lib_Db_MySql
         mysql_select_db($dbName, $this->_getConnection());
     }
 
+    public function escapeString($string)
+    {
+        return mysql_real_escape_string($string);
+    }
+
+    /**
+     * @param resourse $result
+     * @return array
+     */
+    public function fetchResultToArray($result)
+    {
+        return mysql_fetch_array($result, MYSQL_NUM);
+    }
 
     /**
      * @param string $what

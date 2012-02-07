@@ -3,32 +3,36 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'result_412';
 
+
     /**
      * @param string $okrugAbbr
-     * @return ParserIKData_Model_Protocol412|NULL
-     */
-    public function getOfficialResultForOkrug($okrugAbbr)
-    {
-        $query = $this->_buildSumQuery($this->_getCondOfficial() . ' AND ('.$this->_getCondOkrug($okrugAbbr).')');
-        return $this->_fetchSumProtocol($query);
-    }
-
-    /**
      * @param int $uikNum
+     * @param string $resultType
+     * @param boolean $onlyResultProtocols
+     * @param boolean $onlyClean
      * @return ParserIKData_Model_Protocol412|NULL
      */
-    public function getOfficialResultForUik($uikNum)
+    public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $onlyResultProtocols = false, $onlyClean = false)
     {
-        $query = $this->_buildSumQuery($this->_getCondOfficial() . ' AND ' . $this->_getCondUik($uikNum));
-        return $this->_fetchSumProtocol($query);
-    }
-
-    /**
-     * @return ParserIKData_Model_Protocol412|NULL
-     */
-    public function getOfficialResultForMoscow()
-    {
-        $query = $this->_buildSumQuery($this->_getCondOfficial());
+        $condParts = array();
+        if (!$resultType) {
+            $condParts[] = $this->_getCondOfficial();
+        } else {
+            $condParts[] = $this->_getCondResultForType($resultType);
+            if ($onlyResultProtocols) {
+                $condParts[] = 'IkFullName IN (' . $this->_getCondHasProtocol($resultType) . ')';
+            }
+            if ($onlyClean) {
+                $condParts[] = 'IkFullName IN (' . $this->_getWatchGateway()->getCondClear($resultType) . ')';
+            }
+        }
+        if ($okrugAbbr) {
+            $condParts[] = $this->_getCondOkrug($okrugAbbr);
+        } elseif ($uikNum) {
+            $condParts[] = $this->_getCondUik($uikNum);
+        }
+        $cond = '( ' . implode( ' ) AND ( ', $condParts) . ' )';
+        $query = $this->_buildSumQuery($cond);
         return $this->_fetchSumProtocol($query);
     }
 
@@ -43,7 +47,7 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
         if (!$result) {
             return null;
         }
-        while ( ($data = mysql_fetch_array($result, MYSQL_NUM)) !== false) {
+        while ( ($data = $this->_fetchResultToArray($result)) !== false) {
             $protocol = ParserIKData_Model_Protocol412::fromArray($data);
             return $protocol;
         }
@@ -60,11 +64,34 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     }
 
     /**
+    * @param string $condString
+    * @return string
+    */
+    private function _buildAllQuery($condString)
+    {
+        return 'SELECT * FROM ' . $this->_table . ' WHERE ' . $condString;
+    }
+
+    /**
+     * @param string $resultType
+     * @return string
+     */
+    private function _getCondVyborka($resultType)
+    {
+        return $this->_getCondTypeUik() . '  AND IkFullName IN (' . $this->_getWatchGateway()->getCondIn($resultType) .')' ;
+    }
+
+    /**
      * @return string
      */
     private function _getCondOfficial()
     {
-        return 'ResultType = "OF"';
+        return $this->_getCondResultType(ParserIKData_Model_Protocol412::TYPE_OF);
+    }
+
+    private function _getCondResultType($resultType)
+    {
+        return 'ResultType = "'.$this->_escapeString($resultType).'"';
     }
 
     /**
@@ -73,7 +100,7 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
      */
     private function _getCondUik($uikNum)
     {
-        return ' IkType = "UIK" AND IkFullName = ' . intval($uikNum) ;
+        return $this->_getCondTypeUik() . ' AND IkFullName = ' . intval($uikNum) ;
     }
 
     /**
@@ -82,7 +109,41 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     private function _getCondOkrug($okrugAbbr)
     {
         $uikCond = $this->_getUikGateway()->getCondOkrug($okrugAbbr);
-        return ' IkType = "UIK" AND IkFullName IN ('.$uikCond.')';
+        return $this->_getCondTypeUik() . ' AND IkFullName IN ('.$uikCond.')';
+    }
+
+    /**
+     * @param string $resultType
+     * @return string
+     */
+    private function _getCondResultForType($resultType)
+    {
+        return $this->_getCondTypeUik()
+            . ' AND
+            	(
+            		(' . $this->_getCondResultType($resultType) . ' ) OR
+        			('.$this->_getCondOfficial().'
+        				AND IkFullName NOT IN ('.$this->_getCondHasProtocol($resultType).')
+        				AND IkFullName IN ('.$this->_getWatchGateway()->getCondIn($resultType).')
+        			)
+        		)';
+    }
+
+    /**
+     * @param string $resultType
+     * @return string
+     */
+    private function _getCondHasProtocol($resultType)
+    {
+        return ' SELECT IkFullName FROM '. $this->_table . ' WHERE '. $this->_getCondTypeUik() . ' AND ' . $this->_getCondResultType($resultType);
+    }
+
+    /**
+     *  @return string
+     */
+    private function _getCondTypeUik()
+    {
+        return ' IkType = "'.$this->_escapeString(ParserIKData_Model_Protocol412::IkTYPE_UIK).'"';
     }
 
     /**
@@ -103,5 +164,13 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     private function _getUikGateway()
     {
         return new ParserIKData_Gateway_UIK();
+    }
+
+    /**
+     * @return ParserIKData_Gateway_Watch412
+     */
+    private function _getWatchGateway()
+    {
+        return new ParserIKData_Gateway_Watch412();
     }
 }

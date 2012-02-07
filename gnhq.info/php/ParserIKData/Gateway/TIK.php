@@ -12,7 +12,7 @@ class ParserIKData_Gateway_TIK extends ParserIKData_Gateway_Abstract
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE ' . $this->_table . '.uid IN (' . $this->getCondOkrug($okrug->getAbbr()) . ')';
         $result = $this->_getDriver()->query($query);
         $tiks = array();
-        while ( ($data = mysql_fetch_array($result)) !== false) {
+        while ( ($data = $this->_fetchResultToArray($result)) !== false) {
             $tik = ParserIKData_Model_TIK::fromArray($data);
             $tiks[$tik->getUniqueId()] = $tik;
         }
@@ -22,6 +22,6 @@ class ParserIKData_Gateway_TIK extends ParserIKData_Gateway_Abstract
 
     public function getCondOkrug($okrugAbbr)
     {
-        return 'SELECT uid FROM ' . $this->_table . ' WHERE ' . $this->_table . '.OkrugAbbr = "' . mysql_real_escape_string($okrugAbbr) . '"';
+        return 'SELECT uid FROM ' . $this->_table . ' WHERE ' . $this->_table . '.OkrugAbbr = "' . $this->_escapeString($okrugAbbr) . '"';
     }
 }

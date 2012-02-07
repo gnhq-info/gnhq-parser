@@ -2,8 +2,8 @@
 include_once 'include.php';
 $electionCode = '412';
 /**
-* @var ParserIKData_Warehouse_Interface
-*/
+ * @var ParserIKData_Warehouse_Interface
+ */
 $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 //$warehouse->loadAllOkrugs();
 
@@ -12,24 +12,32 @@ $gateway = new ParserIKData_Gateway_Protocol412();
 
 
 
-$okrugAbbr = null;
-$uikNum = 54;
+$okrugAbbr = 'ЦАО';
+$uikNum = null;
 $watchOf = null;
 $watchGn = ParserIKData_Model_Protocol412::TYPE_GN;
 
-$off = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchOf, false, false);
-_debugPringDiagram($off->getDiagramData(true, 2));
+$warehouse->loadAllOkrugs();
 
-$gn = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, false, false);
-_debugPringDiagram($gn->getDiagramData(true, 2));
+foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
+    /* @var $okrug ParserIKData_Model_Okrug */
+    $okrugAbbr = $okrug->getAbbr();
 
-$gnProtocol = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, true, false);
-_debugPringDiagram($gnProtocol->getDiagramData(true, 2));
+    echo str_repeat(' ', 10) . $okrugAbbr . PHP_EOL;
 
-$gnProtocolClean = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, true, true);
-_debugPringDiagram($gnProtocolClean->getDiagramData(true, 2));
+    $off = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchOf, false, false);
+    _debugPringDiagram($off->getDiagramData(true, 2));
 
+    $gn = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, false, false);
+    _debugPringDiagram($gn->getDiagramData(true, 2));
 
+    $gnProtocol = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, true, false);
+    _debugPringDiagram($gnProtocol->getDiagramData(true, 2));
+
+    $gnProtocolClean = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, true, true);
+    _debugPringDiagram($gnProtocolClean->getDiagramData(true, 2));
+
+}
 
 
 function _debugPringDiagram($diagData)

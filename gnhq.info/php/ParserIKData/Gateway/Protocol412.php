@@ -8,8 +8,8 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
      * @param string $okrugAbbr
      * @param int $uikNum
      * @param string $resultType
-     * @param boolean $onlyResultProtocols
-     * @param boolean $onlyClean
+     * @param boolean $onlyResultProtocols  - только по протоколам проекта - имеет смысл только если $resultType != null
+     * @param boolean $onlyClean            - только чистые - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол)
      * @return ParserIKData_Model_Protocol412|NULL
      */
     public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $onlyResultProtocols = false, $onlyClean = false)
@@ -18,12 +18,16 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
         if (!$resultType) {
             $condParts[] = $this->_getCondOfficial();
         } else {
-            $condParts[] = $this->_getCondResultForType($resultType);
-            if ($onlyResultProtocols) {
-                $condParts[] = 'IkFullName IN (' . $this->_getCondHasProtocol($resultType) . ')';
-            }
-            if ($onlyClean) {
-                $condParts[] = 'IkFullName IN (' . $this->_getWatchGateway()->getCondClear($resultType) . ')';
+            if ($onlyResultProtocols == false) {
+                // все результаты данного типа (не важно - есть или нет протокол, чистый ли участок или нет
+                $condParts[] = $this->_getCondResultForType($resultType);
+            } else {
+                // используем только протоколы данного типа
+                $condParts[] = $this->_getCondResultType($resultType);
+                if ($onlyClean) {
+                    // используем только протоколы данного типа по чистым участкам (если нет протокола - грубое нарушение - не может быть чистым)
+                    $condParts[] = 'IkFullName IN (' . $this->_getWatchGateway()->getCondClear($resultType) . ')';
+                }
             }
         }
         if ($okrugAbbr) {

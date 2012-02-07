@@ -25,5 +25,9 @@ $view->watches = ParserIKData_Model_Watch412::getAllObjects();
 $view->totalUikCount = $watchGateway->getTotalUiksCount();
 
 
+$uikGateway = new ParserIKData_Gateway_UIK();
+foreach ($view->okrugs as $okrug) {
+    $uiks = $uikGateway->getForOkrug($okrug);
+}
 
 include 'tpl/index.tpl';

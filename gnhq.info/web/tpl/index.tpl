@@ -39,7 +39,7 @@
 					<div><strong id="uikCount"><?php echo $view->totalUikCount;?></strong> участков</div>
 					<div>На <strong id="varyIkCount">0</strong > участках данные ЦИК расходятся с протоколами</div>
 				</div>
-				<div class="span3" id="uikMenu">
+				<div class="span3" id="uikMenu" style="display:none;">
 					<ul>
 						<li><a href="">Сведения об участке</a>
 						<li><a href="">Копия протокола</a>

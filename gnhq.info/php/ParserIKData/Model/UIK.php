@@ -73,7 +73,9 @@ class ParserIKData_Model_UIK extends ParserIKData_Model
         $data['Link']              = $arr[5];
         $item = parent::fromArray($data);
         /* @var $item ParserIKData_Model_UIK*/
-        $item->getTik()->addUik($item);
+        if ($item->getTik()) {
+            $item->getTik()->addUik($item);
+        }
         return $item;
     }
 

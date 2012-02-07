@@ -1,6 +1,8 @@
 <?php
 class Lib_Db_MySql
 {
+    private static $_instances = array();
+
     /**
      * @var Lib_Db_Config
      */
@@ -8,16 +10,26 @@ class Lib_Db_MySql
 
     private $_connection = null;
 
-    public function __construct(Lib_Db_Config $dbConf)
+    public static function getForConfig(Lib_Db_Config $dbConf)
+    {
+        $hash = sha1(serialize($dbConf));
+        if (!isset(self::$_instances[$hash])) {
+            self::$_instances[$hash] = new self($dbConf);
+        }
+        return self::$_instances[$hash];
+    }
+
+    private function __construct(Lib_Db_Config $dbConf)
     {
         $this->_config = $dbConf;
+        $this->_getConnection();
     }
 
     public function __destruct()
     {
-        if (is_resource($this->_connection)) {
-            mysql_close($this->_connection);
-        }
+        //if (is_resource($this->_connection)) {
+        mysql_close($this->_connection);
+        //}
     }
 
     public function truncateTable($tableName)
@@ -101,15 +113,15 @@ class Lib_Db_MySql
     }
 
     /**
-    * @return resource
-    */
+     * @return resource
+     */
     private function _getConnection()
     {
         if ($this->_connection == null) {
             $this->_connection = mysql_connect(
-                $this->_getConfig()->getHost(),
-                $this->_getConfig()->getUser(),
-                $this->_getConfig()->getPwd()
+            $this->_getConfig()->getHost(),
+            $this->_getConfig()->getUser(),
+            $this->_getConfig()->getPwd()
             );
             if (!$this->_connection) {
                 throw new Exception('cant connect to database: '.mysql_error());

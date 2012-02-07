@@ -182,9 +182,9 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
         $data = $tik->toArray();
         $data = $this->_escapeArray($data);
         return sprintf('insert into '.$this->_getTikTable().
-        	' (OkrugAbbr, FullName, Address, Phone, Chief, Deputy, Secretary, Members, SelfInfoLink, AddressLink, SostavLink, Link)
-            values("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")',
-        $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11]
+        	' (OkrugAbbr, FullName, Address, Phone, Chief, Deputy, Secretary, Members, SelfInfoLink, AddressLink, SostavLink, Link, Uid)
+            values("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")',
+            $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11], $data[12]
         );
     }
 

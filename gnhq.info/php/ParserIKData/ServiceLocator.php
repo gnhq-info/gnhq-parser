@@ -48,7 +48,7 @@ class ParserIKData_ServiceLocator // implements Singleton
     public function getMySql()
     {
         $mysqlConf = new Lib_Db_Config($this->getMySqlConfig());
-        $mysql = new Lib_Db_MySql($mysqlConf);
+        $mysql = Lib_Db_MySql::getForConfig($mysqlConf);
         return $mysql;
     }
 

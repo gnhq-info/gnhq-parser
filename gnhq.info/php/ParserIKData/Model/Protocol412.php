@@ -23,6 +23,9 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     const INDEX_YABLOKO = 23;
     const INDEX_ER = 24;
     const INDEX_PD = 25;
+    const INDEX_SPOILED = 9;
+    const INDEX_TOTAL_VOTED = 10;
+    const INDEX_TOTAL = 1;
 
     const SIGNIFICANT_DIFFER = 10;
 
@@ -196,6 +199,41 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     }
 
     /**
+     * @param boolean $inPercent
+     * @param int $digits
+     * @return array
+     */
+    public function getDiagramData($inPercent, $digits = 0)
+    {
+        $data = array('S' => 0, 'L' => 0, 'PR' => 0, 'K' => 0, 'Y' => 0, 'E' => 0, 'PD' => 0, 'AT' => 0, 'SP' => 0);
+        $_absAtt = $this->_getAbsoluteAttendance();
+        $_total = $this->_getPeopleAmount();
+        if ($_absAtt == 0 || $_total == 0) {
+            return $data;
+        }
+        $data['S']  = $this->getSRResult()/$_absAtt;
+        $data['L']  = $this->getLDPRResult()/$_absAtt;
+        $data['PR'] = $this->getPRResult()/$_absAtt;
+        $data['K']  = $this->getKPRFResult()/$_absAtt;
+        $data['Y']  = $this->getYablokoResult()/$_absAtt;
+        $data['E']  = $this->getERResult()/$_absAtt;
+        $data['PD'] = $this->getPDResult()/$_absAtt;
+        $data['AT'] = $_absAtt/$_total;
+        $data['SP'] = $this->_getSpoiledAmount()/$_absAtt;
+
+        foreach ($data as $k => $value) {
+            if ($inPercent) {
+                $val = 100 * $value;
+            }
+            $data[$k] = round($val, $digits);
+        }
+
+        return $data;
+    }
+
+
+
+    /**
      * @param string $resultType
      * @param ParserIKData_Model_UIK $uik
      * @return ParserIKData_Model_Protocol412
@@ -272,6 +310,26 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     private function _getPartyIndices()
     {
         return array(self::INDEX_ER, self::INDEX_KPRF, self::INDEX_LDPR, self::INDEX_PD, self::INDEX_PR, self::INDEX_SR, self::INDEX_YABLOKO);
+    }
+
+    private function _getAbsoluteAttendance()
+    {
+        return $this->_getSpoiledAmount() + $this->_getVotedAmount();
+    }
+
+    private function _getVotedAmount()
+    {
+        return $this->_getProtocolValue(self::INDEX_TOTAL_VOTED);
+    }
+
+    private function _getSpoiledAmount()
+    {
+        return $this->_getProtocolValue(self::INDEX_SPOILED);
+    }
+
+    private function _getPeopleAmount()
+    {
+        return $this->_getProtocolValue(self::INDEX_TOTAL);
     }
 
 }

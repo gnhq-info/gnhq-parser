@@ -14,6 +14,6 @@ class ParserIKData_Gateway_Abstract
     {
         $iconf = ParserIKData_ServiceLocator::getInstance()->getMySqlConfig();
         $conf = new Lib_Db_Config($iconf);
-        return new Lib_Db_MySql($conf);
+        return Lib_Db_MySql::getForConfig($conf);
     }
 }

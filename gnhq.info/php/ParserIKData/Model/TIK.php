@@ -29,8 +29,8 @@ class ParserIKData_Model_TIK extends ParserIKData_Model
     const MEMBERS_SEPARATOR = ', ';
 
     /**
-    * @var ParserIKData_Model_UIK[]
-    */
+     * @var ParserIKData_Model_UIK[]
+     */
     private $_uiks = array();
 
 
@@ -85,10 +85,10 @@ class ParserIKData_Model_TIK extends ParserIKData_Model
 
 
     /**
-    * @param string $modifiedName
-    * @param string[] $ignoreStrings
-    * @return ParserIKData_Model_Okrug|null
-    */
+     * @param string $modifiedName
+     * @param string[] $ignoreStrings
+     * @return ParserIKData_Model_Okrug|null
+     */
     public static function findByModifiedName($modifiedName, $ignoreStrings = array())
     {
         $name = self::_normalizeName($modifiedName, $ignoreStrings);
@@ -153,6 +153,7 @@ class ParserIKData_Model_TIK extends ParserIKData_Model
         $data[] = $this->getAddressLink();
         $data[] = $this->getSostavLink();
         $data[] = $this->getLink();
+        $data[] = $this->getUniqueId();
         return $data;
     }
 
@@ -173,7 +174,9 @@ class ParserIKData_Model_TIK extends ParserIKData_Model
         $data['Link']          = $arr[11];
         $item = parent::fromArray($data);
         /* @var $item ParserIKData_Model_TIK*/
-        $item->getOkrug()->addTik($item);
+        if ($item->getOkrug()) {
+            $item->getOkrug()->addTik($item);
+        }
         return $item;
     }
 

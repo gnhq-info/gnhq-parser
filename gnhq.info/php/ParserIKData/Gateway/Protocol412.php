@@ -10,14 +10,45 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     public function getOfficialResultForOkrug($okrugAbbr)
     {
         $query = $this->_buildSumQuery($this->_getCondOfficial() . ' AND ('.$this->_getCondOkrug($okrugAbbr).')');
+        return $this->_fetchSumProtocol($query);
+    }
+
+    /**
+     * @param int $uikNum
+     * @return ParserIKData_Model_Protocol412|NULL
+     */
+    public function getOfficialResultForUik($uikNum)
+    {
+        $query = $this->_buildSumQuery($this->_getCondOfficial() . ' AND ' . $this->_getCondUik($uikNum));
+        return $this->_fetchSumProtocol($query);
+    }
+
+    /**
+     * @return ParserIKData_Model_Protocol412|NULL
+     */
+    public function getOfficialResultForMoscow()
+    {
+        $query = $this->_buildSumQuery($this->_getCondOfficial());
+        return $this->_fetchSumProtocol($query);
+    }
+
+
+    /**
+     * @param string $query
+     * @return ParserIKData_Model_Protocol412|NULL
+     */
+    private function _fetchSumProtocol($query)
+    {
         $result = $this->_getDriver()->query($query);
+        if (!$result) {
+            return null;
+        }
         while ( ($data = mysql_fetch_array($result, MYSQL_NUM)) !== false) {
             $protocol = ParserIKData_Model_Protocol412::fromArray($data);
             return $protocol;
         }
         return null;
     }
-
 
     /**
      * @param string $condString
@@ -34,6 +65,15 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     private function _getCondOfficial()
     {
         return 'ResultType = "OF"';
+    }
+
+    /**
+     * @param int $uikNum
+     * @return string
+     */
+    private function _getCondUik($uikNum)
+    {
+        return ' IkType = "UIK" AND IkFullName = ' . intval($uikNum) ;
     }
 
     /**

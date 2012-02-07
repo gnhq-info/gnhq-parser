@@ -9,5 +9,9 @@ $warehouse->loadAllOkrugs();
 
 
 $gateway = new ParserIKData_Gateway_Protocol412();
-$protocol = $gateway->getOfficialResultForOkrug('ЦАО');
-var_dump($protocol->getDiagramData(true, 2));
+$cao = $gateway->getOfficialResultForOkrug('ЦАО');
+print_r($cao->getDiagramData(true, 2));
+$u139 = $gateway->getOfficialResultForUik(139);
+print_r($u139->getDiagramData(true, 2));
+$moscow = $gateway->getOfficialResultForMoscow();
+print_r($moscow->getDiagramData(true, 2));

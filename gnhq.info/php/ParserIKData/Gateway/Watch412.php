@@ -10,6 +10,9 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
         if ($okrugAbbr) {
             $conds[] = 'uik in (' . $this->_getUikGateway()->getCondOkrug($okrugAbbr) . ')';
         }
+        if ($withDiscrepancy) {
+            $conds[] = 'uik in (' .$this->_getProtocolGateway()->getCondDiscrepancy($watchType, null, null) . ')';
+        }
         $cond = '(' . implode(') AND (', $conds) . ')';
         $result = $this->_getDriver()->query('SELECT COUNT(*) FROM '. $this->_table . ' WHERE ' . $cond);
         while ($res = $this->_fetchResultToArray($result)) {
@@ -33,6 +36,11 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
     public function getCondClear($watchType)
     {
         return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType = "'.$this->_escapeString($watchType).'" AND code = 1';
+    }
+
+    private function _getProtocolGateway()
+    {
+        return new ParserIKData_Gateway_Protocol412();
     }
 
     private function _getUikGateway()

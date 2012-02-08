@@ -5,18 +5,17 @@ $electionCode = '412';
  * @var ParserIKData_Warehouse_Interface
  */
 $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
-//$warehouse->loadAllOkrugs();
+$warehouse->loadAllOkrugs();
 
 
 $gateway = new ParserIKData_Gateway_Watch412();
 $protoGateway = new ParserIKData_Gateway_Protocol412();
 
-
-
-$okrugAbbr = 'ЗелАО';
 $watchGn = ParserIKData_Model_Protocol412::TYPE_GN;
 
-var_dump($protoGateway->getCondDiscrepancy($watchGn, null, ParserIKData_Model_Protocol412::getPartyIndices())); die();
+foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
+    $okrugAbbr = $okrug->getAbbr();
 
-$count = $gateway->getCount($watchGn, $okrugAbbr);
-var_dump($count);
+    $count = $gateway->getCount($watchGn, $okrugAbbr, true);
+    print $okrugAbbr . '   '. $count . PHP_EOL;
+}

@@ -27,7 +27,7 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     const INDEX_TOTAL_VOTED = 10;
     const INDEX_TOTAL = 1;
 
-    const SIGNIFICANT_DIFFER = 10;
+    const ALLOWABLE_DISCREPANCY = 10;
 
     /**
      * @return ParserIKData_Model_UIK|NULL
@@ -43,6 +43,26 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     public function getElectionType()
     {
         return self::ELECTION_TYPE;
+    }
+
+    /**
+     * @return array()
+     */
+    public static function getPartyIndices()
+    {
+        return self::_getPartyIndices();
+    }
+
+    /**
+     * @return array()
+     */
+    public static function getIndicesForCompare()
+    {
+        $indices = self::_getPartyIndices();
+        $indices[] = self::INDEX_SPOILED;
+        $indices[] = self::INDEX_TOTAL;
+        $indices[] = self::INDEX_TOTAL_VOTED;
+        return $indices;
     }
 
     /**
@@ -73,7 +93,7 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
      */
     public function equalPartyResults($cmpResult)
     {
-        return $this->equalResults($cmpResult, $this->_getPartyIndices());
+        return $this->equalResults($cmpResult, self::_getPartyIndices());
     }
 
     /**
@@ -82,7 +102,7 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     public function getPartyResults()
     {
         $data = $this->getData();
-        $partyIndices = $this->_getPartyIndices();
+        $partyIndices = self::_getPartyIndices();
         foreach ($data as $i => $k) {
             if (!in_array($i, $partyIndices)) {
                 unset($data[$i]);
@@ -90,6 +110,7 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
         }
         return $data;
     }
+
 
     /**
      * @return int
@@ -307,7 +328,7 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
         return $data[$index];
     }
 
-    private function _getPartyIndices()
+    private static function _getPartyIndices()
     {
         return array(self::INDEX_ER, self::INDEX_KPRF, self::INDEX_LDPR, self::INDEX_PD, self::INDEX_PR, self::INDEX_SR, self::INDEX_YABLOKO);
     }

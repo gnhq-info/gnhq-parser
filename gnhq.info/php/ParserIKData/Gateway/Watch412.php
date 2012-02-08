@@ -3,9 +3,15 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'watch_412';
 
-    public function getTotalUiksCount()
+    public function getCount($watchType, $okrugAbbr = null, $withDiscrepancy = false)
     {
-        $result = $this->_getDriver()->query('SELECT COUNT(*) FROM '.$this->_table);
+        $conds = array();
+        $conds[] = 'WatchType = "'.$this->_escapeString($watchType).'"';
+        if ($okrugAbbr) {
+            $conds[] = 'uik in (' . $this->_getUikGateway()->getCondOkrug($okrugAbbr) . ')';
+        }
+        $cond = '(' . implode(') AND (', $conds) . ')';
+        $result = $this->_getDriver()->query('SELECT COUNT(*) FROM '. $this->_table . ' WHERE ' . $cond);
         while ($res = $this->_fetchResultToArray($result)) {
             return ($res[0]);
         }
@@ -27,5 +33,10 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
     public function getCondClear($watchType)
     {
         return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType = "'.$this->_escapeString($watchType).'" AND code = 1';
+    }
+
+    private function _getUikGateway()
+    {
+        return new ParserIKData_Gateway_UIK();
     }
 }

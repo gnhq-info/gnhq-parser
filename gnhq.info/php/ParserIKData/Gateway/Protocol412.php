@@ -41,6 +41,45 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     }
 
 
+    public function getCondDiscrepancy($watchType = null, $maxAllowable = null, $indices = null)
+    {
+        if ($watchType !== ParserIKData_Model_Protocol412::TYPE_GN) {
+            $watchType = ParserIKData_Model_Protocol412::TYPE_GN;
+        }
+        if (!$maxAllowable) {
+            $maxAllowable = ParserIKData_Model_Protocol412::ALLOWABLE_DISCREPANCY;
+        }
+        if (!$indices) {
+            $indices = ParserIKData_Model_Protocol412::getIndicesForCompare();
+        }
+        $typeOf = 'OF';
+        $conds = array();
+        foreach ($indices as $ind) {
+            $conds[] = $this->_getCondLineDiscrepancy($typeOf, $watchType, $ind, $maxAllowable);
+        }
+        $cond = '(' . implode(') OR ' . PHP_EOL . ' (', $conds) . ')';
+        return 'SELECT ' . $typeOf . '.IkFullName FROM `'.$this->_table.'` AS `'.$typeOf.'` INNER JOIN `'.$this->_table.'` AS `'.$watchType.'`
+			ON
+				'.$watchType.'.IkFullName = '.$typeOf.'.IkFullName AND
+				'.$watchType.'.IkType = '.$typeOf.'.IkType AND
+				'.$watchType.'.ResultType = "'.$this->_escapeString($watchType).'" AND
+				'.$typeOf.'.ResultType = "'.$this->_escapeString($typeOf).'"
+			WHERE ' . $cond;
+    }
+
+    /**
+     * @param string $tableAlias1
+     * @param string $tableAlias2
+     * @param int $num
+     * @param int $maxAllowable
+     * @return string
+     */
+    private function _getCondLineDiscrepancy($tableAlias1, $tableAlias2, $num, $maxAllowable)
+    {
+        return 'ABS ('.$tableAlias1.'.Line'.$num.' - '.$tableAlias2.'.Line'.$num.') > ' .$maxAllowable;
+    }
+
+
     /**
      * @param string $query
      * @return ParserIKData_Model_Protocol412|NULL

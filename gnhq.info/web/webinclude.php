@@ -20,3 +20,11 @@ define('WATCH_GN', ParserIKData_Model_Protocol412::TYPE_GN);
 * @var ParserIKData_Warehouse_Interface
 */
 $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
+
+define('SELECTION_TYPE_DEFAULT', 'ALL');
+define('SELECTION_TYPE_PROTOCOL', 'PROTOCOL');
+define('SELECTION_TYPE_CLEAN', 'CLEAN');
+
+define('DISPLAY_MODE_UIK', 'UIK');
+define('DISPLAY_MODE_OIK', 'OIK');
+define('DISPLAY_MODE_RIK', 'RIK');

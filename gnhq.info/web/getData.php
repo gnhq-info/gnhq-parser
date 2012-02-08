@@ -2,10 +2,6 @@
 define('PROJECT_STARTED', 1);
 include 'webinclude.php';
 
-define('SELECTION_TYPE_DEFAULT', 'ALL');
-define('SELECTION_TYPE_PROTOCOL', 'PROTOCOL');
-define('SELECTION_TYPE_CLEAN', 'CLEAN');
-
 
 /* validating input params */
 $warehouse->loadAllOkrugs();
@@ -58,13 +54,13 @@ $response->uiks = array();
 
 if ($uik) {
     // режим УИК
-    $response->mode = 'uik';
+    $response->mode = DISPLAY_MODE_UIK;
     $response->ofResult = $protocolGateway->getMixedResult(null, $uik, null, false, false)->getDiagramData($inPercent, $digits);
     $response->gnResult = $protocolGateway->getMixedResult(null, $uik, WATCH_GN, false, false)->getDiagramData($inPercent, $digits);
 
 } elseif ($okrugAbbr) {
     // режим Округа
-    $response->mode = 'oik';
+    $response->mode = DISPLAY_MODE_OIK;
     $uikGateway = new ParserIKData_Gateway_UIK();
     $uiks = $uikGateway->getForOkrug($okrugAbbr, WATCH_GN);
     foreach ($uiks as $uik) {
@@ -77,7 +73,7 @@ if ($uik) {
     $response->gnResult         = $protocolGateway->getMixedResult($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean)->getDiagramData($inPercent, $digits);
 } else {
     // режим региона (город)
-    $response->mode = 'rik';
+    $response->mode = DISPLAY_MODE_RIK;
     $response->totalCount       = $watchGateway->getCount(WATCH_GN, null, false);
     $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, null, true);
     $response->ofResult         = $protocolGateway->getMixedResult(null, null, null, false, false)->getDiagramData($inPercent, $digits);

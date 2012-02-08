@@ -12,8 +12,8 @@ $gateway = new ParserIKData_Gateway_Protocol412();
 
 
 
-$okrugAbbr = null;
-$uikNum = 1;
+$okrugAbbr = 'ЗелАО';
+$uikNum = null;
 $watchOf = null;
 $watchGn = ParserIKData_Model_Protocol412::TYPE_GN;
 

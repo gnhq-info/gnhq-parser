@@ -28,16 +28,11 @@
 					<div>УИК:</div>
 					<select id="uik" name="uik" style="width: 130px;">
 						<option value="">--- не выбран ---</option>
-						<?php foreach ($view->watches as $watch) { ?>
-						<option value="<?php echo $watch->getUniqueId();?>">
-						<?php echo 'УИК ', $watch->getUniqueId();?>
-						</option>
-						<?php } ?>
 					</select>
 				</div>
 				<div class="span3" id="currentStats" style="text-align: right!important; vertical-align: top!important; width: 200px;">
 					<div><strong id="uikCount"><?php echo $view->totalUikCount;?></strong> участков</div>
-					<div>На <strong id="varyIkCount">0</strong > участках данные ЦИК расходятся с протоколами</div>
+					<div>На <strong id="discrepancyCount"><?php echo $view->discrepancyUikCount?></strong > участках данные ЦИК расходятся с протоколами</div>
 				</div>
 				<div class="span3" id="uikMenu" style="display:none;">
 					<ul>

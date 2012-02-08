@@ -21,6 +21,7 @@ class ParserIKData_Model_Okrug extends ParserIKData_Model
         return $this->getAbbr();
     }
 
+
     /**
      * аббривеатура
      * @return string

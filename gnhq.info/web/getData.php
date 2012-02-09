@@ -28,6 +28,7 @@ if (!in_array($selectionType, array(SELECTION_TYPE_DEFAULT, SELECTION_TYPE_PROTO
 
 $watchGateway = new ParserIKData_Gateway_Watch412();
 $protocolGateway = new ParserIKData_Gateway_Protocol412();
+$reportGateway = new ParserIKData_Gateway_Report412();
 $inPercent = true;
 $digits = 2;
 $onlyProtocol = false;
@@ -59,6 +60,10 @@ if ($uik) {
     $response->gnResult = $protocolGateway->getMixedResult(null, $uik, WATCH_GN, false, false)->getDiagramData($inPercent, $digits);
     $response->hasProtocol = 1 - intval($protocolGateway->getMixedResult(null, $uik, WATCH_GN, true, false)->isEmpty());
     $response->reportLink = '';
+    $report = $reportGateway->getForUik($uik);
+    if ($report && $report->getLink()) {
+        $response->reportLink = GN_SITE . $report->getLink();
+    }
     $response->protocolLink = '';
 } elseif ($okrugAbbr) {
     // режим Округа
@@ -69,8 +74,9 @@ if ($uik) {
         /* @var $uik ParserIKData_Model_UIK */
         $response->uiks[] = $uik->getFullName();
     }
-    $response->totalCount       = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false);
-    $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, $okrugAbbr, true);
+    $response->totalCount       = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, false);
+    $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, $okrugAbbr, true, false);
+    $response->protocolCount    = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, true);
     $response->ofResult         = $protocolGateway->getMixedResult($okrugAbbr, null, null, false, false)->getDiagramData($inPercent, $digits);
     $response->gnResult         = $protocolGateway->getMixedResult($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean)->getDiagramData($inPercent, $digits);
 } else {
@@ -78,6 +84,7 @@ if ($uik) {
     $response->mode = DISPLAY_MODE_RIK;
     $response->totalCount       = $watchGateway->getCount(WATCH_GN, null, false);
     $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, null, true);
+    $response->protocolCount    = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, true);
     $response->ofResult         = $protocolGateway->getMixedResult(null, null, null, false, false)->getDiagramData($inPercent, $digits);
     $response->gnResult         = $protocolGateway->getMixedResult(null, null, WATCH_GN, $onlyProtocol, $onlyClean)->getDiagramData($inPercent, $digits);
 }

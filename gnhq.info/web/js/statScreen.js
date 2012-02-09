@@ -46,6 +46,10 @@ var StatScreen = {
 			return $('#uikCount');
 		},
 		
+		getProtocolCount: function() {
+			return $('#protocolCount');
+		},
+		
 		getDiscrepancyCount: function() {
 			return $('#discrepancyCount');
 		},
@@ -68,6 +72,14 @@ var StatScreen = {
 		
 		getNoProtocol: function() {
 			return $('#noProtocol');
+		},
+		
+		getReport: function() {
+			return $('#report');
+		}, 
+		
+		getNoReport: function() {
+			return $('#noReport');
 		}
 	},
 	
@@ -126,9 +138,11 @@ var StatScreen = {
 			if (data.mode != 'UIK') {
 				StatScreen.ResultSetter.setTotalCount(data.totalCount);
 				StatScreen.ResultSetter.setDiscrepancyCount(data.discrepancyCount);
+				StatScreen.ResultSetter.setProtocolCount(data.protocolCount);
 				StatScreen.ResultSetter.setUiks(data.uiks);
 			} else {
 				StatScreen.ResultSetter.setHasProtocol(data.hasProtocol);
+				StatScreen.ResultSetter.setReport(data.reportLink);
 			}
 			StatScreen.ResultSetter.setGnResult(data.gnResult);
 			StatScreen.ResultSetter.setOfResult(data.ofResult);
@@ -144,6 +158,22 @@ var StatScreen = {
 		
 		setDiscrepancyCount: function(cnt) {
 			StatScreen.Jq.getDiscrepancyCount().text(cnt);
+		},
+		
+		setProtocolCount: function(cnt) {
+			StatScreen.Jq.getProtocolCount().text(cnt);
+		},
+		
+		setReport: function(reportLink) {
+			if (!reportLink) {
+				StatScreen.Jq.getReport().hide();
+				StatScreen.Jq.getNoReport().show();
+			} else {
+				StatScreen.Jq.getNoReport().hide();
+				StatScreen.Jq.getReport().show().find('a').each(function(){
+					$(this).attr('href', reportLink)	
+				});
+			}
 		},
 		
 		setUiks: function(uiks) {

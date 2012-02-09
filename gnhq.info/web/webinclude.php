@@ -28,3 +28,5 @@ define('SELECTION_TYPE_CLEAN', 'CLEAN');
 define('DISPLAY_MODE_UIK', 'UIK');
 define('DISPLAY_MODE_OIK', 'OIK');
 define('DISPLAY_MODE_RIK', 'RIK');
+
+define('GN_SITE', 'http://nabludatel.org/');

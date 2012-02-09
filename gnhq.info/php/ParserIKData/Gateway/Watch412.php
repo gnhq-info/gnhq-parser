@@ -3,7 +3,7 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'watch_412';
 
-    public function getCount($watchType, $okrugAbbr = null, $withDiscrepancy = false)
+    public function getCount($watchType, $okrugAbbr = null, $withDiscrepancy = false, $withProtocol = false)
     {
         $conds = array();
         $conds[] = 'WatchType = "'.$this->_escapeString($watchType).'"';
@@ -12,6 +12,9 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
         }
         if ($withDiscrepancy) {
             $conds[] = 'uik in (' .$this->_getProtocolGateway()->getCondDiscrepancy($watchType, null, null) . ')';
+        }
+        if ($withProtocol) {
+            $conds[] = 'uik in (' . $this->_getProtocolGateway()->getCondResultType($watchType) . ')';
         }
         $cond = '(' . implode(') AND (', $conds) . ')';
         $result = $this->_getDriver()->query('SELECT COUNT(*) FROM '. $this->_table . ' WHERE ' . $cond);

@@ -40,6 +40,10 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
         return $this->_fetchSumProtocol($query);
     }
 
+    public function getCondResultType($resultType)
+    {
+        return 'SELECT IkFullName FROM '.$this->_table.' WHERE IkType = "UIK" AND '. $this->_getCondResultType($resultType);
+    }
 
     public function getCondDiscrepancy($watchType = null, $maxAllowable = null, $indices = null)
     {

@@ -50,13 +50,12 @@
 				</div>
 			</div>
 		</div>
-		</form>
-		<!-- /SEARCH FORM -->
 
 		<!-- STAT BLOCK -->
 		<div class="span3">
 			<div id="currentStats" style="display: none; text-align: left;">
 				<div><strong id="uikCount"></strong> участков</div>
+				<div>Получено <strong id="protocolCount"></strong> протоколов</div>
 				<div>На <strong id="discrepancyCount"></strong > участках данные ЦИК расходятся с протоколами</div>
 			</div>
 			<div id="uikMenu" style="display:none; text-align: left;">
@@ -65,12 +64,17 @@
 					<li id="hasProtocol" style="display: none;">Протокол получен</li>
 					<li id="noProtocol" style="display: none;">Протокол не получен</li>
 					<!-- <li><a href="">Копия протокола</a></li>-->
-					<li><a href="">Отчет наблюдателя</a></li>
+					<li id="report" style="display: none;"><a href="" target="_blank">Отчет наблюдателя</a></li>
+					<li id="noReport" style="display: none;">Отчет наблюдателя отсутствует</li>
 
 				</ul>
 			</div>
 		</div>
 		<!-- /STAT BLOCK -->
+		</form>
+		<!-- /SEARCH FORM -->
+
+
 
 
 		<div class="partSeparator"> </div>

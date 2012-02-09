@@ -85,57 +85,18 @@
 		<table class="table table-striped" id="results">
 			<thead>
 				<tr>
-					<th></th>
-					<th>Выборка</th>
-					<th>ЦИК</th>
+					<th width="20%"></th>
+					<th width="40%" colspan="2">Выборка</th>
+					<th width="40%" colspan="2">ЦИК</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>СР</td>
-					<td id="S_GN"></td>
-					<td id="S_OF"></td>
-				</tr>
-				<tr>
-					<td>ЛДПР</td>
-					<td id="L_GN"></td>
-					<td id="L_OF"></td>
-				</tr>
-				<tr>
-					<td>ПР</td>
-					<td id="PR_GN"></td>
-					<td id="PR_OF"></td>
-				</tr>
-				<tr>
-					<td>КПРФ</td>
-					<td id="K_GN"></td>
-					<td id="K_OF"></td>
-				</tr>
-				<tr>
-					<td>Яблоко</td>
-					<td id="Y_GN"></td>
-					<td id="Y_OF"></td>
-				</tr>
-				<tr>
-					<td>ЕР</td>
-					<td id="E_GN"></td>
-					<td id="E_OF"></td>
-				</tr>
-				<tr>
-					<td>ПД</td>
-					<td id="PD_GN"></td>
-					<td id="PD_OF"></td>
-				</tr>
-				<tr>
-					<td>Явка</td>
-					<td id="AT_GN"></td>
-					<td id="AT_OF"></td>
-				</tr>
-				<tr>
-					<td>Недействительные</td>
-					<td id="SP_GN"></td>
-					<td id="SP_OF"></td>
-				</tr>
+				<?php
+				    foreach($view->diagRows as $line) {
+				        include('protocolline.tpl');
+				    }
+				    unset($line);
+				 ?>
 			</tbody>
 		</table>
 		<!-- /RESULTS -->

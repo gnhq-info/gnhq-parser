@@ -74,6 +74,14 @@ var StatScreen = {
 			return $('#' + lineCode + '_' + watchType);
 		},
 		
+		getLineDiagCont: function(lineCode, watchType) {
+			return $('#' + lineCode + '_' + watchType + '_IMAGE');
+		},
+		
+		getLineDiag: function(lineCode, watchType) {
+			return StatScreen.Jq.getLineDiagCont(lineCode, watchType).find('div');
+		},
+		
 		getCurrentStats: function() {
 			return $('#currentStats');
 		},
@@ -238,7 +246,11 @@ var StatScreen = {
 		},
 		
 		_setLineValue: function(lineCode, watchType, result) {
+			var realWidth;
 			StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');
+			realWidth = (StatScreen.Jq.getLineDiagCont(lineCode, watchType).width() * parseFloat(result) / 100).toFixed(0);
+			
+			StatScreen.Jq.getLineDiag(lineCode, watchType).css('width', realWidth + 'px');
 		},
 		
 		_addUik: function(uik) {

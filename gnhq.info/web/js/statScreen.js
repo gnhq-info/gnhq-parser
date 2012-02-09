@@ -6,7 +6,11 @@ var StatScreen = {
 			StatScreen.Exchange.Activate();	
 		});
 		StatScreen.Jq.getUik().change(function() {
-			StatScreen.Exchange.Activate();	
+			if (StatScreen.Jq.getUik().val() != '') {
+				StatScreen.Jq.getSelectionRow().find('#ALL').get(0).checked = true;
+			}
+			StatScreen.Exchange.Activate();
+			
 		});
 		StatScreen.Jq.getSelectionRow().find('input').change(function() {
 			StatScreen.Exchange.Activate();	

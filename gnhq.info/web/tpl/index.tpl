@@ -7,11 +7,13 @@
 </head>
 <body>
 	<div class="container" style="margin-top: 25px;">
+	<h3>Результаты выборов в Государственную Думу РФ 4 декабря 2011 года</h3>
+	<div class="partSeparator"> </div>
 	<!-- SEARCH FORM -->
 		<form id="filterForm" name="filterForm">
-		<div class="span9">
+		<div class="span8">
 			<div class="row">
-				<div class="span3">
+				<div class="span2">
 					<div>Город:</div>
 					<select style="width: 130px"><option>Москва</option></select>
 				</div>
@@ -33,17 +35,17 @@
 					</select>
 				</div>
 			</div>
-			<div class="row">
-				<div class="span3">
-					<label class="form-inline"><input type="radio" selected="selected" id="<?php echo SELECTION_TYPE_DEFAULT?>"
+			<div class="row" id="selectionRow">
+				<div class="span2">
+					<label class="form-horizontal"><input type="radio" selected="selected" id="<?php echo SELECTION_TYPE_DEFAULT?>"
 						value="<?php echo SELECTION_TYPE_DEFAULT?>" name="selectionType"/> Все участки</label>
 				</div>
 				<div class="span3">
-					<label class="form-inline"><input type="radio" id="<?php echo SELECTION_TYPE_PROTOCOL?>"
+					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_PROTOCOL?>"
 						value="<?php echo SELECTION_TYPE_PROTOCOL?>" name="selectionType"/> Только с протоколами</label>
 				</div>
 				<div class="span3">
-					<label class="form-inline"><input type="radio" id="<?php echo SELECTION_TYPE_CLEAN?>" value="<?php echo SELECTION_TYPE_CLEAN?>"
+					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_CLEAN?>" value="<?php echo SELECTION_TYPE_CLEAN?>"
 						name="selectionType"/> Без серьезных нарушений</label>
 				</div>
 			</div>
@@ -52,21 +54,26 @@
 		<!-- /SEARCH FORM -->
 
 		<!-- STAT BLOCK -->
-		<div class="span3" id="currentStats" style="text-align: right!important; vertical-align: top!important; width: 200px;">
-			<div><strong id="uikCount"><?php echo $view->totalUikCount;?></strong> участков</div>
-			<div>На <strong id="discrepancyCount"><?php echo $view->discrepancyUikCount?></strong > участках данные ЦИК расходятся с протоколами</div>
-		</div>
-		<div class="span3" id="uikMenu" style="display:none;">
-			<ul>
-				<li><a href="">Сведения об участке</a>
-				<li><a href="">Копия протокола</a>
-				<li><a href="">Отчет наблюдателя</a>
-			</ul>
+		<div class="span3">
+			<div id="currentStats" style="display: none; text-align: left;">
+				<div><strong id="uikCount"></strong> участков</div>
+				<div>На <strong id="discrepancyCount"></strong > участках данные ЦИК расходятся с протоколами</div>
+			</div>
+			<div id="uikMenu" style="display:none; text-align: left;">
+				<ul>
+					<!-- <li><a href="">Сведения об участке</a> -->
+					<li id="hasProtocol" style="display: none;">Протокол получен</li>
+					<li id="noProtocol" style="display: none;">Протокол не получен</li>
+					<!-- <li><a href="">Копия протокола</a></li>-->
+					<li><a href="">Отчет наблюдателя</a></li>
+
+				</ul>
+			</div>
 		</div>
 		<!-- /STAT BLOCK -->
 
 
-		<div id="partSeparator"> </div>
+		<div class="partSeparator"> </div>
 
 
 		<!-- RESULTS -->

@@ -220,6 +220,19 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
     }
 
     /**
+     * @return boolean
+     */
+    public function isEmpty()
+    {
+        $data = $this->getDiagramData(true, 0);
+        if (array_sum($data)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * @param boolean $inPercent
      * @param int $digits
      * @return array

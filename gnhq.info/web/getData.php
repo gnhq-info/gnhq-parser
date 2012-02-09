@@ -57,7 +57,9 @@ if ($uik) {
     $response->mode = DISPLAY_MODE_UIK;
     $response->ofResult = $protocolGateway->getMixedResult(null, $uik, null, false, false)->getDiagramData($inPercent, $digits);
     $response->gnResult = $protocolGateway->getMixedResult(null, $uik, WATCH_GN, false, false)->getDiagramData($inPercent, $digits);
-
+    $response->hasProtocol = 1 - intval($protocolGateway->getMixedResult(null, $uik, WATCH_GN, true, false)->isEmpty());
+    $response->reportLink = '';
+    $response->protocolLink = '';
 } elseif ($okrugAbbr) {
     // режим Округа
     $response->mode = DISPLAY_MODE_OIK;

@@ -54,9 +54,10 @@
 		<!-- STAT BLOCK -->
 		<div class="span3">
 			<div id="currentStats" style="display: none; text-align: left;">
-				<div><strong id="uikCount"></strong> участков</div>
-				<div>Получено <strong id="protocolCount"></strong> протоколов</div>
-				<div>На <strong id="discrepancyCount"></strong > участках данные ЦИК расходятся с протоколами</div>
+				<div>Охвачено участков: <strong id="uikCount"></strong></div>
+				<div>Получено протоколов: <strong id="protocolCount"></strong></div>
+				<div id="hasDiscrepancy" style="display: none;">На <strong id="discrepancyCount"></strong > участк<span id="discrepancyOne">е</span><span id="discrepancyMany">ах</span> данные ЦИК расходятся с протоколами</div>
+				<div id="noDiscrepancy" style="display: none;">На всех участках данные ЦИК совпадают с протоколами</div>
 			</div>
 			<div id="uikMenu" style="display:none; text-align: left;">
 				<ul>

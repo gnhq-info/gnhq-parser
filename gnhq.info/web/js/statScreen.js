@@ -31,7 +31,7 @@ var StatScreen = {
 				if(!$(this).is(':first-child')) {
 					$(this).remove();
 				}
-			})
+			});
 		},
 		
 		getSelectionRow: function() {
@@ -52,6 +52,22 @@ var StatScreen = {
 		
 		getDiscrepancyCount: function() {
 			return $('#discrepancyCount');
+		},
+		
+		getDiscrepancy: function() {
+			return $('#hasDiscrepancy');
+		},
+		
+		getDiscrepancyOne: function() {
+			return $('#discrepancyOne');
+		},
+		
+		getDiscrepancyMany: function() {
+			return $('#discrepancyMany');
+		},
+		
+		getNoDiscrepancy: function() {
+			return $('#noDiscrepancy');
 		},
 		
 		getLineValue: function(lineCode, watchType) {
@@ -103,7 +119,7 @@ var StatScreen = {
 				'okrugAbbr':     StatScreen.Filter.getOkrugAbbr(),
 				'uik':           StatScreen.Filter.getUik(),
 				'selectionType': StatScreen.Filter.getSelectionType()
-			}
+			};
 		},
 		
 		Activate: function() {
@@ -157,7 +173,21 @@ var StatScreen = {
 		},
 		
 		setDiscrepancyCount: function(cnt) {
-			StatScreen.Jq.getDiscrepancyCount().text(cnt);
+			if (cnt == 0) {
+				StatScreen.Jq.getNoDiscrepancy().show();
+				StatScreen.Jq.getDiscrepancy().hide();
+			} else {
+				StatScreen.Jq.getNoDiscrepancy().hide();
+				StatScreen.Jq.getDiscrepancy().show();
+				StatScreen.Jq.getDiscrepancyCount().text(cnt);
+				if (cnt == 1) {
+					StatScreen.Jq.getDiscrepancyMany().hide();
+					StatScreen.Jq.getDiscrepancyOne().show();
+				} else {
+					StatScreen.Jq.getDiscrepancyMany().show();
+					StatScreen.Jq.getDiscrepancyOne().hide();
+				}
+			}
 		},
 		
 		setProtocolCount: function(cnt) {
@@ -171,7 +201,7 @@ var StatScreen = {
 			} else {
 				StatScreen.Jq.getNoReport().hide();
 				StatScreen.Jq.getReport().show().find('a').each(function(){
-					$(this).attr('href', reportLink)	
+					$(this).attr('href', reportLink);
 				});
 			}
 		},

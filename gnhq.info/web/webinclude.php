@@ -4,14 +4,22 @@ if (!defined('PROJECT_STARTED')) {
 }
 
 ini_set('register_globals', 0);
+ini_set('display_errors', 0);
+
 
 $dirParts = explode(DIRECTORY_SEPARATOR, __DIR__);
 unset($dirParts[count($dirParts)-1]);
 $dirParts[] = 'php';
+$errorLogPath = implode(DIRECTORY_SEPARATOR, $dirParts) . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'error.log';
 $dirParts[] = 'ParserIKData';
 $dirParts[] = 'Actions';
 $dirParts[] = 'include.php';
 $logicIncludeFilePath = implode(DIRECTORY_SEPARATOR, $dirParts);
+
+ini_set('log_errors', 1);
+ini_set('error_reporting', E_ALL);
+ini_set('error_log', $errorLogPath);
+unset($errorLogPath);
 
 include_once $logicIncludeFilePath;
 

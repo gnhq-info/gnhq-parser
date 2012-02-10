@@ -8,3 +8,4 @@ host=yourhost
 user=youruser
 password=yourpws
 db=yourdb
+charset=charset

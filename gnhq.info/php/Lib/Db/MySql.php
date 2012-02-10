@@ -132,13 +132,18 @@ class Lib_Db_MySql
     {
         if ($this->_connection == null) {
             $this->_connection = mysql_connect(
-            $this->_getConfig()->getHost(),
-            $this->_getConfig()->getUser(),
-            $this->_getConfig()->getPwd()
+                $this->_getConfig()->getHost(),
+                $this->_getConfig()->getUser(),
+                $this->_getConfig()->getPwd()
             );
             if (!$this->_connection) {
                 throw new Exception('cant connect to database: '.mysql_error());
             }
+            $charset = $this->_getConfig()->getCharset();
+            mysql_query('SET character_set_client = '.$charset);
+            mysql_query('SET character_set_connection = '.$charset);
+            mysql_query('SET character_set_results = '.$charset);
+            mysql_query('SET NAMES '.$charset);
         }
         return $this->_connection;
     }

@@ -15,6 +15,10 @@ class Lib_Db_Config
         return $this->_data['host'];
     }
 
+    public function getCharset() {
+        return $this->_data['charset'];
+    }
+
 
     /**
      * @param Lib_Config_Interface $config
@@ -24,8 +28,9 @@ class Lib_Db_Config
         if (!$config->getValue('host') || !$config->getValue('user') || !$config->getValue('password')) {
             throw new Exception('DB connection parameters are not full');
         }
-        $this->_data['host'] = $config->getValue('host');
-        $this->_data['user'] = $config->getValue('user');
-        $this->_data['pwd']  = $config->getValue('password');
+        $this->_data['host']     = $config->getValue('host');
+        $this->_data['user']     = $config->getValue('user');
+        $this->_data['pwd']      = $config->getValue('password');
+        $this->_data['charset']  = $config->getValue('charset');
     }
 }

@@ -9,8 +9,8 @@ define('BASE_INCLUDE_DIR', implode(DIRECTORY_SEPARATOR, $dirParts) . DIRECTORY_S
 unset($dir);
 unset($dirParts);
 
-define('APPLICATION_DIR_ROOT', BASE_INCLUDE_DIR . 'ParserIKData\\');
-define('LIB_DIR_ROOT', BASE_INCLUDE_DIR . 'Lib\\');
+define('APPLICATION_DIR_ROOT', BASE_INCLUDE_DIR . 'ParserIKData/');
+define('LIB_DIR_ROOT', BASE_INCLUDE_DIR . 'Lib/');
 
 include_once LIB_DIR_ROOT . 'String/Extracter.php';
 

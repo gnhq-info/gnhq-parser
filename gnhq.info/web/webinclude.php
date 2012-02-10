@@ -23,6 +23,14 @@ unset($errorLogPath);
 
 include_once $logicIncludeFilePath;
 
+define('DEBUG', PHP_OS == 'WINNT' ? true : false);
+define('AUTH_NEEDED', strtolower($_SERVER['HTTP_HOST']) == 'gnhq.info' ? true : false);
+
+if (AUTH_NEEDED) {
+    include('auth.php');
+}
+
+
 define('WATCH_GN', ParserIKData_Model_Protocol412::TYPE_GN);
 /**
 * @var ParserIKData_Warehouse_Interface

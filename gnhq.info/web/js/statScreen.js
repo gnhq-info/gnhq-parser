@@ -135,7 +135,7 @@ var StatScreen = {
 		},
 		
 		Activate: function() {
-			var rqData;
+			var rqData, data;
 			Decoration.SplashScreen.Show();
 			rqData = StatScreen.Exchange.FormRequest();
 			if (data = StatScreen.Exchange.cache[rqData.key]) {

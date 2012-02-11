@@ -78,7 +78,7 @@
 
 
 
-		<div class="partSeparator"> </div>
+		<div class="partSeparator" style="border-bottom: 1px grey solid;"> </div>
 
 
 		<!-- RESULTS -->

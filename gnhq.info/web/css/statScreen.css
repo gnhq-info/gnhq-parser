@@ -1,3 +1,16 @@
-
 div.partSeparator {height: 35px; clear: both;}
 form label {cursor: pointer;}
+.splashscreen {position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background-color:#CCCCCC;
+    background-repeat:no-repeat;
+    background-image: url("../img/img16.gif");
+    background-position: center ;
+    text-align:center;
+    opacity: 0.6;
+    -moz-opacity: 0.6;
+    filter: alpha(opacity=60);
+}

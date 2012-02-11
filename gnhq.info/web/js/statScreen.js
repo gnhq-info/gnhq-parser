@@ -1,6 +1,6 @@
 var StatScreen = {
 	
-	init: function() {
+	Init: function() {
 		StatScreen.Jq.getOkrug().change(function() {
 			StatScreen.Jq.clearUik();
 			StatScreen.Exchange.Activate();	
@@ -131,6 +131,7 @@ var StatScreen = {
 		},
 		
 		Activate: function() {
+			Decoration.SplashScreen.Show();
 			$.ajax(
 				'getData.php', 
 				{
@@ -139,9 +140,13 @@ var StatScreen = {
 					'cache'     : true,
 					'async'     : true,
 					'success'   : function(data, status, request) {
+										Decoration.SplashScreen.Hide();
 										StatScreen.Exchange.Redraw(data.mode);
     									StatScreen.Exchange.SetResult(data);
-								  }
+								  },
+					'error'     : function(data, status, request) {
+										Decoration.SplashScreen.Hide();
+					              }
 				}
 			);
 		}, 
@@ -259,8 +264,30 @@ var StatScreen = {
 	}
 };
 
+var Decoration = {
+	
+	Tooltips: function() {
+		$('.line-title').tooltip({'placement' : 'top'});
+	},	
+	SplashScreen: {
+		
+		_div: null,
+		
+		Show: function () {
+			if (!Decoration.SplashScreen._div) {
+				Decoration.SplashScreen._div = $('<div>').addClass('splashScreen'). css({'height': $(document).height()}).appendTo($('body'))
+			}
+			Decoration.SplashScreen._div.show();
+		},
+		Hide: function () {
+			Decoration.SplashScreen._div.hide();
+		}
+	}
+};
+
 $(document).ready(function() {
-	StatScreen.init();
+	StatScreen.Init();
+	Decoration.Tooltips();
 	StatScreen.Exchange.Activate();
 });
 

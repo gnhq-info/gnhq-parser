@@ -37,7 +37,7 @@
 			</div>
 			<div class="row" id="selectionRow">
 				<div class="span2">
-					<label class="form-horizontal"><input type="radio" selected="selected" id="<?php echo SELECTION_TYPE_DEFAULT?>"
+					<label class="form-horizontal"><input type="radio" checked="checked" id="<?php echo SELECTION_TYPE_DEFAULT?>"
 						value="<?php echo SELECTION_TYPE_DEFAULT?>" name="selectionType"/> Все участки</label>
 				</div>
 				<div class="span3">

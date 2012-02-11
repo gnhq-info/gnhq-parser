@@ -19,6 +19,10 @@ class Lib_Db_Config
         return $this->_data['charset'];
     }
 
+    public function getDefaultDatabase() {
+        return $this->_data['db'];
+    }
+
 
     /**
      * @param Lib_Config_Interface $config
@@ -31,6 +35,15 @@ class Lib_Db_Config
         $this->_data['host']     = $config->getValue('host');
         $this->_data['user']     = $config->getValue('user');
         $this->_data['pwd']      = $config->getValue('password');
-        $this->_data['charset']  = $config->getValue('charset');
+        if ($config->getValue('charset')) {
+            $this->_data['charset']  = $config->getValue('charset');
+        } else {
+            $this->_data['charset'] = 'UTF-8';
+        }
+        if ($config->getValue('db')) {
+            $this->_data['db'] = $config->getValue('db');
+        } else {
+            $this->_data['db'] = null;
+        }
     }
 }

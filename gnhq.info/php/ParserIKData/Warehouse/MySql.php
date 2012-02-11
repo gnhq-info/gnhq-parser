@@ -333,8 +333,6 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     public function __construct($serviceLocator)
     {
         $this->_mysql = $serviceLocator->getMySql();
-        $this->_mysqlConfig = $serviceLocator->getMySqlConfig();
-        $this->_mysql->selectDb($this->_mysqlConfig->getValue('db'));
     }
 
 }

@@ -23,13 +23,14 @@ class Lib_Db_MySql
     {
         $this->_config = $dbConf;
         $this->_getConnection();
+        if ($this->_config->getDefaultDatabase()) {
+            $this->selectDb($this->_config->getDefaultDatabase());
+        }
     }
 
     public function __destruct()
     {
-        //if (is_resource($this->_connection)) {
         mysql_close($this->_connection);
-        //}
     }
 
     public function truncateTable($tableName)

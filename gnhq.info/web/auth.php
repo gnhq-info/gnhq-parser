@@ -11,7 +11,7 @@ if (!defined('PROJECT_STARTED')) {
  */
 class Gnhq_Info_Auth
 {
-    public static function auth()
+    public static function auth($requiredRoles)
     {
         $session = self::_getCurrentSession();
         if (!$session) {
@@ -22,6 +22,29 @@ class Gnhq_Info_Auth
         if ($uid < 1) {
             self::_redirectToLogin();
         }
+        // $uid = 5;
+
+        $uroles = self::_getUserRoles($uid);
+
+        if (!is_array($requiredRoles)) {
+            $requiredRoles = array($requiredRoles);
+        }
+        foreach ($requiredRoles as $role) {
+            if (in_array(strtolower($role), $uroles)) {
+                return;
+            }
+        }
+        die('You dont have access for this application!');
+    }
+
+    private static function _getUserRoles($userId)
+    {
+        $data = self::_getDb()->selectAssoc('r.id, r.tag', 'rbac_roles AS r INNER JOIN rbac_u2r AS ru ON r.id = ru.role', 'ru.user = '.intval($userId));
+        $roles = array();
+        foreach ($data as $i => $row) {
+            $roles[] = strtolower($row['tag']);
+        }
+        return $roles;
     }
 
     private static function _redirectToLogin()
@@ -59,4 +82,4 @@ class Gnhq_Info_Auth
     }
 }
 
-Gnhq_Info_Auth::auth();
+Gnhq_Info_Auth::auth('LOGIN');

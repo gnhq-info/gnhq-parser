@@ -24,7 +24,7 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
             if ($onlyClean) {
                 $conds[] = 'FullName IN (' . $this->_getWatchGateway()->getCondClear($watchType) . ')';
             } elseif ($onlyWithDiscrepancy) {
-                $conds[] = 'FullName IN (' . $this->_getProtocolGateway()->getCondDiscrepancy($resultType) .')';
+                $conds[] = 'FullName IN (' . $this->_getProtocolGateway()->getCondDiscrepancy($watchType) .')';
             }
         }
 

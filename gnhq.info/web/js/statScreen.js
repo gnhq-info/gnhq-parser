@@ -122,34 +122,48 @@ var StatScreen = {
 	},
 	
 	Exchange: {
+		
+		cache: {},
+		
 		FormRequest: function() {
 			return {
 				'okrugAbbr':     StatScreen.Filter.getOkrugAbbr(),
 				'uik':           StatScreen.Filter.getUik(),
-				'selectionType': StatScreen.Filter.getSelectionType()
+				'selectionType': StatScreen.Filter.getSelectionType(),
+				'key':           StatScreen.Filter.getOkrugAbbr() + '|' + StatScreen.Filter.getUik() + '|' + StatScreen.Filter.getSelectionType() 
 			};
 		},
 		
 		Activate: function() {
+			var rqData;
 			Decoration.SplashScreen.Show();
-			$.ajax(
+			rqData = StatScreen.Exchange.FormRequest();
+			if (data = StatScreen.Exchange.cache[rqData.key]) {
+				StatScreen.Exchange.OnResponse(data);
+			} else {
+				$.ajax(
 				'getData.php', 
 				{
-					'data'      : StatScreen.Exchange.FormRequest(),
+					'data'      : rqData,
 					'dataType'  : 'json',
-					'cache'     : true,
 					'async'     : true,
 					'success'   : function(data, status, request) {
-										Decoration.SplashScreen.Hide();
-										StatScreen.Exchange.Redraw(data.mode);
-    									StatScreen.Exchange.SetResult(data);
+										StatScreen.Exchange.OnResponse(data);
+    									StatScreen.Exchange.cache[rqData.key] = data;
 								  },
 					'error'     : function(data, status, request) {
 										Decoration.SplashScreen.Hide();
 					              }
 				}
-			);
+				);
+			}
 		}, 
+		
+		OnResponse: function(data) {
+			Decoration.SplashScreen.Hide();
+			StatScreen.Exchange.Redraw(data.mode);
+    		StatScreen.Exchange.SetResult(data);
+		},
 		
 		Redraw: function(mode) {
 			if (mode == 'UIK') {
@@ -286,8 +300,13 @@ var Decoration = {
 };
 
 $(document).ready(function() {
-	StatScreen.Init();
+	// default ajax settings
+	$.ajaxSetup({cache: true, ifModified: true});
+	// decoration
 	Decoration.Tooltips();
+	
+	
+	StatScreen.Init();
 	StatScreen.Exchange.Activate();
 });
 

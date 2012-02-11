@@ -35,19 +35,23 @@
 					</select>
 				</div>
 			</div>
-			<div class="row" id="selectionRow">
-				<div class="span2">
+			<div class="row span6" id="selectionRow">
+				<div>
 					<label class="form-horizontal"><input type="radio" checked="checked" id="<?php echo SELECTION_TYPE_DEFAULT?>"
 						value="<?php echo SELECTION_TYPE_DEFAULT?>" name="selectionType"/> Все участки</label>
 				</div>
-				<div class="span3">
+				<div>
 					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_PROTOCOL?>"
-						value="<?php echo SELECTION_TYPE_PROTOCOL?>" name="selectionType"/> Только с протоколами</label>
+						value="<?php echo SELECTION_TYPE_PROTOCOL?>" name="selectionType"/> Участки с полученными протоколами</label>
 				</div>
-				<div class="span3">
+				<div>
 					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_CLEAN?>" value="<?php echo SELECTION_TYPE_CLEAN?>"
-						name="selectionType"/> Без серьезных нарушений</label>
+						name="selectionType"/> Участки без серьезных нарушений</label>
 				</div>
+				<!-- <div>
+					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_DISCREPANCY?>" value="<?php echo SELECTION_TYPE_DISCREPANCY?>"
+						name="selectionType"/> Участки, где данные ЦИК расходятся с протоколами</label>
+				</div> -->
 			</div>
 		</div>
 
@@ -104,6 +108,6 @@
 
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/statScreen.js"></script>
+	<script type="text/javascript" src="js/statScreen.js?1"></script>
 </body>
 </html>

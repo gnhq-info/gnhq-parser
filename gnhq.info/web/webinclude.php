@@ -40,6 +40,7 @@ $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 define('SELECTION_TYPE_DEFAULT', 'ALL');
 define('SELECTION_TYPE_PROTOCOL', 'PROTOCOL');
 define('SELECTION_TYPE_CLEAN', 'CLEAN');
+define('SELECTION_TYPE_DISCREPANCY', 'DISCR');
 
 define('DISPLAY_MODE_UIK', 'UIK');
 define('DISPLAY_MODE_OIK', 'OIK');

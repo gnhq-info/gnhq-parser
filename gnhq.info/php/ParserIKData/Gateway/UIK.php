@@ -6,15 +6,28 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
     /**
      * @param string $okrugAbbr
      * @param string|null $watchType
+     * @param boolean $onlyWithProtocols
+     * @param boolean $onlyClean
+     * @param boolean $onlyWithDiscrepancy
      * @return ParserIKData_Model_UIK[]
      */
-    public function getForOkrug($okrugAbbr, $watchType = null)
+    public function getForOkrug($okrugAbbr, $watchType = null, $onlyWithProtocols = false, $onlyClean = false, $onlyWithDiscrepancy = false)
     {
         $conds = array();
         $conds[] =  'FullName IN (' . $this->_getCondOkrug($okrugAbbr) . ')';
         if ($watchType) {
             $conds[] = 'FullName IN ( '. $this->_getCondWatchType($watchType). ')';
         }
+        if ($onlyWithProtocols) {
+            $conds[] = 'FullName IN ('.$this->_getProtocolGateway()->getCondResultType($watchType).')';
+
+            if ($onlyClean) {
+                $conds[] = 'FullName IN (' . $this->_getWatchGateway()->getCondClear($watchType) . ')';
+            } elseif ($onlyWithDiscrepancy) {
+                $conds[] = 'FullName IN (' . $this->_getProtocolGateway()->getCondDiscrepancy($resultType) .')';
+            }
+        }
+
         $cond = '( ' . implode(' ) AND (', $conds) . ' )';
         $result = $this->_getDriver()->select('*', $this->_table, $cond, null, null);
         $uiks = array();

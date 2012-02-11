@@ -74,7 +74,7 @@ if ($uik) {
     // режим Округа
     $response->mode = DISPLAY_MODE_OIK;
     $uikGateway = new ParserIKData_Gateway_UIK();
-    $uiks = $uikGateway->getForOkrug($okrugAbbr, WATCH_GN);
+    $uiks = $uikGateway->getForOkrug($okrugAbbr, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy);
     foreach ($uiks as $uik) {
         /* @var $uik ParserIKData_Model_UIK */
         $response->uiks[] = $uik->getFullName();

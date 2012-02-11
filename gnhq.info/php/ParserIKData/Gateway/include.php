@@ -39,4 +39,37 @@ class ParserIKData_Gateway_Abstract
     {
         return $this->_getDriver()->fetchResultToArray($result);
     }
+
+
+    /**
+    * @return ParserIKData_Gateway_UIK
+    */
+    final protected function _getUikGateway()
+    {
+        return new ParserIKData_Gateway_UIK();
+    }
+
+    /**
+     * @return ParserIKData_Gateway_Watch412
+     */
+    final protected function _getWatchGateway()
+    {
+        return new ParserIKData_Gateway_Watch412();
+    }
+
+    /**
+     * @return ParserIKData_Gateway_TIK
+     */
+    final protected function _getTikGateway()
+    {
+        return new ParserIKData_Gateway_TIK();
+    }
+
+    /**
+     * @return ParserIKData_Gateway_Protocol412
+     */
+    final protected function _getProtocolGateway()
+    {
+        return new ParserIKData_Gateway_Protocol412();
+    }
 }

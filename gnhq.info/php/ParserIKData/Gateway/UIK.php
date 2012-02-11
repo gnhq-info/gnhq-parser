@@ -40,14 +40,4 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
     {
         return $this->_getWatchGateway()->getCondIn($watchType);
     }
-
-    private function _getTikGateway()
-    {
-        return new ParserIKData_Gateway_TIK();
-    }
-
-    private function _getWatchGateway()
-    {
-        return new ParserIKData_Gateway_Watch412();
-    }
 }

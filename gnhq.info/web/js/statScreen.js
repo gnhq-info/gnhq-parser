@@ -104,6 +104,10 @@ var StatScreen = {
 		
 		getNoReport: function() {
 			return $('#noReport');
+		},
+		
+		getStatHdr: function() {
+			return $('#statsHdr');
 		}
 	},
 	
@@ -178,6 +182,7 @@ var StatScreen = {
 		},
 		
 		SetResult: function(data) {
+			StatScreen.ResultSetter.setStatsHdr(data);
 			if (data.mode != 'UIK') {
 				StatScreen.ResultSetter.setTotalCount(data.totalCount);
 				StatScreen.ResultSetter.setDiscrepancyCount(data.discrepancyCount);
@@ -195,6 +200,18 @@ var StatScreen = {
 	},
 	
 	ResultSetter: {
+		
+		setStatsHdr: function(data) {
+			console.log(data);
+			if (data.mode == 'UIK') {
+				StatScreen.Jq.getStatHdr().html('УИК ' + StatScreen.Jq.getUik().val());
+			} else if (data.mode == 'OIK') {
+				StatScreen.Jq.getStatHdr().html(StatScreen.Jq.getOkrug().val());
+			} else {
+				StatScreen.Jq.getStatHdr().html('Москва');
+			}
+		}, 
+		
 		setTotalCount: function(cnt) {
 			StatScreen.Jq.getTotalCount().text(cnt);
 		},

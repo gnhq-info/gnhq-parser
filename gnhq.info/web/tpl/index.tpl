@@ -11,16 +11,16 @@
 	<div class="partSeparator"> </div>
 	<!-- SEARCH FORM -->
 		<form id="filterForm" name="filterForm">
-		<div class="span8">
+		<div class="span7">
 			<div class="row">
 				<div class="span2">
 					<div>Город:</div>
 					<select style="width: 130px"><option>Москва</option></select>
 				</div>
-				<div class="span3">
+				<div class="span2">
 					<div>Округ:</div>
-					<select id="okrug" name="okrug" style="width: 130px;">
-						<option value="">--- не выбран ---</option>
+					<select id="okrug" name="okrug" style="width: 130px">
+						<option value="">- не выбран -</option>
 						<?php foreach ($view->okrugs as $okrug) { ?>
 						<option value="<?php echo $okrug->getAbbr();?>">
 						<?php echo $okrug->getAbbr();?>
@@ -30,12 +30,12 @@
 				</div>
 				<div class="span3">
 					<div>УИК:</div>
-					<select id="uik" name="uik" style="width: 130px;">
-						<option value="">--- не выбран ---</option>
+					<select id="uik" name="uik" style="width: 130px">
+						<option value="">- не выбран -</option>
 					</select>
 				</div>
 			</div>
-			<div class="row span6" id="selectionRow">
+			<div class="row span5" id="selectionRow">
 				<div>
 					<label class="form-horizontal"><input type="radio" checked="checked" id="<?php echo SELECTION_TYPE_DEFAULT?>"
 						value="<?php echo SELECTION_TYPE_DEFAULT?>" name="selectionType"/> Все участки</label>
@@ -48,15 +48,16 @@
 					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_CLEAN?>" value="<?php echo SELECTION_TYPE_CLEAN?>"
 						name="selectionType"/> Участки без серьезных нарушений</label>
 				</div>
-				<!-- <div>
+				<div>
 					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_DISCREPANCY?>" value="<?php echo SELECTION_TYPE_DISCREPANCY?>"
 						name="selectionType"/> Участки, где данные ЦИК расходятся с протоколами</label>
-				</div> -->
+				</div>
 			</div>
 		</div>
 
 		<!-- STAT BLOCK -->
-		<div class="span3">
+		<div class="span4">
+			<h4 id="statsHdr"></h4>
 			<div id="currentStats" style="display: none; text-align: left;">
 				<div>Охвачено участков: <strong id="uikCount"></strong></div>
 				<div>Получено протоколов: <strong id="protocolCount"></strong></div>

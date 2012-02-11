@@ -40,14 +40,4 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
     {
         return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType = "'.$this->_escapeString($watchType).'" AND code = 1';
     }
-
-    private function _getProtocolGateway()
-    {
-        return new ParserIKData_Gateway_Protocol412();
-    }
-
-    private function _getUikGateway()
-    {
-        return new ParserIKData_Gateway_UIK();
-    }
 }

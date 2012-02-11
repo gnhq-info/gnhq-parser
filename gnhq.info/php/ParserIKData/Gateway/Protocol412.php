@@ -10,9 +10,10 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
      * @param string $resultType
      * @param boolean $onlyResultProtocols  - только по протоколам проекта - имеет смысл только если $resultType != null
      * @param boolean $onlyClean            - только чистые - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол)
+     * @param boolean $onlyClean            - только c расхождениями - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол от ГН)
      * @return ParserIKData_Model_Protocol412|NULL
      */
-    public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $onlyResultProtocols = false, $onlyClean = false)
+    public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $onlyResultProtocols = false, $onlyClean = false, $onlyWithDiscrepancy = false)
     {
         $condParts = array();
         if (!$resultType) {
@@ -27,6 +28,8 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
                 if ($onlyClean) {
                     // используем только протоколы данного типа по чистым участкам (если нет протокола - грубое нарушение - не может быть чистым)
                     $condParts[] = 'IkFullName IN (' . $this->_getWatchGateway()->getCondClear($resultType) . ')';
+                } elseif ($onlyWithDiscrepancy) {
+                    $condParts[] = 'IkFullName IN (' . $this->getCondDiscrepancy($resultType) . ')';
                 }
             }
         }
@@ -203,21 +206,5 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
             $statement .= ', SUM(Line' . $i . ') AS Line' . $i;
         }
         return $statement;
-    }
-
-    /**
-     * @return ParserIKData_Gateway_UIK
-     */
-    private function _getUikGateway()
-    {
-        return new ParserIKData_Gateway_UIK();
-    }
-
-    /**
-     * @return ParserIKData_Gateway_Watch412
-     */
-    private function _getWatchGateway()
-    {
-        return new ParserIKData_Gateway_Watch412();
     }
 }

@@ -25,20 +25,20 @@ $warehouse->loadAllOkrugs();
 
 //     echo str_repeat(' ', 10) . $okrugAbbr . PHP_EOL;
 
-    $off = $gateway->getUikCount($okrugAbbr, $uikNum, $watchOf, false, false, false);
-    var_dump($off);
+//     $off = $gateway->getUikCount($okrugAbbr, $uikNum, $watchOf, false, false, false);
+//     var_dump($off);
 
-    $gn = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, false, false, false);
+    $gn = $gateway->getUikCount(null, $uikNum, $watchGn, false, false, false, true);
     var_dump($gn);
 
-    $gnProtocol = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, false);
-    var_dump($gnProtocol);
+//     $gnProtocol = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, false);
+//     var_dump($gnProtocol);
 
-    $gnProtocolClean = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, true, false);
-    var_dump($gnProtocolClean);
+//     $gnProtocolClean = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, true, false);
+//     var_dump($gnProtocolClean);
 
-    $gnProtocolDiscr = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, true);
-    var_dump($gnProtocolDiscr);
+//     $gnProtocolDiscr = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, true);
+//     var_dump($gnProtocolDiscr);
 
 // }
 

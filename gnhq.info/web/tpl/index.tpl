@@ -52,6 +52,10 @@
 					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_DISCREPANCY?>" value="<?php echo SELECTION_TYPE_DISCREPANCY?>"
 						name="selectionType"/> Участки, где данные ЦИК расходятся с протоколами</label>
 				</div>
+				<div>
+					<label class="form-horizontal"><input type="radio" id="<?php echo SELECTION_TYPE_REPORT?>" value="<?php echo SELECTION_TYPE_REPORT?>"
+						name="selectionType"/> Участки с отчетами</label>
+				</div>
 			</div>
 		</div>
 

@@ -6,26 +6,30 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
     /**
      * @param string $okrugAbbr
      * @param string|null $watchType
-     * @param boolean $onlyWithProtocols
-     * @param boolean $onlyClean
-     * @param boolean $onlyWithDiscrepancy
+     * @param boolean $oProto
+     * @param boolean $oClean
+     * @param boolean $oDiscrep
+     * @param boolean $oReport
      * @return ParserIKData_Model_UIK[]
      */
-    public function getForOkrug($okrugAbbr, $watchType = null, $onlyWithProtocols = false, $onlyClean = false, $onlyWithDiscrepancy = false)
+    public function getForOkrug($okrugAbbr, $watchType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
         $conds = array();
         $conds[] =  'FullName IN (' . $this->_getCondOkrug($okrugAbbr) . ')';
         if ($watchType) {
             $conds[] = 'FullName IN ( '. $this->_getCondWatchType($watchType). ')';
         }
-        if ($onlyWithProtocols) {
+        if ($oProto) {
             $conds[] = 'FullName IN ('.$this->_getProtocolGateway()->getCondResultType($watchType).')';
 
-            if ($onlyClean) {
+            if ($oClean) {
                 $conds[] = 'FullName IN (' . $this->_getWatchGateway()->getCondClear($watchType) . ')';
-            } elseif ($onlyWithDiscrepancy) {
+            } elseif ($oDiscrep) {
                 $conds[] = 'FullName IN (' . $this->_getProtocolGateway()->getCondDiscrepancy($watchType) .')';
             }
+        }
+        if ($oReport) {
+            $conds[] = 'FullName IN (' . $this->_getReportGateway()->getCondWithReport($watchType) . ')';
         }
 
         $cond = '( ' . implode(' ) AND (', $conds) . ' )';

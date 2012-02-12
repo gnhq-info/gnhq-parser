@@ -21,3 +21,5 @@ form label {cursor: pointer;}
 
 .line-negative {color: red;}
 .line-positive {color: black;}
+
+option.disabled {color: #cccccc;}

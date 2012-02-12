@@ -20,7 +20,7 @@ if (!$okrugAbbrOk) {
 $uik = isset($_GET['uik']) ? intval($_GET['uik']) : null;
 
 $selectionType = isset($_GET['selectionType']) ? $_GET['selectionType'] : SELECTION_TYPE_DEFAULT;
-if (!in_array($selectionType, array(SELECTION_TYPE_DEFAULT, SELECTION_TYPE_PROTOCOL, SELECTION_TYPE_CLEAN, SELECTION_TYPE_DISCREPANCY))) {
+if (!in_array($selectionType, array(SELECTION_TYPE_DEFAULT, SELECTION_TYPE_PROTOCOL, SELECTION_TYPE_CLEAN, SELECTION_TYPE_DISCREPANCY, SELECTION_TYPE_REPORT))) {
     $selectionType = SELECTION_TYPE_DEFAULT;
 }
 /* далее все входные данные очищены */
@@ -34,6 +34,7 @@ $digits = 2;
 $onlyProtocol = false;
 $onlyClean = false;
 $onlyWithDiscrepancy = false;
+$onlyWithReport = false;
 if ($selectionType == SELECTION_TYPE_PROTOCOL) {
     $onlyProtocol = true;
 }
@@ -44,6 +45,9 @@ if ($selectionType == SELECTION_TYPE_CLEAN) {
 if ($selectionType == SELECTION_TYPE_DISCREPANCY) {
     $onlyProtocol = true;
     $onlyWithDiscrepancy = true;
+}
+if ($selectionType == SELECTION_TYPE_REPORT) {
+    $onlyWithReport = true;
 }
 
 // формат ответа
@@ -65,7 +69,7 @@ if ($uik) {
     $response->mode = DISPLAY_MODE_UIK;
     $response->ofResult = $protocolGateway->getMixedResult(null, $uik, null, false, false, false)->getDiagramData($inPercent, $digits);
     $response->gnResult = $protocolGateway->getMixedResult(null, $uik, WATCH_GN, false, false, false)->getDiagramData($inPercent, $digits);
-    $response->hasProtocol = 1 - intval($protocolGateway->getMixedResult(null, $uik, WATCH_GN, true, false, false)->isEmpty());
+    $response->hasProtocol = 1 - intval($protocolGateway->getMixedResult(null, $uik, WATCH_GN, true, false, false, false)->isEmpty());
     $response->reportLink = '';
     $report = $reportGateway->getForUik($uik);
     if ($report && $report->getLink()) {
@@ -78,7 +82,7 @@ if ($uik) {
     // режим Округа
     $response->mode = DISPLAY_MODE_OIK;
     $uikGateway = new ParserIKData_Gateway_UIK();
-    $uiks = $uikGateway->getForOkrug($okrugAbbr, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy);
+    $uiks = $uikGateway->getForOkrug($okrugAbbr, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy, $onlyWithReport);
     foreach ($uiks as $uik) {
         /* @var $uik ParserIKData_Model_UIK */
         $response->uiks[] = $uik->getFullName();
@@ -86,20 +90,20 @@ if ($uik) {
     $response->totalCount       = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, false);
     $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, $okrugAbbr, true, false);
     $response->protocolCount    = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, true);
-    $response->ofResult         = $protocolGateway->getMixedResult($okrugAbbr, null, null, false, false, false)->getDiagramData($inPercent, $digits);
-    $response->ofCount          = $protocolGateway->getUikCount($okrugAbbr, null, null, false, false, false);
-    $response->gnResult         = $protocolGateway->getMixedResult($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy)->getDiagramData($inPercent, $digits);
-    $response->gnCount          = $protocolGateway->getUikCount($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy);
+    $response->ofResult         = $protocolGateway->getMixedResult($okrugAbbr, null, null, false, false, false, false)->getDiagramData($inPercent, $digits);
+    $response->ofCount          = $protocolGateway->getUikCount($okrugAbbr, null, null, false, false, false, false);
+    $response->gnResult         = $protocolGateway->getMixedResult($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy, $onlyWithReport)->getDiagramData($inPercent, $digits);
+    $response->gnCount          = $protocolGateway->getUikCount($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy, $onlyWithReport);
 } else {
     // режим региона (город)
     $response->mode = DISPLAY_MODE_RIK;
     $response->totalCount       = $watchGateway->getCount(WATCH_GN, null, false);
     $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, null, true);
     $response->protocolCount    = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, true);
-    $response->ofResult         = $protocolGateway->getMixedResult(null, null, null, false, false, false)->getDiagramData($inPercent, $digits);
-    $response->ofCount          = $protocolGateway->getUikCount(null, null, null, false, false, false);
-    $response->gnResult         = $protocolGateway->getMixedResult(null, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy)->getDiagramData($inPercent, $digits);
-    $response->gnCount          = $protocolGateway->getUikCount(null, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy);
+    $response->ofResult         = $protocolGateway->getMixedResult(null, null, null, false, false, false, false)->getDiagramData($inPercent, $digits);
+    $response->ofCount          = $protocolGateway->getUikCount(null, null, null, false, false, false, false);
+    $response->gnResult         = $protocolGateway->getMixedResult(null, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy, $onlyWithReport)->getDiagramData($inPercent, $digits);
+    $response->gnCount          = $protocolGateway->getUikCount(null, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy, $onlyWithReport);
 }
 
 

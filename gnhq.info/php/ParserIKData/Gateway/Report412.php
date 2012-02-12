@@ -18,4 +18,14 @@ class ParserIKData_Gateway_Report412 extends ParserIKData_Gateway_Abstract
         }
         return null;
     }
+
+
+    /**
+     * @param string $resultType
+     * @return string
+     */
+    public function getCondWithReport($resultType)
+    {
+        return 'SELECT uik FROM ' . $this->_table . ' WHERE link IS NOT NULL AND Link != ""';
+    }
 }

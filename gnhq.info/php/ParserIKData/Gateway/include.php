@@ -72,4 +72,12 @@ class ParserIKData_Gateway_Abstract
     {
         return new ParserIKData_Gateway_Protocol412();
     }
+
+    /**
+    * @return ParserIKData_Gateway_Report412
+    */
+    final protected function _getReportGateway()
+    {
+        return new ParserIKData_Gateway_Report412();
+    }
 }

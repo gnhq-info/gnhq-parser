@@ -8,14 +8,15 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
      * @param string $okrugAbbr
      * @param int $uikNum
      * @param string $resultType
-     * @param boolean $onlyResultProtocols  - только по протоколам проекта - имеет смысл только если $resultType != null
-     * @param boolean $onlyClean            - только чистые - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол)
-     * @param boolean $onlyWithDiscrepancy  - только c расхождениями - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол от ГН)
+     * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
+     * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
+     * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
+     * @param boolean $oReport   - только с отчетами
      * @return ParserIKData_Model_Protocol412|NULL
      */
-    public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $onlyResultProtocols = false, $onlyClean = false, $onlyWithDiscrepancy = false)
+    public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
-        $cond = $this->_buildCond($okrugAbbr, $uikNum, $resultType, $onlyResultProtocols, $onlyClean, $onlyWithDiscrepancy);
+        $cond = $this->_buildCond($okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
         $query = $this->_buildSumQuery($cond);
         return $this->_fetchSumProtocol($query);
     }
@@ -24,14 +25,15 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     * @param string $okrugAbbr
     * @param int $uikNum
     * @param string $resultType
-    * @param boolean $onlyResultProtocols  - только по протоколам проекта - имеет смысл только если $resultType != null
-    * @param boolean $onlyClean            - только чистые - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол)
-    * @param boolean $onlyWithDiscrepancy  - только c расхождениями - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол от ГН)
+    * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
+    * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
+    * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
+    * @param boolean $oReport   - только с отчетами
     * @return ParserIKData_Model_Protocol412|NULL
     */
-    public function getUikCount($okrugAbbr = null, $uikNum = null, $resultType = null, $onlyResultProtocols = false, $onlyClean = false, $onlyWithDiscrepancy = false)
+    public function getUikCount($okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
-        $cond = $this->_buildCond($okrugAbbr, $uikNum, $resultType, $onlyResultProtocols, $onlyClean, $onlyWithDiscrepancy);
+        $cond = $this->_buildCond($okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
         $data = $this->_getDriver()->selectAssoc('COUNT(DISTINCT IkFullName) as Count', $this->_table, $cond);
         return $data[0]['Count'];
     }
@@ -71,29 +73,33 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     * @param string $okrugAbbr
     * @param int $uikNum
     * @param string $resultType
-    * @param boolean $onlyResultProtocols  - только по протоколам проекта - имеет смысл только если $resultType != null
-    * @param boolean $onlyClean            - только чистые - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол)
-    * @param boolean $onlyWithDiscrepancy  - только c расхождениями - имеет смысл только если $onlyResultProtocols = true (на чистом участке должен быть протокол от ГН)
+    * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
+    * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
+    * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
+    * @param boolean $oReport   - только с отчетами
     * @return string
     */
-    private function _buildCond($okrugAbbr = null, $uikNum = null, $resultType = null, $onlyResultProtocols = false, $onlyClean = false, $onlyWithDiscrepancy = false)
+    private function _buildCond($okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
         $condParts = array();
         if (!$resultType) {
             $condParts[] = $this->_getCondOfficial();
         } else {
-            if ($onlyResultProtocols == false) {
+            if ($oProto == false) {
                 // все результаты данного типа (не важно - есть или нет протокол, чистый ли участок или нет
                 $condParts[] = $this->_getCondResultForType($resultType);
             } else {
                 // используем только протоколы данного типа
                 $condParts[] = $this->_getCondResultType($resultType);
-                if ($onlyClean) {
+                if ($oClean) {
                     // используем только протоколы данного типа по чистым участкам (если нет протокола - грубое нарушение - не может быть чистым)
                     $condParts[] = 'IkFullName IN (' . $this->_getWatchGateway()->getCondClear($resultType) . ')';
-                } elseif ($onlyWithDiscrepancy) {
+                } elseif ($oDiscrep) {
                     $condParts[] = 'IkFullName IN (' . $this->getCondDiscrepancy($resultType) . ')';
                 }
+            }
+            if ($oReport) {
+                $condParts[] = 'IkFullName IN (' . $this->_getReportGateway()->getCondWithReport($resultType)  . ')';
             }
         }
         if ($okrugAbbr) {

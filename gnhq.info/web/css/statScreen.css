@@ -18,3 +18,6 @@ form label {cursor: pointer;}
     -moz-opacity: 0.6;
     filter: alpha(opacity=60);
 }
+
+.line-negative {color: red;}
+.line-positive {color: black;}

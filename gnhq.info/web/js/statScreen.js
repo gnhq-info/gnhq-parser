@@ -281,8 +281,8 @@ var StatScreen = {
 		setResultDiscrepancy: function(ofResult, gnResult) {
 			var _discr;
 			for (var lineCode in ofResult) {
-				discr = (ofResult[lineCode] - gnResult[lineCode]).toFixed(2);
-				StatScreen.ResultSetter._setLineValue(lineCode, 'DISCR', discr);
+				_discr = (ofResult[lineCode] - gnResult[lineCode]).toFixed(2);
+				StatScreen.ResultSetter._setLineNumber(lineCode, 'DISCR', _discr);
 			}
 		},
 		
@@ -309,6 +309,11 @@ var StatScreen = {
 		
 		_setLineNumber: function(lineCode, watchType, result) {
 			StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');
+			if (result < 0) {
+				StatScreen.Jq.getLineValue(lineCode, watchType).addClass('line-negative').removeClass('line-positive');
+			} else {
+				StatScreen.Jq.getLineValue(lineCode, watchType).removeClass('line-negative').addClass('line-positive');
+			}
 		},
 		
 		_setLineDiag: function(lineCode, watchType, result) {

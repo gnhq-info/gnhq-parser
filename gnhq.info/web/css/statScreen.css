@@ -1,5 +1,9 @@
-div.partSeparator {height: 35px; clear: both;}
+.partSeparator {height: 10px; clear: both;}
+
+.hr {border-bottom: 1px grey solid;}
+
 form label {cursor: pointer;}
+
 .splashscreen {position:absolute;
     top:0;
     left:0;

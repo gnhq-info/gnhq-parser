@@ -54,6 +54,8 @@ if ($selectionType == SELECTION_TYPE_DISCREPANCY) {
  * discrepancyCount => число участков с расхождением в протоколах
  * ofResult         => результаты официальные
  * gnResult         => результаты ГН
+ * ofCount          => количество участков, данные по которым учитываются в текущей статистике ЦИК
+ * gnCount          => количество участков, данные по которым учитываются в текущей статистике ГН
  */
 $response = new stdClass();
 $response->uiks = array();
@@ -70,6 +72,8 @@ if ($uik) {
         $response->reportLink = GN_SITE . $report->getLink();
     }
     $response->protocolLink = '';
+    $response->ofCount = 1;
+    $response->gnCount = 1;
 } elseif ($okrugAbbr) {
     // режим Округа
     $response->mode = DISPLAY_MODE_OIK;
@@ -83,7 +87,9 @@ if ($uik) {
     $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, $okrugAbbr, true, false);
     $response->protocolCount    = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, true);
     $response->ofResult         = $protocolGateway->getMixedResult($okrugAbbr, null, null, false, false, false)->getDiagramData($inPercent, $digits);
+    $response->ofCount          = $protocolGateway->getUikCount($okrugAbbr, null, null, false, false, false);
     $response->gnResult         = $protocolGateway->getMixedResult($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy)->getDiagramData($inPercent, $digits);
+    $response->gnCount          = $protocolGateway->getUikCount($okrugAbbr, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy);
 } else {
     // режим региона (город)
     $response->mode = DISPLAY_MODE_RIK;
@@ -91,7 +97,9 @@ if ($uik) {
     $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, null, true);
     $response->protocolCount    = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, true);
     $response->ofResult         = $protocolGateway->getMixedResult(null, null, null, false, false, false)->getDiagramData($inPercent, $digits);
+    $response->ofCount          = $protocolGateway->getUikCount(null, null, null, false, false, false);
     $response->gnResult         = $protocolGateway->getMixedResult(null, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy)->getDiagramData($inPercent, $digits);
+    $response->gnCount          = $protocolGateway->getUikCount(null, null, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy);
 }
 
 

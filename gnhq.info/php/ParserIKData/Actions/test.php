@@ -25,17 +25,20 @@ $warehouse->loadAllOkrugs();
 
 //     echo str_repeat(' ', 10) . $okrugAbbr . PHP_EOL;
 
-    $off = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchOf, false, false);
-    _debugPringDiagram($off->getDiagramData(true, 2));
+    $off = $gateway->getUikCount($okrugAbbr, $uikNum, $watchOf, false, false, false);
+    var_dump($off);
 
-    $gn = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, false, false);
-    _debugPringDiagram($gn->getDiagramData(true, 2));
+    $gn = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, false, false, false);
+    var_dump($gn);
 
-    $gnProtocol = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, true, false);
-    _debugPringDiagram($gnProtocol->getDiagramData(true, 2));
+    $gnProtocol = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, false);
+    var_dump($gnProtocol);
 
-    $gnProtocolClean = $gateway->getMixedResult($okrugAbbr, $uikNum, $watchGn, true, true);
-    _debugPringDiagram($gnProtocolClean->getDiagramData(true, 2));
+    $gnProtocolClean = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, true, false);
+    var_dump($gnProtocolClean);
+
+    $gnProtocolDiscr = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, true);
+    var_dump($gnProtocolDiscr);
 
 // }
 

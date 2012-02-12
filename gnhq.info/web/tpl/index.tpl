@@ -8,7 +8,7 @@
 <body>
 	<div class="container" style="margin-top: 25px;">
 	<h3>Результаты выборов в Государственную Думу РФ 4 декабря 2011 года</h3>
-	<div class="partSeparator"> </div>
+	<div class="partSeparator hr"> </div>
 	<!-- SEARCH FORM -->
 		<form id="filterForm" name="filterForm">
 		<div class="span7">
@@ -20,7 +20,7 @@
 				<div class="span2">
 					<div>Округ:</div>
 					<select id="okrug" name="okrug" style="width: 130px">
-						<option value="">- не выбран -</option>
+						<option value="">-- не выбран --</option>
 						<?php foreach ($view->okrugs as $okrug) { ?>
 						<option value="<?php echo $okrug->getAbbr();?>">
 						<?php echo $okrug->getAbbr();?>
@@ -31,7 +31,7 @@
 				<div class="span3">
 					<div>УИК:</div>
 					<select id="uik" name="uik" style="width: 130px">
-						<option value="">- не выбран -</option>
+						<option value="">-- не выбран --</option>
 					</select>
 				</div>
 			</div>
@@ -83,16 +83,17 @@
 
 
 
-		<div class="partSeparator" style="border-bottom: 1px grey solid;"> </div>
+		<div class="partSeparator hr"> </div>
 
 
 		<!-- RESULTS -->
 		<table class="table table-striped" id="results">
 			<thead>
 				<tr>
-					<th width="20%"></th>
+					<th width="15%"></th>
 					<th width="40%" colspan="2">Выборка</th>
 					<th width="40%" colspan="2">ЦИК</th>
+					<th width="5%">Разница</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -102,6 +103,12 @@
 				    }
 				    unset($line);
 				 ?>
+				 <tr>
+				 	<td>Всего участков</td>
+				 	<td colspan="2" id="gnCount" style="font-weight: 700;"></td>
+				 	<td colspan="2" id="ofCount" style="font-weight: 700;"></td>
+				 	<td> </td>
+				 </tr>
 			</tbody>
 		</table>
 		<!-- /RESULTS -->

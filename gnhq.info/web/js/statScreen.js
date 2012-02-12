@@ -6,9 +6,6 @@ var StatScreen = {
 			StatScreen.Exchange.Activate();	
 		});
 		StatScreen.Jq.getUik().change(function() {
-			if (StatScreen.Jq.getUik().val() != '') {
-				StatScreen.Jq.getSelectionRow().find('#ALL').get(0).checked = true;
-			}
 			StatScreen.Exchange.Activate();
 			
 		});
@@ -108,6 +105,14 @@ var StatScreen = {
 		
 		getStatHdr: function() {
 			return $('#statsHdr');
+		},
+		
+		getOfCount: function() {
+			return $('#ofCount');
+		},
+		
+		getGnCount: function() {
+			return $('#gnCount');
 		}
 	},
 	
@@ -173,11 +178,11 @@ var StatScreen = {
 			if (mode == 'UIK') {
 				StatScreen.Jq.getUikMenu().show();
 				StatScreen.Jq.getCurrentStats().hide();
-				StatScreen.Jq.getSelectionRow().css({'visibility': 'hidden'});
+				StatScreen.Jq.getSelectionRow().find('input[type=radio]').attr('disabled', 'disabled');
 			} else {
 				StatScreen.Jq.getUikMenu().hide();
 				StatScreen.Jq.getCurrentStats().show();
-				StatScreen.Jq.getSelectionRow().css({'visibility': 'visible'});
+				StatScreen.Jq.getSelectionRow().find('input[type=radio]').removeAttr('disabled');
 			}
 		},
 		
@@ -194,15 +199,15 @@ var StatScreen = {
 			}
 			StatScreen.ResultSetter.setGnResult(data.gnResult);
 			StatScreen.ResultSetter.setOfResult(data.ofResult);
+			StatScreen.ResultSetter.setResultDiscrepancy(data.ofResult, data.gnResult);
+			StatScreen.ResultSetter.setOfCount(data.ofCount);
+			StatScreen.ResultSetter.setGnCount(data.gnCount);
 		}
-		
-		
 	},
 	
 	ResultSetter: {
 		
 		setStatsHdr: function(data) {
-			console.log(data);
 			if (data.mode == 'UIK') {
 				StatScreen.Jq.getStatHdr().html('УИК ' + StatScreen.Jq.getUik().val());
 			} else if (data.mode == 'OIK') {
@@ -214,6 +219,14 @@ var StatScreen = {
 		
 		setTotalCount: function(cnt) {
 			StatScreen.Jq.getTotalCount().text(cnt);
+		},
+		
+		setOfCount: function(cnt) {
+			StatScreen.Jq.getOfCount().text(cnt);
+		},
+		
+		setGnCount: function(cnt) {
+			StatScreen.Jq.getGnCount().text(cnt);
 		},
 		
 		setDiscrepancyCount: function(cnt) {
@@ -265,6 +278,14 @@ var StatScreen = {
 			StatScreen.ResultSetter._setResult(ofResult, 'OF');
 		},
 		
+		setResultDiscrepancy: function(ofResult, gnResult) {
+			var _discr;
+			for (var lineCode in ofResult) {
+				discr = (ofResult[lineCode] - gnResult[lineCode]).toFixed(2);
+				StatScreen.ResultSetter._setLineValue(lineCode, 'DISCR', discr);
+			}
+		},
+		
 		setHasProtocol: function(hasProtocol) {
 			if (hasProtocol) {
 				StatScreen.Jq.getNoProtocol().hide();
@@ -282,12 +303,19 @@ var StatScreen = {
 		},
 		
 		_setLineValue: function(lineCode, watchType, result) {
-			var realWidth;
-			StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');
-			realWidth = (StatScreen.Jq.getLineDiagCont(lineCode, watchType).width() * parseFloat(result) / 100).toFixed(0);
-			
-			StatScreen.Jq.getLineDiag(lineCode, watchType).css('width', realWidth + 'px');
+			StatScreen.ResultSetter._setLineNumber(lineCode, watchType, result);
+			StatScreen.ResultSetter._setLineDiag(lineCode, watchType, result);
 		},
+		
+		_setLineNumber: function(lineCode, watchType, result) {
+			StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');
+		},
+		
+		_setLineDiag: function(lineCode, watchType, result) {
+			var realWidth;
+			realWidth = (StatScreen.Jq.getLineDiagCont(lineCode, watchType).width() * parseFloat(result) / 100).toFixed(0);
+			StatScreen.Jq.getLineDiag(lineCode, watchType).css('width', realWidth + 'px');	
+		}, 
 		
 		_addUik: function(uik) {
 			$('<option>').val(uik).html('УИК ' + uik).appendTo(StatScreen.Jq.getUik());
@@ -306,7 +334,7 @@ var Decoration = {
 		
 		Show: function () {
 			if (!Decoration.SplashScreen._div) {
-				Decoration.SplashScreen._div = $('<div>').addClass('splashScreen'). css({'height': $(document).height()}).appendTo($('body'))
+				Decoration.SplashScreen._div = $('<div>').addClass('splashScreen'). css({'height': $(document).height()}).appendTo($('body'));
 			}
 			Decoration.SplashScreen._div.show();
 		},

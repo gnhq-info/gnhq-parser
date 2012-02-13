@@ -2,6 +2,7 @@
 class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'uik';
+    private $_view_uik_okrug = 'uik_okrug';
 
     /**
      * @param string $okrugAbbr
@@ -50,7 +51,7 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
     private function _getCondOkrug($okrugAbbr)
     {
         $tikOkrugCond = $this->_getTikGateway()->getCondOkrug($okrugAbbr);
-        return 'SELECT FullName FROM ' . $this->_table . ' WHERE TikUniqueId IN (' . $tikOkrugCond .')';
+        return 'SELECT uik FROM ' . $this->_view_uik_okrug . ' WHERE okrug = "'. $this->_getDriver()->escapeString($okrugAbbr) .'"';
     }
 
     private function _getCondWatchType($watchType)

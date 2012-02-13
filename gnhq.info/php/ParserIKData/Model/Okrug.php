@@ -6,6 +6,26 @@
  */
 class ParserIKData_Model_Okrug extends ParserIKData_Model
 {
+    private $_discrepancyCount = 0;
+
+    /**
+     * @return number
+     */
+    public function getDiscrepancyCount()
+    {
+        return $this->_discrepancyCount;
+    }
+
+    /**
+     * @param int $cnt
+     * @return ParserIKData_Model_Okrug
+     */
+    public function setDiscrepancyCount($cnt)
+    {
+        $this->_discrepancyCount = intval($cnt);
+        return $this;
+    }
+
     /**
      * @var ParserIKData_Model_TIK[]
      */

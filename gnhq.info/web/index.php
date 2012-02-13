@@ -4,11 +4,18 @@ include 'webinclude.php';
 
 
 $warehouse->loadAllOkrugs();
+$okrugGateway = new ParserIKData_Gateway_Okrug();
 
-$watchGateway = new ParserIKData_Gateway_Watch412();
 
 $view = new stdClass();
 $view->okrugs = ParserIKData_Model_Okrug::getAllOBjects();
+$okrugDiscr = $okrugGateway->getDiscrepancyCount();
+
+
+foreach ($okrugDiscr as $okrugAbbr => $count) {
+    ParserIKData_Model_Okrug::getFromPool($okrugAbbr)->setDiscrepancyCount($count);
+}
+
 
 $view->diagRows = array(
 	array('key' => 'S',  'hdr' => 'СР',               'title' => 'Справедливая Россия', 'color' => 'yellow'),

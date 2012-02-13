@@ -10,7 +10,7 @@ var StatScreen = {
 			
 		});
 		StatScreen.Jq.getSelectionRow().find('input').change(function() {
-			StatScreen.Exchange.Activate();	
+			StatScreen.Exchange.Activate();
 		});
 	},
 	
@@ -113,6 +113,10 @@ var StatScreen = {
 		
 		getGnCount: function() {
 			return $('#gnCount');
+		},
+		
+		getDiscrRadio: function() {
+			return $('#DISCR');
 		}
 	},
 	
@@ -128,6 +132,47 @@ var StatScreen = {
 		getSelectionType: function() {
 			return StatScreen.Jq.getSelectionType().attr('id');
 		}
+	},
+	
+	Redraw : {
+			
+			go: function() {
+				if (StatScreen.Jq.getSelectionType().val() == 'DISCR') {
+					StatScreen.Redraw.disableClearOkrugs();
+				} else {
+					StatScreen.Redraw.enableClearOkrugs();
+					if (StatScreen.Jq.getOkrug().find(':selected').attr('discrepancy') == 0) {
+						StatScreen.Redraw.disableDiscrRadio();
+					} else {
+						StatScreen.Redraw.enableDiscrRadio();
+					}
+				}
+			},
+			
+			disableDiscrRadio: function() {
+				StatScreen.Jq.getDiscrRadio().parent().addClass('disabled');
+				StatScreen.Jq.getDiscrRadio().attr('disabled', 'disabled');
+			},
+		
+			enableDiscrRadio: function() {
+				StatScreen.Jq.getDiscrRadio().parent().removeClass('disabled').removeAttr('disabled');
+				StatScreen.Jq.getDiscrRadio().removeAttr('disabled');
+			},
+		
+			enableClearOkrugs: function() {
+				StatScreen.Jq.getOkrug().find('option[discrepancy=0]').each(function() {
+					$(this).get(0).disabled = false;
+					$(this).removeClass('disabled');
+				});
+			},
+		
+		
+			disableClearOkrugs: function() {
+				StatScreen.Jq.getOkrug().find('option[discrepancy=0]').each(function() {
+					$(this).get(0).disabled = true;
+					$(this).addClass('disabled');
+				});
+			}
 	},
 	
 	Exchange: {
@@ -172,6 +217,7 @@ var StatScreen = {
 			Decoration.SplashScreen.Hide();
 			StatScreen.Exchange.Redraw(data.mode);
     		StatScreen.Exchange.SetResult(data);
+    		StatScreen.Redraw.go();
 		},
 		
 		Redraw: function(mode) {

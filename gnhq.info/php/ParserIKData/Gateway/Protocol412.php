@@ -21,23 +21,6 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
         return $this->_fetchSumProtocol($query);
     }
 
-    /**
-    * @param string $okrugAbbr
-    * @param int $uikNum
-    * @param string $resultType
-    * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
-    * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
-    * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
-    * @param boolean $oReport   - только с отчетами
-    * @return ParserIKData_Model_Protocol412|NULL
-    */
-    public function getUikCount($okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
-    {
-        $cond = $this->_buildCond($okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
-        $data = $this->_getDriver()->selectAssoc('COUNT(DISTINCT IkFullName) as Count', $this->_table, $cond);
-        return $data[0]['Count'];
-    }
-
     public function getCondResultType($resultType)
     {
         return 'SELECT IkFullName FROM '.$this->_table.' WHERE IkType = "UIK" AND '. $this->_getCondResultType($resultType);
@@ -135,7 +118,9 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
             return null;
         }
         while ( ($data = $this->_fetchResultToArray($result)) !== false) {
+            $count = array_pop($data);
             $protocol = ParserIKData_Model_Protocol412::fromArray($data);
+            $protocol->setUikCount($count);
             return $protocol;
         }
         return null;
@@ -147,7 +132,7 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
      */
     private function _buildSumQuery($condString)
     {
-        return 'SELECT ' . $this->_getSumSelect() . ' FROM ' . $this->_table . ' WHERE ' . $condString;
+        return 'SELECT ' . $this->_getSumSelect() . ', COUNT(DISTINCT IkFullName) as Count  FROM ' . $this->_table . ' WHERE ' . $condString;
     }
 
     /**

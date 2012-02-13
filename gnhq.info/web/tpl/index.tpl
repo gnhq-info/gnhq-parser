@@ -20,9 +20,15 @@
 				<div class="span2">
 					<div>Округ:</div>
 					<select id="okrug" name="okrug" style="width: 130px">
-						<option value="">-- не выбран --</option>
+						<option value="" discrepancy="<?php
+						    $view->totalDiscrepancy = 0;
+						    foreach ($view->okrugs as $okrug) {
+						    $view->totalDiscrepancy += intval($okrug->getDiscrepancyCount());
+						    }
+						    echo $view->totalDiscrepancy;
+						?>">-- не выбран --</option>
 						<?php foreach ($view->okrugs as $okrug) { ?>
-						<option value="<?php echo $okrug->getAbbr();?>">
+						<option value="<?php echo $okrug->getAbbr();?>" discrepancy="<?php echo $okrug->getDiscrepancyCount();?>">
 						<?php echo $okrug->getAbbr();?>
 						</option>
 						<?php } ?>

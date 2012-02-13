@@ -29,6 +29,19 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
 
     const ALLOWABLE_DISCREPANCY = 10;
 
+    private $_uikCount = 1;
+
+    public function getUikCount()
+    {
+        return $this->_uikCount;
+    }
+
+    public function setUikCount($uikCount)
+    {
+        $this->_uikCount = $uikCount;
+        return $this;
+    }
+
     /**
      * @return ParserIKData_Model_UIK|NULL
      */

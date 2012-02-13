@@ -9,38 +9,9 @@ $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 
 
 $gateway = new ParserIKData_Gateway_Protocol412();
+$okrGateway = new ParserIKData_Gateway_Okrug();
 
-
-
-$okrugAbbr = 'ЗелАО';
-$uikNum = null;
-$watchOf = null;
-$watchGn = ParserIKData_Model_Protocol412::TYPE_GN;
-
-$warehouse->loadAllOkrugs();
-
-// foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
-//     /* @var $okrug ParserIKData_Model_Okrug */
-//     $okrugAbbr = $okrug->getAbbr();
-
-//     echo str_repeat(' ', 10) . $okrugAbbr . PHP_EOL;
-
-//     $off = $gateway->getUikCount($okrugAbbr, $uikNum, $watchOf, false, false, false);
-//     var_dump($off);
-
-    $gn = $gateway->getUikCount(null, $uikNum, $watchGn, false, false, false, true);
-    var_dump($gn);
-
-//     $gnProtocol = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, false);
-//     var_dump($gnProtocol);
-
-//     $gnProtocolClean = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, true, false);
-//     var_dump($gnProtocolClean);
-
-//     $gnProtocolDiscr = $gateway->getUikCount($okrugAbbr, $uikNum, $watchGn, true, false, true);
-//     var_dump($gnProtocolDiscr);
-
-// }
+var_dump($okrGateway->getDiscrepancyCount());
 
 
 function _debugPringDiagram($diagData)

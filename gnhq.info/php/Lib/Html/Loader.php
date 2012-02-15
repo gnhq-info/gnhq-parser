@@ -4,8 +4,12 @@ class Lib_Html_Loader
     private $_src;
     private $_useCache;
     private $_outputCharset = 'UTF-8';
-    private $_cacheDir;
     private $_inputEncoding = null;
+
+    /**
+     * @var ParserIKData_Cache_Web
+     */
+    private $_cache = null;
 
     public function __construct($src, $useCache = true, $outputCharset = null)
     {
@@ -14,17 +18,9 @@ class Lib_Html_Loader
         if ($outputCharset) {
             $this->_outputCharset = $outputCharset;
         }
+        $this->_cache = ParserIKData_Cache_Web::factory('ParserIKData_Cache_Web');
     }
 
-    /**
-     * @param string $dir
-     * @return Lib_Html_Loader
-     */
-    public function setCacheDir($dir)
-    {
-        $this->_cacheDir = $dir;
-        return $this;
-    }
 
     /**
      * @param string $enc
@@ -92,12 +88,7 @@ class Lib_Html_Loader
      */
     private function _writeToCache($result)
     {
-        if ($result) {
-            $writeResult = file_put_contents($this->_getCacheFilename(), $result);
-            return $writeResult;
-        } else {
-            return false;
-        }
+        $this->_cache->save($this->_buildCacheKey(), $result);
     }
 
     /**
@@ -106,21 +97,9 @@ class Lib_Html_Loader
      */
     private function _loadFromCache()
     {
-        $cacheFileName = $this->_getCacheFilename();
-        if (file_exists($cacheFileName)) {
-            return file_get_contents($cacheFileName);
-        } else {
-            return false;
-        }
+        return $this->_cache->read($this->_buildCacheKey());
     }
 
-    /**
-     * @return string
-     */
-    private function _getCacheFilename()
-    {
-        return rtrim($this->_cacheDir, DIRECTORY_SEPARATOR) .  DIRECTORY_SEPARATOR . $this->_buildCacheKey();
-    }
 
     private function _buildCacheKey()
     {

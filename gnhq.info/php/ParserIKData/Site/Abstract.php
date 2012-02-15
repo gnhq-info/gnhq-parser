@@ -158,7 +158,6 @@ abstract class ParserIKData_Site_Abstract
     {
         if ($this->_loader === null) {
             $this->_loader = new Lib_Html_Loader('', true);
-            $this->_loader->setCacheDir(rtrim(APPLICATION_DIR_ROOT, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'Cache');
             if ($this->_getSiteEncoding()) {
                 $this->_loader->setInputEncoding($this->_getSiteEncoding());
             }

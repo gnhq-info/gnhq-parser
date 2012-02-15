@@ -36,3 +36,5 @@ include_once APPLICATION_DIR_ROOT . 'Warehouse/Interface.php';
 include_once APPLICATION_DIR_ROOT . 'Model.php';
 
 include_once APPLICATION_DIR_ROOT . 'Gateway/include.php';
+
+include_once APPLICATION_DIR_ROOT . 'Cache/include.php';

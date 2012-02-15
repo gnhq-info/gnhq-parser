@@ -63,20 +63,19 @@ class Lib_Db_MySql
      * @param string $where
      * @param string $limit
      * @param string $order
+     * @param string $groupBy
      * @return array()
      */
-    public function selectAssoc($what, $from, $where = null, $limit = null, $order = null)
+    public function selectAssoc($what, $from, $where = null, $limit = null, $order = null, $groupBy = null)
     {
-        $result = $this->select($what, $from, $where, $limit, $order);
-        if(!$result) {
-            return array();
-        } else {
-            $data = array();
+        $result = $this->select($what, $from, $where, $limit, $order, $groupBy);
+        $data = array();
+        if ($result) {
             while ($row = mysql_fetch_assoc($result)) {
                 $data[] = $row;
             }
-            return $data;
         }
+        return $data;
     }
 
     /**
@@ -85,12 +84,36 @@ class Lib_Db_MySql
      * @param string $where
      * @param string $limit
      * @param string $order
+     * @return array()
      */
-    public function select($what, $from, $where = null, $limit = null, $order = null)
+    public function selectRows($what, $from, $where = null, $limit = null, $order = null)
+    {
+        $result = $this->select($what, $from, $where, $limit, $order);
+        $data = array();
+        if ($result) {
+            while ($row = mysql_fetch_row($result)) {
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @param string $what
+     * @param string $from
+     * @param string $where
+     * @param string $limit
+     * @param string $order
+     * @param string $groupBy
+     */
+    public function select($what, $from, $where = null, $limit = null, $order = null, $groupBy = null)
     {
         $query = 'SELECT '.$what . ' FROM ' .$from;
         if ($where) {
             $query .= ' WHERE ' . $where;
+        }
+        if ($groupBy) {
+            $query .= ' GROUP BY ' . $groupBy;
         }
         if ($order) {
             $query .= ' ORDER BY ' . $order;
@@ -133,9 +156,9 @@ class Lib_Db_MySql
     {
         if ($this->_connection == null) {
             $this->_connection = mysql_connect(
-                $this->_getConfig()->getHost(),
-                $this->_getConfig()->getUser(),
-                $this->_getConfig()->getPwd()
+            $this->_getConfig()->getHost(),
+            $this->_getConfig()->getUser(),
+            $this->_getConfig()->getPwd()
             );
             if (!$this->_connection) {
                 throw new Exception('cant connect to database: '.mysql_error());

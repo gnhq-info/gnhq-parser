@@ -12,6 +12,8 @@ unset($dirParts);
 define('APPLICATION_DIR_ROOT', BASE_INCLUDE_DIR . 'ParserIKData/');
 define('LIB_DIR_ROOT', BASE_INCLUDE_DIR . 'Lib/');
 
+require_once LIB_DIR_ROOT . 'ZendConfig.php';
+
 include_once LIB_DIR_ROOT . 'String/Extracter.php';
 
 include_once LIB_DIR_ROOT. 'Html/DataMiner.php';
@@ -22,6 +24,8 @@ include_once LIB_DIR_ROOT. 'Config/Interface.php';
 
 include_once LIB_DIR_ROOT. 'Db/Config.php';
 include_once LIB_DIR_ROOT. 'Db/MySql.php';
+
+include_once LIB_DIR_ROOT. 'Cache/Basic.php';
 
 include_once APPLICATION_DIR_ROOT . 'ServiceLocator.php';
 

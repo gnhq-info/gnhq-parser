@@ -8,13 +8,16 @@ class ParserIKData_Gateway_Okrug extends ParserIKData_Gateway_Abstract
      */
     public function getDiscrepancyCount()
     {
-        $query =  'SELECT okrug, count(*) as DiscrCount FROM '.$this->_view_uik_okrug . '
-        	WHERE uik IN ('.$this->_getProtocolGateway()->getCondDiscrepancy(). ') GROUP BY okrug';
-        $result = $this->_getDriver()->query($query);
-
-        $data = array();
-        while ($arr = $this->_getDriver()->fetchResultToArray($result)) {
-            $data[$arr[0]] = $arr[1];
+        $result = $this->_getDriver()->selectAssoc(
+        	'okrug, count(*) as DiscrCount',
+            $this->_view_uik_okrug,
+        	'uik IN ('.$this->_getProtocolGateway()->getCondDiscrepancy(). ')',
+        	null,
+        	null,
+        	'okrug'
+        );
+        foreach ($result as $i => $row) {
+            $data[$row['okrug']] = $row['DiscrCount'];
         }
         return $data;
     }

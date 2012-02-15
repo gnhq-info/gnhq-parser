@@ -28,6 +28,7 @@ if (!in_array($selectionType, array(SELECTION_TYPE_DEFAULT, SELECTION_TYPE_PROTO
 
 $watchGateway = new ParserIKData_Gateway_Watch412();
 $protocolGateway = new ParserIKData_Gateway_Protocol412();
+$protocolGateway->setUseCache(true);
 $reportGateway = new ParserIKData_Gateway_Report412();
 $inPercent = true;
 $digits = 2;

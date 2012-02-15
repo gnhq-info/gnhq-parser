@@ -11,6 +11,16 @@ class ParserIKData_Gateway_Abstract
     private $_driver = null;
 
     /**
+     * @var ParserIKData_Cache_Gateway
+     */
+    private $_cache = null;
+
+    /**
+     * @var boolean
+     */
+    private $_useCache = false;
+
+    /**
      * @return Lib_Db_MySql
      */
     final protected function _getDriver()
@@ -42,8 +52,8 @@ class ParserIKData_Gateway_Abstract
 
 
     /**
-    * @return ParserIKData_Gateway_UIK
-    */
+     * @return ParserIKData_Gateway_UIK
+     */
     final protected function _getUikGateway()
     {
         return new ParserIKData_Gateway_UIK();
@@ -74,10 +84,55 @@ class ParserIKData_Gateway_Abstract
     }
 
     /**
-    * @return ParserIKData_Gateway_Report412
-    */
+     * @return ParserIKData_Gateway_Report412
+     */
     final protected function _getReportGateway()
     {
         return new ParserIKData_Gateway_Report412();
+    }
+
+
+    /**
+     * @return ParserIKData_Cache_Gateway
+     */
+    final protected function _getCache()
+    {
+        if ($this->_cache === null) {
+            $this->_cache = ParserIKData_Cache_Gateway::factory('ParserIKData_Cache_Gateway');
+        }
+        return $this->_cache;
+    }
+
+    /**
+     * @param string $method
+     * @param array $args
+     * @throws Exception
+     * @return string
+     */
+    final protected function _buildCacheKey($method, $args)
+    {
+        foreach ($args as $arg) {
+            if (is_object($arg)) {
+                throw new Exception('cant use cache for methods with object vars! ' .$method);
+            }
+        }
+        return md5($method . serialize($args));
+    }
+
+    /**
+     * @return boolean
+     */
+    final public function setUseCache($val)
+    {
+        $this->_useCache = (bool)$val;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    final public function useCache()
+    {
+        return $this->_useCache;
     }
 }

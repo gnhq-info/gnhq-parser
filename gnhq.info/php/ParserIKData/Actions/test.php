@@ -10,7 +10,7 @@ $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 
 $gateway = new ParserIKData_Gateway_Protocol412();
 $okrGateway = new ParserIKData_Gateway_Okrug();
-
+$okrGateway->setUseCache(true);
 var_dump($okrGateway->getDiscrepancyCount());
 
 

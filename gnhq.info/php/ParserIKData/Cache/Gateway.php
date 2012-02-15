@@ -12,7 +12,7 @@ class ParserIKData_Cache_Gateway extends Lib_Cache_Basic
             	'hashed_directory_level'  => 2,
             	'automatic_serialization' => true,
             	'hashed_directory_umask'  => 0700,
-            	'cache_dir'               => APPLICATION_DIR_ROOT . 'CacheDir' . DIRECTORY_SEPARATOR . 'Gateway'
+            	'cache_dir'               => APPLICATION_DIR_ROOT . 'SrcCache' . DIRECTORY_SEPARATOR . 'Gateway'
         );
     }
 }

@@ -12,7 +12,7 @@ class ParserIKData_Cache_Web extends Lib_Cache_Basic
             	'hashed_directory_level'  => 2,
             	'automatic_serialization' => true,
             	'hashed_directory_umask'  => 0700,
-            	'cache_dir'               => APPLICATION_DIR_ROOT . 'CacheDir' . DIRECTORY_SEPARATOR . 'Web'
+            	'cache_dir'               => APPLICATION_DIR_ROOT . 'SrcCache' . DIRECTORY_SEPARATOR . 'Web'
         );
     }
 }

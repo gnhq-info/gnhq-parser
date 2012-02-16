@@ -15,30 +15,36 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
      */
     public function getForOkrug($okrugAbbr, $watchType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
-        $conds = array();
-        $conds[] =  'FullName IN (' . $this->_getCondOkrug($okrugAbbr) . ')';
-        if ($watchType) {
-            $conds[] = 'FullName IN ( '. $this->_getCondWatchType($watchType). ')';
-        }
-        if ($oProto) {
-            $conds[] = 'FullName IN ('.$this->_getProtocolGateway()->getCondResultType($watchType).')';
+        $args = func_get_args();
 
-            if ($oClean) {
-                $conds[] = 'FullName IN (' . $this->_getWatchGateway()->getCondClear($watchType) . ')';
-            } elseif ($oDiscrep) {
-                $conds[] = 'FullName IN (' . $this->_getProtocolGateway()->getCondDiscrepancy($watchType) .')';
+        if (false === ($uiks = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            $conds = array();
+            $conds[] =  'FullName IN (' . $this->_getCondOkrug($okrugAbbr) . ')';
+            if ($watchType) {
+                $conds[] = 'FullName IN ( '. $this->_getCondWatchType($watchType). ')';
             }
-        }
-        if ($oReport) {
-            $conds[] = 'FullName IN (' . $this->_getReportGateway()->getCondWithReport($watchType) . ')';
-        }
+            if ($oProto) {
+                $conds[] = 'FullName IN ('.$this->_getProtocolGateway()->getCondResultType($watchType).')';
 
-        $cond = '( ' . implode(' ) AND (', $conds) . ' )';
-        $result = $this->_getDriver()->select('*', $this->_table, $cond, null, null);
-        $uiks = array();
-        while ( ($data = $this->_fetchResultToArray($result)) !== false) {
-            $uik = ParserIKData_Model_UIK::fromArray($data);
-            $uiks[$uik->getUniqueId()] = $uik;
+                if ($oClean) {
+                    $conds[] = 'FullName IN (' . $this->_getWatchGateway()->getCondClear($watchType) . ')';
+                } elseif ($oDiscrep) {
+                    $conds[] = 'FullName IN (' . $this->_getProtocolGateway()->getCondDiscrepancy($watchType) .')';
+                }
+            }
+            if ($oReport) {
+                $conds[] = 'FullName IN (' . $this->_getReportGateway()->getCondWithReport($watchType) . ')';
+            }
+
+            $cond = '( ' . implode(' ) AND (', $conds) . ' )';
+            $result = $this->_getDriver()->select('*', $this->_table, $cond, null, null);
+            $uiks = array();
+            while ( ($data = $this->_fetchResultToArray($result)) !== false) {
+                $uik = ParserIKData_Model_UIK::fromArray($data);
+                $uiks[$uik->getUniqueId()] = $uik;
+            }
+
+            $this->_saveToCache(__CLASS__, __METHOD__, $args, $uiks);
         }
         return $uiks;
     }

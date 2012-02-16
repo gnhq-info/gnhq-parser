@@ -5,22 +5,29 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
 
     public function getCount($watchType, $okrugAbbr = null, $withDiscrepancy = false, $withProtocol = false)
     {
-        $conds = array();
-        $conds[] = 'WatchType = "'.$this->_escapeString($watchType).'"';
-        if ($okrugAbbr) {
-            $conds[] = 'uik in (' . $this->_getUikGateway()->getCondOkrug($okrugAbbr) . ')';
+        $args = func_get_args();
+        if (false === ($count = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            $conds = array();
+            $conds[] = 'WatchType = "'.$this->_escapeString($watchType).'"';
+            if ($okrugAbbr) {
+                $conds[] = 'uik in (' . $this->_getUikGateway()->getCondOkrug($okrugAbbr) . ')';
+            }
+            if ($withDiscrepancy) {
+                $conds[] = 'uik in (' .$this->_getProtocolGateway()->getCondDiscrepancy($watchType, null, null) . ')';
+            }
+            if ($withProtocol) {
+                $conds[] = 'uik in (' . $this->_getProtocolGateway()->getCondResultType($watchType) . ')';
+            }
+            $cond = '(' . implode(') AND (', $conds) . ')';
+            $result = $this->_getDriver()->query('SELECT COUNT(*) FROM '. $this->_table . ' WHERE ' . $cond);
+            while ($res = $this->_fetchResultToArray($result)) {
+                $count = $res[0];
+            }
+
+            $this->_saveToCache(__CLASS__, __METHOD__, $args, $count);
         }
-        if ($withDiscrepancy) {
-            $conds[] = 'uik in (' .$this->_getProtocolGateway()->getCondDiscrepancy($watchType, null, null) . ')';
-        }
-        if ($withProtocol) {
-            $conds[] = 'uik in (' . $this->_getProtocolGateway()->getCondResultType($watchType) . ')';
-        }
-        $cond = '(' . implode(') AND (', $conds) . ')';
-        $result = $this->_getDriver()->query('SELECT COUNT(*) FROM '. $this->_table . ' WHERE ' . $cond);
-        while ($res = $this->_fetchResultToArray($result)) {
-            return ($res[0]);
-        }
+
+        return $count;
     }
 
     /**

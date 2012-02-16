@@ -27,9 +27,10 @@ if (!in_array($selectionType, array(SELECTION_TYPE_DEFAULT, SELECTION_TYPE_PROTO
 
 
 $watchGateway = new ParserIKData_Gateway_Watch412();
+$watchGateway->setUseCache(true);
 $protocolGateway = new ParserIKData_Gateway_Protocol412();
 $protocolGateway->setUseCache(true);
-$reportGateway = new ParserIKData_Gateway_Report412();
+$reportGateway = new ParserIKData_Gateway_Report412(); // данные по отчетам не кэшируем- они регулярно выкладываются на сайт
 $inPercent = true;
 $digits = 2;
 $onlyProtocol = false;
@@ -83,6 +84,7 @@ if ($uik) {
     // режим Округа
     $response->mode = DISPLAY_MODE_OIK;
     $uikGateway = new ParserIKData_Gateway_UIK();
+    $uikGateway->setUseCache(true);
     $uiks = $uikGateway->getForOkrug($okrugAbbr, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy, $onlyWithReport);
     foreach ($uiks as $uik) {
         /* @var $uik ParserIKData_Model_UIK */

@@ -1,5 +1,5 @@
 <?php
-abstract class Lib_Cache_Basic
+abstract class Lib_Cache_Basic implements Lib_Cache_Interface
 {
     /**
      * @var Zend_Cache_Core
@@ -9,10 +9,13 @@ abstract class Lib_Cache_Basic
 
     /**
      * @param string $className
-     * @return Lib_Cache_Basic
+     * @return Lib_Cache_Interface
      */
-    public static function factory($className)
+    public static function factory($className = null)
     {
+        if (empty($className)) {
+            $className = get_called_class();
+        }
         if (!@class_exists($className)) {
             throw new Exception('Класс не найден '.$className);
         }

@@ -25,7 +25,7 @@ include_once LIB_DIR_ROOT. 'Config/Interface.php';
 include_once LIB_DIR_ROOT. 'Db/Config.php';
 include_once LIB_DIR_ROOT. 'Db/MySql.php';
 
-include_once LIB_DIR_ROOT. 'Cache/Basic.php';
+include_once LIB_DIR_ROOT. 'Cache/Interface.php';
 
 include_once APPLICATION_DIR_ROOT . 'ServiceLocator.php';
 

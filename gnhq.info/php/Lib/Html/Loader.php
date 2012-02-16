@@ -7,7 +7,7 @@ class Lib_Html_Loader
     private $_inputEncoding = null;
 
     /**
-     * @var ParserIKData_Cache_Web
+     * @var Lib_Cache_Interface
      */
     private $_cache = null;
 
@@ -18,7 +18,12 @@ class Lib_Html_Loader
         if ($outputCharset) {
             $this->_outputCharset = $outputCharset;
         }
-        $this->_cache = ParserIKData_Cache_Web::factory('ParserIKData_Cache_Web');
+    }
+
+    public function setCache($cache)
+    {
+        $this->_cache = $cache;
+        return $this;
     }
 
 

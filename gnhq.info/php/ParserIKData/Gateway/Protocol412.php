@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author admin
+ */
 class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'result_412';

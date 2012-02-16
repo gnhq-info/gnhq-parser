@@ -9,7 +9,7 @@ $okrugGateway = new ParserIKData_Gateway_Okrug();
 
 $view = new stdClass();
 $view->okrugs = ParserIKData_Model_Okrug::getAllOBjects();
-$okrugDiscr = $okrugGateway->getDiscrepancyCount();
+$okrugDiscr = $okrugGateway->setUseCache(true)->getDiscrepancyCount();
 
 
 foreach ($okrugDiscr as $okrugAbbr => $count) {

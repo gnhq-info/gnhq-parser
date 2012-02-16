@@ -93,12 +93,12 @@ class ParserIKData_Gateway_Abstract
 
 
     /**
-     * @return ParserIKData_Cache_Gateway
+     * @return Lib_Cache_Interface
      */
     final protected function _getCache()
     {
         if ($this->_cache === null) {
-            $this->_cache = ParserIKData_Cache_Gateway::factory('ParserIKData_Cache_Gateway');
+            $this->_cache = ParserIKData_ServiceLocator::getInstance()->getGatewayCache();
         }
         return $this->_cache;
     }

@@ -57,7 +57,7 @@ class ParserIKData_ServiceLocator // implements Singleton
      */
     public function getMySqlConfig()
     {
-         return $this->getConfigForFile('mysql.ini');
+        return $this->getConfigForFile('mysql.ini');
     }
 
     /**
@@ -67,6 +67,22 @@ class ParserIKData_ServiceLocator // implements Singleton
     public function getConfigForFile($file)
     {
         return new Lib_Config_IniFile(array('iniFile' => $this->_getConfigDirectory() . $file));
+    }
+
+    /**
+     * @return Lib_Cache_Interface
+     */
+    public function getWebCache()
+    {
+        return ParserIKData_Cache_Web::factory();
+    }
+
+    /**
+     * @return Lib_Cache_Interface
+     */
+    public function getGatewayCache()
+    {
+        return ParserIKData_Cache_Gateway::factory();
     }
 
     /**

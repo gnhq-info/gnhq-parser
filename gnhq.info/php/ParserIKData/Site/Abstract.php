@@ -140,7 +140,11 @@ abstract class ParserIKData_Site_Abstract
      */
     final protected function _getPageContent($url, $useCache)
     {
-        return $this->_getLoader()->setSource($this->_getSite() . $url)->setUseCache($useCache)->load();
+        return $this->_getLoader()
+            ->setSource($this->_getSite() . $url)
+            ->setUseCache($useCache)
+            ->setCache(ParserIKData_ServiceLocator::getInstance()->getWebCache())
+            ->load();
     }
 
     /**

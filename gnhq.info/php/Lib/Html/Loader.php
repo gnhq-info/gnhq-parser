@@ -93,6 +93,9 @@ class Lib_Html_Loader
      */
     private function _writeToCache($result)
     {
+        if (!$this->_cache) {
+            return false;
+        }
         $this->_cache->save($this->_buildCacheKey(), $result);
     }
 
@@ -102,6 +105,9 @@ class Lib_Html_Loader
      */
     private function _loadFromCache()
     {
+        if (!$this->_cache) {
+            return false;
+        }
         return $this->_cache->read($this->_buildCacheKey());
     }
 

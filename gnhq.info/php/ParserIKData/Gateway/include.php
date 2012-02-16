@@ -93,9 +93,38 @@ class ParserIKData_Gateway_Abstract
 
 
     /**
+     * @param string $class
+     * @param string $method
+     * @param array $args
+     * @return boolean|mixed
+     */
+    final protected function _loadFromCache($class, $method, $args)
+    {
+        if (!$this->useCache()) {
+            return false;
+        }
+        return $this->_getCache()->read($this->_buildCacheKey($class, $method, $args));
+    }
+
+    /**
+     * @param string $class
+     * @param string $method
+     * @param array $args
+     * @param mixed $result
+     * @return boolean
+     */
+    final protected function _saveToCache($class, $method, $args, $result)
+    {
+        if (!$this->useCache()) {
+            return false;
+        }
+        return $this->_getCache()->save($this->_buildCacheKey($class, $method, $args), $result);
+    }
+
+    /**
      * @return Lib_Cache_Interface
      */
-    final protected function _getCache()
+    private function _getCache()
     {
         if ($this->_cache === null) {
             $this->_cache = ParserIKData_ServiceLocator::getInstance()->getGatewayCache();
@@ -104,19 +133,20 @@ class ParserIKData_Gateway_Abstract
     }
 
     /**
-     * @param string $method
+     * @param string $class
+     * @param string $function
      * @param array $args
      * @throws Exception
      * @return string
      */
-    final protected function _buildCacheKey($method, $args)
+    private function _buildCacheKey($class, $function, $args)
     {
         foreach ($args as $arg) {
             if (is_object($arg)) {
                 throw new Exception('cant use cache for methods with object vars! ' .$method);
             }
         }
-        return md5($method . serialize($args));
+        return md5($class . $function . serialize($args));
     }
 
     /**

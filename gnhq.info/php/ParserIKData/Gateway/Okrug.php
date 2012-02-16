@@ -9,7 +9,7 @@ class ParserIKData_Gateway_Okrug extends ParserIKData_Gateway_Abstract
     public function getDiscrepancyCount()
     {
         $args = func_get_args();
-        if (!$this->useCache() || false === ($data = $this->_getCache()->read($this->_buildCacheKey(__METHOD__, $args))) ) {
+        if (false === ($data = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
             $result = $this->_getDriver()->selectAssoc(
         		'okrug, count(*) as DiscrCount',
                 $this->_view_uik_okrug,
@@ -22,9 +22,7 @@ class ParserIKData_Gateway_Okrug extends ParserIKData_Gateway_Abstract
                 $data[$row['okrug']] = $row['DiscrCount'];
             }
 
-            if ($this->useCache()) {
-                $this->_getCache()->save($this->_buildCacheKey(__METHOD__, $args), $data);
-            }
+            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $data);
         }
         return $data;
     }

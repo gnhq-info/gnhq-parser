@@ -10,6 +10,8 @@ abstract class Lib_Cache_Basic implements Lib_Cache_Interface
     /**
      * @param string $className
      * @return Lib_Cache_Interface
+     * @throws Exception
+     * @throws Zend_Cache_Exception
      */
     public static function factory($className = null)
     {

@@ -3,7 +3,7 @@ class ParserIKData_Cache_Gateway extends Lib_Cache_Basic
 {
     protected function _getFrontendOptions()
     {
-        return array('lifetime' => 86400, 'automatic_serialization' => true);
+        return array('lifetime' => 2592000, 'automatic_serialization' => true);
     }
 
     protected function _getBackendOptions()

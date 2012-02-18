@@ -18,4 +18,7 @@ php/ParserIKData/SrcCache/Web
 php/log/error.log 
 it should be accesible for writing
 
-5. If using csv for saving data (for parser tasks) - make directory php/ParserIKData/Output writable 
+5. If using csv for saving data (for parser tasks) - make directory php/ParserIKData/Output writable
+
+6. Cache is based on Zend_Cache component. You should change const PATH_TO_ZEND in php/Lib/ZendConfig.php
+to point to the real path of Zend library source on your server. 

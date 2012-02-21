@@ -24,3 +24,5 @@ it should be accesible for writing for web server user
 6. Cache is based on Zend_Cache component. You should change const PATH_TO_ZEND in php/Lib/ZendConfig.php
 to point to the real path of Zend library source on your server. By default this path points to the
 directory of this project, which contains used Zend components 
+
+7. Dump of the database is in /php/ParserIKData/Sql/structure.sql

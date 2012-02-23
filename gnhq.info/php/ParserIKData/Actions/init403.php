@@ -18,7 +18,7 @@ switch ($argv[1])
 
         $gateway = new ParserIKData_Gateway_Region();
         $gateway->removeAll();
-        $data = file_get_contents('C:\temp\regions.txt');
+        $data = file_get_contents(DATA_PATH . 'regions.txt');
         $lines = explode(PHP_EOL, $data);
         foreach ($lines as $line) {
             list($name, $num) = explode(',', $line);

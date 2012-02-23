@@ -8,6 +8,8 @@ include_once('Okrug.php');
 include_once('Region.php');
 include_once('TIKRussia.php');
 include_once('UIKRussia.php');
+include_once('ViolationType.php');
+include_once('Violation.php');
 
 class ParserIKData_Gateway_Abstract
 {
@@ -33,6 +35,7 @@ class ParserIKData_Gateway_Abstract
     protected function _loadFromTable($tableName, $modelClass, $where = null)
     {
         $dbRes = $this->_getDriver()->select('*', $tableName, $where);
+        $result = array();
         while ($arr = $this->_getDriver()->fetchResultToArray($dbRes)) {
             $result[] = $modelClass::fromArray($arr);
         }

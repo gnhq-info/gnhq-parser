@@ -14,6 +14,8 @@
 */
 class ParserIKData_Model_UIK extends ParserIKData_Model
 {
+    const UIKMODULE = 10000;
+
     /**
      * (non-PHPdoc)
      * @see ParserIKData_Model::getUniqueId()
@@ -29,6 +31,11 @@ class ParserIKData_Model_UIK extends ParserIKData_Model
     public function getTik()
     {
         return ParserIKData_Model_TIK::getFromPool($this->getTikUniqueId());
+    }
+
+    public function getNumber()
+    {
+        return $this->getFullName() % self::UIKMODULE;
     }
 
     /**

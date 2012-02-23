@@ -255,7 +255,7 @@ var StatScreen = {
 		
 		setStatsHdr: function(data) {
 			if (data.mode == 'UIK') {
-				StatScreen.Jq.getStatHdr().html('УИК ' + StatScreen.Jq.getUik().val());
+				StatScreen.Jq.getStatHdr().html(StatScreen.Jq.getUik().find(':selected').html());
 			} else if (data.mode == 'OIK') {
 				StatScreen.Jq.getStatHdr().html(StatScreen.Jq.getOkrug().val());
 			} else {
@@ -312,7 +312,7 @@ var StatScreen = {
 		setUiks: function(uiks) {
 			StatScreen.Jq.clearUik();
 			for (var i in uiks) {
-				StatScreen.ResultSetter._addUik(uiks[i]);
+				StatScreen.ResultSetter._addUik(i, uiks[i]);
 			}
 		},
 		
@@ -368,8 +368,8 @@ var StatScreen = {
 			StatScreen.Jq.getLineDiag(lineCode, watchType).css('width', realWidth + 'px');	
 		}, 
 		
-		_addUik: function(uik) {
-			$('<option>').val(uik).html('УИК ' + uik).appendTo(StatScreen.Jq.getUik());
+		_addUik: function(full, uik) {
+			$('<option>').val(full).html('УИК ' + uik).appendTo(StatScreen.Jq.getUik());
 		}
 	}
 };

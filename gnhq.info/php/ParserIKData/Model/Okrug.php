@@ -1,7 +1,9 @@
 <?php
 /**
  * @method string getTikDataLink
+ * @method int getRegionNum
  * @method ParserIKData_Model_Okrug setTikDataLink
+ * @method ParserIKData_Model_Okrug setRegionNum
  * @author admin
  */
 class ParserIKData_Model_Okrug extends ParserIKData_Model

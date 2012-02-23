@@ -48,6 +48,15 @@ class Lib_Db_MySql
         return mysql_real_escape_string($string);
     }
 
+    public function escapeArray($array)
+    {
+        $res = array();
+        foreach ($array as $k => $v) {
+            $res[$k] = $this->escapeString($v);
+        }
+        return $res;
+    }
+
     /**
      * @param resourse $result
      * @return array

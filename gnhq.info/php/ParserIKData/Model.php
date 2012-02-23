@@ -1,7 +1,10 @@
 <?php
+include_once('Model/Region.php');
 include_once('Model/Okrug.php');
 include_once('Model/TIK.php');
+include_once('Model/TIKRussia.php');
 include_once('Model/UIK.php');
+include_once('Model/UIKRussia.php');
 include_once('Model/Protocol412.php');
 include_once('Model/Report412.php');
 include_once('Model/Watch412.php');

@@ -5,6 +5,9 @@ include_once('Report412.php');
 include_once('UIK.php');
 include_once('TIK.php');
 include_once('Okrug.php');
+include_once('Region.php');
+include_once('TIKRussia.php');
+include_once('UIKRussia.php');
 
 class ParserIKData_Gateway_Abstract
 {
@@ -19,6 +22,22 @@ class ParserIKData_Gateway_Abstract
      * @var boolean
      */
     private $_useCache = false;
+
+
+    /**
+    * @param string $fileName
+    * @param string $modelClass
+    * @param string $where
+    * @return ParserIKData_Model[]
+    */
+    protected function _loadFromTable($tableName, $modelClass, $where = null)
+    {
+        $dbRes = $this->_getDriver()->select('*', $tableName, $where);
+        while ($arr = $this->_getDriver()->fetchResultToArray($dbRes)) {
+            $result[] = $modelClass::fromArray($arr);
+        }
+        return $result;
+    }
 
     /**
      * @return Lib_Db_MySql

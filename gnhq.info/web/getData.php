@@ -88,7 +88,7 @@ if ($uik) {
     $uiks = $uikGateway->getForOkrug($okrugAbbr, WATCH_GN, $onlyProtocol, $onlyClean, $onlyWithDiscrepancy, $onlyWithReport);
     foreach ($uiks as $uik) {
         /* @var $uik ParserIKData_Model_UIK */
-        $response->uiks[] = $uik->getFullName();
+        $response->uiks[$uik->getFullName()] = $uik->getNumber();
     }
     $response->totalCount       = $watchGateway->getCount(WATCH_GN, $okrugAbbr, false, false);
     $response->discrepancyCount = $watchGateway->getCount(WATCH_GN, $okrugAbbr, true, false);

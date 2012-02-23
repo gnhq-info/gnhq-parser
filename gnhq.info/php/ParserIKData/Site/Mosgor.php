@@ -3,6 +3,7 @@
  * Парсер сайта мосгоризбиркома
  * @author admin
  */
+
 class ParserIKData_Site_Mosgor extends ParserIKData_Site_Abstract
 {
     private $_debugCnt = 0;

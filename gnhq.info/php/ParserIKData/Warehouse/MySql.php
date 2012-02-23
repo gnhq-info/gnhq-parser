@@ -16,9 +16,9 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
     public function saveAllOkrugs()
     {
         $okrugs = ParserIKData_Model_Okrug::getAllOBjects();
-        $this->_mysql->truncateTable($this->_getOkrugTable());
+        $this->_getOkrugGateway()->removeAll();
         foreach ($okrugs as $okrug) {
-            $this->_mysql->query($this->_insertOkrugQuery($okrug));
+            $this->_getOkrugGateway()->save($okrug);
         }
         return $this;
     }
@@ -28,7 +28,7 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
      */
     public function loadAllOkrugs()
     {
-        $this->_loadFromTable($this->_getOkrugTable(), 'ParserIKData_Model_Okrug');
+        $this->_getOkrugGateway()->getAll();
         return $this;
     }
 
@@ -325,6 +325,14 @@ class ParserIKData_Warehouse_MySql implements ParserIKData_Warehouse_Interface
             $array[$k] = mysql_real_escape_string($v);
         }
         return $array;
+    }
+
+    /**
+     * @return ParserIKData_Gateway_Okrug
+     */
+    private function _getOkrugGateway()
+    {
+        return new ParserIKData_Gateway_Okrug();
     }
 
     /**

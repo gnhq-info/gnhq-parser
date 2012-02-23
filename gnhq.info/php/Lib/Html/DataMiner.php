@@ -19,6 +19,16 @@ class Lib_Html_DataMiner
 
     /**
      * @param array $tags
+     * @return multitype:Ambigous <Ambigous <string, false, boolean>>
+     */
+    public function getHref($tag)
+    {
+        $pTag = $this->_getLink($tag);
+        return $pTag['link'];
+    }
+
+    /**
+     * @param array $tags
      * @return array
      */
     public function getOptions($tags)
@@ -42,10 +52,10 @@ class Lib_Html_DataMiner
     }
 
     /**
-    * @param string $row
-    * @param int $maxCells
-    * @return string[]
-    */
+     * @param string $row
+     * @param int $maxCells
+     * @return string[]
+     */
     public function extractCells($row, $maxCells)
     {
         return $this->_extractLastLevelChildren('<td', '</td>', $maxCells, $row);
@@ -62,20 +72,20 @@ class Lib_Html_DataMiner
     }
 
     /**
-    * @param string $string
-    * @param int $max
-    * @return multitype:Ambigous <string, false, boolean>
-    */
+     * @param string $string
+     * @param int $max
+     * @return multitype:Ambigous <string, false, boolean>
+     */
     public function extractA($string, $max)
     {
         return $this->_extractLastLevelChildren('<a ', '</a>', $max, $string);
     }
 
     /**
-    * @param string $string
-    * @param int $max
-    * @return multitype:Ambigous <string, false, boolean>
-    */
+     * @param string $string
+     * @param int $max
+     * @return multitype:Ambigous <string, false, boolean>
+     */
     public function extractNobr($string, $max)
     {
         return $this->_extractLastLevelChildren('<nobr>', '</nobr>', $max, $string);
@@ -115,6 +125,9 @@ class Lib_Html_DataMiner
     private function _getLink($tag)
     {
         $link = $this->_getExtracter()->mbExtract('href="', '"', $tag, false);
+        if (empty($link)) {
+            $link = $this->_getExtracter()->mbExtract('href=', '>', $tag, false);
+        }
         $name = $this->_getExtracter()->mbExtract('>', '<', $tag, false);
         return array(
             'link'  => $link,

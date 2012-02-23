@@ -7,15 +7,15 @@
 	<version>1</version>
 	<obsid>732f3ab3343a4</obsid>
 	<region>77</region>
-	<stationtype>UIK</stationtype>
-	<stationnumber>666</stationnumber>
-	<stationdesc>УИК 666 по Москве</stationdesc>
+	<stationtype>TIK</stationtype>
+	<uik>12</uik>
+	<place>УИК 666 по Москве</place>
 	<classification>1</classification>
 	<type>10</type>
 	<value>1</value>
 	<typedesc>Непустые урны перед началом</typedesc>
 	<impact>4</impact>
-	<complaint>filed</complaint>
+	<complaint>4</complaint>
 	<obscomment>Пришел, а урны уже опечатаны</obscomment>
 	<obstime>12-03-04 08:22:11</obstime>
 	<rectime>12-03-04 08:34:12</rectime>
@@ -25,11 +25,12 @@
 	<obsrole>2</obsrole>
 	<police>notified</police>
 	<rectified>0</rectified>
-	<media>
-		<file type="video">http://youtube.com/watch?v=343434</file>
-		<description>Тут показано, как они это делали</description>
+	<media type="video">
+		<url>http://youtube.com/watch?v=343434</url>
+		<descr>Тут показано, как они это делали</descr>
 	</media>
-	<media>
-		<file type="image">http://asdfasff.dfd/xxxx.jpg</file>
+	<media type="photo">
+		<url>http://asdfasff.dfd/xxxx.jpg</url>
+		<descr>Нарушитель</descr>
 	</media>
 </violation>

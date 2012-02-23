@@ -102,12 +102,40 @@ class ParserIKData_XML_Violation extends ParserIKData_XML_Abstract
             }
         }
         if ($sXml->rectified) {
-            $rectified = (bool)$sXml->rectified;
-            $viol->setRectified(intval($rectified));
+            $rectified = (string)$sXml->rectified == '1' ? 1 : 0;
+            $viol->setRectified($rectified);
         }
 
         if ($sXml->rectime) {
             $viol->setRectime($this->_prepareTime((string)$sXml->rectime));
+        }
+
+        if ($sXml->media) {
+            foreach ($sXml->media as $mXml) {
+                $mediaType  = $this->_filterString((string)$mXml->Attributes()->type, 10);
+                $mediaUrl   = $this->_filterString((string)$mXml->Children()->url);
+                $mediaDescr = $this->_filterString((string)$mXml->Children()->descr);
+                $viol->addMedia($mediaType, $mediaUrl, $mediaDescr);
+            }
+        }
+
+        // привязка к ИК
+        $viol->setUIKNum(0);
+        $viol->setTIKNum(0);
+        if ($sXml->stationtype && $sXml->uik) {
+            if ((string)$sXml->stationtype == '1' || (string)$sXml->stationtype == 'UIK') {
+                if (is_numeric((string)$sXml->uik)) {
+                    $viol->setUIKNum((int)$sXml->uik);
+                } else {
+                    $viol->setPlace($this->_filterString((string)$sXml->uik, 50));
+                }
+            } elseif ((string)$sXml->stationtype == '2' || (string)$sXml->stationtype == 'TIK' ) {
+                if (is_numeric((string)$sXml->uik)) {
+                    $viol->setTIKNum((int)$sXml->uik);
+                } else {
+                    $viol->setPlace($this->_filterString((string)$sXml->uik, 50));
+                }
+            }
         }
 
         // returning

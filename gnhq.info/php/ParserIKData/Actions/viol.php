@@ -14,6 +14,7 @@ if (!$newViol instanceof ParserIKData_Model_Violation) {
 
 $current = $gateway->find($newViol->getProjectCode(), $newViol->getProjectId());
 
+
 if ($current === null) {
     $gateway->insert($newViol);
 } else {

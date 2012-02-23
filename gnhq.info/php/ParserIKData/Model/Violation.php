@@ -63,6 +63,8 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
             '2' => 'arrived',
     );
 
+    private $_media = array();
+
     public static function channelNameByCode($code) {
         return isset(self::$_channels[$code]) ? self::$_channels[$code] : null;
     }
@@ -95,6 +97,27 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
         return $this->getProjectId() . '-' . $this->getProjectCode();
     }
 
+    /**
+     * @param string $type
+     * @param string $url
+     * @param string $description
+     * @return ParserIKData_Model_Violation
+     */
+    public function addMedia($type, $url, $description)
+    {
+        $this->_media[] = array('type' => $type, 'url' => $url, 'description' => $description);
+        return $this;
+    }
+
+    public function getMediaAsArray()
+    {
+        return $this->_media;
+    }
+
+    public function getMedia()
+    {
+        return serialize($this->getMediaAsArray());
+    }
 
     /**
      * (non-PHPdoc)
@@ -147,7 +170,7 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
         $data['ComplaintStatus']  = $array[8];
         $data['UIKNum']           = $array[9];
         $data['TIKNum']           = $array[10];
-        $data['Mdeia']            = $array[11];
+        $data['Media']            = $array[11];
         $data['Obsrole']          = $array[12];
         $data['Impact']           = $array[13];
         $data['Obstime']          = $array[14];
@@ -160,6 +183,8 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
         $data['Rectified']        = $array[21];
         $data['Rectime']          = $array[22];
 
-        return parent::fromArray($data);
+        $viol = parent::fromArray($data);
+        $viol->_media = unserialize($viol->_properties['Media']);
+        return $viol;
     }
 }

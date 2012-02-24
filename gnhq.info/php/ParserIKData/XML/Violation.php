@@ -126,6 +126,10 @@ class ParserIKData_XML_Violation extends ParserIKData_XML_Abstract
             if ((string)$sXml->stationtype == '1' || (string)$sXml->stationtype == 'UIK') {
                 if (is_numeric((string)$sXml->uik)) {
                     $viol->setUIKNum((int)$sXml->uik);
+                    $uikR = $this->_getUikRGateway()->getForRegionAndNum($viol->getRegionNum(), $viol->getUIKNum());
+                    if ($uikR) {
+                        $viol->setTIKNum($uikR->getTikNum());
+                    }
                 } else {
                     $viol->setPlace($this->_filterString((string)$sXml->uik, 50));
                 }
@@ -154,6 +158,11 @@ class ParserIKData_XML_Violation extends ParserIKData_XML_Abstract
         } else {
             return $type->getMergedType();
         }
+    }
+
+    private function _getUikRGateway()
+    {
+        return new ParserIKData_Gateway_UIKRussia();
     }
 
     private function _getTypeGateway()

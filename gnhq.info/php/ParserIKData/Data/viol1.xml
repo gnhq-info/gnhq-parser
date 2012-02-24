@@ -7,9 +7,8 @@
 	<version>1</version>
 	<obsid>732f3ab3343a4</obsid>
 	<region>77</region>
-	<stationtype>TIK</stationtype>
+	<stationtype>UIK</stationtype>
 	<uik>12</uik>
-	<place>УИК 666 по Москве</place>
 	<classification>1</classification>
 	<type>10</type>
 	<value>1</value>

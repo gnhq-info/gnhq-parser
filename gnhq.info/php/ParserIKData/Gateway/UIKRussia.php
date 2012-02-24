@@ -2,6 +2,7 @@
 class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'uik_russia';
+    private $_modelClass = 'ParserIKData_Model_UIKRussia';
 
     public function removeAll()
     {
@@ -18,7 +19,23 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
 
     public function getAll()
     {
-        return $this->_loadFromTable($this->_table, 'ParserIKData_Model_UIKRussia');
+        return $this->_loadFromTable($this->_table, $this->_modelClass);
+    }
+
+    /**
+     * @param int $regionNum
+     * @param int $uikNum
+     * @return ParserIKData_Model_UIKRussia|NULL
+     */
+    public function getForRegionAndNum($regionNum, $uikNum)
+    {
+        $where = sprintf(' RegionNum = %d AND UikNum = %d', $regionNum, $uikNum);
+        $data = $this->_loadFromTable($this->_table, $this->_modelClass, $where);
+        if (count($data) == 1) {
+            return $data[0];
+        } else {
+            return null;
+        }
     }
 
     /**

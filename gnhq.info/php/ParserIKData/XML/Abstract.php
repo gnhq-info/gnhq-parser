@@ -2,7 +2,7 @@
 include_once('Violation.php');
 include_once('Protocol403.php');
 
-abstract class ParserIKData_XML_Abstract
+abstract class ParserIKData_XMLProcessor_Abstract
 {
     const TIME_FORMAT = 'Y-m-d H:i:s';
 

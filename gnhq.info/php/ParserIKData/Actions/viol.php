@@ -1,7 +1,7 @@
 <?php
 include_once 'include.php';
 
-$xmlProcessor = new ParserIKData_XML_Violation();
+$xmlProcessor = new ParserIKData_XMLProcessor_Violation();
 $gateway = new ParserIKData_Gateway_Violation();
 
 $xml = file_get_contents(DATA_PATH . 'viol1.xml');
@@ -12,11 +12,6 @@ if (!$newViol instanceof ParserIKData_Model_Violation) {
     return;
 }
 
-$current = $gateway->find($newViol->getProjectCode(), $newViol->getProjectId());
-
-
-if ($current === null) {
-    $gateway->insert($newViol);
-} else {
-    $gateway->update($newViol);
-}
+$currentViol = $gateway->find($newViol->getProjectCode(), $newViol->getProjectId());
+$result = $xmlProcessor->updateIfNecessary($newViol, $currentViol);
+print $result;

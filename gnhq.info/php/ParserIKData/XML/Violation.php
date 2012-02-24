@@ -1,6 +1,39 @@
 <?php
-class ParserIKData_XML_Violation extends ParserIKData_XML_Abstract
+class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abstract
 {
+    /**
+     * @param ParserIKData_Model_Violation $newViol
+     * @param ParserIKData_Model_Violation $currentViol
+     * @return string
+     */
+    public function updateIfNecessary($newViol, $currentViol)
+    {
+        // новое нарушение
+        if ($currentViol === null) {
+            $this->_getViolationGateway()->insert($newViol);
+            return 'inserted';
+        }
+
+        // у нас более свежая версия - не обновляем
+        if ($currentViol->getProjectVersion() > $newViol->getProjectVersion()) {
+            return 'skipped version';
+        }
+
+        // версии совпадают, но у нас свежее время обновления (в т.ч. для проектов, не использующих версии) - не обновляем
+        if ( $currentViol->getProjectVersion() == $newViol->getProjectVersion() &&
+                strtotime($currentViol->getProjectUptime()) > strtotime($newViol->getProjectUptime()) ) {
+            return 'skipped time';
+        }
+
+        // не изменились актуальные данные
+        if ($currentViol->getDataHash() == $newViol->getDataHash()) {
+            return 'skipped hash';
+        }
+
+        $this->_getViolationGateway()->update($newViol);
+        return 'updated';
+    }
+
     /**
      * @param string $xml
      * @param string $projectCode
@@ -168,6 +201,11 @@ class ParserIKData_XML_Violation extends ParserIKData_XML_Abstract
     private function _getTypeGateway()
     {
         return new ParserIKData_Gateway_ViolationType();
+    }
+
+    private function _getViolationGateway()
+    {
+        return new ParserIKData_Gateway_Violation();
     }
 
     private function _prepareChannel($channel)

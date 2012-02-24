@@ -109,6 +109,20 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
         return $this;
     }
 
+    /**
+     * hash, однозначно определяющий данные
+     * @return string
+     */
+    public function getDataHash()
+    {
+        $data = $this->toStringArray();
+        $skippedIndices = array(2, 3, 15, 22);
+        foreach ($skippedIndices as $ind) {
+            unset($data[$ind]);
+        }
+        return md5(serialize($data));
+    }
+
     public function getMediaAsArray()
     {
         return $this->_media;
@@ -149,6 +163,18 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
         $data[] = $this->getPoliceReaction();
         $data[] = $this->getRectified();
         $data[] = $this->getRectime();
+        return $data;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function toStringArray()
+    {
+        $data = $this->toArray();
+        foreach($data as $k => $v) {
+            $data[$k] = strval($v);
+        }
         return $data;
     }
 

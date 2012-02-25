@@ -6,6 +6,8 @@ $dirParts = explode(DIRECTORY_SEPARATOR, $dir);
 unset($dirParts[count($dirParts)-1]);
 unset($dirParts[count($dirParts)-1]);
 define('BASE_INCLUDE_DIR', implode(DIRECTORY_SEPARATOR, $dirParts) . DIRECTORY_SEPARATOR );
+unset($dirParts[count($dirParts)-1]);
+define('WEB_DIR', implode(DIRECTORY_SEPARATOR, $dirParts) . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR );
 unset($dir);
 unset($dirParts);
 

@@ -41,9 +41,25 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         $this->_getDriver()->query($this->_insertQuery($violT));
     }
 
-    public function getAll()
+    public function getAll($order)
     {
-        return $this->_loadFromTable($this->_table, $this->_model);
+        switch ($order) {
+            case 'name':
+                $order = 'FullName ASC';
+                break;
+            case 'id':
+                $order = 'MergedType ASC';
+                break;
+            default:
+                $order = null;
+                break;
+        }
+        $args = func_get_args();
+        if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            $result = $this->_loadFromTable($this->_table, $this->_model, null, null, $order);
+            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $result);
+        }
+        return $result;
     }
 
     /**

@@ -24,7 +24,7 @@ $PROJECT_CONFIG = array(
             'RssLink' => '',
     ),
 	PROJECT_SHTABPROHOROVA => array(
-            'Name'    => 'Штаб Прохорва',
+            'Name'    => 'Штаб Прохорова',
             'RssLink' => '',
     ),
 	PROJECT_ROSVYBORY => array(

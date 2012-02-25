@@ -30,11 +30,13 @@ class ParserIKData_Gateway_Abstract
     * @param string $fileName
     * @param string $modelClass
     * @param string $where
+    * @param string $limit
+    * @param string $order
     * @return ParserIKData_Model[]
     */
-    protected function _loadFromTable($tableName, $modelClass, $where = null)
+    protected function _loadFromTable($tableName, $modelClass, $where = null, $limit = null, $order = null)
     {
-        $dbRes = $this->_getDriver()->select('*', $tableName, $where);
+        $dbRes = $this->_getDriver()->select('*', $tableName, $where, $limit, $order);
         $result = array();
         while ($arr = $this->_getDriver()->fetchResultToArray($dbRes)) {
             $result[] = $modelClass::fromArray($arr);

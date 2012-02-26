@@ -29,26 +29,36 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
 
     public function short($projectCode, $mergedTypeId, $regionNum, $tikNum)
     {
-        $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
-        $data = $this->_getDriver()->selectAssoc('ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
-            $this->_testTable,
-            $cond,
-            null,
-            'Loadtime desc');
-        $violations = array();
-        foreach ($data as $row) {
-            $viol = ParserIKData_Model_Violation::create();
-            $viol
-                ->setProjectId($row['ProjectId'])
-                ->setProjectCode($row['ProjectCode'])
-                ->setRegionNum($row['RegionNum'])
-                ->setMergedTypeId($row['MergedTypeId'])
-                ->setDescription($row['Description'])
-                ->setPlace($row['Place'])
-                ->setObstime($row['Obstime'])
-                ->setTIKNum($row['TIKNum'])
-                ->setUIKNum($row['UIKNum']);
-            $violations[] = $viol;
+        $args = func_get_args();
+        if (false === ($violations = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+
+            $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
+            $data = $this->_getDriver()->selectAssoc(
+            	'ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
+                $this->_testTable,
+                $cond,
+                null,
+            	'Loadtime desc'
+            );
+            $violations = array();
+            foreach ($data as $row) {
+                $viol = ParserIKData_Model_Violation::create();
+                $viol
+                    ->setProjectId($row['ProjectId'])
+                    ->setProjectCode($row['ProjectCode'])
+                    ->setRegionNum($row['RegionNum'])
+                    ->setMergedTypeId($row['MergedTypeId'])
+                    ->setDescription($row['Description'])
+                    ->setPlace($row['Place'])
+                    ->setObstime($row['Obstime'])
+                    ->setTIKNum($row['TIKNum'])
+                    ->setUIKNum($row['UIKNum']);
+                $violations[] = $viol;
+            }
+            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $violations);
+            print 'NOT FROM CACHE'.PHP_EOL;
+        } else {
+            print 'FROM CACHE'.PHP_EOL;
         }
         return $violations;
     }
@@ -91,6 +101,15 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     public function getAll()
     {
         return $this->_loadFromTable($this->_table, $this->_modelClass);
+    }
+
+
+    /**
+     * @return null|int
+     */
+    protected function _getCacheLifetime()
+    {
+        return 120;
     }
 
     /**

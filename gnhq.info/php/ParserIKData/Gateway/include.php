@@ -146,12 +146,23 @@ class ParserIKData_Gateway_Abstract
     }
 
     /**
+     * @return null|int
+     */
+    protected function _getCacheLifetime()
+    {
+        return null;
+    }
+
+    /**
      * @return Lib_Cache_Interface
      */
     private function _getCache()
     {
         if ($this->_cache === null) {
             $this->_cache = ParserIKData_ServiceLocator::getInstance()->getGatewayCache();
+        }
+        if ($this->_getCacheLifetime()) {
+            $this->_cache->setLifetime($this->_getCacheLifetime());
         }
         return $this->_cache;
     }

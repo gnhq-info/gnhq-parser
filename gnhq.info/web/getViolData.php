@@ -61,7 +61,8 @@ if ($modeSingleViolation) {
 
 
     $vGateway = new ParserIKData_Gateway_Violation();
-    $vshort = $vGateway->short($projectCode, $mergedTypeId, $regionNum, $okrugTikNums);
+    // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
+    $vshort = $vGateway->setUseCache(true)->short($projectCode, $mergedTypeId, $regionNum, $okrugTikNums);
     $tikCount = array();
     foreach ($vshort as $k => $viol) {
         $vshort[$k] = $viol->getParams();

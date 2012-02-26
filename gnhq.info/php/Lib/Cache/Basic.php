@@ -39,6 +39,10 @@ abstract class Lib_Cache_Basic implements Lib_Cache_Interface
         return $this->_cache->save($value, $key);
     }
 
+    public function setLifetime($lt)
+    {
+        $this->_cache->setLifetime($lt);
+    }
 
     final protected function _initCacheDriver()
     {

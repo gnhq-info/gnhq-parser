@@ -2,8 +2,13 @@
 define('PROJECT_STARTED', 1);
 include 'webinclude.php';
 
-if (str_replace('http://' . rtrim($_SERVER['HTTP_HOST'],'/') . '/', '', $_SERVER['HTTP_REFERER']) != 'viol.php') {
-    trigger_error('Bad referer: '.$_SERVER['HTTP_REFERER'], E_USER_ERROR);
+if (empty($_SERVER['HTTP_REFERER'])) {
+    trigger_error('No referer');
+    exit(1);
+}
+
+if (substr($_SERVER['HTTP_REFERER'], -8) != 'viol.php') {
+    trigger_error('Bad referer: '.substr($_SERVER['HTTP_REFERER'], -8), E_USER_ERROR);
     exit(1);
 }
 

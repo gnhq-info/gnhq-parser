@@ -6,12 +6,13 @@ if (empty($_SERVER['HTTP_REFERER'])) {
     trigger_error('No referer');
     exit(1);
 }
+$fullHost = 'http://'.$_SERVER['HTTP_HOST'];
 
-if (substr($_SERVER['HTTP_REFERER'], -8) != 'viol.php') {
-    trigger_error('Bad referer: '.substr($_SERVER['HTTP_REFERER'], -8), E_USER_ERROR);
+if (substr($_SERVER['HTTP_REFERER'], -8) != 'viol.php' || substr($_SERVER['HTTP_REFERER'], 0, strlen($fullHost)) != $fullHost) {
+    trigger_error('Bad referer: '.substr($_SERVER['HTTP_REFERER'], -8) . '|' . substr($_SERVER['HTTP_REFERER'], 0, strlen($fullHost)), E_USER_ERROR);
     exit(1);
 }
-
+unset($fullHost);
 
 /* validating input params */
 $projectCode = substr($_GET['ProjectCode'], 0, 2);

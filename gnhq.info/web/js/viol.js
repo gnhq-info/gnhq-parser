@@ -1,6 +1,7 @@
 var Viol = {
 	Init: function() {
-		for (var vtCode in StaticData.ViolationTypes) {
+		for (var i in StaticData.ViolationTypesOrder) {
+			var vtCode = StaticData.ViolationTypesOrder[i];
 			$('<option>').val(vtCode).html(StaticData.ViolationTypes[vtCode]).appendTo($('#ViolType'));
 		}
 		
@@ -129,8 +130,12 @@ var Viol = {
 			Viol.GeoTree.clear();
 			Viol.GeoTree.addTotal(data.cnt)
 			Viol.GeoTree.selectTotal();
-			for (var _tikNum in data.tikCount) {
-				Viol.SetResult.addTikDiv(data.tikCount[_tikNum], _tikNum, data.regionNum);
+			var _tikNum;
+			for (var i in StaticData.TiksOrder[data.regionNum]) {
+				_tikNum = StaticData.TiksOrder[data.regionNum][i];
+				if (data.tikCount[_tikNum]) {
+					Viol.SetResult.addTikDiv(data.tikCount[_tikNum], _tikNum, data.regionNum);
+				}
 			}
 		},
 		
@@ -147,7 +152,7 @@ var Viol = {
 		},
 		
 		buildViolTr: function(row) {
-			var _place, _time, _description, _tr;
+			var _place, _time, _descrHtml, _tr, _vtypeHdr;
 			if (row.UIKNum && row.UIKNum != '0') {
 				_place = 'УИК ' + row.UIKNum;
 			} else if (row.TIKNum && row.TIKNum != '0') {
@@ -158,11 +163,12 @@ var Viol = {
 				_place = 'Не известно';
 			}
 			_time = Viol.Utility.formatTime(row.Obstime);
-			_description = row.Description;
+			_vtypeHdr = $('<span>').addClass('vhdr').html(Viol.Dict.ViolType.getName(row.MergedTypeId) + ': ');
+			_descrHtml =  row.Description;
 			_tr = $('<tr>').attr('tikNum', row.TIKNum);
 			$('<td>').html(_time).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
-			$('<td>').html(_description).appendTo(_tr);
+			$('<td>').append(_vtypeHdr).append($('<span>').html(_descrHtml)).appendTo(_tr);
 			return _tr;
 		},
 		

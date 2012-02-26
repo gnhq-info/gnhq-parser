@@ -8,15 +8,15 @@ switch ($argv[1])
         $violTypeFile = $jsDir . 'violtypes_data.js';
         $vtypeGateway = new ParserIKData_Gateway_ViolationType();
         $types = $vtypeGateway->setUseCache(false)->getAll('name');
-        $violTypeJs = 'StaticData.ViolationTypes = {';
-        $total = count($types);
+        $violTypeJs = 'StaticData.ViolationTypes = [];' . PHP_EOL;
+        $violTypeJs .= 'StaticData.ViolationTypesOrder = [];' . PHP_EOL;
         $i = 0;
         foreach ($types as $type) {
             $i++;
             /* @var $type ParserIKData_Model_ViolationType */
-            $violTypeJs .= PHP_EOL . "\t'".$type->getMergedType()."': '".$type->getFullName() . ($i < $total ? "'," : "'");
+            $violTypeJs .= "StaticData.ViolationTypes[".$type->getMergedType()."] = '".$type->getFullName() . "';".PHP_EOL;
+            $violTypeJs .= "StaticData.ViolationTypesOrder[".($i-1)."] = " . $type->getMergedType(). ";".PHP_EOL;
         }
-        $violTypeJs .= PHP_EOL . '};'.PHP_EOL;
         savejs($violTypeFile, $violTypeJs);
         break;
 
@@ -68,16 +68,22 @@ switch ($argv[1])
     case 'tiks':
         $file = $jsDir . 'tik_data.js';
         $js = 'StaticData.Tiks = [];'.PHP_EOL;
+        $js .= 'StaticData.TiksOrder = [];'.PHP_EOL;
         $tGateway = new ParserIKData_Gateway_TIKRussia();
         $tiks = $tGateway->getAllByRegions();
         $curRegNum = 0;
+        $regInd = 0;
         foreach ($tiks as $tik) {
             /* @var $tik ParserIKData_Model_TIKRussia */
             if ($curRegNum != $tik->getRegionNum()) {
                 $js .= PHP_EOL . "\tStaticData.Tiks[".$tik->getRegionNum()."] = [];";
+                $js .= PHP_EOL . "\tStaticData.TiksOrder[".$tik->getRegionNum()."] = [];";
                 $curRegNum = $tik->getRegionNum();
+                $regInd = 0;
             }
             $js .= PHP_EOL . "\t\tStaticData.Tiks[".$tik->getRegionNum()."][".$tik->getTikNum()."] = \"".$tik->getFullName()."\";";
+            $js .= PHP_EOL . "\t\tStaticData.TiksOrder[".$tik->getRegionNum()."][".$regInd."] = ".$tik->getTikNum().";";
+            $regInd++;
         }
         savejs($file, $js);
         break;

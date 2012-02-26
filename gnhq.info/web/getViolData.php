@@ -22,10 +22,9 @@ if ($mergedTypeId === '') {
 }
 
 $regionNum = intval($_GET['regionNum']);
-
-
-
 /* далее все входные данные очищены */
+
+
 $vGateway = new ParserIKData_Gateway_Violation();
 $vshort = $vGateway->short($projectCode, $mergedTypeId, $regionNum);
 $tikCount = array();

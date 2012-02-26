@@ -1,18 +1,34 @@
-StaticData.ViolationTypes = {
-	'10': 'Вброс бюллетеней',
-	'0': 'Другое',
-	'3': 'Запрет на свободу передвижения по участку',
-	'4': 'Запрет на фото и видеосъемку',
-	'8': 'Массовая доставка избирателей на участок',
-	'7': 'Массовое голосование вне помещения',
-	'13': 'Нарушения при подсчете голосов',
-	'14': 'Нарушения со списками',
-	'2': 'Необоснованное отстранение от участия в работе комиссии',
-	'1': 'Необоснованное удаление с участка',
-	'9': 'Несколько бюллетеней выдано одному избирателю',
-	'5': 'Отказ от ознакомления со списком наблюдателей',
-	'12': 'Отказ рассмотрения жалобы',
-	'6': 'Присутствие на участке посторонних лиц',
-	'15': 'Угрозы в адрес наблюдателей',
-	'11': 'Члены УИК подписались под пустым протоколом'
-};
+StaticData.ViolationTypes = [];
+StaticData.ViolationTypesOrder = [];
+StaticData.ViolationTypes[10] = 'Вброс бюллетеней';
+StaticData.ViolationTypesOrder[0] = 10;
+StaticData.ViolationTypes[0] = 'Другое';
+StaticData.ViolationTypesOrder[1] = 0;
+StaticData.ViolationTypes[3] = 'Запрет на свободу передвижения по участку';
+StaticData.ViolationTypesOrder[2] = 3;
+StaticData.ViolationTypes[4] = 'Запрет на фото и видеосъемку';
+StaticData.ViolationTypesOrder[3] = 4;
+StaticData.ViolationTypes[8] = 'Массовая доставка избирателей на участок';
+StaticData.ViolationTypesOrder[4] = 8;
+StaticData.ViolationTypes[7] = 'Массовое голосование вне помещения';
+StaticData.ViolationTypesOrder[5] = 7;
+StaticData.ViolationTypes[13] = 'Нарушения при подсчете голосов';
+StaticData.ViolationTypesOrder[6] = 13;
+StaticData.ViolationTypes[14] = 'Нарушения со списками';
+StaticData.ViolationTypesOrder[7] = 14;
+StaticData.ViolationTypes[2] = 'Необоснованное отстранение от участия в работе комиссии';
+StaticData.ViolationTypesOrder[8] = 2;
+StaticData.ViolationTypes[1] = 'Необоснованное удаление с участка';
+StaticData.ViolationTypesOrder[9] = 1;
+StaticData.ViolationTypes[9] = 'Несколько бюллетеней выдано одному избирателю';
+StaticData.ViolationTypesOrder[10] = 9;
+StaticData.ViolationTypes[5] = 'Отказ от ознакомления со списком наблюдателей';
+StaticData.ViolationTypesOrder[11] = 5;
+StaticData.ViolationTypes[12] = 'Отказ рассмотрения жалобы';
+StaticData.ViolationTypesOrder[12] = 12;
+StaticData.ViolationTypes[6] = 'Присутствие на участке посторонних лиц';
+StaticData.ViolationTypesOrder[13] = 6;
+StaticData.ViolationTypes[15] = 'Угрозы в адрес наблюдателей';
+StaticData.ViolationTypesOrder[14] = 15;
+StaticData.ViolationTypes[11] = 'Члены УИК подписались под пустым протоколом';
+StaticData.ViolationTypesOrder[15] = 11;

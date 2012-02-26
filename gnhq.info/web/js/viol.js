@@ -60,33 +60,89 @@ var Viol = {
 		}
 	},
 	
-	SetResult: {
-		processResult: function(data) {
-			// count
-			Viol.SetResult.setCount(data.count);
-			
-			// lenta
-			$('#violData tbody tr').each(function() {
+	Feed: {
+		clear: function() {
+			$('#violFeed tbody tr').each(function() {
 				$(this).remove();
 			});
-			for (var _i in data.vshort) {
-				Viol.SetResult.buildViolTr(data.vshort[_i]).appendTo($('#violData tbody'));
-			}
-			
-			// geo tree
+		},
+		add: function(tr) {
+			tr.appendTo($('#violFeed tbody'));
+		},
+		hideAll: function() {
+			$('#violFeed tbody tr').each(function() {
+				$(this).hide();
+			});
+		},
+		showAll: function() {
+			$('#violFeed tbody tr').each(function() {
+				$(this).show();
+			});
+		},
+		showTik: function(tikNum) {
+			Viol.Feed.hideAll();
+			$('#violFeed tbody tr').each(function() {
+				if ($(this).attr('tikNum') == tikNum) {
+					$(this).show();
+				}
+			});
+		}
+	},
+	
+	GeoTree: {
+		clear: function() {
 			$('#geoTree .tree').children().each(function() {
 				$(this).remove();
 			});
-			for (var _j in data.tikCount) {
-				Viol.SetResult.addTikDiv(data.tikCount[_j], data.regionNum);
+		}, 
+		addTotal: function(cnt) {
+			Viol.GeoTree.add($('<a>').addClass('total').html('Всего: ' + cnt).click(function() {
+				Viol.Feed.showAll();
+				Viol.GeoTree.select($(this));
+				}));
+		},
+		add: function(a) {
+			a.appendTo($('#geoTree .tree'))
+		},
+		select: function(a) {
+			$('#geoTree a').removeClass('selected');
+			a.addClass('selected');
+		},
+		selectTotal: function() {
+			$('#geoTree a.total').addClass('selected');
+		}
+	},
+	
+	SetResult: {
+		processResult: function(data) {
+			// count
+			Viol.SetResult.setCount(data.cnt);
+			
+			// feed
+			Viol.Feed.clear();
+			
+			for (var _i in data.vshort) {
+				Viol.Feed.add(Viol.SetResult.buildViolTr(data.vshort[_i]));
+			}
+			
+			// geo tree
+			Viol.GeoTree.clear();
+			Viol.GeoTree.addTotal(data.cnt)
+			Viol.GeoTree.selectTotal();
+			for (var _tikNum in data.tikCount) {
+				Viol.SetResult.addTikDiv(data.tikCount[_tikNum], _tikNum, data.regionNum);
 			}
 		},
 		
-		addTikDiv: function (tikRow, regionNum) {
+		addTikDiv: function (cnt, tikNum, regionNum) {
 			var _tikName;
-			_tikName = Viol.Dict.TIK.getName(regionNum, tikRow.TIKNum);
+			_tikName = Viol.Dict.TIK.getName(regionNum, tikNum);
 			if (_tikName) {
-				$('<div>').html(_tikName + ': ' + tikRow.CNT).appendTo($('#geoTree .tree'));
+				Viol.GeoTree.add(
+				$('<a>').html(_tikName + ': ' + cnt).click(function() {
+					Viol.Feed.showTik(tikNum);
+					Viol.GeoTree.select($(this));
+				}));
 			}
 		},
 		
@@ -103,7 +159,7 @@ var Viol = {
 			}
 			_time = Viol.Utility.formatTime(row.Obstime);
 			_description = row.Description;
-			_tr = $('<tr>');
+			_tr = $('<tr>').attr('tikNum', row.TIKNum);
 			$('<td>').html(_time).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
 			$('<td>').html(_description).appendTo(_tr);
@@ -114,6 +170,7 @@ var Viol = {
 			$('#violCount .val').html(cnt);
 		}
 	},
+	
 	
 	
 	Filter: {

@@ -23,28 +23,25 @@ if ($mergedTypeId === '') {
 
 $regionNum = intval($_GET['regionNum']);
 
-$tikNum = isset($_GET['TIKNum']) ? $_GET['TIKNum'] : null;
-if ($tikNum === '') {
-    $tikNum = null;
-} else {
-    $tikNum = intval($tikNum);
-}
-
 
 
 /* далее все входные данные очищены */
 $vGateway = new ParserIKData_Gateway_Violation();
-$count = $vGateway->count($projectCode, $mergedTypeId, $regionNum, $tikNum);
-$vshort = $vGateway->short($projectCode, $mergedTypeId, $regionNum, $tikNum);
+$vshort = $vGateway->short($projectCode, $mergedTypeId, $regionNum);
+$tikCount = array();
 foreach ($vshort as $k => $viol) {
     $vshort[$k] = $viol->getParams();
+    if (!isset($tikCount[$viol->getTIKNum()])) {
+        $tikCount[$viol->getTIKNum()] = 0;
+    }
+    $tikCount[$viol->getTIKNum()]++;
 }
-$tikCount = $vGateway->tikCount($projectCode, $mergedTypeId, $regionNum, $tikNum);
+$count = count($vshort);
 
 // формат ответа
 
 $response = new stdClass();
-$response->count = $count;
+$response->cnt = $count;
 $response->regionNum = $regionNum;
 $response->vshort = $vshort;
 $response->tikCount = $tikCount;

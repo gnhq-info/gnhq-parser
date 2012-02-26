@@ -2,6 +2,7 @@
 class ParserIKData_Gateway_TIKRussia extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'tik_russia';
+    private $_modelClass = 'ParserIKData_Model_TIKRussia';
 
     public function removeAll()
     {
@@ -16,14 +17,38 @@ class ParserIKData_Gateway_TIKRussia extends ParserIKData_Gateway_Abstract
         $this->_getDriver()->query($this->_insertQuery($tikR));
     }
 
+    /**
+    * @param ParserIKData_Model_TIKRussia $tikR
+    */
+    public function update($tikR)
+    {
+        $this->_getDriver()->query($this->_updateQuery($tikR));
+    }
+
+    public function getForRegion($regionNum)
+    {
+        return $this->_loadFromTable($this->_table, $this->_modelClass, sprintf('RegionNum = %d', $regionNum), null, null);
+    }
+
+    public function getForRegionAndOkrug($regionNum, $okrug)
+    {
+        $args = func_get_args();
+        if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            $cond = sprintf('RegionNum = %d AND OkrugName = "%s"', $regionNum, $this->_getDriver()->escapeString($okrug));
+            $result = $this->_loadFromTable($this->_table, $this->_modelClass, $cond, null, null);
+            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $result);
+        }
+        return $result;
+    }
+
     public function getAllByRegions()
     {
-        return $this->_loadFromTable($this->_table, 'ParserIKData_Model_TIKRussia', null, null, 'RegionNum ASC, FullName ASC');
+        return $this->_loadFromTable($this->_table, $this->_modelClass, null, null, 'RegionNum ASC, FullName ASC');
     }
 
     public function getAll()
     {
-        return $this->_loadFromTable($this->_table, 'ParserIKData_Model_TIKRussia');
+        return $this->_loadFromTable($this->_table, $this->_modelClass);
     }
 
     /**
@@ -36,5 +61,22 @@ class ParserIKData_Gateway_TIKRussia extends ParserIKData_Gateway_Abstract
         $data = $this->_getDriver()->escapeArray($data);
         return sprintf('insert into '.$this->_table.' (RegionNum, TikNum, FullName, OkrugName, Link)
                 	values(%d, %d, "%s", "%s", "%s")', $data[0], $data[1], $data[2], $data[3], $data[4]);
+    }
+
+    /**
+    * @param ParserIKData_Model_TIKRussia $tikR
+    * @return string
+    */
+    private function _updateQuery($tikR)
+    {
+        $data = $tikR->toArray();
+        $data = $this->_getDriver()->escapeArray($data);
+        return sprintf('UPDATE '.$this->_table.' SET
+        			FullName = "%s",
+        			OkrugName = "%s",
+        			Link = "%s"
+        		WHERE
+        			RegionNum = %d AND
+        			TikNum = %d', $data[2], $data[3], $data[4], $data[0], $data[1]);
     }
 }

@@ -2,6 +2,7 @@
 class ParserIKData_Gateway_TIK extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'tik';
+    private $_modelClass = 'ParserIKData_Model_TIK';
 
     /**
      * @param ParserIKData_Model_Okrug $okrug
@@ -23,5 +24,10 @@ class ParserIKData_Gateway_TIK extends ParserIKData_Gateway_Abstract
     public function getCondOkrug($okrugAbbr)
     {
         return 'SELECT uid FROM ' . $this->_table . ' WHERE ' . $this->_table . '.OkrugAbbr = "' . $this->_escapeString($okrugAbbr) . '"';
+    }
+
+    public function getAll()
+    {
+        return $this->_loadFromTable($this->_table, $this->_modelClass);
     }
 }

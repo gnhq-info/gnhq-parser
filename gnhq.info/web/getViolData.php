@@ -22,11 +22,29 @@ if ($mergedTypeId === '') {
 }
 
 $regionNum = intval($_GET['regionNum']);
+
+$warehouse->loadAllOkrugs();
+$okrugAbbr = isset($_GET['okrug']) ? $_GET['okrug'] : null;
+$okrugAbbrOk = false;
+$okrugTikNums = null;
+foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
+    /* @var $okrug ParserIKData_Model_Okrug */
+    if ($okrugAbbr == $okrug->getAbbr()) {
+        $okrugAbbrOk = true;
+    }
+}
+if ($okrugAbbrOk) {
+    $tikGateway = new ParserIKData_Gateway_TIKRussia();
+    $okrugTiks = $tikGateway->setUseCache(true)->getForRegionAndOkrug($regionNum, $okrugAbbr);
+    foreach ($okrugTiks as $oTik) {
+        $okrugTikNums[] = $oTik->getTikNum();
+    }
+}
 /* далее все входные данные очищены */
 
 
 $vGateway = new ParserIKData_Gateway_Violation();
-$vshort = $vGateway->short($projectCode, $mergedTypeId, $regionNum);
+$vshort = $vGateway->short($projectCode, $mergedTypeId, $regionNum, $okrugTikNums);
 $tikCount = array();
 foreach ($vshort as $k => $viol) {
     $vshort[$k] = $viol->getParams();

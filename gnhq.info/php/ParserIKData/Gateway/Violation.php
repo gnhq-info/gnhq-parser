@@ -3,6 +3,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'violation';
     private $_reservTable = 'violation_copy';
+    private $_testTable = 'violation_copy';
 
     public function removeAll()
     {
@@ -12,7 +13,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     public function count($projectCode, $mergedTypeId, $regionNum, $tikNum)
     {
         $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
-        $result = $this->_getDriver()->select('COUNT(*)', $this->_table, $cond);
+        $result = $this->_getDriver()->select('COUNT(*)', $this->_testTable, $cond);
         $data = $this->_getDriver()->fetchResultToArray($result);
         return $data[0];
     }
@@ -21,7 +22,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     {
         $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
         $cond .= ' AND TIKNum != 0';
-        $result = $this->_getDriver()->selectAssoc('COUNT(*) as CNT, TIKNum', $this->_reservTable, $cond, null, null, 'TIKNum');
+        $result = $this->_getDriver()->selectAssoc('COUNT(*) as CNT, TIKNum', $this->_testTable, $cond, null, null, 'TIKNum');
         return $result;
     }
 
@@ -29,7 +30,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     {
         $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
         $data = $this->_getDriver()->selectAssoc('ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
-            $this->_reservTable,
+            $this->_testTable,
             $cond,
             null,
             'Loadtime desc');
@@ -235,7 +236,13 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         if ($tikNum === null) {
             return '1 = 1';
         }
-        return sprintf('TikNum = %d', $tikNum);
+        if (!is_array($tikNum)) {
+            $tikNum = array($tikNum);
+        }
+        foreach ($tikNum as $i => $num) {
+            $tikNum[$i] = intval($num);
+        }
+        return sprintf('TikNum IN (%s)', implode(', ', $tikNum));
     }
 
     private function _getCondUik($uikNum)

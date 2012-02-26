@@ -24,4 +24,10 @@ form label {cursor: pointer;}
 
 .disabled {color: #cccccc;}
 
+#violCount {font-size: 20px!important;}
+
 .val {font-weight: 700;}
+
+#geoTree, #violData {height: 250px; min-height: 250px; max-height: 250px; overflow-x: hidden; overflow-y: scroll;}
+#geoTree .hdr, #violData .hdr {font-weight: 700; margin-bottom: 7px;}
+#geoTree td, #violData td{font-size: 75%; vertical-align: top;}

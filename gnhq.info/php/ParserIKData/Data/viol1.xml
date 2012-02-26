@@ -7,8 +7,8 @@
 	<version>1</version>
 	<obsid>732f3ab3343a4</obsid>
 	<region>77</region>
-	<stationtype>UIK</stationtype>
-	<uik>12</uik>
+	<uik>0</uik>
+	<place>рядом с УИК</place>
 	<classification>1</classification>
 	<type>10</type>
 	<value>1</value>

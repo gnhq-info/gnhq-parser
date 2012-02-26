@@ -26,6 +26,7 @@ var Viol = {
 			Viol.Exchange.loadData();
 			return false;
 		});
+		Viol.Exchange.loadData();
 	},
 	
 	Exchange: {
@@ -36,7 +37,7 @@ var Viol = {
 				'ViolType':    $('#ViolType').val(),
 				'regionNum':   $('#regionNum').val(),
 				'okrug':       $('#okrug').val()
-			}
+			}; 
 			$.ajax(
 				'getViolData.php', 
 				{
@@ -52,12 +53,61 @@ var Viol = {
 					              }
 				}
 			);
+		},
+		
+		showViolation: function(projectCode, projectId) {
+			
 		}
 	},
 	
 	SetResult: {
 		processResult: function(data) {
+			// count
 			Viol.SetResult.setCount(data.count);
+			
+			// lenta
+			$('#violData tbody tr').each(function() {
+				$(this).remove();
+			});
+			for (var _i in data.vshort) {
+				Viol.SetResult.buildViolTr(data.vshort[_i]).appendTo($('#violData tbody'));
+			}
+			
+			// geo tree
+			$('#geoTree .tree').children().each(function() {
+				$(this).remove();
+			});
+			for (var _j in data.tikCount) {
+				Viol.SetResult.addTikDiv(data.tikCount[_j], data.regionNum);
+			}
+		},
+		
+		addTikDiv: function (tikRow, regionNum) {
+			var _tikName;
+			_tikName = Viol.Dict.TIK.getName(regionNum, tikRow.TIKNum);
+			if (_tikName) {
+				$('<div>').html(_tikName + ': ' + tikRow.CNT).appendTo($('#geoTree .tree'));
+			}
+		},
+		
+		buildViolTr: function(row) {
+			var _place, _time, _description, _tr;
+			if (row.UIKNum && row.UIKNum != '0') {
+				_place = 'УИК ' + row.UIKNum;
+			} else if (row.TIKNum && row.TIKNum != '0') {
+				_place = Viol.Dict.TIK.getName(row.RegionNum, row.TIKNum);
+			} else if (row.Place) {
+				_place = row.Place;
+			} else {
+				_place = 'Не известно';
+			}
+			_time = Viol.Utility.formatTime(row.Obstime);
+			_description = row.Description;
+			_tr = $('<tr>');
+			$('<td>').html(_time).appendTo(_tr);
+			$('<td>').html(_place).appendTo(_tr);
+			$('<td>').html(_description).appendTo(_tr);
+			return _tr;
 		},
 		
 		setCount: function(cnt) {
@@ -84,15 +134,25 @@ var Viol = {
 		}
 	},
 	
+	Utility: {
+		formatTime: function(t) {
+			var _timeArray, _dateParts, _timeParts;
+			_timeArray = t.split(' ');
+			_dateParts = _timeArray[0].split('-');
+			_timeParts = _timeArray[1].split(':');
+			return _dateParts[2] + '.' + _dateParts[1] + ' ' + _timeParts[0] + ':' + _timeParts[1];
+		}
+	},
+	
 	Dict: {
 		TIK: {
 			getName: function(RegionNum, TikNum) {
-				return StaticData.Tiks[RegionNum, TikNum];
+				return StaticData.Tiks[parseInt(RegionNum, 10)][parseInt(TikNum, 10)];
 			}
 		},
 		ViolType: {
 			getName: function(MergedTypeId) {
-				return StaticData.ViolationTypes[MergedTypeId];
+				return StaticData.ViolationTypes[parseInt(MergedTypeId, 10)];
 			}
 		}
 	}

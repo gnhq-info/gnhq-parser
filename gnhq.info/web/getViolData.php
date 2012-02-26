@@ -23,18 +23,31 @@ if ($mergedTypeId === '') {
 
 $regionNum = intval($_GET['regionNum']);
 
+$tikNum = isset($_GET['TIKNum']) ? $_GET['TIKNum'] : null;
+if ($tikNum === '') {
+    $tikNum = null;
+} else {
+    $tikNum = intval($tikNum);
+}
+
+
 
 /* далее все входные данные очищены */
 $vGateway = new ParserIKData_Gateway_Violation();
-$count = $vGateway->count($projectCode, $mergedTypeId, $regionNum);
-
-
+$count = $vGateway->count($projectCode, $mergedTypeId, $regionNum, $tikNum);
+$vshort = $vGateway->short($projectCode, $mergedTypeId, $regionNum, $tikNum);
+foreach ($vshort as $k => $viol) {
+    $vshort[$k] = $viol->getParams();
+}
+$tikCount = $vGateway->tikCount($projectCode, $mergedTypeId, $regionNum, $tikNum);
 
 // формат ответа
 
 $response = new stdClass();
 $response->count = $count;
-$response->prCode = $projectCode;
+$response->regionNum = $regionNum;
+$response->vshort = $vshort;
+$response->tikCount = $tikCount;
 
 
 header('Content-Type: application/json');

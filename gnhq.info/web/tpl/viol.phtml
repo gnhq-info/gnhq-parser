@@ -6,43 +6,69 @@
 <title>Гражданин Наблюдатель - Нарушения 4 марта 2012</title>
 </head>
 <body>
-	<div class="container" style="margin-top: 15px; width: 90%!important;">
+	<div class="container" style="margin-top: 15px; width: 90% !important;">
 		<!-- SEARCH FORM -->
 		<form id="filterForm" name="filterForm">
-			<div class="span12">
-				<div class="row">
-					<div class="span3">
-						<div>Проект-наблюдатель</div>
-						<select id="ProjectCode" name="ProjectCode" style="width: 180px">
-							<option value="">-- все --</option>
-						</select>
-					</div>
-					<div class="span4">
-						<div>Тип нарушения</div>
-						<select id="ViolType" name="ViolType" style="width: 240px">
-							<option value="">-- все --</option>
-						</select>
-					</div>
-					<div class="span3">
-						<div>Регион:</div>
-						<select style="width: 200px" id="regionNum" name="regionNum"></select>
-					</div>
-					<div class="span2">
-						<div>Округ:</div>
-						<select id="okrug" name="okrug" style="width: 100px">
+			<div class="row">
+				<div class="span2">
+					<div>Проект-наблюдатель</div>
+					<select id="ProjectCode" name="ProjectCode" style="width: 160px">
 						<option value="">-- все --</option>
-						</select>
+					</select>
+				</div>
+				<div class="span3">
+					<div>Тип нарушения</div>
+					<select id="ViolType" name="ViolType" style="width: 240px">
+						<option value="">-- все --</option>
+					</select>
+				</div>
+				<div class="span3">
+					<div>Регион:</div>
+					<select style="width: 180px" id="regionNum" name="regionNum"></select>
+				</div>
+				<div class="span2">
+					<div>Округ:</div>
+					<select id="okrug" name="okrug" style="width: 100px">
+						<option value="">-- все --</option>
+					</select>
+				</div>
+				<div class="span2">
+					<div>&nbsp;</div>
+					<button class="btn btn-primary">показать</button>
+				</div>
+				<div class="span2">
+					<div>&nbsp;</div>
+					<div id="violCount">
+						Нарушений: <span class="val"></span>
 					</div>
 				</div>
 			</div>
-			<div class="span2">
-				<div>&nbsp;</div><button class="btn btn-primary">показать</button>
-			</div>
+
 		</form>
 		<div class="partSeparator hr">&nbsp;</div>
 		<!-- /SEARCH FORM -->
-		<div class="span4" style="margin-top: 10px;">
-			<div id="violCount">Количество нарушений: <span class="val"></span></div>
+		<div class="row" style="margin-top: 10px;">
+
+			<div id="geoTree" class="span3">
+				<div class="hdr">по ТИКам:</div>
+				<div class="tree">
+				</div>
+			</div>
+			<div id="violData" >
+				<div class="hdr">Лента нарушений:</div>
+				<table style="margin-left: 5px;">
+					<thead>
+						<tr>
+							<td style="width: 100px;">Время</td>
+							<td style="width: 100px;">Место</td>
+							<td>Описание</td>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 	</div>

@@ -9,12 +9,46 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         $this->_getDriver()->truncateTable($this->_table);
     }
 
-    public function count($projectCode, $mergedTypeId, $regionNum)
+    public function count($projectCode, $mergedTypeId, $regionNum, $tikNum)
     {
-        $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, null, null);
+        $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
         $result = $this->_getDriver()->select('COUNT(*)', $this->_table, $cond);
         $data = $this->_getDriver()->fetchResultToArray($result);
         return $data[0];
+    }
+
+    public function tikCount($projectCode, $mergedTypeId, $regionNum, $tikNum)
+    {
+        $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
+        $cond .= ' AND TIKNum != 0';
+        $result = $this->_getDriver()->selectAssoc('COUNT(*) as CNT, TIKNum', $this->_reservTable, $cond, null, null, 'TIKNum');
+        return $result;
+    }
+
+    public function short($projectCode, $mergedTypeId, $regionNum, $tikNum)
+    {
+        $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
+        $data = $this->_getDriver()->selectAssoc('ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
+            $this->_reservTable,
+            $cond,
+            null,
+            'Loadtime desc');
+        $violations = array();
+        foreach ($data as $row) {
+            $viol = ParserIKData_Model_Violation::create();
+            $viol
+                ->setProjectId($row['ProjectId'])
+                ->setProjectCode($row['ProjectCode'])
+                ->setRegionNum($row['RegionNum'])
+                ->setMergedTypeId($row['MergedTypeId'])
+                ->setDescription($row['Description'])
+                ->setPlace($row['Place'])
+                ->setObstime($row['Obstime'])
+                ->setTIKNum($row['TIKNum'])
+                ->setUIKNum($row['UIKNum']);
+            $violations[] = $viol;
+        }
+        return $violations;
     }
 
     /**
@@ -141,7 +175,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         if ($notProjectCode) {
             $parts[] = $this->_getCondProjectCode($notProjectCode, true);
         }
-        if ($mergedTypeId) {
+        if ($mergedTypeId !== null) {
             $parts[] = $this->_getCondType($mergedTypeId);
         }
         if ($regionNum) {

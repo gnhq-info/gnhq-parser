@@ -56,9 +56,9 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
                 $violations[] = $viol;
             }
             $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $violations);
-            print 'NOT FROM CACHE'.PHP_EOL;
+            //print 'NOT FROM CACHE'.PHP_EOL;
         } else {
-            print 'FROM CACHE'.PHP_EOL;
+            //print 'FROM CACHE'.PHP_EOL;
         }
         return $violations;
     }

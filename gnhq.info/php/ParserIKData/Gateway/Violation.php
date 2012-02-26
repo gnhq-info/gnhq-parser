@@ -4,6 +4,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     private $_table = 'violation';
     private $_reservTable = 'violation_copy';
     private $_testTable = 'violation_copy';
+    private $_modelClass = 'ParserIKData_Model_Violation';
 
     public function removeAll()
     {
@@ -60,7 +61,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     public function find($projectCode, $projectId)
     {
         $whereCond = sprintf('ProjectCode = "%s" AND ProjectId = "%s"', $this->_escapeString($projectCode), $this->_escapeString($projectId));
-        $data = $this->_loadFromTable($this->_table, 'ParserIKData_Model_Violation', $whereCond);
+        $data = $this->_loadFromTable($this->_testTable, $this->_modelClass, $whereCond);
         if (count($data) == 0) {
             return null;
         } else {
@@ -89,7 +90,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
 
     public function getAll()
     {
-        return $this->_loadFromTable($this->_table, 'ParserIKData_Model_Violation');
+        return $this->_loadFromTable($this->_table, $this->_modelClass);
     }
 
     /**

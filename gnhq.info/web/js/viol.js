@@ -57,7 +57,25 @@ var Viol = {
 		},
 		
 		showViolation: function(projectCode, projectId) {
-			
+			var _data = {
+				'isSingle': 1,	
+				'ProjectCode': projectCode,
+				'ProjectId':   projectId
+			}; 
+			$.ajax(
+				'getViolData.php', 
+				{
+					'data'      : _data,
+					'dataType'  : 'json',
+					'async'     : false,
+					'success'   : function(data, status, request) {
+										Viol.SetResult.processSingleResult(data.violData);
+								  },
+					'error'     : function(data, status, request) {
+										alert('Ошибка при загрузке информации о нарушении');
+					              }
+				}
+			);
 		}
 	},
 	
@@ -103,7 +121,7 @@ var Viol = {
 				}));
 		},
 		add: function(a) {
-			a.appendTo($('#geoTree .tree'))
+			a.appendTo($('#geoTree .tree'));
 		},
 		select: function(a) {
 			$('#geoTree a').removeClass('selected');
@@ -128,7 +146,7 @@ var Viol = {
 			
 			// geo tree
 			Viol.GeoTree.clear();
-			Viol.GeoTree.addTotal(data.cnt)
+			Viol.GeoTree.addTotal(data.cnt);
 			Viol.GeoTree.selectTotal();
 			var _tikNum;
 			for (var i in StaticData.TiksOrder[data.regionNum]) {
@@ -153,27 +171,57 @@ var Viol = {
 		
 		buildViolTr: function(row) {
 			var _place, _time, _descrHtml, _tr, _vtypeHdr;
-			if (row.UIKNum && row.UIKNum != '0') {
-				_place = 'УИК ' + row.UIKNum;
-			} else if (row.TIKNum && row.TIKNum != '0') {
-				_place = Viol.Dict.TIK.getName(row.RegionNum, row.TIKNum);
-			} else if (row.Place) {
-				_place = row.Place;
-			} else {
-				_place = 'Не известно';
-			}
+			_place = Viol.Utility.buildPlace(row);
 			_time = Viol.Utility.formatTime(row.Obstime);
 			_vtypeHdr = $('<span>').addClass('vhdr').html(Viol.Dict.ViolType.getName(row.MergedTypeId) + ': ');
 			_descrHtml =  row.Description;
 			_tr = $('<tr>').attr('tikNum', row.TIKNum);
+			$('<td>').append($('<span>').html(row.ProjectCode).attr('title', Viol.Dict.Watchers.getName(row.ProjectCode))
+															.tooltip({'placement' : 'top'})
+															.addClass('my-tooltip')).appendTo(_tr);
 			$('<td>').html(_time).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
-			$('<td>').append(_vtypeHdr).append($('<span>').html(_descrHtml)).appendTo(_tr);
+			$('<td>').append(_vtypeHdr).append($('<a>').html(_descrHtml)).click(function() {
+				Viol.Exchange.showViolation(row.ProjectCode, row.ProjectId);
+			}).appendTo(_tr);
 			return _tr;
 		},
 		
 		setCount: function(cnt) {
 			$('#violCount .val').html(cnt);
+		},
+		
+		processSingleResult: function(row) {
+			$('#violationModel .place').html(Viol.Utility.buildPlace(row) + '   ' + Viol.Utility.formatTime(row.Obstime));
+			$('#violationModel .violationType span').html(Viol.Dict.ViolType.getName(row.MergedTypeId));
+			$('#violationModel .description span').html(row.Description);
+			$('#violationModel .hqcomment span').html(row.Hqcomment);
+			$('#violationModel .mobilegroup span').html(row.Mobgroupsent ? 'отправлена' : 'не отправлена');
+			var _policeReaction;
+			switch (row.PoliceReaction) {
+				case "1":
+				_policeReaction = 'Вызвана';
+				break;
+				case "2":
+				_policeReaction = 'Прибыла';
+				break;
+				default:
+				_policeReaction = 'Нет данных';
+				break;
+			}
+			$('#violationModel .police span').html(_policeReaction);
+			$('#violationModel').modal('show');
+			$('#violationModel .media div').each(function(){
+				$(this).remove();
+			});
+			var _mediaData;
+			for (var i in row.Media) {
+				_mediaData = row.Media[i];
+				$('<div>')
+					.append($('<div>').html(_mediaData['description']))
+					.append($('<a>').attr('href', _mediaData['url']).attr('target', '_blank').html(_mediaData['url']))
+					.appendTo($('#violationModel .media'));
+			}
 		}
 	},
 	
@@ -198,6 +246,19 @@ var Viol = {
 	},
 	
 	Utility: {
+		buildPlace: function (row) {
+			if (row.UIKNum && row.UIKNum != '0') {
+				_place = 'УИК ' + row.UIKNum;
+			} else if (row.TIKNum && row.TIKNum != '0') {
+				_place = Viol.Dict.TIK.getName(row.RegionNum, row.TIKNum);
+			} else if (row.Place) {
+				_place = row.Place;
+			} else {
+				_place = 'Не известно';
+			}
+			return _place;
+		},
+		
 		formatTime: function(t) {
 			var _timeArray, _dateParts, _timeParts;
 			_timeArray = t.split(' ');
@@ -208,6 +269,12 @@ var Viol = {
 	},
 	
 	Dict: {
+		Watchers: {
+			getName: function(ProjectCode) {
+				return StaticData.Watchers[ProjectCode];
+			}
+		},
+		
 		TIK: {
 			getName: function(RegionNum, TikNum) {
 				return StaticData.Tiks[parseInt(RegionNum, 10)][parseInt(TikNum, 10)];

@@ -51,17 +51,17 @@
 
 			<div id="geoTree" class="span3">
 				<div class="hdr">по ТИКам:</div>
-				<div class="tree">
-				</div>
+				<div class="tree"></div>
 			</div>
-			<div id="violFeed" >
+			<div id="violFeed">
 				<div class="hdr">Лента нарушений:</div>
 				<table style="margin-left: 5px;">
 					<thead>
 						<tr>
-							<td style="width: 100px;">Время</td>
+							<td style="width: 50px;">Проект</td>
+							<td style="width: 80px;">Время</td>
 							<td style="width: 100px;">Место</td>
-							<td>Описание</td>
+							<td>Подробности</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -72,7 +72,24 @@
 		</div>
 
 	</div>
-
+	<div class="modal" id="violationModel" style="display: none;">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3 class="place"></h3>
+		</div>
+		<div class="modal-body">
+			<p class="violationType"><u>Тип нарушения</u>: <span></span></p>
+			<p class="description"><u>Описание</u>: <span></span></p>
+			<p class="hqcomment"><u>Комментарий штаба</u>: <span></span></p>
+			<p class="mobilegroup"><u>Мобильная группа</u>: <span></span></p>
+			<p class="police"><u>Полиция</u>: <span></span></p>
+		</div>
+		<div class="modal-footer">
+			<div class="media">
+				
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script>

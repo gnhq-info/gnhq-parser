@@ -34,3 +34,4 @@ form label {cursor: pointer;}
 #geoTree a, #geoTree a:hover, #geoTree a:active {cursor: hand; cursor: pointer; display: block; padding: 0px 0px 2px 2px;}
 #geoTree a.selected {background-color: #FFA07A;}
 #violFeed span.vhdr {font-style: italic!important; margin-right: 5px;}
+#violFeed a, #violFeed a:hover {text-decoration: none; border-bottom: 1px dashed #000080; cursor: hand; cursor: pointer;}

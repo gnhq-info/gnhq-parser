@@ -23,3 +23,5 @@ form label {cursor: pointer;}
 .line-positive {color: black;}
 
 .disabled {color: #cccccc;}
+
+.val {font-weight: 700;}

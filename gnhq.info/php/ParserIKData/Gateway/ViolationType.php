@@ -41,7 +41,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         $this->_getDriver()->query($this->_insertQuery($violT));
     }
 
-    public function getAll($order)
+    public function getAll($order = null)
     {
         switch ($order) {
             case 'name':

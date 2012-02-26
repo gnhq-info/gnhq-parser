@@ -29,4 +29,4 @@ $view->diagRows = array(
 	array('key' => 'SP', 'hdr' => 'Недействительные', 'title' => 'Недействительные', 'color' => 'grey'),
 );
 
-include 'tpl/index.tpl';
+include 'tpl/index.phtml';

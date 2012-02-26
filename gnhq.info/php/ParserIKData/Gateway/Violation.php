@@ -9,6 +9,14 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         $this->_getDriver()->truncateTable($this->_table);
     }
 
+    public function count($projectCode, $mergedTypeId, $regionNum)
+    {
+        $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, null, null);
+        $result = $this->_getDriver()->select('COUNT(*)', $this->_table, $cond);
+        $data = $this->_getDriver()->fetchResultToArray($result);
+        return $data[0];
+    }
+
     /**
      * @param string $projectCode
      * @param string $projectId

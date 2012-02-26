@@ -16,6 +16,11 @@ class ParserIKData_Gateway_TIKRussia extends ParserIKData_Gateway_Abstract
         $this->_getDriver()->query($this->_insertQuery($tikR));
     }
 
+    public function getAllByRegions()
+    {
+        return $this->_loadFromTable($this->_table, 'ParserIKData_Model_TIKRussia', null, null, 'RegionNum ASC, TikNum ASC');
+    }
+
     public function getAll()
     {
         return $this->_loadFromTable($this->_table, 'ParserIKData_Model_TIKRussia');

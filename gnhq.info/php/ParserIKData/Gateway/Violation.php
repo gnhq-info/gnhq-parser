@@ -223,8 +223,15 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         if ($projectCode == null) {
             return '1 = 1';
         }
-        $sign = ($not ? '!=' : '=');
-        return sprintf('ProjectCode '.$sign.' "%s"', $this->_escapeString($projectCode));
+        $sign = ($not ? ' NOT IN ' : ' IN ');
+        if (!is_array($projectCode)) {
+            $projectCode = array($projectCode);
+        }
+        $inParts = array();
+        foreach ($projectCode as $pCode) {
+            $inParts[] = sprintf('"%s"', $this->_escapeString($pCode));
+        }
+        return 'ProjectCode '. $sign . ' (' . implode(', ', $inParts)  . ')';
     }
 
     /**

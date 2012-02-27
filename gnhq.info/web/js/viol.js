@@ -8,6 +8,7 @@ var Viol = {
 		for (var prCode in StaticData.Watchers) {
 			$('<option>').val(prCode).html(StaticData.Watchers[prCode]).appendTo($('#ProjectCode'));
 		}
+		$('#ProjectCode').attr('size', 6);
 		
 		for (var regionNum in StaticData.Regions) {
 			$('<option>').val(regionNum).html(StaticData.Regions[regionNum]).appendTo($('#regionNum'));
@@ -23,6 +24,24 @@ var Viol = {
 			Viol.Exchange.loadData();
 			return false;
 		});
+		$('#ViolType').change(function() {
+			Viol.Exchange.loadData();
+			return false;
+		});
+		$('#regionNum').change(function() {
+			Viol.Exchange.loadData();
+			return false;
+		});
+		$('#okrug').change(function() {
+			Viol.Exchange.loadData();
+			return false;
+		});
+		$('#ProjectCode').change(function() {
+			Viol.Exchange.loadData();
+			return false;
+		});
+		
+		
 		$('#filterForm > button').click(function() {
 			Viol.Exchange.loadData();
 			return false;

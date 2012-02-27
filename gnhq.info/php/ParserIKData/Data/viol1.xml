@@ -2,12 +2,13 @@
 	<project>21</project>
 	<projectdesc>Гражданин Наблюдатель</projectdesc>
 	<url>http://nabludatel.org/show?id=444</url>
-	<id>0abd3de3434</id>
-	<updt>12-03-04 07:46</updt>
+	<id>123dffdf</id>
+	<updt>12-03-04 07:48</updt>
 	<version>1</version>
 	<obsid>732f3ab3343a4</obsid>
-	<region>77</region>
-	<uik>0</uik>
+	<region>78</region>
+	<stationtype>1</stationtype>
+	<uik>21</uik>
 	<place>рядом с УИК</place>
 	<classification>1</classification>
 	<type>10</type>
@@ -15,11 +16,11 @@
 	<typedesc>Непустые урны перед началом</typedesc>
 	<impact>4</impact>
 	<complaint>4</complaint>
-	<obscomment>Пришел, а урны уже опечатаны а тамм  - куча бюллетеней за Пу</obscomment>
-	<obstime>12-03-04 08:22:11</obstime>
+	<obscomment>На выездное голосование ушли без списка заявок</obscomment>
+	<obstime>12-03-04 12:22:11</obstime>
 	<rectime>12-03-04 08:34:12</rectime>
 	<recchannel>4</recchannel>
-	<hqcomment>Послали группу проверить - и правда</hqcomment>
+	<hqcomment></hqcomment>
 	<obstrusted>2</obstrusted>
 	<obsrole>2</obsrole>
 	<police>notified</police>

@@ -15,11 +15,32 @@ if (substr($_SERVER['HTTP_REFERER'], -8) != 'viol.php' || substr($_SERVER['HTTP_
 unset($fullHost);
 
 /* validating input params */
-$projectCode = substr($_GET['ProjectCode'], 0, 2);
-if ($projectCode && !array_key_exists($projectCode, $PROJECT_CONFIG)) {
-    trigger_error('Bad projectCode: '.$projectCode, E_USER_ERROR);
-    exit(2);
+if (is_array($_GET['ProjectCode'])) {
+    if (empty($_GET['ProjectCode'])) {
+        $projectCode = null;
+    } else {
+        $projectCode = array();
+        foreach ($_GET['ProjectCode'] as $prCode) {
+            if (array_key_exists(strval($prCode), $PROJECT_CONFIG)) {
+                $projectCode[] = $prCode;
+            }
+        }
+        if (empty($projectCode)) {
+            $projectCode = null;
+        }
+    }
+} else {
+    if (strtolower($_GET['ProjectCode']) == 'null') {
+        $projectCode = null;
+    } else {
+        $projectCode = substr($_GET['ProjectCode'], 0, 2);
+    }
+    if ($projectCode && !array_key_exists($projectCode, $PROJECT_CONFIG)) {
+        trigger_error('Bad projectCode: '.$projectCode, E_USER_ERROR);
+        exit(2);
+    }
 }
+
 
 $modeSingleViolation = (!empty($_GET['isSingle']) ? true : false);
 

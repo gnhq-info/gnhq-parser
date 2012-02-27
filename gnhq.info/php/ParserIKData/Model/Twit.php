@@ -20,6 +20,14 @@ class ParserIKData_Model_Twit extends ParserIKData_Model
         return $this->getGuid();
     }
 
+    public function getHtml()
+    {
+        $plain = $this->getDescription();
+        $plain = preg_replace('/(http:\/\/[^\s]*)/', '<a href="$1" target="_blank">$1</a>', $plain);
+        $plain = preg_replace('/(@[a-zA-Z0-9_]*)/', '<a href="https://twitter.com/#!/$1" target="_blank">$1</a>', $plain);
+        return $plain;
+    }
+
     /**
     * (non-PHPdoc)
     * @see ParserIKData_Model::toArray()

@@ -66,6 +66,7 @@ var Viol = {
 					'async'     : true,
 					'success'   : function(data, status, request) {
 										Viol.SetResult.processResult(data);
+										Viol.SetResult.setTwits(data.twits);
     									Decoration.SplashScreen.Hide();
 								  },
 					'error'     : function(data, status, request) {
@@ -89,6 +90,7 @@ var Viol = {
 					'async'     : false,
 					'success'   : function(data, status, request) {
 										Viol.SetResult.processSingleResult(data.violData);
+										Viol.SetResult.setTwits(data.twits);
 								  },
 					'error'     : function(data, status, request) {
 										alert('Ошибка при загрузке информации о нарушении');
@@ -152,6 +154,15 @@ var Viol = {
 	},
 	
 	SetResult: {
+		setTwits: function (twits) {
+			$('#twitterFeed').children().each(function(){
+				$(this).remove();
+			})
+			for (var _twitNum in twits) {
+				$('<div>').html(Viol.Utility.formatTime(twits[_twitNum].time) + '&nbsp;&nbsp;' + twits[_twitNum].html).appendTo('#twitterFeed');
+			}
+		},
+		
 		processResult: function(data) {
 			// count
 			Viol.SetResult.setCount(data.cnt);

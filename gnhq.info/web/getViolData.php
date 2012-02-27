@@ -94,6 +94,13 @@ if ($modeSingleViolation) {
     }
     $count = count($vshort);
 }
+
+$twitGateway = new ParserIKData_Gateway_Twit();
+$newTwits = $twitGateway->getAll(15);
+$twitData = array();
+foreach ($newTwits as $twit) {
+    $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
+}
 // формат ответа
 
 
@@ -109,6 +116,7 @@ if ($modeSingleViolation) {
     $response->vshort = $vshort;
     $response->tikCount = $tikCount;
 }
+$response->twits = $twitData;
 
 header('Content-Type: application/json');
 print json_encode($response);

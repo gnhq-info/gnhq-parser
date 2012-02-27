@@ -10,6 +10,7 @@ include_once('Model/Report412.php');
 include_once('Model/Watch412.php');
 include_once('Model/ViolationType.php');
 include_once('Model/Violation.php');
+include_once('Model/Twit.php');
 
 /**
  * @method string getFullName

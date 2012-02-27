@@ -1,6 +1,8 @@
 <?php
 set_time_limit(0);
 
+date_default_timezone_set('Etc/GMT-4');
+
 $dir = __DIR__;
 $dirParts = explode(DIRECTORY_SEPARATOR, $dir);
 unset($dirParts[count($dirParts)-1]);

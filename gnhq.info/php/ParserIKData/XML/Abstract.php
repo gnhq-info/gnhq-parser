@@ -1,6 +1,7 @@
 <?php
 include_once('Violation.php');
 include_once('Protocol403.php');
+include_once('Twitter.php');
 
 abstract class ParserIKData_XMLProcessor_Abstract
 {
@@ -20,7 +21,7 @@ abstract class ParserIKData_XMLProcessor_Abstract
      */
     protected function _filterString($string, $maxLength = null)
     {
-        $repl = str_replace(array("\0", '"', "'", '#', '*'), array('', '', '', '', ''), $string);
+        $repl = str_replace(array("\0", '"', "'", '*'), array('', '', '', '', ''), $string);
         if ($maxLength) {
             $repl = mb_substr($repl, 0, $maxLength, mb_detect_encoding($repl));
         }

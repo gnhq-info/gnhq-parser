@@ -1,11 +1,5 @@
 <?php
 include_once 'include.php';
 
-$twitter = new ParserIKData_XMLProcessor_Twitter();
-$twitter->import();
-$twitGateway = new ParserIKData_Gateway_Twit();
-$twits = $twitGateway->getAll(5);
-foreach ($twits as $twit) {
-    /* @var $twit ParserIKData_Model_Twit */
-    print ($twit->getTime() . ': ' . $twit->getHtml() . PHP_EOL);
-}
+$vGateway = new ParserIKData_Gateway_Violation();
+var_dump($vGateway->short('GN', null, 77, null));

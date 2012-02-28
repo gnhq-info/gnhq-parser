@@ -52,13 +52,6 @@ if ($modeSingleViolation) {
 
 } else {
 
-    $mergedTypeId = $_GET['ViolType'];
-    if ($mergedTypeId === '') {
-        $mergedTypeId = null;
-    } else {
-        $mergedTypeId = intval($mergedTypeId);
-    }
-
     $regionNum = intval($_GET['regionNum']);
 
     $warehouse->loadAllOkrugs();
@@ -83,20 +76,21 @@ if ($modeSingleViolation) {
 
     $vGateway = new ParserIKData_Gateway_Violation();
     // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
-    $vshort = $vGateway->setUseCache(true)->short($projectCode, $mergedTypeId, $regionNum, $okrugTikNums);
-    $tikCount = array();
+    $vshort = $vGateway->setUseCache(true)->short($projectCode, null, $regionNum, $okrugTikNums);
+    $vTypeCount = array();
     foreach ($vshort as $k => $viol) {
         $vshort[$k] = $viol->getParams();
-        if (!isset($tikCount[$viol->getTIKNum()])) {
-            $tikCount[$viol->getTIKNum()] = 0;
+        if (!isset($vTypeCount[$viol->getMergedTypeId()])) {
+            $vTypeCount[$viol->getMergedTypeId()] = 0;
         }
-        $tikCount[$viol->getTIKNum()]++;
+        $vTypeCount[$viol->getMergedTypeId()]++;
     }
     $count = count($vshort);
 }
 
+// twitter feed
 $twitGateway = new ParserIKData_Gateway_Twit();
-$newTwits = $twitGateway->getAll(15);
+$newTwits = $twitGateway->getAll(10);
 $twitData = array();
 foreach ($newTwits as $twit) {
     $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
@@ -114,7 +108,7 @@ if ($modeSingleViolation) {
     $response->cnt = $count;
     $response->regionNum = $regionNum;
     $response->vshort = $vshort;
-    $response->tikCount = $tikCount;
+    $response->vTypeCount = $vTypeCount;
 }
 $response->twits = $twitData;
 

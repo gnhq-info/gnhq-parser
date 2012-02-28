@@ -24,14 +24,16 @@ form label {cursor: pointer;}
 
 .disabled {color: #cccccc;}
 
-#violCount {font-size: 20px!important;}
-
 .val {font-weight: 700;}
 
-#geoTree, #violFeed {height: 250px; min-height: 250px; max-height: 250px; overflow-x: hidden; overflow-y: scroll;}
-#geoTree .hdr, #violFeed .hdr {font-weight: 700; margin-bottom: 7px;}
-#geoTree td, #violFeed td {font-size: 75%; vertical-align: top;}
-#geoTree a, #geoTree a:hover, #geoTree a:active {cursor: hand; cursor: pointer; display: block; padding: 0px 0px 2px 2px;}
-#geoTree a.selected {background-color: #FFA07A;}
+#vTypes, #violFeed {height: 350px; min-height: 350px; max-height: 350px; overflow-x: hidden; overflow-y: scroll;}
+#vTypes .hdr, #violFeed .hdr {font-weight: 700; margin-bottom: 7px;}
+#vTypes td, #violFeed td {font-size: 75%; vertical-align: top;}
+#vTypes .data span.val {float: right; font-weight: 700; padding-right: 40px;}
+
 #violFeed span.vhdr {font-style: italic!important; margin-right: 5px;}
 #violFeed a, #violFeed a:hover {text-decoration: none; border-bottom: 1px dashed #000080; cursor: hand; cursor: pointer;}
+
+#vTypes .selected {background-color: #FFA07A; }
+
+#watchers label, #vTypes label {display: inline; margin-left: 3px; cursor: pointer;}

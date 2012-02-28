@@ -6,20 +6,12 @@
 <title>Гражданин Наблюдатель - Нарушения 4 марта 2012</title>
 </head>
 <body>
-	<div class="container" style="margin-top: 5px; width: 90% !important;">
+	<div class="container" style="margin-top: 5px; width: 96% !important;">
 		<!-- SEARCH FORM -->
 		<form id="filterForm" name="filterForm" style="margin-bottom: 5px!important;">
 			<div class="row">
-				<div class="span3">
-					<div title="Для выбора нескольких проектов зажмите Ctrl">Проект-наблюдатель</div>
-					<select title="Для выбора нескольких проектов зажмите Ctrl" id="ProjectCode" name="ProjectCode" style="width: 180px; height: 107px;" multiple="multiple" >
-					</select>
-				</div>
-				<div class="span3">
-					<div>Тип нарушения</div>
-					<select id="ViolType" name="ViolType" style="width: 240px">
-						<option value="">-- все --</option>
-					</select>
+				<div class="span3" id="watchers">
+					<div >Проект-наблюдатель:</div>
 				</div>
 				<div class="span3">
 					<div>Регион:</div>
@@ -31,10 +23,19 @@
 						<option value="">-- все --</option>
 					</select>
 				</div>
-				<div class="span3">
-					<div>&nbsp;</div>
+				<div class="span2">
+					<div>УИК:</div>
+					<select id="uikNum" name="uikNum" style="width: 100px">
+						<option value="">-- все --</option>
+					</select>
+				</div>
+				<div class="span4">
+					<div id="selectedPlace"></div>
+					<div id="uikCount">
+						Всего участков: <span class="val"></span>
+					</div>
 					<div id="violCount">
-						Нарушений: <span class="val"></span>
+						Всего нарушений: <span class="val"></span>
 					</div>
 				</div>
 			</div>
@@ -43,13 +44,13 @@
 		<!-- /SEARCH FORM -->
 		<div class="row" style="margin-top: 5px; border-top: 1px solid gray;">
 
-			<div id="geoTree" class="span3">
-				<div class="hdr">по ТИКам:</div>
-				<div class="tree"></div>
+			<div id="vTypes" class="span6">
+				<div class="hdr">По типам:</div>
+				<div class="data"></div>
 			</div>
 			<div id="violFeed">
 				<div class="hdr">Лента нарушений:</div>
-				<table style="margin-left: 5px;">
+				<table style="margin-left: 5px; width: 100%;">
 					<thead>
 						<tr>
 							<td style="width: 50px;">Проект</td>

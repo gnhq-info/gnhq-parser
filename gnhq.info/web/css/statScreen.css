@@ -26,6 +26,8 @@ form label {cursor: pointer;}
 
 .val {font-weight: 700;}
 
+#selectedPlace {font-weight: 700;}
+
 #vTypes, #violFeed {height: 350px; min-height: 350px; max-height: 350px; overflow-x: hidden; overflow-y: scroll;}
 #vTypes .hdr, #violFeed .hdr {font-weight: 700; margin-bottom: 7px;}
 #vTypes td, #violFeed td {font-size: 75%; vertical-align: top;}

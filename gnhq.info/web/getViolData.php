@@ -15,6 +15,9 @@ if (substr($_SERVER['HTTP_REFERER'], -8) != 'viol.php' || substr($_SERVER['HTTP_
 unset($fullHost);
 
 /* validating input params */
+if (empty($_GET['ProjectCode'])) {
+    $_GET['ProjectCode'] = null;
+}
 if (is_array($_GET['ProjectCode'])) {
     if (empty($_GET['ProjectCode'])) {
         $projectCode = null;

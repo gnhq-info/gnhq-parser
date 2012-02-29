@@ -4,7 +4,7 @@ configuring -
 php/Config/mysql.ini with content 
 host=yourhost
 user=youruser
-password=yourpws
+password=yourpassword
 db=yourdb
 charset=charset
 
@@ -19,10 +19,17 @@ php/ParserIKData/SrcCache/Web
 php/log/error.log 
 it should be accesible for writing for web server user
 
-5. If using csv for saving data (for parser tasks) - make directory php/ParserIKData/Output writable
+5. Dump of the database is in /php/ParserIKData/Sql/structure.sql
 
-6. Cache is based on Zend_Cache component. You should change const PATH_TO_ZEND in php/Lib/ZendConfig.php
-to point to the real path of Zend library source on your server. By default this path points to the
-directory of this project, which contains used Zend components 
+6. cron tasks. all import from external sources is made by cron tasks
+you should put this lines into /etc/cron.d/www (change the user www-data to the 
+user of your web server)
 
-7. Dump of the database is in /php/ParserIKData/Sql/structure.sql
+# begin of agregator cron tasks
+MAILTO=YOUR_ADMIN_MAIL
+ACTIONPATH=/home/gnsite/nabludatel/statistic/php/ParserIKData/Actions
+
+#importing twits
+*/5 * * * * www-data php $ACTIONPATH/import-twits.php
+
+# end of agregator cron tasks

@@ -7,12 +7,20 @@ var Viol = {
 					Viol.Exchange.loadData();
 					return false;
 				}))
-				.append($('<label>').attr('for',prCode).html(StaticData.Watchers[prCode]))
+				.append($('<label>').attr('for', prCode).html(StaticData.Watchers[prCode]))
 				.appendTo($('#watchers'));
 		}
+		
 		$('#watchers input').each(function(){
 			$(this).get(0).checked = true;
 		});
+		$('#watchersAll').click(function() {
+					$('#watchers input').each(function(){
+						$(this).get(0).checked = true;
+					});
+					Viol.Exchange.loadData();
+					return false;
+				});
 		
 		for (var _vTypeOrder in StaticData.ViolationTypesOrder) {
 			var _vTypeName, _vTypeId, _chboxId;
@@ -34,6 +42,14 @@ var Viol = {
 			$('#'+_chboxId).get(0).checked = true;	
 		}		
 		
+		$('#violTypeAll').click(function() {
+					$('#vTypes .data input').each(function(){
+						$(this).get(0).checked = true;
+						$(this).parent().addClass('selected');
+					});
+					Viol.Feed.showAll();
+					return false;
+				});
 		
 		for (var regionNum in StaticData.Regions) {
 			$('<option>').val(regionNum).html(StaticData.Regions[regionNum]).appendTo($('#regionNum'));
@@ -205,14 +221,12 @@ var Viol = {
 			_vtypeHdr = $('<span>').addClass('vhdr').html(Viol.Dict.ViolType.getName(row.MergedTypeId) + ': ');
 			_descrHtml =  row.Description;
 			_tr = $('<tr>').attr('tikNum', row.TIKNum).attr('typeId', row.MergedTypeId).css('display','table-row');
-			$('<td>').append($('<span>').html(row.ProjectCode).attr('title', Viol.Dict.Watchers.getName(row.ProjectCode))
-															.tooltip({'placement' : 'top'})
-															.addClass('my-tooltip')).appendTo(_tr);
+			$('<td>').html(Viol.Dict.Watchers.getName(row.ProjectCode)).appendTo(_tr);
 			$('<td>').html(_time).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
-			$('<td>').append(_vtypeHdr).append($('<a>').html(_descrHtml)).click(function() {
+			$('<td>').addClass('description').append(_vtypeHdr).append($('<a>').html(_descrHtml).click(function() {
 				Viol.Exchange.showViolation(row.ProjectCode, row.ProjectId);
-			}).appendTo(_tr);
+			})).appendTo(_tr);
 			if (!$('#vType-'+row.MergedTypeId).is(':checked')) {
 				_tr.hide();
 			}
@@ -291,16 +305,16 @@ var Viol = {
 	},
 	
 	Utility: {
+		
 		buildPlace: function (row) {
+			var _place = Viol.Dict.Region.getName(row.RegionNum) + ' ';
 			if (row.UIKNum && row.UIKNum != '0') {
-				_place = 'УИК ' + row.UIKNum;
+				_place += 'УИК ' + row.UIKNum;
 			} else if (row.TIKNum && row.TIKNum != '0') {
-				_place = Viol.Dict.TIK.getName(row.RegionNum, row.TIKNum);
+				_place += Viol.Dict.TIK.getName(row.RegionNum, row.TIKNum);
 			} else if (row.Place) {
-				_place = row.Place;
-			} else {
-				_place = 'Не известно';
-			}
+				_place += row.Place;
+			} 
 			return _place;
 		},
 		
@@ -325,6 +339,13 @@ var Viol = {
 				return StaticData.Tiks[parseInt(RegionNum, 10)][parseInt(TikNum, 10)];
 			}
 		},
+		
+		Region: {
+			getName: function(RegionNum) {
+				return StaticData.Regions[parseInt(RegionNum, 10)];
+			}
+		},
+		
 		ViolType: {
 			getName: function(MergedTypeId) {
 				return StaticData.ViolationTypes[parseInt(MergedTypeId, 10)];

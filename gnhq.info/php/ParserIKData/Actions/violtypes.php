@@ -11,7 +11,7 @@ switch ($argv[1])
         $lines = explode(PHP_EOL, $data);
         foreach ($lines as $line) {
             list($gnType, $name) = explode(";", $line, 2);
-            $name = mb_convert_encoding($name, 'utf-8', 'cp1251');
+            //$name = mb_convert_encoding($name, 'utf-8', 'cp1251');
             $vType = ParserIKData_Model_ViolationType::fromArray(array(trim($gnType), trim($gnType), PROJECT_GN, trim($name)));
             $gateway->save($vType);
         }

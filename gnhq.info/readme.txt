@@ -8,18 +8,26 @@ password=yourpassword
 db=yourdb
 charset=charset
 
+
 2. for authorization - put const AUTH_NEEDED in webinclude.php and make your own auth in auth.php
+
 
 3. If you want to use caching either in parser tasks or when working with db in gateways, then you
 must give web server user write access to directories 
 php/ParserIKData/SrcCache/Gateway
 php/ParserIKData/SrcCache/Web
 
-4. Error logs are put into file 
+
+4. PHP Errors are logged into file 
 php/log/error.log 
 it should be accesible for writing for web server user
 
-5. Dump of the database is in /php/ParserIKData/Sql/structure.sql
+
+5. Dumps of the database are situated in /php/ParserIKData/Sql/* 
+files with dump**.sql are full dumps for the corresponding dates date
+If tables violation, violation_copy, result_403, result_403_copy contain 
+any data this data is test and SHOULD BE REMOVED before use
+
 
 6. cron tasks. all import from external sources is made by cron tasks
 you should put this lines into /etc/cron.d/www (change the user www-data to the 

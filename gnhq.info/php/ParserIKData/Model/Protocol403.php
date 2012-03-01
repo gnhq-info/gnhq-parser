@@ -250,7 +250,7 @@ class ParserIKData_Model_Protocol403 extends ParserIKData_Model
     public static function fromArray($arr)
     {
         $data = array();
-        $data['FullName']   = array_shift($arr);
+        $data['IkFullName'] = array_shift($arr);
         $data['IkType']     = array_shift($arr);
         $data['Type']       = array_shift($arr);
         $data['ClaimCount'] = array_shift($arr);

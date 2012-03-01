@@ -8,8 +8,9 @@ const PROJECT_SHTABPROHOROVA = 'MP';
 
 $PROJECT_CONFIG = array(
     PROJECT_GN => array(
-            'Name'    => 'Гражданин наблюдатель',
-            'RssLink' => '',
+            'Name'      => 'Гражданин наблюдатель',
+            'ProtoLink' => array('http://gnhq.info/export/protocols.xml'),
+            'ViolLink'  => array()
         ),
 	PROJECT_GOLOS => array(
             'Name'    => 'Голос',

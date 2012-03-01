@@ -1,34 +1,51 @@
 <?php
 class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Abstract
 {
+    private $_projectCode;
+
+    private $_updateData = array();
+
+    public function __construct($projectCode)
+    {
+        $this->_projectCode = $projectCode;
+        $current = $this->_getProtocolGateway()->findForProject($this->_projectCode);
+        /* @var $proto ParserIKData_Model_Protocol403  */
+        foreach ($current as $proto) {
+            $this->_protoToUpdateData($proto);
+        }
+    }
+
     /**
      * @param ParserIKData_Model_Protocol403 $newProto
-     * @param ParserIKData_Model_Protocol403 $currentProto
      * @return string
      */
-    public function updateIfNecessary($newProto, $currentProto)
+    public function updateIfNecessary($newProto)
     {
         // новое нарушение
-        if ($currentProto === null) {
+        if (empty($this->_updateData[$newProto->getIkFullName()])) {
             $this->_getProtocolGateway()->insert($newProto);
+            $this->_protoToUpdateData($newProto);
             return 'inserted';
         }
 
-        // версии совпадают, но у нас свежее время обновления (в т.ч. для проектов, не использующих версии) - не обновляем
-        if ( strtotime($currentProto->getUpdateTime()) > strtotime($newProto->getUpdateTime()) ) {
+        // у нас свежее время обновления - резервируем для другого айдишника
+        if ( $this->_updateData[$newProto->getIkFullName()]['time'] >= strtotime($newProto->getUpdateTime()) ) {
+            if ($this->_updateData[$newProto->getIkFullName()]['projectId'] != $newProto->getProjectId()) {
+                $this->_getProtocolGateway()->reserve($newProto);
+            }
             return 'skipped time';
         }
 
         $this->_getProtocolGateway()->update($newProto);
+        $this->_protoToUpdateData($newProto);
         return 'updated';
     }
 
     /**
-     * @param string $xml
-     * @param string $projectCode
+     * @param string|SimpleXMLElement $xml
      * @return ParserIKData_Model_Protocol403|string
      */
-    public function createFromXml($sXml, $projectCode)
+    public function createFromXml($sXml)
     {
         $errors = array();
         if (!$sXml instanceof SimpleXMLElement) {
@@ -37,7 +54,7 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         $proto = ParserIKData_Model_Protocol403::create();
 
         // обязательные поля
-        $proto->setResultType($projectCode);
+        $proto->setResultType($this->_projectCode);
         // id in project
         if (!$sXml->id) {
             $errors[] = 'Не указан id';
@@ -109,5 +126,13 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
     private function _getProtocolGateway()
     {
         return new ParserIKData_Gateway_Protocol403();
+    }
+
+    private function _protoToUpdateData($proto)
+    {
+        $this->_updateData[$proto->getIkFullName()] = array (
+        	'time' => strtotime($proto->getUpdateTime()),
+        	'projectId' => $proto->getProjectId()
+        );
     }
 }

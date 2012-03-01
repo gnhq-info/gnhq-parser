@@ -1,7 +1,7 @@
 <?php
 include_once 'include.php';
 
-$xmlProcessor = new ParserIKData_XMLProcessor_Protocol403();
+$xmlProcessor = new ParserIKData_XMLProcessor_Protocol403(PROJECT_GN);
 $gateway = new ParserIKData_Gateway_Protocol403();
 
 
@@ -13,14 +13,12 @@ if (!$sXml instanceof SimpleXMLElement) {
 foreach ($sXml->xpath('prt') as $pXml) {
     echo 'next prt'.PHP_EOL;
 
-    $newProto = $xmlProcessor->createFromXml($pXml, PROJECT_GN);
+    $newProto = $xmlProcessor->createFromXml($pXml);
 
     if (!$newProto instanceof ParserIKData_Model_Protocol403) {
         print 'invalid data' . $newProto;
         continue;
     }
-
-    $currentProto = null;//$gateway->find($newViol->getProjectCode(), $newViol->getProjectId());
-    $result = $xmlProcessor->updateIfNecessary($newProto, $currentProto);
+    $result = $xmlProcessor->updateIfNecessary($newProto);
     print $result . PHP_EOL;
 }

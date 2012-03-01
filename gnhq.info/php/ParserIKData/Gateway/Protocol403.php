@@ -29,6 +29,22 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     }
 
     /**
+    * @param ParserIKData_Model_Protocol403 $proto
+    */
+    public function reserve($proto) {
+        $this->_getDriver()->query($this->_insertQuery($proto, $this->_reservTable));
+    }
+
+    /**
+     * @param string $projectCode
+     * @return ParserIKData_Model[]|NULL
+     */
+    public function findForProject($projectCode)
+    {
+        return $this->_loadFromTable($this->_table, $this->_modelClass, sprintf('ResultType = "%s"', $projectCode));
+    }
+
+    /**
      * @param string $okrugAbbr
      * @param int $uikNum
      * @param string $resultType
@@ -306,44 +322,41 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
 
 
     /**
-     * @param ParserIKData_Model_Violation $viol
+     * @param ParserIKData_Model_Protocol403 $proto
      * @param string $table
      * @return string
      */
-    private function _updateQuery($viol, $table)
+    private function _updateQuery($proto, $table)
     {
-        $data = $viol->toArray();
-        $data = $this->_getDriver()->escapeArray($data);
+        $lineData = $proto->getData();
+        $lineParts = array();
+        for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
+            $lineParts[] = 'Line' . $i . ' = '.intval($lineData[$i]);
+        }
+        $linePart = implode (', '.PHP_EOL, $lineParts);
         $query = sprintf('UPDATE '.$table.' SET
-    				ProjectUptime = "%s",
-    				ProjectVersion = %d,
-    				RegionNum = %d,
-    				MergedTypeId = %d,
-    				Description = "%s",
-    				Place = "%s",
-    				ComplaintStatus = "%s",
-    				UIKNum = %d,
-    				TIKNum = %d,
-    				Media = "%s",
-    				Obsrole = %d,
-    				Impact = %d,
-    				Obstime = %s,
-    				Loadtime = NOW(),
-    				Recchanel = %d,
-    				Hqcomment = "%s",
-    				Obsid = "%s",
-    				Obstrusted = %d,
-    				PoliceReaction = %d,
-    				Rectified = %d,
-    				Rectime = %s
+    				ClaimCount = %d,
+    				ProjectId = "%s",
+    				UpdateTime = "%s",
+    				SignTime = %s,
+    				LoadTime = NOW(),
+    				Dirt = %d,
+    				HasCopy = %d,
+    				Revised = %d,
+    				%s
             	WHERE
-            		ProjectId = "%s" AND ProjectCode = "%s"',
-        $data[2], $data[3], $data[4], $data[5], $data[6],
-        $data[7], $data[8], $data[9], $data[10], $data[11],
-        $data[12], $data[13], ($data[14] ? '"'.$data[14]. '"' : 'NULL'), $data[16],
-        $data[17], $data[18], $data[19], $data[20], $data[21],
-        ($data[22] ? '"'.$data[22]. '"' : 'NULL'),
-        $data[0], $data[1]);
+            		IKFullName = %d AND ResultType = "%s" AND IkType = "UIK"',
+                $proto->getClaimCount(),
+                $this->_escapeString($proto->getProjectId()),
+                $this->_escapeString($proto->getUpdateTime()),
+                $proto->getSignTime() ? '"'.$this->_escapeString($proto->getSignTime()).'"' : 'NULL',
+                $proto->getDirt(),
+                $proto->getCopy(),
+                $proto->getRevised(),
+                $linePart,
+                $proto->getIkFullName(),
+                $proto->getResultType()
+        );
         return $query;
     }
 }

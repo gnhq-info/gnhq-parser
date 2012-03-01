@@ -1,0 +1,32 @@
+<results projecturl="http://gnhq.info/xml/">
+	<prt>
+		<id>7</id>
+		<obsproject>2</obsproject>
+		<p10>2796</p10>
+		<p19>438</p19>
+		<p20>804</p20>
+		<p21>535</p21>
+		<p22>260</p22>
+		<p23>759</p23>
+		<p9>11</p9>
+		<region>25</region>
+		<test>1</test>
+		<uik>1728</uik>
+		<updt>12-02-26 14:56</updt>
+	</prt>
+	<prt>
+		<id>8</id>
+		<obsproject>2</obsproject>
+		<p10>2228</p10>
+		<p19>628</p19>
+		<p20>134</p20>
+		<p21>110</p21>
+		<p22>373</p22>
+		<p23>983</p23>
+		<p9>12</p9>
+		<region>1</region>
+		<test>1</test>
+		<uik>82</uik>
+		<updt>12-02-26 14:56</updt>
+	</prt>
+</results>

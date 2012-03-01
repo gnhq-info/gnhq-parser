@@ -1,22 +1,30 @@
 <?php
 include_once 'include.php';
 
-$xmlProcessor = new ParserIKData_XMLProcessor_Protocol403(PROJECT_GN);
+$projectCode = PROJECT_SMS_EXITPOLE;
+$projectFeed = $PROJECT_CONFIG[$projectCode]['ProtoLink'];
+
+if (!$projectFeed) {
+    print 'no feed link';
+    return;
+}
+
+$xmlProcessor = new ParserIKData_XMLProcessor_Protocol403($projectCode);
 $gateway = new ParserIKData_Gateway_Protocol403();
 
 
-$sXml = simplexml_load_file('http://gnhq.info/export/protocols.xml');
+$sXml = simplexml_load_file($projectFeed);
 if (!$sXml instanceof SimpleXMLElement) {
-    die('bad sxml');
+    print('bad xml');
+    return;
 }
 
 foreach ($sXml->xpath('prt') as $pXml) {
-    echo 'next prt'.PHP_EOL;
 
     $newProto = $xmlProcessor->createFromXml($pXml);
 
     if (!$newProto instanceof ParserIKData_Model_Protocol403) {
-        print 'invalid data' . $newProto;
+        print $newProto . PHP_EOL;
         continue;
     }
     $result = $xmlProcessor->updateIfNecessary($newProto);

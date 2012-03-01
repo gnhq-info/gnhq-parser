@@ -21,15 +21,16 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
      */
     public function updateIfNecessary($newProto)
     {
-        // новое нарушение
+        // новый протокол
         if (empty($this->_updateData[$newProto->getIkFullName()])) {
             $this->_getProtocolGateway()->insert($newProto);
             $this->_protoToUpdateData($newProto);
             return 'inserted';
         }
 
-        // у нас свежее время обновления - резервируем для другого айдишника
+        // у нас свежее время обновления
         if ( $this->_updateData[$newProto->getIkFullName()]['time'] >= strtotime($newProto->getUpdateTime()) ) {
+            // если не сопадают айдишники в рамках проекта - на всякий случай резервируем
             if ($this->_updateData[$newProto->getIkFullName()]['projectId'] != $newProto->getProjectId()) {
                 $this->_getProtocolGateway()->reserve($newProto);
             }
@@ -51,6 +52,15 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         if (!$sXml instanceof SimpleXMLElement) {
             $sXml = simplexml_load_string($sXml);
         }
+
+        if (!$sXml instanceof SimpleXMLElement) {
+            return 'bad simple xml';
+        }
+
+        if ($this->_skipFromRetranslator($sXml)) {
+            return 'skipped - not current project';
+        }
+
         $proto = ParserIKData_Model_Protocol403::create();
 
         // обязательные поля
@@ -116,18 +126,41 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         }
     }
 
-
-    private function _getUikRGateway()
+    /**
+     * в фиде-ретрансляторе могут быть данные от разных проектов (один фид <=> несколько проектов)
+     * отбрасываем лишние
+     * возвращает true для айтема, который нужно отбросить
+     * @param SimpleXMLElement $sXml
+     * @return boolean
+     */
+    private function _skipFromRetranslator($sXml)
     {
-        return new ParserIKData_Gateway_UIKRussia();
+        switch ($this->_projectCode) {
+            case PROJECT_SMS_EXITPOLE:
+                if (!$sXml->children()->obsproject) {
+                    return true;
+                }
+                if ((int)$sXml->children()->obsproject != 3) {
+                    return true;
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 
-
+    /**
+     * @return ParserIKData_Gateway_Protocol403
+     */
     private function _getProtocolGateway()
     {
         return new ParserIKData_Gateway_Protocol403();
     }
 
+    /**
+     * @param ParserIKData_Model_Protocol403 $proto
+     */
     private function _protoToUpdateData($proto)
     {
         $this->_updateData[$proto->getIkFullName()] = array (

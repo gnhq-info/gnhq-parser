@@ -78,8 +78,6 @@ var Viol = {
 			return false;
 		});
 		
-		
-
 		Viol.Exchange.loadData();
 	},
 	
@@ -217,13 +215,18 @@ var Viol = {
 			for (_j in _grpCnt) {
 				Viol.Filter.SetVGrpCount(_j, _grpCnt[_j]);
 			}
+			
+			Viol.FeedTable.buildHeaders();
+			Viol.FeedTable.reSort();
+			
 		},
 		
 		
 		
 		buildViolTr: function(row) {
-			var _place, _time, _descrHtml, _tr, _vtypeHdr;
+			var _place, _time, _descrHtml, _tr, _vtypeHdr, _uikNum;
 			_place = Viol.Utility.buildPlace(row);
+			_uikNum = Viol.Utility.buildUiknum(row);
 			_time = Viol.Utility.formatTime(row.Obstime);
 			_vtypeHdr = $('<span>').addClass('vhdr').html(Viol.Dict.ViolType.getName(row.MergedTypeId) + ': ');
 			_descrHtml =  row.Description;
@@ -231,6 +234,7 @@ var Viol = {
 			$('<td>').html(Viol.Dict.Watchers.getName(row.ProjectCode)).appendTo(_tr);
 			$('<td>').html(_time).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
+			$('<td>').html(_uikNum).appendTo(_tr);
 			$('<td>').addClass('description').append(_vtypeHdr).append($('<a>').html(_descrHtml).click(function() {
 				Viol.Exchange.showViolation(row.ProjectCode, row.ProjectId);
 			})).appendTo(_tr);
@@ -278,7 +282,19 @@ var Viol = {
 		}
 	},
 	
-	
+	FeedTable: {
+		buildHeaders: function () {
+			$('#th-prj').html('Проект');
+			$('#th-time').html('Время');
+			$('#th-place').html('Место');
+			$('#th-uik').html('УИК');
+			$('#th-txt').html('Подробности');
+		},
+		
+		reSort: function() {
+			fdTableSort.init('"violFeedTable"');
+		}
+	},
 	
 	Filter: {
 		
@@ -316,13 +332,21 @@ var Viol = {
 		buildPlace: function (row) {
 			var _place = Viol.Dict.Region.getName(row.RegionNum) + ' ';
 			if (row.UIKNum && row.UIKNum != '0') {
-				_place += 'УИК ' + row.UIKNum;
+				
 			} else if (row.TIKNum && row.TIKNum != '0') {
 				_place += Viol.Dict.TIK.getName(row.RegionNum, row.TIKNum);
 			} else if (row.Place) {
 				_place += row.Place;
 			} 
 			return _place;
+		},
+		
+		buildUiknum: function (row) { 
+			if (row.UIKNum && row.UIKNum != '0') {
+				return row.UIKNum;
+			} else {
+				return '';
+			}
 		},
 		
 		formatTime: function(t) {

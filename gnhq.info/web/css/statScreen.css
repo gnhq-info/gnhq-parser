@@ -36,7 +36,8 @@ form label {cursor: pointer;}
 #violFeed {background-color: #F0F0F0;}
 #vTypes .hdr, #violFeed .hdr {font-weight: 700; margin-bottom: 7px;}
 #violFeed .hdr {margin-top: 3px; margin-left: 3px;}
-#vTypes td, #violFeed td {font-size: 75%; vertical-align: top; border: 1px #E0E0E0 solid; border-collapse: collapse;}
+#vTypes td, #violFeed td , #violFeed th {font-size: 75%; vertical-align: top; border: 1px #E0E0E0 solid; border-collapse: collapse;}
+#violFeed th {text-align: left;}
 #vTypes .data span.val {float: right; font-weight: 700; padding-right: 40px;}
 
 #violFeed span.vhdr {font-style: italic!important; margin-right: 5px;}

@@ -52,13 +52,14 @@
 			</div>
 			<div id="violFeed" >
 				<div class="hdr">Лента нарушений:</div>
-				<table style="margin-left: 5px; width: 100%;">
+				<table id="violFeedTable" style="margin-left: 5px; width: 100%;">
 					<thead>
 						<tr>
-							<td style="width: 100px;">Проект</td>
-							<td style="width: 80px;">Время</td>
-							<td style="width: 100px;">Место</td>
-							<td style="margin-right: 3px;">Подробности</td>
+							<th id="th-prj" style="width: 100px;" class="sortable-text">Проект</th>
+							<th id="th-time" style="width: 80px;" class="sortable-text">Время</th>
+							<th id="th-place" style="width: 100px;" class="sortable-text">Место</th>
+							<th id="th-uik" style="width: 70px;" class="sortable-numeric">УИК</th>
+							<th id="th-txt" style="margin-right: 3px;" class="sortable-text">Подробности</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -92,6 +93,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/tablesort.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script>
 		var StaticData = {};

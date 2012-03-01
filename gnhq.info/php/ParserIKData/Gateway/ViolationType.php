@@ -71,9 +71,9 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         $data = $violT->toArray();
         $data = $this->_getDriver()->escapeArray($data);
         $query = sprintf('insert into '.$this->_table.'
-        		(MergedType, ProjectType,  ProjectCode, FullName)
-          values (%d, "%s", "%s", "%s")',
-          $data[0], $data[1], strtoupper(substr($data[2], 0, 2)), $data[3]);
+        		(MergedType, ProjectType,  ProjectCode, FullName, GroupType, Severity)
+          values (%d, "%s", "%s", "%s", %d, %d)',
+          $data[0], $data[1], strtoupper(substr($data[2], 0, 2)), $data[3], $data[4], $data[5]);
         return $query;
     }
 }

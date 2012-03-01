@@ -22,16 +22,15 @@ var Viol = {
 					return false;
 				});
 		
-		for (var _vTypeOrder in StaticData.ViolationTypesOrder) {
-			var _vTypeName, _vTypeId, _chboxId;
-			_vTypeId = StaticData.ViolationTypesOrder[_vTypeOrder];
-			_vTypeName = Viol.Dict.ViolType.getName(_vTypeId);
-			_chboxId = 'vType-'+_vTypeId;
-			$('<div>').attr('id', 'vTypeCont-'+_vTypeId).addClass('selected')
-					.append($('<input>').attr('type', 'checkbox').attr('id',_chboxId).attr('typeId', _vTypeId).click(function() {
-						Viol.Feed.toggleByTypeId($(this).attr('typeId'));
+		for (var _grp in StaticData.ViolationTypeGroupData) {
+			var _vTypeName, _chboxId;
+			_vTypeName = Viol.Dict.ViolTypeGroups.getName(_grp);
+			_chboxId = 'vType-'+_grp;
+			$('<div>').attr('id', 'vTypeCont-'+_grp).addClass('selected')
+					.append($('<input>').attr('type', 'checkbox').attr('id',_chboxId).attr('grpId', _grp).click(function() {
+						Viol.Feed.toggleByGroupId($(this).attr('grpId'));
 						if ($(this).parent().hasClass('selected')) {
-							$(this).parent().removeClass('selected')
+							$(this).parent().removeClass('selected');
 						} else {
 							$(this).parent().addClass('selected');
 						}
@@ -71,6 +70,10 @@ var Viol = {
 			return false;
 		});
 		$('#okrug').change(function() {
+			Viol.Exchange.loadData();
+			return false;
+		});
+		$('#filterForm button').click(function() {
 			Viol.Exchange.loadData();
 			return false;
 		});
@@ -150,9 +153,9 @@ var Viol = {
 				$(this).show();
 			});
 		},
-		toggleByTypeId: function(typeId) {
+		toggleByGroupId: function(grpId) {
 			$('#violFeed tbody tr').each(function() {
-				if ($(this).attr('typeId') == typeId) {
+				if (Viol.Dict.ViolType.getGroup($(this).attr('typeId')) == grpId) {
 					if ($(this).css('display') == 'none') {
 						$(this).css('display', 'table-row');
 					} else {
@@ -202,13 +205,17 @@ var Viol = {
 			
 			// violation types
 			var _violTypeId;
-			for (var i in StaticData.ViolationTypesOrder) {
-				_violTypeId = StaticData.ViolationTypesOrder[i];
-				if (data.vTypeCount[_violTypeId]) {
-					Viol.Filter.SetVTypeCount(_violTypeId, data.vTypeCount[_violTypeId]);
-				} else {
-					Viol.Filter.SetVTypeCount(_violTypeId, 0);
-				}
+			var _grpCnt = [];
+			for (var _j in StaticData.ViolationTypeGroupData) {
+				_grpCnt[_j] = 0;
+			}
+			
+			for (var _k in data.vTypeCount) {
+				_grpCnt[Viol.Dict.ViolType.getGroup(_k)] += data.vTypeCount[_k];
+			}
+			
+			for (_j in _grpCnt) {
+				Viol.Filter.SetVGrpCount(_j, _grpCnt[_j]);
 			}
 		},
 		
@@ -227,7 +234,7 @@ var Viol = {
 			$('<td>').addClass('description').append(_vtypeHdr).append($('<a>').html(_descrHtml).click(function() {
 				Viol.Exchange.showViolation(row.ProjectCode, row.ProjectId);
 			})).appendTo(_tr);
-			if (!$('#vType-'+row.MergedTypeId).is(':checked')) {
+			if (!$('#vType-'+ Viol.Dict.ViolType.getGroup(row.MergedTypeId)).is(':checked')) {
 				_tr.hide();
 			}
 			return _tr;
@@ -275,8 +282,8 @@ var Viol = {
 	
 	Filter: {
 		
-		SetVTypeCount: function (vTypeId, cnt) {
-			$('#vTypeCont-'+vTypeId).find('.val').html(cnt);
+		SetVGrpCount: function (vGrpId, cnt) {
+			$('#vTypeCont-'+vGrpId).find('.val').html(cnt);
 		},
 		
 		RedrawOkrugs: function(regionNum) {
@@ -349,6 +356,15 @@ var Viol = {
 		ViolType: {
 			getName: function(MergedTypeId) {
 				return StaticData.ViolationTypes[parseInt(MergedTypeId, 10)];
+			}, 
+			getGroup: function(MergedTypeId) {
+				return StaticData.ViolationTypeGroups[parseInt(MergedTypeId, 10)];
+			}
+		},
+		
+		ViolTypeGroups: {
+			getName: function(grp) {
+				return StaticData.ViolationTypeGroupData[parseInt(grp, 10)];
 			}
 		}
 	}

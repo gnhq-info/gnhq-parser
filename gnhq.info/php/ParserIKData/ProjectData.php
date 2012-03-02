@@ -10,19 +10,22 @@ const PROJECT_SMS_EXITPOLE = 'SE';
 $PROJECT_CONFIG = array(
     PROJECT_GN => array(
             'Name'      => 'Гражданин наблюдатель',
-            'ProtoLink' => 'http://gnhq.info/export/protocols.xml',
-            'ViolLink'  => array()
+			'ProtoLink' => '',
+            //'ProtoLink' => 'http://gnhq.info/export/protocols.xml',
+            'ViolLink'  => ''
         ),
 	PROJECT_GOLOS => array(
             'Name'      => 'Голос',
-            'ProtoLink' => 'http://sms-test.golos.org/results/export.xml',
-            //'ViolLink'  => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\viol1.xml',
+			'ProtoLink' => '',
+            //'ProtoLink' => 'http://sms-test.golos.org/results/export.xml',
 			'ViolLink'  => '',
+            //'ViolLink'  => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\viol1.xml',
     ),
     PROJECT_SMS_EXITPOLE => array(
             'Name'      => 'SMS - Exit Pole',
             //'ProtoLink' => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\proto2.xml',
-            'ProtoLink' => 'http://gnhq.info/export/allprotocols.xml',
+            'ProtoLink' => '',
+			//'ProtoLink' => 'http://gnhq.info/export/allprotocols.xml',
             'ViolLink'  => '',
     ),
 	PROJECT_LIGA => array(

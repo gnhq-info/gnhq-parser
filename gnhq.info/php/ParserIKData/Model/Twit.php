@@ -24,6 +24,7 @@ class ParserIKData_Model_Twit extends ParserIKData_Model
     {
         $plain = $this->getDescription();
         $plain = preg_replace('/(http:\/\/[^\s]*)/', '<a href="$1" target="_blank">$1</a>', $plain);
+        $plain = preg_replace('/#([^\s]*)/', '<a href="https://twitter.com/#!/search/%23$1" target="_blank">#$1</a>', $plain);
         $plain = preg_replace('/(@[a-zA-Z0-9_]*)/', '<a href="https://twitter.com/#!/$1" target="_blank">$1</a>', $plain);
         return $plain;
     }

@@ -1,52 +1,80 @@
 <?php
 class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abstract
 {
+    private $_projectCode = null;
+
+    private $_updateData = array();
+
+    public function __construct($projectCode)
+    {
+        $this->_projectCode = $projectCode;
+        $current = $this->_getViolationGateway()->getForProject($projectCode);
+        /* @var $viol ParserIKData_Model_Violation */
+        foreach ($current as $viol) {
+            $this->_violToUpdateData($viol);
+        }
+
+    }
+
     /**
      * @param ParserIKData_Model_Violation $newViol
-     * @param ParserIKData_Model_Violation $currentViol
      * @return string
      */
-    public function updateIfNecessary($newViol, $currentViol)
+    public function updateIfNecessary($newViol)
     {
+        $ind = $newViol->getProjectId();
         // новое нарушение
-        if ($currentViol === null) {
+        if (empty($this->_updateData[$ind])) {
             $this->_getViolationGateway()->insert($newViol);
+            $this->_violToUpdateData($newViol);
             return 'inserted';
         }
 
+
         // у нас более свежая версия - не обновляем
-        if ($currentViol->getProjectVersion() > $newViol->getProjectVersion()) {
+        if ($this->_updateData[$ind]['version'] > $newViol->getProjectVersion()) {
             return 'skipped version';
         }
 
         // версии совпадают, но у нас свежее время обновления (в т.ч. для проектов, не использующих версии) - не обновляем
-        if ( $currentViol->getProjectVersion() == $newViol->getProjectVersion() &&
-                strtotime($currentViol->getProjectUptime()) > strtotime($newViol->getProjectUptime()) ) {
+        if ($this->_updateData[$ind]['version'] == $newViol->getProjectVersion() && $this->_updateData[$ind]['time'] > strtotime($newViol->getProjectUptime()) ) {
             return 'skipped time';
         }
 
         // не изменились актуальные данные
-        if ($currentViol->getDataHash() == $newViol->getDataHash()) {
+        if ($this->_updateData[$ind]['hash'] == $newViol->getDataHash()) {
             return 'skipped hash';
         }
 
         $this->_getViolationGateway()->update($newViol);
+        $this->_violToUpdateData($newViol);
         return 'updated';
     }
 
     /**
-     * @param string $xml
-     * @param string $projectCode
+     * @param string|SimpleXMLElement $xml
      * @return ParserIKData_Model_Violation|string
      */
-    public function createFromXml($xml, $projectCode)
+    public function createFromXml($xml)
     {
         $errors = array();
-        $sXml = simplexml_load_string($xml);
+        if (!$xml instanceof SimpleXMLElement) {
+            $sXml = simplexml_load_string($xml);
+        } else {
+            $sXml = $xml;
+        }
+        if (!$sXml instanceof SimpleXMLElement) {
+            return 'Bad simple xml';
+        }
+
+        if ($this->_skipFromRetranslator($sXml)) {
+            return 'skipped - not current project';
+        }
+
         $viol = ParserIKData_Model_Violation::create();
 
         // обязательные поля
-        $viol->setProjectCode($projectCode);
+        $viol->setProjectCode($this->_projectCode);
         // id in project
         if (!$sXml->id) {
             $errors[] = 'Не указан id';
@@ -71,7 +99,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         if (!$sXml->type) {
             $errors[] = 'Нет типа нарушения';
         } else {
-            $viol->setMergedTypeId($this->_getMergedType($projectCode, (string)$sXml->type));
+            $viol->setMergedTypeId($this->_getMergedType($this->_projectCode, (string)$sXml->type));
         }
         // description
         if (!$sXml->obscomment) {
@@ -222,6 +250,19 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         return null;
     }
 
+
+    /**
+    * в фиде-ретрансляторе могут быть данные от разных проектов (один фид <=> несколько проектов)
+    * отбрасываем лишние
+    * возвращает true для айтема, который нужно отбросить
+    * @param SimpleXMLElement $sXml
+    * @return boolean
+    */
+    private function _skipFromRetranslator($sXml)
+    {
+        return false;
+    }
+
     private function _preparePoliceReaction($pr)
     {
         if (is_numeric($pr)) {
@@ -234,5 +275,17 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
             }
         }
         return null;
+    }
+
+    /**
+    * @param ParserIKData_Model_Violation $viol
+    */
+    private function _violToUpdateData($viol)
+    {
+        $this->_updateData[$viol->getProjectId()] = array (
+            	'time'    => strtotime($viol->getProjectUptime()),
+            	'version' => $viol->getProjectVersion(),
+            	'hash'    => $viol->getDataHash()
+        );
     }
 }

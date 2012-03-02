@@ -41,7 +41,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         $this->_getDriver()->query($this->_insertQuery($violT));
     }
 
-    public function getAll($order = null)
+    public function getAllDistinct($order = null)
     {
         switch ($order) {
             case 'name':
@@ -56,7 +56,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         }
         $args = func_get_args();
         if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
-            $result = $this->_loadFromTable($this->_table, $this->_model, null, null, $order);
+            $result = $this->_loadFromTable($this->_table, $this->_model, 'FullName != ""', null, $order);
             $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $result);
         }
         return $result;

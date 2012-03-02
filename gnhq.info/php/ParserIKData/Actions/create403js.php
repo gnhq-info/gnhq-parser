@@ -7,7 +7,7 @@ switch ($argv[1])
     case 'violtypes':
         $violTypeFile = $jsDir . 'violtypes_data.js';
         $vtypeGateway = new ParserIKData_Gateway_ViolationType();
-        $types = $vtypeGateway->setUseCache(false)->getAll('name');
+        $types = $vtypeGateway->setUseCache(false)->getAllDistinct('name');
         $violTypeJs = 'StaticData.ViolationTypes = [];' . PHP_EOL;
         $violTypeJs .= 'StaticData.ViolationTypesOrder = [];' . PHP_EOL;
         $violTypeJs .= 'StaticData.ViolationTypeGroups = [];' . PHP_EOL;

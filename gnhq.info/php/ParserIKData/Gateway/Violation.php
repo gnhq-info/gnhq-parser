@@ -3,7 +3,6 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
 {
     private $_table = 'violation';
     private $_reservTable = 'violation_copy';
-    private $_testTable = 'violation_copy';
     private $_modelClass = 'ParserIKData_Model_Violation';
 
     public function removeAll()
@@ -14,7 +13,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     public function count($projectCode, $mergedTypeId, $regionNum, $tikNum)
     {
         $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
-        $result = $this->_getDriver()->select('COUNT(*)', $this->_testTable, $cond);
+        $result = $this->_getDriver()->select('COUNT(*)', $this->_table, $cond);
         $data = $this->_getDriver()->fetchResultToArray($result);
         return $data[0];
     }
@@ -23,7 +22,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     {
         $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
         $cond .= ' AND TIKNum != 0';
-        $result = $this->_getDriver()->selectAssoc('COUNT(*) as CNT, TIKNum', $this->_testTable, $cond, null, null, 'TIKNum');
+        $result = $this->_getDriver()->selectAssoc('COUNT(*) as CNT, TIKNum', $this->_table, $cond, null, null, 'TIKNum');
         return $result;
     }
 
@@ -35,7 +34,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
             $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
             $data = $this->_getDriver()->selectAssoc(
             	'ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
-                $this->_testTable,
+                $this->_table,
                 $cond,
                 null,
             	'Loadtime desc'
@@ -71,13 +70,25 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     public function find($projectCode, $projectId)
     {
         $whereCond = sprintf('ProjectCode = "%s" AND ProjectId = "%s"', $this->_escapeString($projectCode), $this->_escapeString($projectId));
-        $data = $this->_loadFromTable($this->_testTable, $this->_modelClass, $whereCond);
+        $data = $this->_loadFromTable($this->_table, $this->_modelClass, $whereCond);
         if (count($data) == 0) {
             return null;
         } else {
             return $data[0];
         }
     }
+
+    /**
+    * @param string $projectCode
+    * @return ParserIKData_Model_Violation[]
+    */
+    public function getForProject($projectCode)
+    {
+        $whereCond = sprintf('ProjectCode = "%s"', $this->_escapeString($projectCode));
+        $data = $this->_loadFromTable($this->_table, $this->_modelClass, $whereCond);
+        return $data;
+    }
+
 
     /**
      * @param ParserIKData_Model_Violation $viol

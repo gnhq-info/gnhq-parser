@@ -39,5 +39,8 @@ ACTIONPATH=/home/gnsite/nabludatel/statistic/php/ParserIKData/Actions
 
 #importing twits
 */5 * * * * www-data php $ACTIONPATH/import-twits.php
+02,12,22,32,42,52 * * * * www-data php $ACTIONPATH/import-twits.php GN
+04,14,24,34,44,54 * * * * www-data php $ACTIONPATH/import-twits.php AG
+06,16,26,36,46,56 * * * * www-data php $ACTIONPATH/import-twits.php SE
 
 # end of agregator cron tasks

@@ -2,6 +2,12 @@
 include_once 'include.php';
 
 $projectCode = PROJECT_SMS_EXITPOLE;
+
+if (empty($PROJECT_CONFIG[$projectCode])) {
+    print 'wrong code';
+    return;
+}
+
 $projectFeed = $PROJECT_CONFIG[$projectCode]['ProtoLink'];
 
 if (!$projectFeed) {

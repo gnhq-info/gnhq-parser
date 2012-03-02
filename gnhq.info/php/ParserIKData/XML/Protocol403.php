@@ -21,17 +21,18 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
      */
     public function updateIfNecessary($newProto)
     {
+        $ind = $newProto->getIkFullName();
         // новый протокол
-        if (empty($this->_updateData[$newProto->getIkFullName()])) {
+        if (empty($this->_updateData[$ind])) {
             $this->_getProtocolGateway()->insert($newProto);
             $this->_protoToUpdateData($newProto);
             return 'inserted';
         }
 
         // у нас свежее время обновления
-        if ( $this->_updateData[$newProto->getIkFullName()]['time'] >= strtotime($newProto->getUpdateTime()) ) {
+        if ( $this->_updateData[$ind]['time'] >= strtotime($newProto->getUpdateTime()) ) {
             // если не сопадают айдишники в рамках проекта - на всякий случай резервируем
-            if ($this->_updateData[$newProto->getIkFullName()]['projectId'] != $newProto->getProjectId()) {
+            if ($this->_updateData[$ind]['projectId'] != $newProto->getProjectId()) {
                 $this->_getProtocolGateway()->reserve($newProto);
             }
             return 'skipped time';

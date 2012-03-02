@@ -1,5 +1,6 @@
 <results projecturl="http://gnhq.info/xml/">
 	<prt>
+		<obsproject>3</obsproject>
 		<id>7</id>
 		<obsproject>2</obsproject>
 		<p10>2796</p10>
@@ -16,7 +17,7 @@
 	</prt>
 	<prt>
 		<id>8</id>
-		<obsproject>2</obsproject>
+		<obsproject>3</obsproject>
 		<p10>2228</p10>
 		<p19>628</p19>
 		<p20>134</p20>

@@ -16,7 +16,8 @@ $PROJECT_CONFIG = array(
 	PROJECT_GOLOS => array(
             'Name'      => 'Голос',
             'ProtoLink' => 'http://sms-test.golos.org/results/export.xml',
-            'ViolLink'  => '',
+            //'ViolLink'  => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\viol1.xml',
+			'ViolLink'  => '',
     ),
     PROJECT_SMS_EXITPOLE => array(
             'Name'      => 'SMS - Exit Pole',

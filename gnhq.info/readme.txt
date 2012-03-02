@@ -44,8 +44,7 @@ ACTIONPATH=/home/gnsite/nabludatel/statistic/php/ParserIKData/Actions
 #importing twits
 */5 * * * * www-data php $ACTIONPATH/import-twits.php
 
-# importing protocols (add other project codes from /php/ParserIKData/ProjectData.php 
-if necessary)
+# importing protocols (add other project codes from /php/ParserIKData/ProjectData.php if necessary)
 02,12,22,32,42,52 * * * * www-data php $ACTIONPATH/import-proto.php GN
 04,14,24,34,44,54 * * * * www-data php $ACTIONPATH/import-proto.php AG
 06,16,26,36,46,56 * * * * www-data php $ACTIONPATH/import-proto.php SE

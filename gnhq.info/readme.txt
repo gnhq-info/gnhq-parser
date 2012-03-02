@@ -33,8 +33,9 @@ any data this data is test and SHOULD BE REMOVED before use
 /php/ParserIKData/ProjectData.php
 
 all import from external sources is made by cron tasks you should put 
-lines stated below into /etc/cron.d/www (change the user www-data to the 
-user of your web server)
+lines stated below into /etc/cron.d/www 
+NB:change the user www-data to the user of your web server and ACTIONPATH
+to the real path of action directory
 
 # begin of agregator cron tasks
 MAILTO=YOUR_ADMIN_MAIL

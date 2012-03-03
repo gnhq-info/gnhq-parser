@@ -26,12 +26,12 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         return $result;
     }
 
-    public function short($projectCode, $mergedTypeId, $regionNum, $tikNum)
+    public function short($projectCode, $mergedTypeId, $regionNum, $tikNum, $uikNum)
     {
         $args = func_get_args();
         if (false === ($violations = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
 
-            $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, null);
+            $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, $uikNum);
             $data = $this->_getDriver()->selectAssoc(
             	'ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
                 $this->_table,

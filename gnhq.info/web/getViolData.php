@@ -73,6 +73,8 @@ if ($modeSingleViolation) {
         foreach ($okrugTiks as $oTik) {
             $okrugTikNums[] = $oTik->getTikNum();
         }
+    } else {
+        $okrugAbbr = null;
     }
     /* далее все входные данные очищены */
 
@@ -89,16 +91,20 @@ if ($modeSingleViolation) {
         $vTypeCount[$viol->getMergedTypeId()]++;
     }
     $count = count($vshort);
-}
 
-// twitter feed
-$twitGateway = new ParserIKData_Gateway_Twit();
-$newTwits = $twitGateway->getAll(10);
-$twitData = array();
-foreach ($newTwits as $twit) {
-    $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
+    // uiks
+    $uikRGateway = new ParserIKData_Gateway_UIKRussia();
+    $uikCount = $uikRGateway->getCount($regionNum, $okrugAbbr);
+
+    // twitter feed
+    $twitGateway = new ParserIKData_Gateway_Twit();
+    $newTwits = $twitGateway->getAll(10);
+    $twitData = array();
+    foreach ($newTwits as $twit) {
+        $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
+    }
+    // формат ответа
 }
-// формат ответа
 
 
 
@@ -112,8 +118,10 @@ if ($modeSingleViolation) {
     $response->regionNum = $regionNum;
     $response->vshort = $vshort;
     $response->vTypeCount = $vTypeCount;
+    $response->twits = $twitData;
+    $response->uikCnt = $uikCount;
 }
-$response->twits = $twitData;
+
 
 header('Content-Type: application/json');
 print json_encode($response);

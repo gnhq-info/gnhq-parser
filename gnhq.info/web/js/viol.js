@@ -194,6 +194,8 @@ var Viol = {
 			// count
 			Viol.SetResult.setCount(data.cnt);
 			
+			Viol.SetResult.setUikCount(data.uikCnt);
+			
 			// feed
 			Viol.Feed.clear();
 			
@@ -202,7 +204,6 @@ var Viol = {
 			}
 			
 			// violation types
-			var _violTypeId;
 			var _grpCnt = [];
 			for (var _j in StaticData.ViolationTypeGroupData) {
 				_grpCnt[_j] = 0;
@@ -246,6 +247,10 @@ var Viol = {
 		
 		setCount: function(cnt) {
 			$('#violCount .val').html(cnt);
+		},
+		
+		setUikCount: function(cnt) {
+			$('#uikCount .val').html(cnt);
 		},
 		
 		processSingleResult: function(row) {

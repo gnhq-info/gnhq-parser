@@ -4,6 +4,14 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     private $_table = 'uik_russia';
     private $_modelClass = 'ParserIKData_Model_UIKRussia';
 
+    /**
+    * @return null|int
+    */
+    protected function _getCacheLifetime()
+    {
+        return 86400;
+    }
+
     public function removeAll()
     {
         $this->_getDriver()->truncateTable($this->_table);
@@ -29,7 +37,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
      */
     public function getForRegionAndNum($regionNum, $uikNum)
     {
-        $where = sprintf(' RegionNum = %d AND UikNum = %d', $regionNum, $uikNum);
+        $where = $this->_getCondRegionNum($regionNum) . ' AND ' . $this->_getCondUikNum($uikNum);
         $data = $this->_loadFromTable($this->_table, $this->_modelClass, $where);
         if (count($data) == 1) {
             return $data[0];
@@ -37,6 +45,64 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
             return null;
         }
     }
+
+
+    /**
+     * @param int|null $regionNum
+     * @param string|null $okrugAbbr
+     * @param int[] $uikNums
+     * @return int
+     */
+    public function getCount($regionNum = null, $okrugAbbr = null, $uikNums = null)
+    {
+        $whereParts = array();
+        if ($regionNum) {
+            $whereParts[] = $this->_getCondRegionNum($regionNum);
+        }
+        if ($okrugAbbr) {
+            $whereParts[] = $this->_getCondOkrug($okrugAbbr);
+        }
+        if ($uikNums) {
+            $whereParts[] = $this->_getCondUikNum($uikNums);
+        }
+        if (empty ($whereParts)) {
+            $whereParts[] = '(1 = 1)';
+        }
+        $where = implode(' AND ', $whereParts);
+        $data = $this->_getDriver()->selectAssoc('Count(*) as CNT', $this->_table, $where);
+        return $data[0]['CNT'];
+    }
+
+    /**
+     * @param string $okrug
+     * @return string
+     */
+    private function _getCondOkrug($okrug)
+    {
+        return sprintf('(FullName IN (SELECT uik FROM uik_okrug WHERE okrug = "%s"))', $this->_escapeString($okrug));
+    }
+
+
+    private function _getCondUikNum($uikNums)
+    {
+        if (!is_array($uikNums)) {
+            $uikNums = array($uikNums);
+        }
+        foreach ($uikNums as $i => $num) {
+            $uikNums[$i] = intval($num);
+        }
+        return '(UikNum IN ('.implode(',', $uikNums).'))';
+    }
+
+    /**
+     * @param int $regionNum
+     * @return string
+     */
+    private function _getCondRegionNum($regionNum)
+    {
+        return sprintf('(RegionNum = %d)', $regionNum);
+    }
+
 
     /**
      * @param ParserIKData_Model_UIKRussia $uikR

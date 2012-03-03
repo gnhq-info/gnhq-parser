@@ -45,6 +45,15 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     }
 
     /**
+    * @return null|int
+    */
+    protected function _getCacheLifetime()
+    {
+        return 120;
+    }
+
+    /**
+     * @param int $regionNum
      * @param string $okrugAbbr
      * @param int $uikNum
      * @param string $resultType
@@ -54,11 +63,11 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param boolean $oReport   - только с отчетами
      * @return ParserIKData_Model_Protocol403|NULL
      */
-    public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
+    public function getMixedResult($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
         $args = func_get_args();
         if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
-            $cond = $this->_buildCond($okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
+            $cond = $this->_buildCond($regionNum, $okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
             $query = $this->_buildSumQuery($cond);
             $result = $this->_fetchSumProtocol($query);
 
@@ -75,9 +84,6 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
 
     public function getCondDiscrepancy($watchType = null, $maxAllowable = null, $indices = null)
     {
-        if ($watchType !== ParserIKData_Model_Protocol403::TYPE_GN) {
-            $watchType = ParserIKData_Model_Protocol403::TYPE_GN;
-        }
         if (!$maxAllowable) {
             $maxAllowable = ParserIKData_Model_Protocol403::ALLOWABLE_DISCREPANCY;
         }
@@ -100,16 +106,17 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     }
 
     /**
-    * @param string $okrugAbbr
-    * @param int $uikNum
-    * @param string $resultType
-    * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
-    * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
-    * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
-    * @param boolean $oReport   - только с отчетами
-    * @return string
-    */
-    private function _buildCond($okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
+     * @param int $regionNum
+     * @param string $okrugAbbr
+     * @param int $uikNum
+     * @param string $resultType
+     * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
+     * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
+     * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
+     * @param boolean $oReport   - только с отчетами
+     * @return string
+     */
+    private function _buildCond($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
         $condParts = array();
         if (!$resultType) {
@@ -131,6 +138,9 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
             if ($oReport) {
                 $condParts[] = 'IkFullName IN (' . $this->_getReportGateway()->getCondWithReport($resultType)  . ')';
             }
+        }
+        if ($regionNum) {
+            $condParts[] = $this->_getCondRegion($regionNum);
         }
         if ($okrugAbbr) {
             $condParts[] = $this->_getCondOkrug($okrugAbbr);
@@ -232,6 +242,17 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     }
 
     /**
+     * @param int $regionNum
+     */
+    private function _getCondRegion($regionNum)
+    {
+        return sprintf(' (IkFullName >= %d AND IkFullName < %d)',
+            $regionNum*ParserIKData_Model_UIKRussia::MODULE,
+            ($regionNum+1)*ParserIKData_Model_UIKRussia::MODULE);
+    }
+
+
+    /**
      * @param string $resultType
      * @return string
      */
@@ -270,7 +291,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      */
     private function _getSumSelect()
     {
-        $statement = ' "Mixed" AS IkFullName, "Mixed" AS IkType, "Mixed" AS ResultType, SUM(ClaimCount) AS ClaimCount ';
+        $statement = ' "Mixed" AS IkFullName, "Mixed" AS IkType, "Mixed" AS ResultType, SUM(ClaimCount) AS ClaimCount, "", "", "","","","" ';
         for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
             $statement .= ', SUM(Line' . $i . ') AS Line' . $i;
         }

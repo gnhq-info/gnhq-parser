@@ -257,6 +257,12 @@ var Viol = {
 			
 			Viol.FeedTable.buildHeaders();
 			Viol.FeedTable.reSort();
+			
+			EResult.SetWatchersUikCount(data.watchersUIKCount);
+			EResult.SetOfUikCount(data.ofUIKCount);
+			EResult.SetWatchersResult(data.watchersData);
+			EResult.SetOfResult(data.ofData);
+			EResult.SetResultDiscrepancy(data.watchersData, data.ofData);
 		},
 		
 		
@@ -478,6 +484,26 @@ var Viol = {
 				return StaticData.ViolationTypeGroupData[parseInt(grp, 10)];
 			}
 		}
+	}
+};
+
+
+var EResult = {
+	SetWatchersUikCount: function(cnt) {
+		$('#watchersUikCount').html(cnt);
+	},
+	SetOfUikCount: function(cnt) {
+		$('#ofUikCount').html(cnt);
+	},
+	SetWatchersResult: function(data) {
+		StatScreen.ResultSetter.setGnResult(data);
+	},
+	SetOfResult: function(data) {
+		StatScreen.ResultSetter.setOfResult(data);
+	},
+	SetResultDiscrepancy: function(watchersResult, ofResult)
+	{
+		StatScreen.ResultSetter.setResultDiscrepancy(ofResult, watchersResult);	
 	}
 };
 

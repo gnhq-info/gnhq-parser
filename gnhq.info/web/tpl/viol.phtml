@@ -76,6 +76,35 @@
 		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Лента новостей</h4>
 		<div id="twitterFeed" >
 		</div>
+
+
+		<!-- RESULTS -->
+		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Предварительные результаты</h4>
+		<table class="table table-striped" id="results">
+			<thead>
+				<tr>
+					<th width="15%"></th>
+					<th width="40%" colspan="2">Выборка</th>
+					<th width="40%" colspan="2">ЦИК</th>
+					<th width="5%">Разница</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				    foreach($view->diagRows as $line) {
+				        include('protocolline.phtml');
+				    }
+				    unset($line);
+				 ?>
+				 <tr>
+				 	<td>Всего участков</td>
+				 	<td colspan="2" id="watchersUikCount" style="font-weight: 700;"></td>
+				 	<td colspan="2" id="ofUikCount" style="font-weight: 700;"></td>
+				 	<td> </td>
+				 </tr>
+			</tbody>
+		</table>
+		<!-- /RESULTS -->
 	</div>
 
 	<div class="modal" id="violationModel" style="display: none;">
@@ -102,12 +131,13 @@
 	<script>
 		var StaticData = {};
 	</script>
-	<script type="text/javascript" src="js/violtypes_data.js?1"></script>
+	<script type="text/javascript" src="js/violtypes_data.js?2"></script>
 	<script type="text/javascript" src="js/watchers_data.js"></script>
 	<script type="text/javascript" src="js/regions_data.js"></script>
 	<script type="text/javascript" src="js/okrug_data.js"></script>
 	<script type="text/javascript" src="js/tik_data.js"></script>
 	<script type="text/javascript" src="js/decoration.js"></script>
-	<script type="text/javascript" src="js/viol.js?1"></script>
+	<script type="text/javascript" src="js/viol.js?2"></script>
+	<script type="text/javascript" src="js/statScreen.js?2"></script>
 </body>
 </html>

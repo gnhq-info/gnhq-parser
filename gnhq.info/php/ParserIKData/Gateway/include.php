@@ -1,5 +1,6 @@
 <?php
 include_once('Watch412.php');
+include_once('Watch403.php');
 include_once('Protocol412.php');
 include_once('Protocol403.php');
 include_once('Report412.php');
@@ -104,7 +105,7 @@ class ParserIKData_Gateway_Abstract
     /**
      * @return ParserIKData_Gateway_Protocol412
      */
-    final protected function _getProtocolGateway()
+    protected function _getProtocolGateway()
     {
         return new ParserIKData_Gateway_Protocol412();
     }

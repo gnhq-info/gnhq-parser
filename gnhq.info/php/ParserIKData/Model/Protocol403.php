@@ -199,7 +199,7 @@ class ParserIKData_Model_Protocol403 extends ParserIKData_Model
         $data = array('VZ' => 0, 'GZ' => 0, 'SM' => 0, 'MP' => 0, 'VP' => 0, 'AT' => 0, 'SP' => 0);
         $_absAtt = $this->_getAbsoluteAttendance();
         $_total = $this->_getPeopleAmount();
-        if ($_absAtt == 0 || $_total == 0) {
+        if ($_absAtt == 0) {
             return $data;
         }
         $data['VZ'] = $this->getZhirinovskijResult()/$_absAtt;
@@ -207,7 +207,7 @@ class ParserIKData_Model_Protocol403 extends ParserIKData_Model
         $data['SM'] = $this->getMironovResult()/$_absAtt;
         $data['MP'] = $this->getProhorovResult()/$_absAtt;
         $data['VP'] = $this->getPutinResult()/$_absAtt;
-        $data['AT'] = $_absAtt/$_total;
+        $data['AT'] = intval($_total) != 0 ? $_absAtt/$_total : '?';
         $data['SP'] = $this->_getSpoiledAmount()/$_absAtt;
 
         foreach ($data as $k => $value) {

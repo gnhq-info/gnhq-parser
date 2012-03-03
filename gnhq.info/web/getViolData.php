@@ -113,11 +113,14 @@ if ($modeSingleViolation) {
     foreach ($newTwits as $twit) {
         $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
     }
-    // формат ответа
+
+    // результаты
+    $protocolGateway = new ParserIKData_Gateway_Protocol403();
+    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, PROJECT_GN, false, false, false, false);
+    $ofResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
 }
 
-
-
+// формат ответа
 $response = new stdClass();
 if ($modeSingleViolation) {
     $violParams = $viol->getParams();
@@ -130,6 +133,10 @@ if ($modeSingleViolation) {
     $response->vTypeCount = $vTypeCount;
     $response->twits = $twitData;
     $response->uikCnt = $uikCount;
+    $response->watchersData = $watchersResult->getDiagramData(true, 2);
+    $response->watchersUIKCount = $watchersResult->getUikCount();
+    $response->ofData = $ofResult->getDiagramData(true, 2);
+    $response->ofUIKCount = $ofResult->getUikCount();
 }
 
 

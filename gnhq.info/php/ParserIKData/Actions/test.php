@@ -1,6 +1,6 @@
 <?php
 include_once 'include.php';
 
-$gateway = new ParserIKData_Gateway_UIKRussia();
-$res = $gateway->setUseCache(true)->getCount(77, 'вао', '');
-var_dump($res);
+$gateway = new ParserIKData_Gateway_Protocol403();
+$res = $gateway->getMixedResult(77, null, null, PROJECT_GOLOS);
+var_dump($res->getDiagramData(true, 2));

@@ -12,7 +12,7 @@ $PROJECT_CONFIG = array(
             'Name'      => 'Гражданин наблюдатель',
 			'ProtoLink' => '',
             //'ProtoLink' => 'http://gnhq.info/export/protocols.xml',
-            'ViolLink'  => ''
+            'ViolLink'  => 'http://gnhq.info/export/violations.xml'
         ),
 	PROJECT_GOLOS => array(
             'Name'      => 'Голос',

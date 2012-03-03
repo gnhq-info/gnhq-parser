@@ -140,6 +140,8 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         }
         if ($sXml->obstime) {
             $viol->setObstime($this->_prepareTime((string)$sXml->obstime));
+        } else {
+            $viol->setObstime($this->_prepareTime((string)$sXml->updt));
         }
         if ($sXml->recchannel) {
             $channel = (string)$sXml->recchannel;

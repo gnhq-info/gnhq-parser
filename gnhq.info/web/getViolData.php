@@ -116,6 +116,7 @@ if ($modeSingleViolation) {
 
     // результаты
     $protocolGateway = new ParserIKData_Gateway_Protocol403();
+    $protocolGateway->setUseCache(true);
     $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, PROJECT_GN, false, false, false, false);
     $ofResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
 }

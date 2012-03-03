@@ -94,7 +94,7 @@ if ($modeSingleViolation) {
 
     // uiks
     $uikRGateway = new ParserIKData_Gateway_UIKRussia();
-    $uikCount = $uikRGateway->getCount($regionNum, $okrugAbbr);
+    $uikCount = $uikRGateway->setUseCache(true)->getCount($regionNum, $okrugAbbr);
 
     // twitter feed
     $twitGateway = new ParserIKData_Gateway_Twit();

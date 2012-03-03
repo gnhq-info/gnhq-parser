@@ -5,8 +5,8 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     private $_modelClass = 'ParserIKData_Model_UIKRussia';
 
     /**
-    * @return null|int
-    */
+     * @return null|int
+     */
     protected function _getCacheLifetime()
     {
         return 86400;
@@ -55,22 +55,32 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
      */
     public function getCount($regionNum = null, $okrugAbbr = null, $uikNums = null)
     {
-        $whereParts = array();
-        if ($regionNum) {
-            $whereParts[] = $this->_getCondRegionNum($regionNum);
+        $args = func_get_args();
+        if (false === ($uikCount = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            $whereParts = array();
+            if ($regionNum) {
+                $whereParts[] = $this->_getCondRegionNum($regionNum);
+            }
+            if ($okrugAbbr) {
+                $whereParts[] = $this->_getCondOkrug($okrugAbbr);
+            }
+            if ($uikNums) {
+                $whereParts[] = $this->_getCondUikNum($uikNums);
+            }
+            if (empty ($whereParts)) {
+                $whereParts[] = '(1 = 1)';
+            }
+            $where = implode(' AND ', $whereParts);
+            $data = $this->_getDriver()->selectAssoc('Count(*) as CNT', $this->_table, $where);
+            $uikCount =  $data[0]['CNT'];
+
+            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $uikCount);
+            echo 'not from cache;';
+        } else {
+            echo 'from cache';
         }
-        if ($okrugAbbr) {
-            $whereParts[] = $this->_getCondOkrug($okrugAbbr);
-        }
-        if ($uikNums) {
-            $whereParts[] = $this->_getCondUikNum($uikNums);
-        }
-        if (empty ($whereParts)) {
-            $whereParts[] = '(1 = 1)';
-        }
-        $where = implode(' AND ', $whereParts);
-        $data = $this->_getDriver()->selectAssoc('Count(*) as CNT', $this->_table, $where);
-        return $data[0]['CNT'];
+
+        return $uikCount;
     }
 
     /**
@@ -115,6 +125,6 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
         return sprintf('insert into '.$this->_table.'
         		(RegionNum, TikNum,  UikNum, FullName, Link, Place, VotingPlace, BorderDescription)
           values (%d, %d, %d, %d, "%s", "%s", "%s", "%s")',
-          $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
+        $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
     }
 }

@@ -75,9 +75,9 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
             $uikCount =  $data[0]['CNT'];
 
             $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $uikCount);
-            echo 'not from cache;';
+            //echo 'not from cache;';
         } else {
-            echo 'from cache';
+            //echo 'from cache';
         }
 
         return $uikCount;
@@ -101,7 +101,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
         foreach ($uikNums as $i => $num) {
             $uikNums[$i] = intval($num);
         }
-        return '(UikNum IN ('.implode(',', $uikNums).'))';
+        return '(FullName IN ('.implode(',', $uikNums).'))';
     }
 
     /**

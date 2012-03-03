@@ -28,7 +28,7 @@ var Viol = {
 			_chboxId = 'vType-'+_grp;
 			$('<div>').attr('id', 'vTypeCont-'+_grp).addClass('selected')
 					.append($('<input>').attr('type', 'checkbox').attr('id',_chboxId).attr('grpId', _grp).click(function() {
-						Viol.Feed.toggleByGroupId($(this).attr('grpId'));
+						Viol.Feed.applyFilters();
 						if ($(this).parent().hasClass('selected')) {
 							$(this).parent().removeClass('selected');
 						} else {
@@ -46,7 +46,7 @@ var Viol = {
 						$(this).get(0).checked = true;
 						$(this).parent().addClass('selected');
 					});
-					Viol.Feed.showAll();
+					Viol.Feed.applyFilters();
 					return false;
 				});
 		
@@ -78,6 +78,10 @@ var Viol = {
 			return false;
 		});
 		
+		$('#violFeedUikFilter').change(function(){
+			Viol.Feed.applyFilters();
+		});
+		
 		Viol.Exchange.loadData();
 	},
 	
@@ -88,7 +92,8 @@ var Viol = {
 				'ProjectCode': Viol.Filter.GetProjectCodes(),
 				'ViolType':    $('#ViolType').val(),
 				'regionNum':   $('#regionNum').val(),
-				'okrug':       $('#okrug').val()
+				'okrug':       $('#okrug').val(),
+				'uikNum':      $('#uikNum').val()
 			}; 
 			$.ajax(
 				'getViolData.php', 
@@ -161,7 +166,34 @@ var Viol = {
 					}
 				}
 			});
+		}, 
+		applyFilters: function() {
+			var _uikFull, _grps = [];
+			_uikFull = $('#violFeedUikFilter option:checked').val();
+			$('#vTypes input[type="checkbox"]').each(function(){
+				if ($(this).is(':checked')) {
+					_grps.push($(this).attr('grpid'));
+				}
+			});
+			$('#violFeed tbody tr').each(function() {
+				var _curGrp, _curUikFull, _isHidden;
+				_curGrp = Viol.Dict.ViolType.getGroup($(this).attr('typeId'))+""; //must be string
+				_curUikFull = $(this).attr('uikfull');
+				_isHidden = false;
+
+				if ( (_grps.length > 0) && ($.inArray(_curGrp, _grps) == -1) ) {
+					_isHidden = true;
+				} else if ( (_uikFull) && (parseInt(_curUikFull, 10) != parseInt(_uikFull, 10)) ) {
+					_isHidden = true;
+				}
+				if (_isHidden) {
+					$(this).css('display', 'none');
+				} else {
+					$(this).css('display', 'table-row');
+				}
+			});
 		}
+		
 	},
 	
 	
@@ -196,12 +228,18 @@ var Viol = {
 			
 			Viol.SetResult.setUikCount(data.uikCnt);
 			
+			Viol.FeedFilters.ClearUik();
+			
 			// feed
 			Viol.Feed.clear();
-			
 			for (var _i in data.vshort) {
 				Viol.Feed.add(Viol.SetResult.buildViolTr(data.vshort[_i]));
+				if (data.vshort[_i]['UIKNum'] && data.vshort[_i]['UIKNum'] != '0') {
+					Viol.FeedFilters.AddUik(data.vshort[_i]['RegionNum'], data.vshort[_i]['UIKNum']);
+				}
 			}
+			
+			Viol.FeedFilters.SortUik();
 			
 			// violation types
 			var _grpCnt = [];
@@ -219,19 +257,22 @@ var Viol = {
 			
 			Viol.FeedTable.buildHeaders();
 			Viol.FeedTable.reSort();
-			
 		},
 		
 		
 		
 		buildViolTr: function(row) {
-			var _place, _time, _descrHtml, _tr, _vtypeHdr, _uikNum;
+			var _place, _time, _descrHtml, _tr, _vtypeHdr, _uikNum, _uikFull;
 			_place = Viol.Utility.buildPlace(row);
 			_uikNum = Viol.Utility.buildUiknum(row);
 			_time = Viol.Utility.formatTime(row.Obstime);
 			_vtypeHdr = $('<span>').addClass('vhdr').html(Viol.Dict.ViolType.getName(row.MergedTypeId) + ': ');
 			_descrHtml =  row.Description;
-			_tr = $('<tr>').attr('tikNum', row.TIKNum).attr('typeId', row.MergedTypeId).css('display','table-row');
+			_uikFull = parseInt(row.RegionNum) * 10000;
+			if (row.UIKNum && row.UIKNum != '0') {
+				_uikFull += parseInt(row.UIKNum);
+			}
+			_tr = $('<tr>').attr('uikFull', _uikFull).attr('tikNum', row.TIKNum).attr('typeId', row.MergedTypeId).css('display','table-row');
 			$('<td>').html(Viol.Dict.Watchers.getName(row.ProjectCode)).appendTo(_tr);
 			$('<td>').html(_time).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
@@ -244,6 +285,7 @@ var Viol = {
 			}
 			return _tr;
 		},
+		
 		
 		setCount: function(cnt) {
 			$('#violCount .val').html(cnt);
@@ -301,11 +343,49 @@ var Viol = {
 		}
 	},
 	
+	FeedFilters: {
+		
+		ClearUik: function () {
+			$('#violFeedUikFilter').find('option').each(function(){
+				if(!$(this).is(':first-child')) {
+					$(this).remove();
+				}
+			});
+		},
+		
+		AddUik: function (regionNum, uikNum) {
+			regionNum = parseInt(regionNum, 10);
+			uikNum = parseInt(uikNum, 10);
+			$('<option>').val(regionNum * 10000 + uikNum).html(Viol.Dict.Region.getName(regionNum) + ': УИК ' + uikNum) 
+				.appendTo($('#violFeedUikFilter'));
+		},
+		
+		SortUik: function() {
+			var _buf = {};
+			var _ord = [];
+			$('#violFeedUikFilter').find('option').each(function(){
+				if(!$(this).is(':first-child')) {
+					if (typeof(_buf[parseInt($(this).val(),10)]) == 'undefined') {
+						_buf[parseInt($(this).val(),10)] = $(this).html();
+						_ord.push(parseInt($(this).val(),10));
+					}
+					$(this).remove();
+				}
+			});
+			_ord.sort();
+
+			for (var _i = 0; _i < _ord.length; _i++) {
+				$('<option>').val(_ord[_i]).html(_buf[_ord[_i]]).appendTo($('#violFeedUikFilter'));
+			}
+		}
+	},
+	
 	Filter: {
 		
 		SetVGrpCount: function (vGrpId, cnt) {
 			$('#vTypeCont-'+vGrpId).find('.val').html(cnt);
 		},
+		
 		
 		RedrawOkrugs: function(regionNum) {
 			$('#okrug').find('option').each(function(){
@@ -315,11 +395,13 @@ var Viol = {
 			});
 			if (StaticData.Okrugs[regionNum]) {
 				$('#okrug').removeClass('disabled').removeAttr('disabled');
+				$('#uikNum').removeClass('disabled').removeAttr('disabled');
 				for (var okrugCode in StaticData.Okrugs[regionNum]) {
 					$('<option>').val(okrugCode).html(StaticData.Okrugs[regionNum][okrugCode]).appendTo($('#okrug'));
 				} 
 			} else {
 				$('#okrug').addClass('disabled').attr('disabled', 'disabled');
+				$('#uikNum').addClass('disabled').attr('disabled', 'disabled');
 			}
 		},
 		

@@ -76,12 +76,18 @@ if ($modeSingleViolation) {
     } else {
         $okrugAbbr = null;
     }
+
+    if (isset($_GET['uikNum'])) {
+        $uikNum = intval($_GET['uikNum']);
+    } else {
+        $uikNum = null;
+    }
     /* далее все входные данные очищены */
 
 
     $vGateway = new ParserIKData_Gateway_Violation();
     // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
-    $vshort = $vGateway->setUseCache(true)->short($projectCode, null, $regionNum, $okrugTikNums);
+    $vshort = $vGateway->setUseCache(true)->short($projectCode, null, $regionNum, $okrugTikNums, $uikNum);
     $vTypeCount = array();
     foreach ($vshort as $k => $viol) {
         $vshort[$k] = $viol->getParams();
@@ -95,6 +101,10 @@ if ($modeSingleViolation) {
     // uiks
     $uikRGateway = new ParserIKData_Gateway_UIKRussia();
     $uikCount = $uikRGateway->setUseCache(true)->getCount($regionNum, $okrugAbbr);
+
+    if ($regionNum == 77) {
+
+    }
 
     // twitter feed
     $twitGateway = new ParserIKData_Gateway_Twit();

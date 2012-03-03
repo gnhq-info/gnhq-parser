@@ -103,7 +103,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         }
         // description
         if (!$sXml->obscomment) {
-            $errors[] = 'Нет описания';
+            $viol->setDescription('');
         } else {
             $viol->setDescription($this->_filterString((string)$sXml->obscomment));
         }

@@ -1,6 +1,6 @@
 ﻿<violations projecturl="http://gnhq.info/xml/">
 	<viol>
-		<id>50-012</id>
+		<id>gn50-012</id>
 		<updt>12-03-04 07:48</updt>
 		<version>1</version>
 		<obsid>732f3ab3343a4</obsid>
@@ -9,11 +9,59 @@
 		<uik>12</uik>
 		<place>рядом с УИК</place>
 		<classification>1</classification>
-		<type>3.11</type>
+		<type>33</type>
 		<value>1</value>
 		<impact>4</impact>
 		<complaint>4</complaint>
-		<obscomment>Неизвестный пытался вбросить пачку в порядка сотни бюллетеней</obscomment>
+		<obstime>12-03-04 12:22:11</obstime>
+		<rectime>12-03-04 08:34:12</rectime>
+		<recchannel>4</recchannel>
+		<hqcomment></hqcomment>
+		<obstrusted>2</obstrusted>
+		<obsrole>2</obsrole>
+		<police>notified</police>
+		<rectified>0</rectified>
+	</viol>
+	<viol>
+		<id>g50-02</id>
+		<updt>12-03-04 07:48</updt>
+		<version>1</version>
+		<obsid>732f3ab3343a4</obsid>
+		<region>50</region>
+		<stationtype>1</stationtype>
+		<uik>11</uik>
+		<place>рядом с УИК</place>
+		<classification>1</classification>
+		<type>28</type>
+		<value>1</value>
+		<typedesc>Непустые урны перед началом</typedesc>
+		<impact>4</impact>
+		<complaint>4</complaint>
+		<obscomment>На выездное голосование ушли без списка заявок</obscomment>
+		<obstime>12-03-04 12:22:11</obstime>
+		<rectime>12-03-04 08:34:12</rectime>
+		<recchannel>4</recchannel>
+		<hqcomment></hqcomment>
+		<obstrusted>2</obstrusted>
+		<obsrole>2</obsrole>
+		<police>notified</police>
+		<rectified>0</rectified>
+	</viol>
+	<viol>
+		<id>1112</id>
+		<updt>12-03-04 07:48</updt>
+		<version>1</version>
+		<obsid>732f3ab3343a4</obsid>
+		<region>50</region>
+		<stationtype>1</stationtype>
+		<uik>50</uik>
+		<place>рядом с УИК</place>
+		<classification>1</classification>
+		<type>15</type>
+		<value>1</value>
+		<impact>4</impact>
+		<complaint>4</complaint>
+		<obscomment>Участок не открылся</obscomment>
 		<obstime>12-03-04 12:22:11</obstime>
 		<rectime>12-03-04 08:34:12</rectime>
 		<recchannel>4</recchannel>
@@ -32,32 +80,7 @@
 		</media>
 	</viol>
 	<viol>
-		<id>50-02</id>
-		<updt>12-03-04 07:48</updt>
-		<version>1</version>
-		<obsid>732f3ab3343a4</obsid>
-		<region>50</region>
-		<stationtype>1</stationtype>
-		<uik>11</uik>
-		<place>рядом с УИК</place>
-		<classification>1</classification>
-		<type>2.16</type>
-		<value>1</value>
-		<typedesc>Непустые урны перед началом</typedesc>
-		<impact>4</impact>
-		<complaint>4</complaint>
-		<obscomment>На выездное голосование ушли без списка заявок</obscomment>
-		<obstime>12-03-04 12:22:11</obstime>
-		<rectime>12-03-04 08:34:12</rectime>
-		<recchannel>4</recchannel>
-		<hqcomment></hqcomment>
-		<obstrusted>2</obstrusted>
-		<obsrole>2</obsrole>
-		<police>notified</police>
-		<rectified>0</rectified>
-	</viol>
-	<viol>
-		<id>12</id>
+		<id>1112</id>
 		<updt>12-03-04 07:48</updt>
 		<version>1</version>
 		<obsid>732f3ab3343a4</obsid>
@@ -66,7 +89,7 @@
 		<uik>50</uik>
 		<place>рядом с УИК</place>
 		<classification>1</classification>
-		<type>3.13</type>
+		<type>1.5</type>
 		<value>1</value>
 		<impact>4</impact>
 		<complaint>4</complaint>

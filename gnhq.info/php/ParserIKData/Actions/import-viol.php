@@ -32,7 +32,7 @@ foreach ($sXml->xpath('viol') as $vXml) {
 
     if (!$newViol instanceof ParserIKData_Model_Violation) {
         @$importCodes['invalid data' . $newViol]++;
-        return;
+        continue;
     }
     $result = $xmlProcessor->updateIfNecessary($newViol);
     @$importCodes[$result]++;

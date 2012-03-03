@@ -25,15 +25,17 @@ if (!$sXml instanceof SimpleXMLElement) {
 $xmlProcessor = new ParserIKData_XMLProcessor_Violation($projectCode);
 $gateway = new ParserIKData_Gateway_Violation();
 
-
+$importCodes = array();
 foreach ($sXml->xpath('viol') as $vXml) {
 
     $newViol = $xmlProcessor->createFromXml($vXml);
 
     if (!$newViol instanceof ParserIKData_Model_Violation) {
-        print 'invalid data' . $newViol;
+        @$importCodes['invalid data' . $newViol]++;
         return;
     }
     $result = $xmlProcessor->updateIfNecessary($newViol);
-    print $result . PHP_EOL;
+    @$importCodes[$result]++;
 }
+
+print_r($importCodes);

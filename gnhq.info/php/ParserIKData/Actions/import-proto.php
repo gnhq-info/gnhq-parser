@@ -24,14 +24,17 @@ if (!$sXml instanceof SimpleXMLElement) {
 $xmlProcessor = new ParserIKData_XMLProcessor_Protocol403($projectCode);
 $gateway = new ParserIKData_Gateway_Protocol403();
 
+$importCodes = array();
 foreach ($sXml->xpath('prt') as $pXml) {
 
     $newProto = $xmlProcessor->createFromXml($pXml);
 
     if (!$newProto instanceof ParserIKData_Model_Protocol403) {
-        print $newProto . PHP_EOL;
+        @$importCodes[$newProto]++;
         continue;
     }
     $result = $xmlProcessor->updateIfNecessary($newProto);
-    print $result . PHP_EOL;
+    @$importCodes[$result]++;
 }
+
+print_r($importCodes);

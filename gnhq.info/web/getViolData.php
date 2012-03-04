@@ -92,10 +92,7 @@ if ($modeSingleViolation) {
     $vshort = $vGateway->setUseCache(true)->short($projectCode, null, $regionNum, $okrugTikNums, $uikNum);
     $vTypeCount = array();
 
-    $MAX = 0;
-    if ($_SERVER['HTTP_HOST'] == 'gnhq.localhost') {
-        $MAX = 30;
-    }
+    $MAX = 30;
     $violInnerCount = 0;
     foreach ($vshort as $k => $viol) {
         if (!isset($vTypeCount[$viol->getMergedTypeId()])) {
@@ -138,6 +135,7 @@ if ($modeSingleViolation) {
     $protocolGateway->setUseCache(true);
     $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, $resultProjectCodes, false, false, false, false);
     $ofResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
+    // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
 }
 
 // формат ответа
@@ -153,6 +151,13 @@ if ($modeSingleViolation) {
     $response->vTypeCount = $vTypeCount;
     $response->twits = $twitData;
     $response->uikCnt = $uikCount;
+
+
+    // $response->watchersData = array('VZ' => 0, 'GZ' => 0, 'MP' => 0, 'VP' => 0, 'SM' => 0, 'AT' => 0, 'SP' => 0);
+    // $response->ofData = array('VZ' => 0, 'GZ' => 0, 'MP' => 0, 'VP' => 0, 'SM' => 0, 'AT' => 0, 'SP' => 0);
+    // $response->watchersUIKCount = 0;
+    // $response->ofUIKCount = 0;
+
     $response->watchersData = $watchersResult->getDiagramData(true, 2);
     $response->watchersUIKCount = $watchersResult->getUikCount();
     $response->ofData = $ofResult->getDiagramData(true, 2);

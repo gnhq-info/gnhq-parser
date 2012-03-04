@@ -13,14 +13,5 @@ array('key' => 'SP', 'hdr' => 'Недействительные', 'title' => 'Н
 );
 
 
-if ($_SERVER['HTTP_HOST'] == 'gnhq.localhost') {
-    if (!empty($_GET['showResult'])) {
-        $view->onlyResult = true;
-    } else {
-        $view->onlyResult = false;
-    }
-    include 'tpl/violfull.phtml';
-} else {
-    $view->onlyResult = false;
-    include 'tpl/viol.phtml';
-}
+
+include 'tpl/violfull.phtml';

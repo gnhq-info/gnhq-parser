@@ -43,12 +43,39 @@
 			</div>
 
 		</form>
-		<?php
-		if ($view->onlyResult == true) {
-		    echo '<div style="display: none;">';
-		}
-		?>
+
 		<!-- /SEARCH FORM -->
+
+		<!-- RESULTS -->
+
+		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Предварительные результаты</h4>
+		<table class="table table-striped" id="results">
+			<thead>
+				<tr>
+					<th width="15%"></th>
+					<th width="40%" colspan="2">Выборка</th>
+					<th width="40%" colspan="2">ЦИК</th>
+					<th width="5%">Разница</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				    foreach($view->diagRows as $line) {
+				        include('protocolline.phtml');
+				    }
+				    unset($line);
+				 ?>
+				 <tr>
+				 	<td>Всего участков</td>
+				 	<td colspan="2" id="watchersUikCount" style="font-weight: 700;"></td>
+				 	<td colspan="2" id="ofUikCount" style="font-weight: 700;"></td>
+				 	<td> </td>
+				 </tr>
+			</tbody>
+		</table>
+		<!-- /RESULTS -->
+
+
 		<div class="row" style="margin-top: 5px; border-top: 1px solid gray;">
 
 			<div id="vTypes" class="span6">
@@ -81,40 +108,7 @@
 		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Лента новостей</h4>
 		<div id="twitterFeed" >
 		</div>
-		<?php
-		if ($view->onlyResult == true) {
-		    echo '</div>';
-		}
-		?>
 
-		<!-- RESULTS -->
-
-		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Предварительные результаты</h4>
-		<table class="table table-striped" id="results">
-			<thead>
-				<tr>
-					<th width="15%"></th>
-					<th width="40%" colspan="2">Выборка</th>
-					<th width="40%" colspan="2">ЦИК</th>
-					<th width="5%">Разница</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				    foreach($view->diagRows as $line) {
-				        include('protocolline.phtml');
-				    }
-				    unset($line);
-				 ?>
-				 <tr>
-				 	<td>Всего участков</td>
-				 	<td colspan="2" id="watchersUikCount" style="font-weight: 700;"></td>
-				 	<td colspan="2" id="ofUikCount" style="font-weight: 700;"></td>
-				 	<td> </td>
-				 </tr>
-			</tbody>
-		</table>
-		<!-- /RESULTS -->
 	</div>
 
 	<div class="modal" id="violationModel" style="display: none;">

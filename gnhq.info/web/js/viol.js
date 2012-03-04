@@ -10,7 +10,7 @@ var Viol = {
 				}))
 				.append($('<label>').attr('for', prCode).html(StaticData.Watchers[prCode]));
 			if (Viol.Dict.Watchers.isOnline(prCode)) {
-				_wDiv.addClass('online').attr('title', 'Проект предоставляет данные в режиме реального времени');
+				_wDiv.addClass('online').attr('title', 'Проект предоставляет данные по нарушениям или предварительным результатам в режиме реального времени');
 			}
 			_wDiv.appendTo($('#watchers'));
 		}

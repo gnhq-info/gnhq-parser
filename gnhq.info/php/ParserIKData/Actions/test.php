@@ -1,8 +1,7 @@
 <?php
 include_once 'include.php';
 
-$gateway = new ParserIKData_Gateway_ViolationType();
-$gateway->setUseCache(true);
-$codes = $gateway->getMergedTypesByProjectTypes('GN');
-ksort($codes);
-var_dump($codes);
+$gateway = new ParserIKData_Gateway_UIKRussia();
+
+$tikNum = $gateway->setUseCache(true)->findTikNumByRegionAndUik(77, 2890);
+print_r($tikNum);

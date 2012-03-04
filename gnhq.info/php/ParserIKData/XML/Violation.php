@@ -5,6 +5,10 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
 
     private $_updateData = array();
 
+    private $_uikRGateway = null;
+
+    private $_vtypeGateway = null;
+
     public function __construct($projectCode)
     {
         $this->_projectCode = $projectCode;
@@ -189,10 +193,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
             if ((string)$sXml->stationtype == '1' || (string)$sXml->stationtype == 'UIK') {
                 if (is_numeric((string)$sXml->uik)) {
                     $viol->setUIKNum((int)$sXml->uik);
-                    $uikR = $this->_getUikRGateway()->getForRegionAndNum($viol->getRegionNum(), $viol->getUIKNum());
-                    if ($uikR) {
-                        $viol->setTIKNum($uikR->getTikNum());
-                    }
+                    $viol->setTIKNum($this->_getUikRGateway()->findTikNumByRegionAndUik($viol->getRegionNum(), $viol->getUIKNum()));
                 } else {
                     $viol->setPlace($this->_filterString((string)$sXml->uik, 50));
                 }
@@ -218,16 +219,29 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         return $this->_getTypeGateway()->findMergedTypeByProjectType($projectCode, $projectType);
     }
 
+
+    /**
+     * @return ParserIKData_Gateway_UIKRussia
+     */
     private function _getUikRGateway()
     {
-        return new ParserIKData_Gateway_UIKRussia();
+        if ($this->_uikRGateway === null) {
+            $this->_uikRGateway = new ParserIKData_Gateway_UIKRussia();
+            $this->_uikRGateway->setUseCache(true);
+        }
+        return $this->_uikRGateway;
     }
 
+    /**
+     * @return ParserIKData_Gateway_ViolationType
+     */
     private function _getTypeGateway()
     {
-        $gateway = new ParserIKData_Gateway_ViolationType();
-        $gateway->setUseCache(true);
-        return $gateway;
+        if ($this->_vtypeGateway === null) {
+            $this->_vtypeGateway = new ParserIKData_Gateway_ViolationType();
+            $this->_vtypeGateway->setUseCache(true);
+        }
+        return $this->_vtypeGateway;
     }
 
     private function _getViolationGateway()
@@ -251,12 +265,12 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
 
 
     /**
-    * в фиде-ретрансляторе могут быть данные от разных проектов (один фид <=> несколько проектов)
-    * отбрасываем лишние
-    * возвращает true для айтема, который нужно отбросить
-    * @param SimpleXMLElement $sXml
-    * @return boolean
-    */
+     * в фиде-ретрансляторе могут быть данные от разных проектов (один фид <=> несколько проектов)
+     * отбрасываем лишние
+     * возвращает true для айтема, который нужно отбросить
+     * @param SimpleXMLElement $sXml
+     * @return boolean
+     */
     private function _skipFromRetranslator($sXml)
     {
         return false;
@@ -279,8 +293,8 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
     }
 
     /**
-    * @param ParserIKData_Model_Violation $viol
-    */
+     * @param ParserIKData_Model_Violation $viol
+     */
     private function _violToUpdateData($viol)
     {
         $this->_updateData[$viol->getProjectId()] = array (

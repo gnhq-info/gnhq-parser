@@ -4,6 +4,8 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     private $_table = 'uik_russia';
     private $_modelClass = 'ParserIKData_Model_UIKRussia';
 
+    private $_tikNums = null; // caching for execution time
+
     /**
      * @return null|int
      */
@@ -44,6 +46,49 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
         } else {
             return null;
         }
+    }
+
+    /**
+     * @param int $regionNum
+     * @param int $uikNum
+     * @return int
+     */
+    public function findTikNumByRegionAndUik($regionNum, $uikNum)
+    {
+        $nums = $this->getTikNumsByRegionAndUik();
+        if (empty($nums[$regionNum][$uikNum])) {
+            return 0;
+        } else {
+            return intval($nums[$regionNum][$uikNum]);
+        }
+    }
+
+    /**
+     * array (regionNum => array (uikNum => tikNum))
+     * @return int[][]
+     */
+    public function getTikNumsByRegionAndUik()
+    {
+        if (empty($this->_tikNums)) {
+            $args = func_get_args();
+            if (false === ($nums = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+
+                $nums = array();
+                $data = $this->_loadFromTable($this->_table, $this->_modelClass);
+                foreach ($data as $uikR) {
+                    /* @var $uikR ParserIKData_Model_UIKRussia */
+                    $nums[$uikR->getRegionNum()][$uikR->getUikNum()] = $uikR->getTikNum();
+                }
+                $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $nums);
+
+                //print 'not from cache'.PHP_EOL;
+            } else {
+                //print 'from cache'.PHP_EOL;
+            }
+
+            $this->_tikNums = $nums;
+        }
+        return $this->_tikNums;
     }
 
 

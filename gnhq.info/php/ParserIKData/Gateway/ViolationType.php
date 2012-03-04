@@ -4,6 +4,8 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
     private $_table = 'violation_type';
     private $_model = 'ParserIKData_Model_ViolationType';
 
+    private $_typeCodes = array();
+
     /**
      * @return null|int
      */
@@ -52,24 +54,27 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
 
     public function getMergedTypesByProjectTypes($projectCode)
     {
-        $args = func_get_args();
-        if (false === ($codes = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
-            $whereCond = sprintf ('ProjectCode = "%s"', $this->_escapeString($projectCode));
+        if (empty($this->_typeCodes[$projectCode])) {
+            $args = func_get_args();
+            if (false === ($codes = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+                $whereCond = sprintf ('ProjectCode = "%s"', $this->_escapeString($projectCode));
 
-            $codes = array();
-            $data = $this->_loadFromTable($this->_table, $this->_model, $whereCond);
-            foreach ($data as $vType) {
-                /* @var $vType ParserIKData_Model_ViolationType */
-                $codes[$vType->getProjectType()] = $vType->getMergedType();
+                $codes = array();
+                $data = $this->_loadFromTable($this->_table, $this->_model, $whereCond);
+                foreach ($data as $vType) {
+                    /* @var $vType ParserIKData_Model_ViolationType */
+                    $codes[$vType->getProjectType()] = $vType->getMergedType();
+                }
+                $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $codes);
+
+                //print 'not from cache'.PHP_EOL;
+            } else {
+                //print 'from cache'.PHP_EOL;
             }
-            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $codes);
 
-            //print 'not from cache'.PHP_EOL;
-        } else {
-            //print 'from cache'.PHP_EOL;
+            $this->_typeCodes[$projectCode] = $codes;
         }
-
-        return $codes;
+        return $this->_typeCodes[$projectCode];
     }
 
 

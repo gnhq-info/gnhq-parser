@@ -127,7 +127,6 @@ var Viol = {
 					'async'     : false,
 					'success'   : function(data, status, request) {
 										Viol.SetResult.processSingleResult(data.violData);
-										Viol.SetResult.setTwits(data.twits);
 								  },
 					'error'     : function(data, status, request) {
 										alert('Ошибка при загрузке информации о нарушении');

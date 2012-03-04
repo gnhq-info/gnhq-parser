@@ -355,8 +355,8 @@ var StatScreen = {
 		
 		_setLineNumber: function(lineCode, watchType, result) {
 			
-			if (lineCode == 'AT' && result == '0') {
-				StatScreen.Jq.getLineValue(lineCode, watchType).html('-').attr('title', 'При участии в выборке данных Голоса явку определить невозможно');
+			if ( (lineCode == 'AT') && (parseInt(result,10) == 0) ) {
+				StatScreen.Jq.getLineValue(lineCode, watchType).html('---').attr('title', 'При участии в выборке данных Голоса явку определить невозможно');
 			} else {
 				StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');
 				StatScreen.Jq.getLineValue(lineCode, watchType).attr('title', '');

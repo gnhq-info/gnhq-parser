@@ -163,7 +163,7 @@ if ($modeSingleViolation) {
     $response->ofData = $ofResult->getDiagramData(true, 2);
     $response->ofUIKCount = $ofResult->getUikCount();
     // если не только GN - явка некорректная
-    if ($projectCode !== array('GN')) {
+    if (in_array(PROJECT_GOLOS, $resultProjectCodes)) {
         $response->watchersData['AT'] = 0;
         $response->ofData['AT'] = 0;
     }

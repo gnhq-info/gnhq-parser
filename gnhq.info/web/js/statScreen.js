@@ -354,11 +354,17 @@ var StatScreen = {
 		},
 		
 		_setLineNumber: function(lineCode, watchType, result) {
-			StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');
-			if (result < 0) {
-				StatScreen.Jq.getLineValue(lineCode, watchType).addClass('line-negative').removeClass('line-positive');
+			
+			if (lineCode == 'AT' && result == '0') {
+				StatScreen.Jq.getLineValue(lineCode, watchType).html('-').attr('title', 'При участии в выборке данных Голоса явку определить невозможно');
 			} else {
-				StatScreen.Jq.getLineValue(lineCode, watchType).removeClass('line-negative').addClass('line-positive');
+				StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');
+				StatScreen.Jq.getLineValue(lineCode, watchType).attr('title', '');
+				if (result < 0) {
+					StatScreen.Jq.getLineValue(lineCode, watchType).addClass('line-negative').removeClass('line-positive');
+				} else {
+					StatScreen.Jq.getLineValue(lineCode, watchType).removeClass('line-negative').addClass('line-positive');
+				}
 			}
 		},
 		

@@ -1,8 +1,20 @@
+<?php
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
+    echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+}
+?>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/statScreen.css?5" rel="stylesheet">
+<?php
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
+    echo '<link href="css/statScreenIe.css?5" rel="stylesheet">';
+}
+?>
+
 <title>Гражданин Наблюдатель - Нарушения 4 марта 2012</title>
 </head>
 <body>
@@ -139,12 +151,12 @@
 	<script>
 		var StaticData = {};
 	</script>
-	<script type="text/javascript" src="js/violtypes_data.js?8"></script>
-	<script type="text/javascript" src="js/watchers_data.js?8"></script>
+	<script type="text/javascript" src="js/violtypes_data.js?9"></script>
+	<script type="text/javascript" src="js/watchers_data.js?9"></script>
 	<script type="text/javascript" src="js/regions_data.js"></script>
 	<script type="text/javascript" src="js/okrug_data.js"></script>
 	<script type="text/javascript" src="js/decoration.js"></script>
-	<script type="text/javascript" src="js/viol.js?8"></script>
-	<script type="text/javascript" src="js/statScreen.js?8"></script>
+	<script type="text/javascript" src="js/viol.js?9"></script>
+	<script type="text/javascript" src="js/statScreen.js?9"></script>
 </body>
 </html>

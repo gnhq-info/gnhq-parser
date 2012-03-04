@@ -1,14 +1,18 @@
 var Viol = {
 	Init: function() {
+		var _wDiv;
 		for (var prCode in StaticData.Watchers) {
 			
-			$('<div>')
+			_wDiv = $('<div>')
 				.append($('<input>').attr('type', 'checkbox').val(prCode).attr('id', prCode).change(function() {
 					Viol.Exchange.loadData();
 					return false;
 				}))
-				.append($('<label>').attr('for', prCode).html(StaticData.Watchers[prCode]))
-				.appendTo($('#watchers'));
+				.append($('<label>').attr('for', prCode).html(StaticData.Watchers[prCode]));
+			if (Viol.Dict.Watchers.isOnline(prCode)) {
+				_wDiv.addClass('online').attr('title', 'Проект предоставляет данные в режиме реального времени');
+			}
+			_wDiv.appendTo($('#watchers'));
 		}
 		
 		$('#watchers input').each(function(){
@@ -455,6 +459,9 @@ var Viol = {
 		Watchers: {
 			getName: function(ProjectCode) {
 				return StaticData.Watchers[ProjectCode];
+			},
+			isOnline: function(ProjectCode) {
+				return StaticData.WatchersOnline[ProjectCode];
 			}
 		},
 		

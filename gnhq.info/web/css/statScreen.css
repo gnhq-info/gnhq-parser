@@ -48,3 +48,10 @@ form label {cursor: pointer;}
 #vTypes .selected {background-color: #FFA07A; }
 
 #watchers label, #vTypes label {display: inline; margin-left: 3px; cursor: pointer;}
+
+#watchers .online {
+	background-image: url("../img/onlineS.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-color: #98FB98;
+}

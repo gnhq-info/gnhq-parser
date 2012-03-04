@@ -136,7 +136,6 @@ if ($modeSingleViolation) {
         $codeString = str_replace(PROJECT_GN, PROJECT_GL, $codeString);
         $resultProjectCodes = explode('|', $codeString);
     }
-    file_put_contents('c:\var\www\gnhq.info\temp\t.txt', print_r($resultProjectCodes, 1));
     $protocolGateway = new ParserIKData_Gateway_Protocol403();
     $protocolGateway->setUseCache(true);
     $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, $resultProjectCodes, false, false, false, false);

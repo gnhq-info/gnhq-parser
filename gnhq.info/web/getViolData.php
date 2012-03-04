@@ -108,7 +108,7 @@ if ($modeSingleViolation) {
 
     // twitter feed
     $twitGateway = new ParserIKData_Gateway_Twit();
-    $newTwits = $twitGateway->getAll(10);
+    $newTwits = $twitGateway->getAll(20);
     $twitData = array();
     foreach ($newTwits as $twit) {
         $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());

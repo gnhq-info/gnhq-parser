@@ -305,7 +305,9 @@ var Viol = {
 		},
 		
 		processSingleResult: function(row) {
-			$('#violationModel .place').html(Viol.Utility.buildPlace(row) + '   ' + Viol.Utility.formatTime(row.Obstime));
+			$('#violationModel .place').html(Viol.Utility.buildPlace(row) + ' ' 
+				+ (Viol.Utility.buildUiknum(row) ? 'УИК ' + Viol.Utility.buildUiknum(row) :'')  +  '   ' 
+				+ Viol.Utility.formatTime(row.Obstime));
 			$('#violationModel .violationType span').html(Viol.Dict.ViolType.getName(row.MergedTypeId));
 			$('#violationModel .description span').html(row.Description);
 			$('#violationModel .hqcomment span').html(row.Hqcomment);

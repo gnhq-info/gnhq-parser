@@ -12,4 +12,15 @@ array('key' => 'AT', 'hdr' => 'Явка',             'title' => 'Явка', 'co
 array('key' => 'SP', 'hdr' => 'Недействительные', 'title' => 'Недействительные', 'color' => 'grey'),
 );
 
-include 'tpl/viol.phtml';
+
+if ($_SERVER['HTTP_HOST'] == 'gnhq.localhost') {
+    if (!empty($_GET['showResult'])) {
+        $view->onlyResult = true;
+    } else {
+        $view->onlyResult = false;
+    }
+    include 'tpl/violfull.phtml';
+} else {
+    $view->onlyResult = false;
+    include 'tpl/viol.phtml';
+}

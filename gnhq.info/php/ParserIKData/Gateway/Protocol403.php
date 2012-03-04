@@ -57,20 +57,17 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $okrugAbbr
      * @param int $uikNum
      * @param string[] $resultType
-     * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
-     * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
-     * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
-     * @param boolean $oReport   - только с отчетами
+     * @param int $constrolRelTrue
      * @return ParserIKData_Model_Protocol403|NULL
      */
-    public function getMixedResult($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
+    public function getMixedResult($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $controlRelTrue = false)
     {
         $args = func_get_args();
         if (!is_array($resultType)) {
             $resultType = array($resultType);
         }
         if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
-            $cond = $this->_buildCond($regionNum, $okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
+            $cond = $this->_buildCond($regionNum, $okrugAbbr, $uikNum, $resultType, $controlRelTrue);
             $query = $this->_buildSumQuery($cond);
             $result = $this->_fetchSumProtocol($query);
 
@@ -113,34 +110,17 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $okrugAbbr
      * @param int $uikNum
      * @param string[] $resultType
-     * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
-     * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
-     * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
-     * @param boolean $oReport   - только с отчетами
+     * @param bool $controlRelTrue
      * @return string
      */
-    private function _buildCond($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
+    private function _buildCond($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $controlRelTrue = false)
     {
         $condParts = array();
         if (!$resultType) {
             $condParts[] = $this->_getCondOfficial();
         } else {
-            if ($oProto == false) {
-                // все результаты данного типа (не важно - есть или нет протокол, чистый ли участок или нет
-                $condParts[] = $this->_getCondResultForType($resultType);
-            } else {
-                // используем только протоколы данного типа
-                $condParts[] = $this->_getCondResultType($resultType);
-                if ($oClean) {
-                    // используем только протоколы данного типа по чистым участкам (если нет протокола - грубое нарушение - не может быть чистым)
-                    $condParts[] = 'IkFullName IN (' . $this->_getWatchGateway()->getCondClear($resultType) . ')';
-                } elseif ($oDiscrep) {
-                    $condParts[] = 'IkFullName IN (' . $this->getCondDiscrepancy($resultType) . ')';
-                }
-            }
-            if ($oReport) {
-                $condParts[] = 'IkFullName IN (' . $this->_getReportGateway()->getCondWithReport($resultType)  . ')';
-            }
+            // все результаты данного типа
+            $condParts[] = $this->_getCondResultForType($resultType);
         }
         if ($regionNum) {
             $condParts[] = $this->_getCondRegion($regionNum);
@@ -150,8 +130,19 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
         } elseif ($uikNum) {
             $condParts[] = $this->_getCondUik($uikNum);
         }
+        if ($controlRelTrue) {
+            $condParts[] = $this->_getCondControlRel();
+        }
         $cond = '( ' . implode( ' ) AND ( ', $condParts) . ' )';
         return $cond;
+    }
+
+    /**
+     * @return string
+     */
+    private function _getCondControlRel()
+    {
+        return '(Line10 = Line19 + Line20 + Line21 + Line22 + Line23)';
     }
 
     /**

@@ -136,10 +136,17 @@ if ($modeSingleViolation) {
         $codeString = str_replace(PROJECT_GN, PROJECT_GL, $codeString);
         $resultProjectCodes = explode('|', $codeString);
     }
+
+    if (!empty($_GET['onlyControlRelTrue'])) {
+        $onlyControlRelTrue = true;
+    } else {
+        $onlyControlRelTrue = false;
+    }
+
     $protocolGateway = new ParserIKData_Gateway_Protocol403();
     $protocolGateway->setUseCache(true);
-    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, $resultProjectCodes, false, false, false, false);
-    $ofResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
+    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, $resultProjectCodes, $onlyControlRelTrue);
+    $ofResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', $onlyControlRelTrue);
     // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
 }
 

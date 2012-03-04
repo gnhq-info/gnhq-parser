@@ -1,14 +1,37 @@
-<prt>
-	<id>15544</id>
-	<updt>12-02-29 22:23</updt>
-	<ncomp>5</ncomp>
-	<region>77</region>
-	<uik>123</uik>
-	<p9>1</p9>
-	<p10>1000</p10>
-	<p19>200</p19>
-	<p20>200</p20>
-	<p21>200</p21>
-	<p22>200</p22>
-	<p23>200</p23>
-</prt>
+<proto>
+	<prt>
+		<id>65</id>
+		<dirt>1</dirt>
+		<ncomp>0</ncomp>
+		<obsid>7144</obsid>
+		<obstrusted>4</obstrusted>
+		<p1>195</p1>
+		<p10>186</p10>
+		<p11>20</p11>
+		<p12>20</p12>
+		<p13>4</p13>
+		<p14>0</p14>
+		<p15>0</p15>
+		<p16>0</p16>
+		<p17>0</p17>
+		<p18>0</p18>
+		<p19>22</p19>
+		<p2>212</p2>
+		<p20>15</p20>
+		<p21>0</p21>
+		<p22>8</p22>
+		<p23>141</p23>
+		<p3>0</p3>
+		<p4>156</p4>
+		<p5>31</p5>
+		<p6>25</p6>
+		<p7>31</p7>
+		<p8>156</p8>
+		<p9>1</p9>
+		<recchannel>3</recchannel>
+		<region>72</region>
+		<signtime>11-03-05 20:50</signtime>
+		<uik>1031</uik>
+		<updt>12-03-04 20:34</updt>
+	</prt>
+</proto>

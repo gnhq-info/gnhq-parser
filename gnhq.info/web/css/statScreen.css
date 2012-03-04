@@ -28,7 +28,7 @@ form label {cursor: pointer;}
 
 #selectedPlace {font-weight: 700;}
 
-#vTypes, #violFeed {height: 400px; min-height: 410px; max-height: 410px; overflow-x: hidden; }
+#vTypes, #violFeed {height: 430px; min-height: 430px; max-height: 430px; overflow-x: hidden; }
 #vTypes {overflow-y: auto;}
 #violFeed {overflow-y: scroll;}
 
@@ -41,7 +41,7 @@ form label {cursor: pointer;}
 #vTypes .data span.val {float: right; font-weight: 700; padding-right: 40px;}
 
 #violFeed span.vhdr {font-style: italic!important; margin-right: 5px;}
-#violTypeAll, #watchersAll, #violFeed a, #violFeed a:hover {
+#violTypeNone, #violTypeAll, #watchersAll, #violFeed a, #violFeed a:hover {
 	text-decoration: none; border-bottom: 1px dashed #000080; cursor: hand; cursor: pointer;
 }
 

@@ -25,9 +25,11 @@ var Viol = {
 					Viol.Exchange.loadData();
 					return false;
 				});
+				
 		
-		for (var _grp in StaticData.ViolationTypeGroupData) {
-			var _vTypeName, _chboxId;
+		for (var _ord in StaticData.ViolationTypeGroupDataOrder) {
+			var _vTypeName, _chboxId, _grp;
+			_grp = StaticData.ViolationTypeGroupDataOrder[_ord];
 			_vTypeName = Viol.Dict.ViolTypeGroups.getName(_grp);
 			_chboxId = 'vType-'+_grp;
 			$('<div>').attr('id', 'vTypeCont-'+_grp).addClass('selected')
@@ -53,6 +55,15 @@ var Viol = {
 					Viol.Feed.applyFilters();
 					return false;
 				});
+		$('#violTypeNone').click(function() {
+					$('#vTypes .data input').each(function(){
+						$(this).get(0).checked = false;
+						$(this).parent().removeClass('selected');
+					});
+					Viol.Feed.applyFilters();
+					Viol.Feed.hideAll();
+					return false;
+				});		
 		
 		for (var regionNum in StaticData.Regions) {
 			$('<option>').val(regionNum).html(StaticData.Regions[regionNum]).appendTo($('#regionNum'));

@@ -9,21 +9,25 @@ switch ($argv[1])
         $vtypeGateway = new ParserIKData_Gateway_ViolationType();
         $types = $vtypeGateway->setUseCache(false)->getAllDistinct('name');
         $violTypeJs = 'StaticData.ViolationTypes = [];' . PHP_EOL;
-        $violTypeJs .= 'StaticData.ViolationTypesOrder = [];' . PHP_EOL;
         $violTypeJs .= 'StaticData.ViolationTypeGroups = [];' . PHP_EOL;
-        $violTypeJs .= 'StaticData.ViolationTypeGroupData = [];' . PHP_EOL;
-        $violTypeJs .= 'StaticData.ViolationTypeGroupData[0] = "'.'Серьезные/часто встречающиеся нарушения'.'";' . PHP_EOL;
-        $violTypeJs .= 'StaticData.ViolationTypeGroupData[1] = "'.'Нарушения при открытии участка'.'";' . PHP_EOL;
-        $violTypeJs .= 'StaticData.ViolationTypeGroupData[2] = "'.'Нарушения при голосовании'.'";' . PHP_EOL;
-        $violTypeJs .= 'StaticData.ViolationTypeGroupData[3] = "'.'Нарушения при подсчете'.'";' . PHP_EOL;
+        $violTypeJs .= 'StaticData.ViolationTypeGroupData = {};' . PHP_EOL;
         $i = 0;
+        $grps = array();
         foreach ($types as $type) {
             $i++;
             /* @var $type ParserIKData_Model_ViolationType */
             $violTypeJs .= "StaticData.ViolationTypes[".$type->getMergedType()."] = '".$type->getFullName() . "';".PHP_EOL;
             $violTypeJs .= "StaticData.ViolationTypeGroups[".$type->getMergedType()."] = ".$type->getGroup() . ";".PHP_EOL;
-            $violTypeJs .= "StaticData.ViolationTypesOrder[".($i-1)."] = " . $type->getMergedType(). ";".PHP_EOL;
+            if ($type->getFullName()) {
+                $grps[$type->getGroup()] = $type->getFullName();
+            }
         }
+        foreach ($grps as $i => $n) {
+            $violTypeJs .= "StaticData.ViolationTypeGroupData[".$i."] = '".$n."';".PHP_EOL;
+        }
+
+
+
         savejs($violTypeFile, $violTypeJs);
         break;
 

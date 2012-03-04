@@ -306,7 +306,8 @@ var Viol = {
 			$('#violationModel .violationType span').html(Viol.Dict.ViolType.getName(row.MergedTypeId));
 			$('#violationModel .description span').html(row.Description);
 			$('#violationModel .hqcomment span').html(row.Hqcomment);
-			$('#violationModel .mobilegroup span').html(row.Mobgroupsent ? 'отправлена' : 'не отправлена');
+			//$('#violationModel .mobilegroup span').html(row.Mobgroupsent ? 'отправлена' : 'не отправлена');
+			$('#violationModel .mobilegroup span').html('нет данных');
 			var _policeReaction;
 			switch (row.PoliceReaction) {
 				case "1":

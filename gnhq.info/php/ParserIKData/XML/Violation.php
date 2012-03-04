@@ -160,7 +160,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         }
         if ($sXml->police) {
             $police = (string)$sXml->police;
-            if ($this->_preparePoliceReaction($police)) {
+            if ($this->_preparePoliceReaction($police) !== null) {
                 $viol->setPoliceReaction($this->_preparePoliceReaction($police));
             }
         }
@@ -270,6 +270,8 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         if (is_numeric($pr)) {
             if (ParserIKData_Model_Violation::policeReactionNameByCode($pr)) {
                 return $pr;
+            } else {
+                return 0;
             }
         } else {
             if (ParserIKData_Model_Violation::policeReactionCodeByName(mb_strtolower($pr))) {

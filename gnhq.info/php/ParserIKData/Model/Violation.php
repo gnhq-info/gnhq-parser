@@ -116,7 +116,7 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
     public function getDataHash()
     {
         $data = $this->toStringArray();
-        $skippedIndices = array(2, 3, 15, 22);
+        $skippedIndices = array(2, 3, 15, 16, 19, 22);
         foreach ($skippedIndices as $ind) {
             unset($data[$ind]);
         }
@@ -140,29 +140,29 @@ class ParserIKData_Model_Violation extends ParserIKData_Model
     public function toArray()
     {
         $data = array();
-        $data[] = $this->getProjectId();
-        $data[] = $this->getProjectCode();
-        $data[] = $this->getProjectUptime();
-        $data[] = $this->getProjectVersion();
-        $data[] = $this->getRegionNum();
-        $data[] = $this->getMergedTypeId();
-        $data[] = $this->getDescription();
-        $data[] = $this->getPlace();
-        $data[] = $this->getComplaintStatus();
-        $data[] = $this->getUIKNum();
-        $data[] = $this->getTIKNum();
-        $data[] = $this->getMedia();
-        $data[] = $this->getObsrole();
-        $data[] = $this->getImpact();
-        $data[] = $this->getObstime();
-        $data[] = $this->getLoadtime();
-        $data[] = $this->getRecchanel();
-        $data[] = $this->getHqcomment();
-        $data[] = $this->getObsid();
-        $data[] = $this->getObstrusted();
-        $data[] = $this->getPoliceReaction();
-        $data[] = $this->getRectified();
-        $data[] = $this->getRectime();
+        $data[] = $this->getProjectId(); // 0
+        $data[] = $this->getProjectCode(); // 1
+        $data[] = $this->getProjectUptime(); // 2
+        $data[] = $this->getProjectVersion(); // 3
+        $data[] = $this->getRegionNum(); // 4
+        $data[] = $this->getMergedTypeId(); // 5
+        $data[] = $this->getDescription(); // 6
+        $data[] = $this->getPlace(); // 7
+        $data[] = $this->getComplaintStatus(); // 8
+        $data[] = $this->getUIKNum(); // 9
+        $data[] = $this->getTIKNum(); // 10
+        $data[] = $this->getMedia(); // 11
+        $data[] = $this->getObsrole(); // 12
+        $data[] = $this->getImpact(); // 13
+        $data[] = $this->getObstime(); // 14
+        $data[] = $this->getLoadtime(); // 15
+        $data[] = $this->getRecchanel(); // 16
+        $data[] = $this->getHqcomment(); // 17
+        $data[] = $this->getObsid(); // 18
+        $data[] = $this->getObstrusted(); // 19
+        $data[] = $this->getPoliceReaction(); // 20
+        $data[] = $this->getRectified(); // 21
+        $data[] = $this->getRectime(); // 22
         return $data;
     }
 

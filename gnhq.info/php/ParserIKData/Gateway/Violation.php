@@ -37,7 +37,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
                 $this->_table,
                 $cond,
                 null,
-            	'Loadtime desc'
+            	'ProjectUptime desc'
             );
             $violations = array();
             foreach ($data as $row) {

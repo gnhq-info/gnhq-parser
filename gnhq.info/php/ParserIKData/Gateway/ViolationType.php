@@ -56,6 +56,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
     {
         if (empty($this->_typeCodes[$projectCode])) {
             $args = func_get_args();
+            $args[] = 1;
             if (false === ($codes = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
                 $whereCond = sprintf ('ProjectCode = "%s"', $this->_escapeString($projectCode));
 

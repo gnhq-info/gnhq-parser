@@ -13,5 +13,8 @@ array('key' => 'SP', 'hdr' => 'Недействительные', 'title' => 'Н
 );
 
 
-
-include 'tpl/violfull.phtml';
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
+    include 'tpl/violfullie.phtml';
+} else {
+    include 'tpl/violfull.phtml';
+}

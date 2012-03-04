@@ -55,3 +55,8 @@ form label {cursor: pointer;}
     background-repeat: no-repeat;
     background-color: #98FB98;
 }
+
+#watchers input {
+	width: 20px;
+	display: inline;
+}

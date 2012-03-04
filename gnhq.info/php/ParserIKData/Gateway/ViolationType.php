@@ -4,6 +4,14 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
     private $_table = 'violation_type';
     private $_model = 'ParserIKData_Model_ViolationType';
 
+    /**
+     * @return null|int
+     */
+    protected function _getCacheLifetime()
+    {
+        return 86400;
+    }
+
     public function removeAll()
     {
         $this->_getDriver()->truncateTable($this->_table);
@@ -12,7 +20,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
     public function removeForProject($projectCode)
     {
         $this->_getDriver()->query(
-            sprintf('DELETE FROM '.$this->_table . ' WHERE ProjectCode = "%s"', $this->_getDriver()->escapeString($projectCode) )
+        sprintf('DELETE FROM '.$this->_table . ' WHERE ProjectCode = "%s"', $this->_getDriver()->escapeString($projectCode) )
         );
     }
 
@@ -20,8 +28,8 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
     {
         $whereCond = sprintf (
             'ProjectCode = "%s" AND ProjectType = "%s"',
-            $this->_escapeString($projectCode),
-            $this->_escapeString($projectType)
+        $this->_escapeString($projectCode),
+        $this->_escapeString($projectType)
         );
 
         $data = $this->_loadFromTable($this->_table, $this->_model, $whereCond);
@@ -30,8 +38,40 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         } else {
             return null;
         }
-
     }
+
+    public function findMergedTypeByProjectType($projectCode, $projectType)
+    {
+        $data = $this->getMergedTypesByProjectTypes($projectCode);
+        if (!isset($data[$projectType])) {
+            return ParserIKData_Model_ViolationType::DEFAULT_MTYPE;
+        } else {
+            return $data[$projectType];
+        }
+    }
+
+    public function getMergedTypesByProjectTypes($projectCode)
+    {
+        $args = func_get_args();
+        if (false === ($codes = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            $whereCond = sprintf ('ProjectCode = "%s"', $this->_escapeString($projectCode));
+
+            $codes = array();
+            $data = $this->_loadFromTable($this->_table, $this->_model, $whereCond);
+            foreach ($data as $vType) {
+                /* @var $vType ParserIKData_Model_ViolationType */
+                $codes[$vType->getProjectType()] = $vType->getMergedType();
+            }
+            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $codes);
+
+            //print 'not from cache'.PHP_EOL;
+        } else {
+            //print 'from cache'.PHP_EOL;
+        }
+
+        return $codes;
+    }
+
 
     /**
      * @param ParserIKData_Model_ViolationType $violT
@@ -52,7 +92,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
                 break;
             default:
                 $order = null;
-                break;
+            break;
         }
         $args = func_get_args();
         if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
@@ -73,7 +113,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         $query = sprintf('insert into '.$this->_table.'
         		(MergedType, ProjectType,  ProjectCode, FullName, GroupType, Severity)
           values (%d, "%s", "%s", "%s", %d, %d)',
-          $data[0], $data[1], strtoupper(substr($data[2], 0, 2)), $data[3], $data[4], $data[5]);
+        $data[0], $data[1], strtoupper(substr($data[2], 0, 2)), $data[3], $data[4], $data[5]);
         return $query;
     }
 }

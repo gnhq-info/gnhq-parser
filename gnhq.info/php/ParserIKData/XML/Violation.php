@@ -215,12 +215,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
 
     private function _getMergedType($projectCode, $projectType)
     {
-        $type = $this->_getTypeGateway()->findByProjectData($projectCode, $projectType);
-        if (!$type) {
-            return ParserIKData_Model_ViolationType::DEFAULT_MTYPE;
-        } else {
-            return $type->getMergedType();
-        }
+        return $this->_getTypeGateway()->findMergedTypeByProjectType($projectCode, $projectType);
     }
 
     private function _getUikRGateway()
@@ -230,7 +225,9 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
 
     private function _getTypeGateway()
     {
-        return new ParserIKData_Gateway_ViolationType();
+        $gateway = new ParserIKData_Gateway_ViolationType();
+        $gateway->setUseCache(true);
+        return $gateway;
     }
 
     private function _getViolationGateway()

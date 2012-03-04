@@ -1,5 +1,6 @@
 <?php
 const PROJECT_GN = 'GN';
+const PROJECT_GL = 'CL';
 const PROJECT_GOLOS = 'AG';
 const PROJECT_GRAKON = 'GR';
 const PROJECT_LIGA = 'LI';
@@ -15,6 +16,13 @@ $PROJECT_CONFIG = array(
             'ViolLink'  => 'http://gnhq.info/export/violations.xml',
 			//'ViolLink'  => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\viol1.xml',
         ),
+    PROJECT_GL => array(
+            'Name'      => 'Гражданин наблюдатель чистые',
+            // 'ProtoLink' => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\proto1.xml',
+            'ProtoLink' => 'http://gnhq.info/export/protocols.xml',
+            'ViolLink'  => '',
+            //'ViolLink'  => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\viol1.xml',
+    ),
 	PROJECT_GOLOS => array(
             'Name'      => 'Голос',
 			'ProtoLink' => '',

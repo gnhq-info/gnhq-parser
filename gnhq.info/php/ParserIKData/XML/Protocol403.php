@@ -145,6 +145,11 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
                     return true;
                 }
                 break;
+            case PROJECT_GL:
+                if ($sXml->children()->dirt && (string)$sXml->children()->dirt != '0') {
+                    return true;
+                }
+                break;
             default:
                 break;
         }

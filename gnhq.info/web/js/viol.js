@@ -108,7 +108,8 @@ var Viol = {
 				'ViolType':    $('#ViolType').val(),
 				'regionNum':   $('#regionNum').val(),
 				'okrug':       $('#okrug').val(),
-				'uikNum':      $('#uikNum').val()
+				'uikNum':      $('#uikNum').val(),
+				'onlyClean':   $('#onlyClean').is(':checked') ? 1 : 0	
 			}; 
 			$.ajax(
 				'getViolData.php', 

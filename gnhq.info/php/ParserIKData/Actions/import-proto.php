@@ -14,12 +14,13 @@ if (!$projectFeed) {
     print 'no feed link';
     return;
 }
-
+$timeStart = microtime(true);
 $sXml = simplexml_load_file($projectFeed);
 if (!$sXml instanceof SimpleXMLElement) {
     print('bad xml');
     return;
 }
+$timeEndLoad = microtime(true);
 
 $xmlProcessor = new ParserIKData_XMLProcessor_Protocol403($projectCode);
 $gateway = new ParserIKData_Gateway_Protocol403();
@@ -37,4 +38,6 @@ foreach ($sXml->xpath('prt') as $pXml) {
     @$importCodes[$result]++;
 }
 
+$timeEnd = microtime(true);
 print_r($importCodes);
+print PHP_EOL . sprintf('total time in sec: %.2F; load time: %.2F; our time: %.2F', ($timeEnd - $timeStart), ($timeEndLoad - $timeStart), ($timeEnd - $timeEndLoad));

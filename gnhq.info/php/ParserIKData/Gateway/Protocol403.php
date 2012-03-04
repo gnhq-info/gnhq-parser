@@ -49,14 +49,14 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     */
     protected function _getCacheLifetime()
     {
-        return 120;
+        return 60;
     }
 
     /**
      * @param int $regionNum
      * @param string $okrugAbbr
      * @param int $uikNum
-     * @param string $resultType
+     * @param string[] $resultType
      * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
      * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
      * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
@@ -66,6 +66,9 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     public function getMixedResult($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
         $args = func_get_args();
+        if (!is_array($resultType)) {
+            $resultType = array($resultType);
+        }
         if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
             $cond = $this->_buildCond($regionNum, $okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
             $query = $this->_buildSumQuery($cond);
@@ -109,7 +112,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param int $regionNum
      * @param string $okrugAbbr
      * @param int $uikNum
-     * @param string $resultType
+     * @param string[] $resultType
      * @param boolean $oProto    - только по протоколам проекта - имеет смысл только если $resultType != null
      * @param boolean $oClean    - только чистые - имеет смысл только если $oProto = true (на чистом участке должен быть протокол)
      * @param boolean $oDiscrep  - только c расхождениями - имеет смысл только если $oProto = true (на чистом участке должен быть протокол от ГН)
@@ -220,7 +223,15 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
 
     private function _getCondResultType($resultType)
     {
-        return 'ResultType = "'.$this->_escapeString($resultType).'"';
+        if (!is_array($resultType)) {
+            $resultType = array($resultType);
+        }
+        $parts = array();
+        foreach ($resultType as $i => $rType) {
+            $parts[] = $this->_escapeString($rType);
+        }
+        $cond = 'ResultType IN ("' . implode('", "', $parts) . '")';
+        return $cond;
     }
 
     /**
@@ -293,7 +304,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     {
         $statement = ' "Mixed" AS IkFullName, "Mixed" AS IkType, "Mixed" AS ResultType, SUM(ClaimCount) AS ClaimCount, "", "", "","","","" ';
         for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
-            $statement .= ', SUM(Line' . $i . ') AS Line' . $i;
+            $statement .= ', SUM(Line' . $i . ') AS Line' . $i . PHP_EOL;
         }
         return $statement;
     }
@@ -379,5 +390,15 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
                 $proto->getResultType()
         );
         return $query;
+    }
+
+
+
+    /**
+     * @return ParserIKData_Gateway_Watch403
+     */
+    protected function _getWatchGateway()
+    {
+        return new ParserIKData_Gateway_Watch403();
     }
 }

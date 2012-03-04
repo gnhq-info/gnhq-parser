@@ -2,10 +2,10 @@
 define('PROJECT_STARTED', 1);
 include 'webinclude.php';
 
-if (empty($_SERVER['HTTP_REFERER'])) {
+/*if (empty($_SERVER['HTTP_REFERER'])) {
     trigger_error('No referer');
     exit(1);
-}
+}*/
 $fullHost = 'http://'.$_SERVER['HTTP_HOST'];
 /*
 if (substr($_SERVER['HTTP_REFERER'], -8) != 'viol.php' /*|| substr($_SERVER['HTTP_REFERER'], 0, strlen($fullHost)) != $fullHost* /) {
@@ -88,14 +88,26 @@ if ($modeSingleViolation) {
 
     $vGateway = new ParserIKData_Gateway_Violation();
     // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
+
     $vshort = $vGateway->setUseCache(true)->short($projectCode, null, $regionNum, $okrugTikNums, $uikNum);
     $vTypeCount = array();
+
+    $MAX = 0;
+    if ($_SERVER['HTTP_HOST'] == 'gnhq.localhost') {
+        $MAX = 30;
+    }
+    $violInnerCount = 0;
     foreach ($vshort as $k => $viol) {
-        $vshort[$k] = $viol->getParams();
         if (!isset($vTypeCount[$viol->getMergedTypeId()])) {
             $vTypeCount[$viol->getMergedTypeId()] = 0;
         }
-        $vTypeCount[$viol->getMergedTypeId()]++;
+        if (!$MAX || $violInnerCount < $MAX) {
+            $vshort[$k] = $viol->getParams();
+            $vTypeCount[$viol->getMergedTypeId()]++;
+        } else {
+            unset($vshort[$k]);
+        }
+        $violInnerCount++;
     }
     $count = count($vshort);
 
@@ -116,9 +128,15 @@ if ($modeSingleViolation) {
     }
 
     // результаты
+    $resultProjectCodes;
+    if (!$projectCode) {
+        $resultProjectCodes = array_keys($PROJECT_DATA);
+    } else {
+        $resultProjectCodes = $projectCode;
+    }
     $protocolGateway = new ParserIKData_Gateway_Protocol403();
     $protocolGateway->setUseCache(true);
-    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, PROJECT_GN, false, false, false, false);
+    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, $resultProjectCodes, false, false, false, false);
     $ofResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
 }
 
@@ -139,6 +157,11 @@ if ($modeSingleViolation) {
     $response->watchersUIKCount = $watchersResult->getUikCount();
     $response->ofData = $ofResult->getDiagramData(true, 2);
     $response->ofUIKCount = $ofResult->getUikCount();
+    // если не только GN - явка некорректная
+    if ($projectCode !== array('GN')) {
+        $response->watchersData['AT'] = 0;
+        $response->ofData['AT'] = 0;
+    }
 }
 
 

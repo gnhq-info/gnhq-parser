@@ -89,7 +89,7 @@ class ParserIKData_Gateway_Abstract
     /**
      * @return ParserIKData_Gateway_Watch412
      */
-    final protected function _getWatchGateway()
+    protected function _getWatchGateway()
     {
         return new ParserIKData_Gateway_Watch412();
     }

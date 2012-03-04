@@ -1,7 +1,9 @@
 <?php
 include_once 'include.php';
 
-$gateway = new ParserIKData_Gateway_UIKRussia();
+$gateway = new ParserIKData_Gateway_Protocol403();
+//$gateway->setUseCache(false);
 
-$tikNum = $gateway->setUseCache(true)->findTikNumByRegionAndUik(77, 2890);
-print_r($tikNum);
+$res = $gateway->getMixedResult(null, null, null, array('GN', 'AG'));
+var_dump($res->getUikCount());
+var_dump($res->getDiagramData(true, 2));

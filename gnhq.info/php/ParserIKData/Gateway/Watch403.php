@@ -13,7 +13,7 @@ class ParserIKData_Gateway_Watch403 extends ParserIKData_Gateway_Abstract
         $args = func_get_args();
         if (false === ($count = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
             $conds = array();
-            $conds[] = 'WatchType = "'.$this->_escapeString($watchType).'"';
+            $conds[] = 'WatchType '.$this->_getWatchTypeString($watchType);
             if ($okrugAbbr) {
                 $conds[] = 'uik in (' . $this->_getUikGateway()->getCondOkrug($okrugAbbr) . ')';
             }
@@ -41,7 +41,7 @@ class ParserIKData_Gateway_Watch403 extends ParserIKData_Gateway_Abstract
      */
     public function getCondIn($watchType)
     {
-        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType = "'.$this->_escapeString($watchType).'"';
+        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType '.$this->_getWatchTypeString($watchType);
     }
 
     /**
@@ -50,7 +50,16 @@ class ParserIKData_Gateway_Watch403 extends ParserIKData_Gateway_Abstract
     */
     public function getCondClear($watchType)
     {
-        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType = "'.$this->_escapeString($watchType).'" AND code = 1';
+        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType '.$this->_getWatchTypeString($watchType).' AND code = 1';
+    }
+
+    private function _getWatchTypeString($watchType)
+    {
+        $parts = array();
+        foreach ($watchType as $wType) {
+            $parts[] = $this->_escapeString($wType);
+        }
+        return ' IN ("' . implode ('", "', $parts) . '")';
     }
 
     /**
@@ -60,4 +69,5 @@ class ParserIKData_Gateway_Watch403 extends ParserIKData_Gateway_Abstract
     {
         return new ParserIKData_Gateway_Protocol403();
     }
+
 }

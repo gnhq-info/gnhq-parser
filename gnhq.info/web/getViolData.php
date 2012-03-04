@@ -92,7 +92,7 @@ if ($modeSingleViolation) {
     $vshort = $vGateway->setUseCache(true)->short($projectCode, null, $regionNum, $okrugTikNums, $uikNum);
     $vTypeCount = array();
 
-    $MAX = 30;
+    $MAX = 0;
     $violInnerCount = 0;
     foreach ($vshort as $k => $viol) {
         if (!isset($vTypeCount[$viol->getMergedTypeId()])) {

@@ -49,7 +49,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     */
     protected function _getCacheLifetime()
     {
-        return 60;
+        return 30;
     }
 
     /**

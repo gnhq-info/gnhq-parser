@@ -37,7 +37,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
      */
     public function getForRegionAndNum($regionNum, $uikNum)
     {
-        $where = $this->_getCondRegionNum($regionNum) . ' AND ' . $this->_getCondUikNum($uikNum);
+        $where = $this->_getCondRegionNum($regionNum) . ' AND ' . $this->_getCondShortUikNum($uikNum);
         $data = $this->_loadFromTable($this->_table, $this->_modelClass, $where);
         if (count($data) == 1) {
             return $data[0];
@@ -93,6 +93,11 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     }
 
 
+    /**
+     * по полному номеру УИК
+     * @param unknown_type $uikNums
+     * @return string
+     */
     private function _getCondUikNum($uikNums)
     {
         if (!is_array($uikNums)) {
@@ -102,6 +107,22 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
             $uikNums[$i] = intval($num);
         }
         return '(FullName IN ('.implode(',', $uikNums).'))';
+    }
+
+    /**
+    * по короткому номеру УИК (внутри региона)
+    * @param int[] $uikNums
+    * @return string
+    */
+    private function _getCondShortUikNum($uikNums)
+    {
+        if (!is_array($uikNums)) {
+            $uikNums = array($uikNums);
+        }
+        foreach ($uikNums as $i => $num) {
+            $uikNums[$i] = intval($num);
+        }
+        return '(UikNum IN ('.implode(',', $uikNums).'))';
     }
 
     /**

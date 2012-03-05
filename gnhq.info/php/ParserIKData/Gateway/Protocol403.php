@@ -60,7 +60,8 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param int $constrolRelTrue
      * @return ParserIKData_Model_Protocol403|NULL
      */
-    public function getMixedResult($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $controlRelTrue = false)
+    public function getMixedResult($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null,
+        $controlRelTrue = false, $averageByUik = false )
     {
         $args = func_get_args();
         if (!is_array($resultType)) {
@@ -68,7 +69,12 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
         }
         if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
             $cond = $this->_buildCond($regionNum, $okrugAbbr, $uikNum, $resultType, $controlRelTrue);
-            $query = $this->_buildSumQuery($cond);
+
+            if ($averageByUik) {
+                $query = $this->_buildAgjSumQuery($cond);
+            } else {
+                $query = $this->_buildSumQuery($cond);
+            }
             $result = $this->_fetchSumProtocol($query);
 
             $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $result);
@@ -183,7 +189,14 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      */
     private function _buildSumQuery($condString)
     {
-        return 'SELECT ' . $this->_getSumSelect() . ', COUNT(DISTINCT IkFullName) as Count  FROM ' . $this->_table . ' WHERE ' . $condString;
+        return 'SELECT ' . $this->_getSumSelect() . ', COUNT(*) as Count  FROM ' . $this->_table . ' WHERE ' . $condString;
+    }
+
+    private function _buildAgjSumQuery($condString)
+    {
+        $q = 'SELECT ' . $this->_getSumSelect() . ', COUNT(DISTINCT IkFullName) as COUNT FROM
+        	(SELECT '.$this->_getAdjSumSelect().' FROM '.$this->_table . ' WHERE ' . $condString .' GROUP BY IkFullName) AS Average';
+        return $q;
     }
 
     /**
@@ -296,6 +309,19 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
         $statement = ' "Mixed" AS IkFullName, "Mixed" AS IkType, "Mixed" AS ResultType, SUM(ClaimCount) AS ClaimCount, "", "", "","","","" ';
         for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
             $statement .= ', SUM(Line' . $i . ') AS Line' . $i . PHP_EOL;
+        }
+        return $statement;
+    }
+
+    /**
+    * @return string
+    */
+    private function _getAdjSumSelect()
+    {
+        $statement = ' IkFullName, "Mixed" AS IkType, "Mixed" AS ResultType, SUM(ClaimCount)/Count(*) AS ClaimCount,
+        	"" AS c1, "" AS c2, "" AS c3, "" AS c4, "" AS c5, ""  AS c6 ';
+        for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
+            $statement .= ', SUM(Line' . $i . ')/Count(*) AS Line' . $i . PHP_EOL;
         }
         return $statement;
     }

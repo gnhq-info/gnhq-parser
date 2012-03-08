@@ -86,27 +86,32 @@ if ($modeSingleViolation) {
     /* далее все входные данные очищены */
 
 
-    $vGateway = new ParserIKData_Gateway_Violation();
-    // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
 
-    $vshort = $vGateway->setUseCache(true)->short($projectCode, null, $regionNum, $okrugTikNums, $uikNum);
-    $vTypeCount = array();
+    if ($_GET['loadViol'] == '1') {
+        $vGateway = new ParserIKData_Gateway_Violation();
+        // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
 
-    $MAX = 0;
-    $violInnerCount = 0;
-    foreach ($vshort as $k => $viol) {
-        if (!isset($vTypeCount[$viol->getMergedTypeId()])) {
-            $vTypeCount[$viol->getMergedTypeId()] = 0;
+        $vshort = $vGateway->setUseCache(true)->short(null, null, null, null, null);
+        $vTypeCount = array();
+
+        $MAX = 0;
+        $violInnerCount = 0;
+        foreach ($vshort as $k => $viol) {
+            if (!isset($vTypeCount[$viol->getMergedTypeId()])) {
+                $vTypeCount[$viol->getMergedTypeId()] = 0;
+            }
+            if (!$MAX || $violInnerCount < $MAX) {
+                $vshort[$k] = $viol->getParams();
+                $vTypeCount[$viol->getMergedTypeId()]++;
+            } else {
+                unset($vshort[$k]);
+            }
+            $violInnerCount++;
         }
-        if (!$MAX || $violInnerCount < $MAX) {
-            $vshort[$k] = $viol->getParams();
-            $vTypeCount[$viol->getMergedTypeId()]++;
-        } else {
-            unset($vshort[$k]);
-        }
-        $violInnerCount++;
+        $count = count($vshort);
+    } else {
+        $vshort = array();
     }
-    $count = count($vshort);
 
     // uiks
     $uikRGateway = new ParserIKData_Gateway_UIKRussia();
@@ -117,11 +122,15 @@ if ($modeSingleViolation) {
     }
 
     // twitter feed
-    $twitGateway = new ParserIKData_Gateway_Twit();
-    $newTwits = $twitGateway->getAll(20);
-    $twitData = array();
-    foreach ($newTwits as $twit) {
-        $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
+    if ($_GET['loadViol'] == '1') {
+        $twitGateway = new ParserIKData_Gateway_Twit();
+        $newTwits = $twitGateway->getAll(20);
+        $twitData = array();
+        foreach ($newTwits as $twit) {
+            $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
+        }
+    } else {
+        $twitData = array();
     }
 
     // результаты
@@ -157,7 +166,6 @@ if ($modeSingleViolation) {
     $violParams['Media'] = $viol->getMediaAsArray();
     $response->violData = $violParams;
 } else {
-    $response->cnt = $count;
     $response->regionNum = $regionNum;
     $response->vshort = $vshort;
     $response->vTypeCount = $vTypeCount;

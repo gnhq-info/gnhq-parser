@@ -101,6 +101,9 @@ var Viol = {
 	},
 	
 	Exchange: {
+		
+		firstLoad: true,
+		
 		loadData: function () {
 			Decoration.SplashScreen.Show();
 			var _data = {
@@ -110,7 +113,8 @@ var Viol = {
 				'okrug':       $('#okrug').val(),
 				'uikNum':      $('#uikNum').val(),
 				'onlyClean':   $('#onlyClean').is(':checked') ? 1 : 0,
-				'onlyControlRelTrue' : $('#onlyControlRel').is(':checked') ? 1 : 0
+				'onlyControlRelTrue' : $('#onlyControlRel').is(':checked') ? 1 : 0,
+				'loadViol':    Viol.Exchange.firstLoad ? 1 : 0
 			}; 
 			$.ajax(
 				'getViolData.php', 
@@ -120,7 +124,10 @@ var Viol = {
 					'async'     : true,
 					'success'   : function(data, status, request) {
 										Viol.SetResult.processResult(data);
-										Viol.SetResult.setTwits(data.twits);
+										if (Viol.Exchange.firstLoad) {
+											Viol.SetResult.setTwits(data.twits);
+											Viol.Exchange.firstLoad = false;
+										}
     									Decoration.SplashScreen.Hide();
 								  },
 					'error'     : function(data, status, request) {
@@ -239,46 +246,49 @@ var Viol = {
 			// place
 			Viol.SetResult.setCurrentPlace();
 			
-			// count
-			Viol.SetResult.setCount(data.cnt);
-			
 			Viol.SetResult.setUikCount(data.uikCnt);
 			
-			Viol.FeedFilters.ClearUik();
 			
-			// feed
-			Viol.Feed.clear();
-			for (var _i in data.vshort) {
-				Viol.Feed.add(Viol.SetResult.buildViolTr(data.vshort[_i]));
-				if (data.vshort[_i]['UIKNum'] && data.vshort[_i]['UIKNum'] != '0') {
-					Viol.FeedFilters.AddUik(data.vshort[_i]['RegionNum'], data.vshort[_i]['UIKNum']);
-				}
-			}
-			
-			Viol.FeedFilters.SortUik();
-			
-			// violation types
-			var _grpCnt = [];
-			for (var _j in StaticData.ViolationTypeGroupData) {
-				_grpCnt[_j] = 0;
-			}
-			
-			for (var _k in data.vTypeCount) {
-				_grpCnt[Viol.Dict.ViolType.getGroup(_k)] += data.vTypeCount[_k];
-			}
-			
-			for (_j in _grpCnt) {
-				Viol.Filter.SetVGrpCount(_j, _grpCnt[_j]);
-			}
-			
-			Viol.FeedTable.buildHeaders();
-			Viol.FeedTable.reSort();
-			
+			// results
 			EResult.SetWatchersUikCount(data.watchersUIKCount);
 			EResult.SetOfUikCount(data.ofUIKCount);
 			EResult.SetWatchersResult(data.watchersData);
 			EResult.SetOfResult(data.ofData);
 			EResult.SetResultDiscrepancy(data.watchersData, data.ofData);
+			
+			
+			// violations
+			if (Viol.Exchange.firstLoad) {
+				Viol.FeedFilters.ClearUik();
+			
+				// feed
+				Viol.Feed.clear();
+				for (var _i in data.vshort) {
+					Viol.Feed.add(Viol.SetResult.buildViolTr(data.vshort[_i]));
+					if (data.vshort[_i]['UIKNum'] && data.vshort[_i]['UIKNum'] != '0') {
+						Viol.FeedFilters.AddUik(data.vshort[_i]['RegionNum'], data.vshort[_i]['UIKNum']);
+					}
+				}
+			
+				Viol.FeedFilters.SortUik();
+			
+				// violation types
+				var _grpCnt = [];
+				for (var _j in StaticData.ViolationTypeGroupData) {
+					_grpCnt[_j] = 0;
+				}
+			
+				for (var _k in data.vTypeCount) {
+					_grpCnt[Viol.Dict.ViolType.getGroup(_k)] += data.vTypeCount[_k];
+				}
+			
+				for (_j in _grpCnt) {
+					Viol.Filter.SetVGrpCount(_j, _grpCnt[_j]);
+				}
+			
+				Viol.FeedTable.buildHeaders();
+				Viol.FeedTable.reSort();
+			}
 		},
 		
 		
@@ -289,7 +299,7 @@ var Viol = {
 			_uikNum = Viol.Utility.buildUiknum(row);
 			_time = Viol.Utility.formatTime(row.Obstime);
 			_vtypeHdr = $('<span>').addClass('vhdr').html(Viol.Dict.ViolType.getName(row.MergedTypeId) + ': ');
-			_descrHtml =  row.Description;
+			_descrHtml =  row.Description.replace('\\r\\n', "<br/>");
 			_uikFull = parseInt(row.RegionNum) * 10000;
 			if (row.UIKNum && row.UIKNum != '0') {
 				_uikFull += parseInt(row.UIKNum);
@@ -322,8 +332,8 @@ var Viol = {
 				+ (Viol.Utility.buildUiknum(row) ? 'УИК ' + Viol.Utility.buildUiknum(row) :'')  +  '   ' 
 				+ Viol.Utility.formatTime(row.Obstime));
 			$('#violationModel .violationType span').html(Viol.Dict.ViolType.getName(row.MergedTypeId));
-			$('#violationModel .description span').html(row.Description);
-			$('#violationModel .hqcomment span').html(row.Hqcomment);
+			$('#violationModel .description span').html(row.Description.replace('\\r\\n', "<br/>"));
+			$('#violationModel .hqcomment span').html(row.Hqcomment.replace('\\r\\n', "<br/>"));
 			//$('#violationModel .mobilegroup span').html(row.Mobgroupsent ? 'отправлена' : 'не отправлена');
 			$('#violationModel .mobilegroup span').html('нет данных');
 			var _policeReaction;

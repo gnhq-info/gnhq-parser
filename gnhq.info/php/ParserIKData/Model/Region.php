@@ -65,7 +65,9 @@ class ParserIKData_Model_Region extends ParserIKData_Model
         $data['RegionNum']  = $array[0];
         $data['FullName']   = $array[1];
         $data['Link']       = $array[2];
-        $data['Population'] = $array[3];
+        if (!empty($array[3])) {
+            $data['Population'] = $array[3];
+        }
         return parent::fromArray($data);
     }
 

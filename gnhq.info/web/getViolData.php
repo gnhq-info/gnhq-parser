@@ -117,7 +117,7 @@ if ($modeSingleViolation) {
     $uikCount = $uikRGateway->setUseCache(true)->getCount($regionNum, $okrugAbbr, $tikNum, array($uikNum));
     $uiks = array();
     if ($tikNum && !$uikNum) {
-        foreach ($uikRGateway->getUiks($regionNum, $okrugAbbr, $tikNum, null) as $uik) {
+        foreach ($uikRGateway->getUiks($regionNum, $okrugAbbr, $tikNum, null, $projectCode) as $uik) {
             /* @var $uik ParserIKData_Model_UIKRussia */
             $uiks[$uik->getFullName()] = $uik->getUikNum();
         }

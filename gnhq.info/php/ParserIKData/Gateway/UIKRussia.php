@@ -148,9 +148,10 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     * @param string|null $okrugAbbr
     * @param int|null $tikNum
     * @param int[] $uikNums
+    * @param string[] $projectCodes
     * @return int
     */
-    public function getUiks($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNums = null)
+    public function getUiks($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNums = null, $projectCodes)
     {
         $args = func_get_args();
         if (false === ($uiks = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
@@ -169,6 +170,11 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
             }
             if (empty ($whereParts)) {
                 $whereParts[] = '(1 = 1)';
+            }
+            if ($projectCodes) {
+                $protoGateway = new ParserIKData_Gateway_Protocol403();
+                $whereParts[] = ' FullName ' . $protoGateway->getCondHasProto($projectCodes, $regionNum, $tikNum);
+
             }
             $where = implode(' AND ', $whereParts);
             $uiks = $this->_loadFromTable($this->_table, $this->_modelClass, $where);

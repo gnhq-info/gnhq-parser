@@ -113,6 +113,27 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     }
 
     /**
+     * @param string[] $projectCodes
+     * @param int $regionNum
+     * @param int $tikNum
+     */
+    public function getCondHasProto($projectCodes, $regionNum, $tikNum)
+    {
+        $conds = array();
+        $conds[] = '1 = 1';
+        if ($projectCodes) {
+            $conds[] = $this->_getCondResultType($projectCodes);
+        }
+        if ($regionNum) {
+            $conds[] = $this->_getCondRegion($regionNum);
+            if ($tikNum) {
+                $conds[] = $this->_getCondTik($regionNum, $tikNum);
+            }
+        }
+        return ' IN (SELECT DISTINCT IkFullName FROM '.$this->_table.' WHERE '.implode(' AND ', $conds) . ' )';
+    }
+
+    /**
      * @param int $regionNum
      * @param string $okrugAbbr
      * @param int $uikNum

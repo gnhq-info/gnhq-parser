@@ -5,6 +5,7 @@ var Viol = {
 			
 			_wDiv = $('<div>')
 				.append($('<input>').attr('type', 'checkbox').val(prCode).attr('id', prCode).change(function() {
+					Viol.Filter.ClearUiks();
 					Viol.Exchange.loadData();
 					return false;
 				}))
@@ -22,6 +23,7 @@ var Viol = {
 					$('#watchers input').each(function(){
 						$(this).get(0).checked = true;
 					});
+					Viol.Filter.ClearUiks();
 					Viol.Exchange.loadData();
 					return false;
 				});

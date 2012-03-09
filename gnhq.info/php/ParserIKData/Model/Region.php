@@ -1,7 +1,9 @@
 <?php
 /**
  * @method int getRegionNum
+ * @method int getPopulation
  * @method ParserIKData_Model_Okrug setRegionNum
+ * @method ParserIKData_Model_Okrug setPopulation
  * @author admin
  */
 class ParserIKData_Model_Region extends ParserIKData_Model
@@ -49,6 +51,7 @@ class ParserIKData_Model_Region extends ParserIKData_Model
         $data[] = $this->getRegionNum();
         $data[] = $this->getFullName();
         $data[] = $this->getLink();
+        $data[] = $this->getPopulation();
         return $data;
     }
 
@@ -59,9 +62,10 @@ class ParserIKData_Model_Region extends ParserIKData_Model
     public static function fromArray($array)
     {
         $data = array();
-        $data['RegionNum'] = $array[0];
-        $data['FullName']  = $array[1];
-        $data['Link']      = $array[2];
+        $data['RegionNum']  = $array[0];
+        $data['FullName']   = $array[1];
+        $data['Link']       = $array[2];
+        $data['Population'] = $array[3];
         return parent::fromArray($data);
     }
 

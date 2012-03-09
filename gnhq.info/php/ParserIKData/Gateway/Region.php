@@ -9,11 +9,19 @@ class ParserIKData_Gateway_Region extends ParserIKData_Gateway_Abstract
     }
 
     /**
-     * @param ParserIKData_Model_Region $okrug
+     * @param ParserIKData_Model_Region $region
      */
     public function save($region)
     {
         $this->_getDriver()->query($this->_insertQuery($region));
+    }
+
+    /**
+    * @param ParserIKData_Model_Region $region
+    */
+    public function update($region)
+    {
+        $this->_getDriver()->query($this->_updateQuery($region));
     }
 
     public function getAll()
@@ -29,7 +37,26 @@ class ParserIKData_Gateway_Region extends ParserIKData_Gateway_Abstract
     {
         $data = $region->toArray();
         $data = $this->_getDriver()->escapeArray($data);
-        return sprintf('insert into '.$this->_table.' (RegionNum, FullName, Link)
-                	values(%d, "%s", "%s")', $data[0], $data[1], $data[2]);
+        return sprintf('insert into '.$this->_table.' (RegionNum, FullName, Link, Population)
+                	values(%d, "%s", "%s")', $data[0], $data[1], $data[2], $data[3]);
+    }
+
+    /**
+    * @param ParserIKData_Model_Region $region
+    * @return string
+    */
+    private function _updateQuery($region)
+    {
+        return sprintf('UPDATE '.$this->_table.' SET
+        		FullName   = "%s",
+        		Link       = "%s",
+        		Population = %d
+        	WHERE
+        		RegionNum = %d',
+                $this->_escapeString($region->getFullName()),
+                $this->_escapeString($region->getLink()),
+                intval($region->getPopulation()),
+                intval($region->getRegionNum())
+        );
     }
 }

@@ -151,7 +151,11 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
             $condParts[] = $this->_getCondResultForType($resultType);
         }
         if ($regionNum) {
-            $condParts[] = $this->_getCondRegion($regionNum);
+            if (is_array($regionNum)) {
+                $condParts[] = $this->_getCondRegions($regionNum);
+            } else {
+                $condParts[] = $this->_getCondRegion($regionNum);
+            }
         }
 
         if ($uikNum) {
@@ -300,6 +304,20 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
         return sprintf(' (IkFullName >= %d AND IkFullName < %d)',
             $regionNum*ParserIKData_Model_UIKRussia::MODULE,
             ($regionNum+1)*ParserIKData_Model_UIKRussia::MODULE);
+    }
+
+    /**
+     * @param array $regionNums
+     */
+    protected function _getCondRegions($regionNums)
+    {
+        $condOrs = array();
+        foreach ($regionNums as $regionNum) {
+            $min = $regionNum*ParserIKData_Model_UIKRussia::MODULE;
+            $max = ($regionNum+1)*ParserIKData_Model_UIKRussia::MODULE;
+            $condOrs[] = '(IkFullName >= '.intval($min).' AND IkFullName < '.intval($max).')';
+        }
+        return implode(' OR ', $condOrs);
     }
 
 

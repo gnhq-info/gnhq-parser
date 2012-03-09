@@ -155,12 +155,21 @@ if ($modeSingleViolation) {
         $onlyControlRelTrue = false;
     }
 
-    $protocolGateway = new ParserIKData_Gateway_Protocol403();
-    $protocolGateway->setUseCache(true);
-    $ofGateway = new ParserIKData_Gateway_Protocol403Offile();
-    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, $resultProjectCodes, $onlyControlRelTrue, true);
-    $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, 'OF', $onlyControlRelTrue, true);
-    // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
+    if ($regionNum) {
+        $protocolGateway = new ParserIKData_Gateway_Protocol403();
+        $protocolGateway->setUseCache(true);
+        $ofGateway = new ParserIKData_Gateway_Protocol403Offile();
+        $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, $resultProjectCodes, $onlyControlRelTrue, true);
+        $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, 'OF', $onlyControlRelTrue, true);
+        // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
+    } else {
+        $average = new ParserIKData_Helper_403Average($resultProjectCodes, $onlyControlRelTrue, true);
+        $average->calcProjectResults()->calcOfResults();
+        $ofResultData = $average->getOfDiagramData();
+        $ofResultUikCount = $average->getOfUikCount();
+        $watchersResultData = $average->getProjectDiagramData();
+        $watchersResultUikCount = $average->getProjectUikCount();
+    }
 }
 
 // формат ответа
@@ -187,10 +196,18 @@ if ($modeSingleViolation) {
     // $response->watchersUIKCount = 0;
     // $response->ofUIKCount = 0;
 
-    $response->watchersData = $watchersResult->getDiagramData(true, 2);
-    $response->watchersUIKCount = $watchersResult->getUikCount();
-    $response->ofData = $ofResult->getDiagramData(true, 2);
-    $response->ofUIKCount = $ofResult->getUikCount();
+    if (!empty($watchersResult) && $watchersResult instanceof ParserIKData_Model_Protocol403) {
+        $response->watchersData =  $watchersResult->getDiagramData(true, 2);
+        $response->watchersUIKCount = $watchersResult->getUikCount();
+        $response->ofData = $ofResult->getDiagramData(true, 2);
+        $response->ofUIKCount = $ofResult->getUikCount();
+    } else {
+        $response->watchersData =  $watchersResultData;
+        $response->watchersUIKCount = $watchersResultUikCount;
+        $response->ofData = $ofResultData;
+        $response->ofUIKCount = $ofResultUikCount;
+    }
+
     // если не только GN - явка некорректная
     if (in_array(PROJECT_GOLOS, $resultProjectCodes)) {
         $response->watchersData['AT'] = 0;

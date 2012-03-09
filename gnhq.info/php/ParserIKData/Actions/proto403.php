@@ -1,7 +1,13 @@
 <?php
 include_once 'include.php';
 
-$gw = new ParserIKData_Gateway_Protocol403();
-$data = $gw->getMixedResult(77, null, 101, 772050, array('GN'), true, true);
-var_dump($data->getDiagramData(true, 2));
-var_dump($data->getUikCount());
+$projectCodes = array('GN');
+
+$average = new ParserIKData_Helper_403Average($projectCodes, true, true);
+
+$average->calcProjectResults();
+$average->calcOfResults();
+var_dump($average->getProjectDiagramData());
+var_dump($average->getProjectUikCount());
+var_dump($average->getOfDiagramData());
+var_dump($average->getOfUikCount());

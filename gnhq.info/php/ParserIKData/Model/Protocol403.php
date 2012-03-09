@@ -213,6 +213,8 @@ class ParserIKData_Model_Protocol403 extends ParserIKData_Model
         foreach ($data as $k => $value) {
             if ($inPercent) {
                 $val = 100 * $value;
+            } else {
+                $val = $value;
             }
             $data[$k] = round($val, $digits);
         }

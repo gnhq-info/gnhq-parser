@@ -16,6 +16,13 @@ if (substr($_SERVER['HTTP_REFERER'], -8) != 'viol.php' /*|| substr($_SERVER['HTT
 unset($fullHost);
 
 /* validating input params */
+if (empty($_GET['loadViol'])) {
+    $_GET['loadViol'] = 0;
+} else {
+    $_GET['loadViol'] = 1;
+}
+
+
 if (empty($_GET['ProjectCode'])) {
     $_GET['ProjectCode'] = null;
 }
@@ -88,6 +95,7 @@ if ($modeSingleViolation) {
 
 
     $vTypeCount = array();
+
     if ($_GET['loadViol'] == '1') {
         $vGateway = new ParserIKData_Gateway_Violation();
         // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();

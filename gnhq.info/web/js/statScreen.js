@@ -317,18 +317,18 @@ var StatScreen = {
 		},
 		
 		setGnResult: function(gnResult) {
-			StatScreen.ResultSetter._setResult(gnResult, 'GN');
+			StatScreen.ResultSetter._setResult(gnResult, 'GN', true);
 		},
 		
 		setOfResult: function(ofResult) {
-			StatScreen.ResultSetter._setResult(ofResult, 'OF');
+			StatScreen.ResultSetter._setResult(ofResult, 'OF', true);
 		},
 		
 		setResultDiscrepancy: function(ofResult, gnResult) {
 			var _discr;
 			for (var lineCode in ofResult) {
 				_discr = (ofResult[lineCode] - gnResult[lineCode]).toFixed(2);
-				StatScreen.ResultSetter._setLineNumber(lineCode, 'DISCR', _discr);
+				StatScreen.ResultSetter._setLineNumber(lineCode, 'DISCR', _discr, false);
 			}
 		},
 		
@@ -342,20 +342,20 @@ var StatScreen = {
 			}
 		},
 		
-		_setResult: function(result, watchType) {
+		_setResult: function(result, watchType, skipZeroAtt) {
 			for (var lineCode in result) {
-				StatScreen.ResultSetter._setLineValue(lineCode, watchType, result[lineCode]);
+				StatScreen.ResultSetter._setLineValue(lineCode, watchType, result[lineCode], skipZeroAtt);
 			}
 		},
 		
-		_setLineValue: function(lineCode, watchType, result) {
-			StatScreen.ResultSetter._setLineNumber(lineCode, watchType, result);
+		_setLineValue: function(lineCode, watchType, result, skipZeroAtt) {
+			StatScreen.ResultSetter._setLineNumber(lineCode, watchType, result, skipZeroAtt);
 			StatScreen.ResultSetter._setLineDiag(lineCode, watchType, result);
 		},
 		
-		_setLineNumber: function(lineCode, watchType, result) {
+		_setLineNumber: function(lineCode, watchType, result, skipZeroAtt) {
 			
-			if ( (lineCode == 'AT') && (parseInt(result,10) == 0) ) {
+			if ( (lineCode == 'AT') && (parseInt(result,10) == 0) && skipZeroAtt ) {
 				StatScreen.Jq.getLineValue(lineCode, watchType).html('---').attr('title', 'При участии в выборке данных Голоса явку определить невозможно');
 			} else {
 				StatScreen.Jq.getLineValue(lineCode, watchType).html(result + '%');

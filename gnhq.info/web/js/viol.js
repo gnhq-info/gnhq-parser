@@ -69,11 +69,7 @@ var Viol = {
 			$('<option>').val(regionNum).html(StaticData.Regions[regionNum]).appendTo($('#regionNum'));
 		}
 		$('#regionNum').val(77);
-		Viol.Filter.RedrawOkrugs(77);
-		
-		$('#regionNum').change(function() {
-			Viol.Filter.RedrawOkrugs($('#regionNum').val()); 
-		});
+		Viol.Filter.RedrawTiks(77);
 		
 		$('#filterForm').submit(function() {
 			Viol.Exchange.loadData();
@@ -81,10 +77,17 @@ var Viol = {
 		});
 
 		$('#regionNum').change(function() {
+			Viol.Filter.RedrawTiks($('#regionNum').val());
+			Viol.Filter.ClearUiks();
 			Viol.Exchange.loadData();
 			return false;
 		});
-		$('#okrug').change(function() {
+		$('#tik').change(function() {
+			Viol.Filter.ClearUiks();
+			Viol.Exchange.loadData();
+			return false;
+		});
+		$('#uikNum').change(function() {
 			Viol.Exchange.loadData();
 			return false;
 		});
@@ -111,6 +114,7 @@ var Viol = {
 				'ViolType':    $('#ViolType').val(),
 				'regionNum':   $('#regionNum').val(),
 				'okrug':       $('#okrug').val(),
+				'tikNum':      $('#tik').val(),
 				'uikNum':      $('#uikNum').val(),
 				'onlyClean':   $('#onlyClean').is(':checked') ? 1 : 0,
 				'onlyControlRelTrue' : $('#onlyControlRel').is(':checked') ? 1 : 0,
@@ -230,11 +234,18 @@ var Viol = {
 			}
 		},
 		
+		setUiks: function(uiks) {
+			Viol.Filter.ClearUiks();
+			for (var _uikFull in uiks) {
+				Viol.Filter.AddUik(_uikFull, uiks[_uikFull]);
+			}
+		},
+		
 		setCurrentPlace: function () {
 			var place;
 			place = $('#regionNum option:selected').html();
-			if (!$('#okrug').hasClass('disabled') && $('#okrug option:selected').val() != '') {
-				place += '; ' + $('#okrug option:selected').html();
+			if (!$('#tik').hasClass('disabled') && $('#tik option:selected').val() != '') {
+				place += '; ' + $('#tik option:selected').html();
 			}
 			if ($('#uikNum option:selected').val() != '') {
 				place += '; ' + $('#uikNum option:selected').html();
@@ -245,9 +256,12 @@ var Viol = {
 		processResult: function(data) {
 			// place
 			Viol.SetResult.setCurrentPlace();
-			
 			Viol.SetResult.setUikCount(data.uikCnt);
 			
+			// uiks
+			if (data.uiks != '0') {
+				Viol.SetResult.setUiks(data.uiks);
+			}
 			
 			// results
 			EResult.SetWatchersUikCount(data.watchersUIKCount);
@@ -438,6 +452,42 @@ var Viol = {
 				$('#okrug').addClass('disabled').attr('disabled', 'disabled');
 				$('#uikNum').addClass('disabled').attr('disabled', 'disabled');
 			}
+		},
+		
+		ClearTiks: function() {
+			$('#tik').find('option').each(function(){
+				if(!$(this).is(':first-child')) {
+					$(this).remove();
+				}
+			});
+		},
+		
+		RedrawTiks: function(regionNum) {
+			var tikNum;
+			Viol.Filter.ClearTiks();
+			if (StaticData.Tiks[regionNum]) {
+				$('#tik').removeClass('disabled').removeAttr('disabled');
+				$('#uikNum').removeClass('disabled').removeAttr('disabled');
+				for (var tikOrder in StaticData.TiksOrder[regionNum]) {
+					tikNum = StaticData.TiksOrder[regionNum][tikOrder];
+					$('<option>').val(tikNum).html(StaticData.Tiks[regionNum][tikNum]).appendTo($('#tik'));
+				} 
+			} else {
+				$('#tik').addClass('disabled').attr('disabled', 'disabled');
+				$('#uikNum').addClass('disabled').attr('disabled', 'disabled');
+			}
+		},
+		
+		ClearUiks: function() {
+			$('#uikNum').find('option').each(function(){
+				if(!$(this).is(':first-child')) {
+					$(this).remove();
+				}
+			});
+		},
+		
+		AddUik: function(fullNum, uikNum) {
+			$('<option>').val(fullNum).html('УИК №' + uikNum).appendTo($('#uikNum'));
 		},
 		
 		GetProjectCodes: function () {

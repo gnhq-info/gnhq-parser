@@ -55,12 +55,13 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
      * @param int $regionNum
      * @param string $okrugAbbr
+     * @param int $tikNum
      * @param int $uikNum
      * @param string[] $resultType
      * @param int $constrolRelTrue
      * @return ParserIKData_Model_Protocol403|NULL
      */
-    public function getMixedResult($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null,
+    public function getMixedResult($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNum = null, $resultType = null,
         $controlRelTrue = false, $averageByUik = false )
     {
         $args = func_get_args();
@@ -68,7 +69,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
             $resultType = array($resultType);
         }
         if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
-            $cond = $this->_buildCond($regionNum, $okrugAbbr, $uikNum, $resultType, $controlRelTrue);
+            $cond = $this->_buildCond($regionNum, $okrugAbbr, $tikNum, $uikNum, $resultType, $controlRelTrue);
 
             if ($averageByUik) {
                 $query = $this->_buildAgjSumQuery($cond);
@@ -119,7 +120,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param bool $controlRelTrue
      * @return string
      */
-    protected function _buildCond($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $controlRelTrue = false)
+    protected function _buildCond($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNum = null, $resultType = null, $controlRelTrue = false)
     {
         $condParts = array();
         if (!$resultType) {
@@ -131,11 +132,15 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
         if ($regionNum) {
             $condParts[] = $this->_getCondRegion($regionNum);
         }
-        if ($okrugAbbr) {
-            $condParts[] = $this->_getCondOkrug($okrugAbbr);
-        } elseif ($uikNum) {
+
+        if ($uikNum) {
             $condParts[] = $this->_getCondUik($uikNum);
+        } elseif ($tikNum) {
+            $condParts[] = $this->_getCondTik($regionNum, $tikNum);
+        } elseif ($okrugAbbr) {
+            $condParts[] = $this->_getCondOkrug($okrugAbbr);
         }
+
         if ($controlRelTrue) {
             $condParts[] = $this->_getCondControlRel();
         }
@@ -245,6 +250,16 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     protected function _getCondUik($uikNum)
     {
         return $this->_getCondTypeUik() . ' AND IkFullName = ' . intval($uikNum) ;
+    }
+
+    /**
+    * @param int $tikNum
+    * @return string
+    */
+    protected function _getCondTik($regionNum, $tikNum)
+    {
+        $uikGateway = new ParserIKData_Gateway_UIKRussia();
+        return $this->_getCondTypeUik() . ' AND IkFullName IN (' . $uikGateway->getCondTik($regionNum, $tikNum) .')' ;
     }
 
     /**

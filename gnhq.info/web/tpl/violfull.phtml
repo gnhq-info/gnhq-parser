@@ -33,22 +33,22 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 							все</a>)
 					</div>
 				</div>
-				<div class="span8">
+				<div class="span10">
 					<div class="row">
 						<div class="span3">
 							<div>Регион:</div>
 							<select style="width: 180px" id="regionNum" name="regionNum">
 							</select>
 						</div>
-						<div class="span2">
-							<div>Округ:</div>
-							<select id="okrug" name="okrug" style="width: 100px">
+						<div class="span5">
+							<div>ТИК:</div>
+							<select id="tik" name="tik" style="width: 300px">
 								<option value="">-- все --</option>
 							</select>
 						</div>
 						<div class="span2">
 							<div>УИК:</div>
-							<select id="uikNum" name="uikNum" style="width: 100px">
+							<select id="uikNum" name="uikNum" style="width: 130px">
 								<option value="">-- все --</option>
 							</select>
 						</div>
@@ -64,7 +64,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 						</div>
 					</div>
 				</div>
-				<div class="span4">
+				<div class="span2">
 					<div id="selectedPlace"></div>
 					<div id="uikCount">
 						Всего участков: <span class="val"></span>
@@ -182,12 +182,16 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 	<script>
 		var StaticData = {};
 	</script>
-	<script type="text/javascript" src="js/violtypes_data.js?9"></script>
-	<script type="text/javascript" src="js/watchers_data.js?9"></script>
-	<script type="text/javascript" src="js/regions_data.js"></script>
-	<script type="text/javascript" src="js/okrug_data.js"></script>
-	<script type="text/javascript" src="js/decoration.js"></script>
-	<script type="text/javascript" src="js/viol.js?9"></script>
-	<script type="text/javascript" src="js/statScreen.js?11"></script>
+	<?php
+	    $JS_SCRIPT_VERSION = 12;
+	?>
+	<script type="text/javascript" src="js/violtypes_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/watchers_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/regions_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/okrug_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/decoration.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/viol.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/statScreen.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 </body>
 </html>

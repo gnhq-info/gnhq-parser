@@ -106,21 +106,25 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     /**
      * @param int|null $regionNum
      * @param string|null $okrugAbbr
+     * @param int|null $tikNum
      * @param int[] $uikNums
      * @return int
      */
-    public function getCount($regionNum = null, $okrugAbbr = null, $uikNums = null)
+    public function getCount($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNums = null)
     {
         $args = func_get_args();
         if (false === ($uikCount = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
             $whereParts = array();
             if ($regionNum) {
                 $whereParts[] = $this->_getCondRegionNum($regionNum);
+                if ($tikNum) {
+                    $whereParts[] = $this->_getCondTikNum($tikNum);
+                }
             }
             if ($okrugAbbr) {
                 $whereParts[] = $this->_getCondOkrug($okrugAbbr);
             }
-            if ($uikNums) {
+            if ($uikNums && $uikNums != array(null)) {
                 $whereParts[] = $this->_getCondUikNum($uikNums);
             }
             if (empty ($whereParts)) {
@@ -138,6 +142,56 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
 
         return $uikCount;
     }
+
+    /**
+    * @param int|null $regionNum
+    * @param string|null $okrugAbbr
+    * @param int|null $tikNum
+    * @param int[] $uikNums
+    * @return int
+    */
+    public function getUiks($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNums = null)
+    {
+        $args = func_get_args();
+        if (false === ($uiks = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            $whereParts = array();
+            if ($regionNum) {
+                $whereParts[] = $this->_getCondRegionNum($regionNum);
+                if ($tikNum) {
+                    $whereParts[] = $this->_getCondTikNum($tikNum);
+                }
+            }
+            if ($okrugAbbr) {
+                $whereParts[] = $this->_getCondOkrug($okrugAbbr);
+            }
+            if ($uikNums && $uikNums != array(null)) {
+                $whereParts[] = $this->_getCondUikNum($uikNums);
+            }
+            if (empty ($whereParts)) {
+                $whereParts[] = '(1 = 1)';
+            }
+            $where = implode(' AND ', $whereParts);
+            $uiks = $this->_loadFromTable($this->_table, $this->_modelClass, $where);
+
+            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $uiks);
+            //echo 'not from cache;';
+        } else {
+            //echo 'from cache';
+        }
+
+        return $uiks;
+    }
+
+    /**
+    * @param int $regionNum
+    * @param int $tikNum
+    * @return string
+    */
+    public function getCondTik($regionNum, $tikNum)
+    {
+        return sprintf('SELECT FullName FROM '.$this->_table.' WHERE RegionNum = %d AND TikNum = %d', intval($regionNum), intval($tikNum));
+    }
+
 
     /**
      * @param string $okrug
@@ -188,6 +242,15 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     private function _getCondRegionNum($regionNum)
     {
         return sprintf('(RegionNum = %d)', $regionNum);
+    }
+
+    /**
+    * @param int $tikNum
+    * @return string
+    */
+    private function _getCondTikNum($tikNum)
+    {
+        return sprintf('(TikNum = %d)', $tikNum);
     }
 
 

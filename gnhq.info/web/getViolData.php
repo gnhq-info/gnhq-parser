@@ -64,24 +64,16 @@ if ($modeSingleViolation) {
 } else {
 
     $regionNum = intval($_GET['regionNum']);
-
     $warehouse->loadAllOkrugs();
     $okrugAbbr = isset($_GET['okrug']) ? $_GET['okrug'] : null;
     $okrugAbbrOk = false;
-    $okrugTikNums = null;
     foreach (ParserIKData_Model_Okrug::getAllOBjects() as $okrug) {
         /* @var $okrug ParserIKData_Model_Okrug */
         if ($okrugAbbr == $okrug->getAbbr()) {
             $okrugAbbrOk = true;
         }
     }
-    if ($okrugAbbrOk) {
-        $tikGateway = new ParserIKData_Gateway_TIKRussia();
-        $okrugTiks = $tikGateway->setUseCache(true)->getForRegionAndOkrug($regionNum, $okrugAbbr);
-        foreach ($okrugTiks as $oTik) {
-            $okrugTikNums[] = $oTik->getTikNum();
-        }
-    } else {
+    if (!$okrugAbbrOk) {
         $okrugAbbr = null;
     }
 
@@ -90,44 +82,47 @@ if ($modeSingleViolation) {
     } else {
         $uikNum = null;
     }
+
+    if (isset($_GET['tikNum'])) {
+        $tikNum = intval($_GET['tikNum']);
+    } else {
+        $tikNum = null;
+    }
     /* далее все входные данные очищены */
 
 
 
     $vTypeCount = array();
-
+    $vshort = array();
+    // загрузка нарушений (при первой загрузке страницы, без фильтров по регионам\проектам)
     if ($_GET['loadViol'] == '1') {
         $vGateway = new ParserIKData_Gateway_Violation();
         // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
 
         $vshort = $vGateway->setUseCache(true)->short(null, null, null, null, null);
-
-        $MAX = 0;
         $violInnerCount = 0;
+
         foreach ($vshort as $k => $viol) {
             if (!isset($vTypeCount[$viol->getMergedTypeId()])) {
                 $vTypeCount[$viol->getMergedTypeId()] = 0;
             }
-            if (!$MAX || $violInnerCount < $MAX) {
-                $vshort[$k] = $viol->getParams();
-                $vTypeCount[$viol->getMergedTypeId()]++;
-            } else {
-                unset($vshort[$k]);
-            }
+            $vshort[$k] = $viol->getParams();
+            $vTypeCount[$viol->getMergedTypeId()]++;
             $violInnerCount++;
         }
-        $count = count($vshort);
-    } else {
-        $vshort = array();
     }
 
     // uiks
     $uikRGateway = new ParserIKData_Gateway_UIKRussia();
-    $uikCount = $uikRGateway->setUseCache(true)->getCount($regionNum, $okrugAbbr);
-
-    if ($regionNum == 77) {
-
+    $uikCount = $uikRGateway->setUseCache(true)->getCount($regionNum, $okrugAbbr, $tikNum, array($uikNum));
+    $uiks = array();
+    if ($tikNum && !$uikNum) {
+        foreach ($uikRGateway->getUiks($regionNum, $okrugAbbr, $tikNum, null) as $uik) {
+            /* @var $uik ParserIKData_Model_UIKRussia */
+            $uiks[$uik->getFullName()] = $uik->getUikNum();
+        }
     }
+
 
     // twitter feed
     if ($_GET['loadViol'] == '1') {
@@ -163,8 +158,8 @@ if ($modeSingleViolation) {
     $protocolGateway = new ParserIKData_Gateway_Protocol403();
     $protocolGateway->setUseCache(true);
     $ofGateway = new ParserIKData_Gateway_Protocol403Offile();
-    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, $resultProjectCodes, $onlyControlRelTrue, true);
-    $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', $onlyControlRelTrue, true);
+    $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, $resultProjectCodes, $onlyControlRelTrue, true);
+    $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, 'OF', $onlyControlRelTrue, true);
     // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
 }
 
@@ -180,6 +175,11 @@ if ($modeSingleViolation) {
     $response->vTypeCount = $vTypeCount;
     $response->twits = $twitData;
     $response->uikCnt = $uikCount;
+    if ($uiks) {
+        $response->uiks = $uiks;
+    } else {
+        $response->uiks = 0;
+    }
 
 
     // $response->watchersData = array('VZ' => 0, 'GZ' => 0, 'MP' => 0, 'VP' => 0, 'SM' => 0, 'AT' => 0, 'SP' => 0);

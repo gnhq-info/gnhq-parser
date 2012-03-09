@@ -49,6 +49,17 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     }
 
     /**
+    * @param int $regionNum
+    * @return ParserIKData_Model_UIKRussia[]
+    */
+    public function getForRegion($regionNum)
+    {
+        $where = $this->_getCondRegionNum($regionNum);
+        $data = $this->_loadFromTable($this->_table, $this->_modelClass, $where);
+        return $data;
+    }
+
+    /**
      * @param int $regionNum
      * @param int $uikNum
      * @return int

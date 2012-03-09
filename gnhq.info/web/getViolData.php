@@ -87,12 +87,12 @@ if ($modeSingleViolation) {
 
 
 
+    $vTypeCount = array();
     if ($_GET['loadViol'] == '1') {
         $vGateway = new ParserIKData_Gateway_Violation();
         // caching for 120 seconds - set in ParserIKData_Gateway_Violation->_getCacheLifetime();
 
         $vshort = $vGateway->setUseCache(true)->short(null, null, null, null, null);
-        $vTypeCount = array();
 
         $MAX = 0;
         $violInnerCount = 0;
@@ -154,8 +154,9 @@ if ($modeSingleViolation) {
 
     $protocolGateway = new ParserIKData_Gateway_Protocol403();
     $protocolGateway->setUseCache(true);
+    $ofGateway = new ParserIKData_Gateway_Protocol403Offile();
     $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, $resultProjectCodes, $onlyControlRelTrue, true);
-    $ofResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', $onlyControlRelTrue, true);
+    $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', $onlyControlRelTrue, true);
     // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
 }
 

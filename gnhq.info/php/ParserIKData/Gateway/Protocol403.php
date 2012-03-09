@@ -4,9 +4,9 @@
  */
 class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
 {
-    private $_table = 'result_403';
-    private $_reservTable = 'result_403_copy';
-    private $_modelClass = 'ParserIKData_Model_Protocol403';
+    protected $_table = 'result_403';
+    protected $_reservTable = 'result_403_copy';
+    protected $_modelClass = 'ParserIKData_Model_Protocol403';
 
 
     /**
@@ -119,7 +119,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param bool $controlRelTrue
      * @return string
      */
-    private function _buildCond($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $controlRelTrue = false)
+    protected function _buildCond($regionNum = null, $okrugAbbr = null, $uikNum = null, $resultType = null, $controlRelTrue = false)
     {
         $condParts = array();
         if (!$resultType) {
@@ -146,7 +146,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
      * @return string
      */
-    private function _getCondControlRel()
+    protected function _getCondControlRel()
     {
         return '(Line10 = Line19 + Line20 + Line21 + Line22 + Line23)';
     }
@@ -158,7 +158,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param int $maxAllowable
      * @return string
      */
-    private function _getCondLineDiscrepancy($tableAlias1, $tableAlias2, $num, $maxAllowable)
+    protected function _getCondLineDiscrepancy($tableAlias1, $tableAlias2, $num, $maxAllowable)
     {
         return 'ABS ('.$tableAlias1.'.Line'.$num.' - '.$tableAlias2.'.Line'.$num.') > ' .$maxAllowable;
     }
@@ -168,7 +168,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $query
      * @return ParserIKData_Model_Protocol403|NULL
      */
-    private function _fetchSumProtocol($query)
+    protected function _fetchSumProtocol($query)
     {
         $result = $this->_getDriver()->query($query);
         if (!$result) {
@@ -187,12 +187,12 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $condString
      * @return string
      */
-    private function _buildSumQuery($condString)
+    protected function _buildSumQuery($condString)
     {
         return 'SELECT ' . $this->_getSumSelect() . ', COUNT(*) as Count  FROM ' . $this->_table . ' WHERE ' . $condString;
     }
 
-    private function _buildAgjSumQuery($condString)
+    protected function _buildAgjSumQuery($condString)
     {
         $q = 'SELECT ' . $this->_getSumSelect() . ', COUNT(DISTINCT IkFullName) as COUNT FROM
         	(SELECT '.$this->_getAdjSumSelect().' FROM '.$this->_table . ' WHERE ' . $condString .' GROUP BY IkFullName) AS Average';
@@ -203,7 +203,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     * @param string $condString
     * @return string
     */
-    private function _buildAllQuery($condString)
+    protected function _buildAllQuery($condString)
     {
         return 'SELECT * FROM ' . $this->_table . ' WHERE ' . $condString;
     }
@@ -212,7 +212,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $resultType
      * @return string
      */
-    private function _getCondVyborka($resultType)
+    protected function _getCondVyborka($resultType)
     {
         return $this->_getCondTypeUik() . '  AND IkFullName IN (' . $this->_getWatchGateway()->getCondIn($resultType) .')' ;
     }
@@ -220,12 +220,12 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
      * @return string
      */
-    private function _getCondOfficial()
+    protected function _getCondOfficial()
     {
         return $this->_getCondResultType(ParserIKData_Model_Protocol403::TYPE_OF);
     }
 
-    private function _getCondResultType($resultType)
+    protected function _getCondResultType($resultType)
     {
         if (!is_array($resultType)) {
             $resultType = array($resultType);
@@ -242,7 +242,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param int $uikNum
      * @return string
      */
-    private function _getCondUik($uikNum)
+    protected function _getCondUik($uikNum)
     {
         return $this->_getCondTypeUik() . ' AND IkFullName = ' . intval($uikNum) ;
     }
@@ -250,7 +250,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
      * @param string $okrugAbbr
      */
-    private function _getCondOkrug($okrugAbbr)
+    protected function _getCondOkrug($okrugAbbr)
     {
         $uikCond = $this->_getUikGateway()->getCondOkrug($okrugAbbr);
         return $this->_getCondTypeUik() . ' AND IkFullName IN ('.$uikCond.')';
@@ -259,7 +259,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
      * @param int $regionNum
      */
-    private function _getCondRegion($regionNum)
+    protected function _getCondRegion($regionNum)
     {
         return sprintf(' (IkFullName >= %d AND IkFullName < %d)',
             $regionNum*ParserIKData_Model_UIKRussia::MODULE,
@@ -271,7 +271,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $resultType
      * @return string
      */
-    private function _getCondResultForType($resultType)
+    protected function _getCondResultForType($resultType)
     {
         return $this->_getCondTypeUik()
             . ' AND
@@ -288,7 +288,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $resultType
      * @return string
      */
-    private function _getCondHasProtocol($resultType)
+    protected function _getCondHasProtocol($resultType)
     {
         return ' SELECT IkFullName FROM '. $this->_table . ' WHERE '. $this->_getCondTypeUik() . ' AND ' . $this->_getCondResultType($resultType);
     }
@@ -296,7 +296,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
      *  @return string
      */
-    private function _getCondTypeUik()
+    protected function _getCondTypeUik()
     {
         return ' IkType = "'.$this->_escapeString(ParserIKData_Model_Protocol403::IkTYPE_UIK).'"';
     }
@@ -304,7 +304,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
      * @return string
      */
-    private function _getSumSelect()
+    protected function _getSumSelect()
     {
         $statement = ' "Mixed" AS IkFullName, "Mixed" AS IkType, "Mixed" AS ResultType, SUM(ClaimCount) AS ClaimCount, "", "", "","","","" ';
         for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
@@ -316,7 +316,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     /**
     * @return string
     */
-    private function _getAdjSumSelect()
+    protected function _getAdjSumSelect()
     {
         $statement = ' IkFullName, "Mixed" AS IkType, "Mixed" AS ResultType, SUM(ClaimCount)/Count(*) AS ClaimCount,
         	"" AS c1, "" AS c2, "" AS c3, "" AS c4, "" AS c5, ""  AS c6 ';
@@ -332,7 +332,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
     * @param string $table
     * @return string
     */
-    private function _insertQuery($proto, $table)
+    protected function _insertQuery($proto, $table)
     {
         $lineFields = array();
         for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
@@ -375,7 +375,7 @@ class ParserIKData_Gateway_Protocol403 extends ParserIKData_Gateway_Abstract
      * @param string $table
      * @return string
      */
-    private function _updateQuery($proto, $table)
+    protected function _updateQuery($proto, $table)
     {
         $lineData = $proto->getData();
         $lineParts = array();

@@ -159,6 +159,7 @@ if ($modeSingleViolation) {
         $protocolGateway = new ParserIKData_Gateway_Protocol403();
         $protocolGateway->setUseCache(true);
         $ofGateway = new ParserIKData_Gateway_Protocol403Offile();
+        $ofGateway->setUseCache(true);
         $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, $resultProjectCodes, $onlyControlRelTrue, true);
         $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, 'OF', $onlyControlRelTrue, true);
         // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);

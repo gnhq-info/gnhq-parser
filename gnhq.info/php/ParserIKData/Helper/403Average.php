@@ -128,6 +128,7 @@ class ParserIKData_Helper_403Average
     private function _getProtoOfGateway() {
         if (!$this->_protoOfGateway) {
             $this->_protoOfGateway = new ParserIKData_Gateway_Protocol403Offile();
+            $this->_protoOfGateway->setUseCache(true);
         }
         return $this->_protoOfGateway;
     }
@@ -138,6 +139,7 @@ class ParserIKData_Helper_403Average
     private function _getProtoGateway() {
         if (!$this->_protoGateway) {
             $this->_protoGateway = new ParserIKData_Gateway_Protocol403();
+            $this->_protoGateway->setUseCache(true);
         }
         return $this->_protoGateway;
     }

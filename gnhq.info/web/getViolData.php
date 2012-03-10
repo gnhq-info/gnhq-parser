@@ -169,6 +169,7 @@ if ($modeSingleViolation) {
         $ofResultUikCount = $average->getOfUikCount();
         $watchersResultData = $average->getProjectDiagramData();
         $watchersResultUikCount = $average->getProjectUikCount();
+        $usedRegionNums = $average->getRegionNums();
     }
 }
 
@@ -188,6 +189,9 @@ if ($modeSingleViolation) {
         $response->uiks = $uiks;
     } else {
         $response->uiks = 0;
+    }
+    if (isset($usedRegionNums)) {
+        $response->usedRegionNums = $usedRegionNums;
     }
 
 

@@ -60,3 +60,8 @@ form label {cursor: pointer;}
 	width: 20px;
 	display: inline;
 }
+
+#averageComment {
+	height: 75px; min-height: 75px; max-height: 75px; 
+	overflow-y: scroll;
+}

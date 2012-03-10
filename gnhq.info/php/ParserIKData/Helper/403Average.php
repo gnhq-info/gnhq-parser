@@ -116,6 +116,11 @@ class ParserIKData_Helper_403Average
         return $this->_ofUikCount;
     }
 
+    public function getRegionNums()
+    {
+        return $this->_usedRegionNums;
+    }
+
 
     /**
      * @return ParserIKData_Gateway_Protocol403

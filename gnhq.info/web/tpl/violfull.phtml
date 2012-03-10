@@ -2,20 +2,21 @@
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 }
+
+$JS_SCRIPT_VERSION = 14;
+$CSS_VERSION = 6;
 ?>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/statScreen.css?5" rel="stylesheet">
-
-
+<link href="css/statScreen.css?<?php echo $CSS_VERSION;?>" rel="stylesheet">
 
 
 <?php
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
-    echo '<link href="css/statScreenIe.css?5" rel="stylesheet">';
+    echo '<link href="css/statScreenIe.css?'.$CSS_VERSION.'" rel="stylesheet">';
 }
 ?>
 
@@ -55,13 +56,17 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 						</div>
 					</div>
 					<div class="row">
-						<div class="span7">
+						<div class="span9">
 							<div style="display: none;"><label><input type="checkbox" id="onlyClean" name="onlyClean"
 								value="1" style="display: inline;" /> Учитывать только "чистые"
 								участки ГН</label></div>
 							<div><label><input type="checkbox" id="onlyControlRel" name="onlyControlRel"
 								value="1" style="display: inline;" /> Учитывать только участки без расхождений
 								</label></div>
+							<div id="averageComment" style="display: none; height: 30px; overflow-y: scroll;">Усреднены данные
+								по следующим регионам:
+								<span class="regionList"></span>.
+							</div>
 						</div>
 					</div>
 				</div>
@@ -183,9 +188,6 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 	<script>
 		var StaticData = {};
 	</script>
-	<?php
-	    $JS_SCRIPT_VERSION = 12;
-	?>
 	<script type="text/javascript" src="js/violtypes_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/watchers_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>

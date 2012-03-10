@@ -134,6 +134,11 @@ var Viol = {
 											Viol.SetResult.setTwits(data.twits);
 											Viol.Exchange.firstLoad = false;
 										}
+										if (data.usedRegionNums) {
+											Viol.SetResult.showRegionText(data.usedRegionNums);
+										} else {
+											Viol.SetResult.hideRegionText();
+										}
     									Decoration.SplashScreen.Hide();
 								  },
 					'error'     : function(data, status, request) {
@@ -227,6 +232,22 @@ var Viol = {
 	
 	
 	SetResult: {
+		
+		hideRegionText: function() {
+			$('#averageComment').hide();
+		},
+		
+		showRegionText: function(regionNums) {
+			$('#averageComment .regionList').html('');
+			var _regHtml = '';
+			for (var i in regionNums) {
+				_regHtml += Viol.Dict.Region.getName(regionNums[i]) +'; ';
+			}
+			_regHtml = _regHtml.substring(0, _regHtml.length - 2);
+			$('#averageComment .regionList').html(_regHtml);
+			$('#averageComment').show();
+		},
+		
 		setTwits: function (twits) {
 			$('#twitterFeed').children().each(function(){
 				$(this).remove();

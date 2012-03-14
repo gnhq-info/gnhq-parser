@@ -25,11 +25,26 @@ class ParserIKData_Helper_403Average
 
     private $_averageByUik = true;
 
+    private $_skippedRegions = array();
+
     public function __construct($projectCodes, $controlRelTrue, $averageByUik)
     {
         $this->_projectCodes = $projectCodes;
         $this->_controlRelTrue = $controlRelTrue;
         $this->_averageByUik = $averageByUik;
+    }
+
+    /**
+     * @param int[] $regionNums
+     * @return ParserIKData_Helper_403Average
+     */
+    public function setSkippedRegions($regionNums)
+    {
+        if (!is_array($regionNums)) {
+            $regionNums = array($regionNums);
+        }
+        $this->_skippedRegions = $regionNums;
+        return $this;
     }
 
     /**
@@ -40,6 +55,9 @@ class ParserIKData_Helper_403Average
         $data = array();
         $regions = $this->_getRegionGateway()->getAll();
         foreach ($regions as $region) {
+            if (in_array($region->getRegionNum(), $this->_skippedRegions)) {
+                continue;
+            }
             /* @var $region ParserIKData_Model_Region */
             $result = $this->_getProtoGateway()->getMixedResult(
                     $region->getRegionNum(),

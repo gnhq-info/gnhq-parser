@@ -64,6 +64,12 @@ if ($modeSingleViolation) {
 } else {
 
     $regionNum = intval($_GET['regionNum']);
+    $skippedRegionNums = array();
+    if ($regionNum < 0) {
+        $skippedRegionNums[] = -1 * $regionNum;
+        $regionNum = null;
+    }
+
     $warehouse->loadAllOkrugs();
     $okrugAbbr = isset($_GET['okrug']) ? $_GET['okrug'] : null;
     $okrugAbbrOk = false;
@@ -165,6 +171,9 @@ if ($modeSingleViolation) {
         // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
     } else {
         $average = new ParserIKData_Helper_403Average($resultProjectCodes, $onlyControlRelTrue, true);
+        if (!empty($skippedRegionNums)) {
+            $average->setSkippedRegions($skippedRegionNums);
+        }
         $average->calcProjectResults()->calcOfResults();
         $ofResultData = $average->getOfDiagramData();
         $ofResultUikCount = $average->getOfUikCount();

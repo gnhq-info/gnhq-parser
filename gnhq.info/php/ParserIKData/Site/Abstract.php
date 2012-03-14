@@ -1,8 +1,10 @@
 <?php
+include_once ('Cik.php');
 include_once ('CikMarch.php');
 include_once ('Mosgor.php');
 include_once ('Res412.php');
 include_once ('Res403.php');
+include_once ('MRes403.php');
 include_once ('Gn412.php');
 abstract class ParserIKData_Site_Abstract
 {
@@ -154,6 +156,16 @@ abstract class ParserIKData_Site_Abstract
     protected function _getSiteEncoding()
     {
         return null;
+    }
+
+
+    /**
+     * @param string $link
+     * @return string
+     */
+    protected function _excludeSiteFromLink($link)
+    {
+        return str_replace($this->_getSite(), '', $link);
     }
 
     /**

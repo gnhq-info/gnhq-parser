@@ -2,7 +2,7 @@
 /**
  * @author admin
  */
-class ParserIKData_Site_CikMarch extends ParserIKData_Site_Abstract
+class ParserIKData_Site_CikMarch extends ParserIKData_Site_Cik
 {
     /**
      * (non-PHPdoc)
@@ -11,11 +11,6 @@ class ParserIKData_Site_CikMarch extends ParserIKData_Site_Abstract
     protected function _getConfigFileName()
     {
         return 'init403.ini';
-    }
-
-    protected function _getSiteEncoding()
-    {
-        return 'WINDOWS-1251';
     }
 
     /**
@@ -67,47 +62,5 @@ class ParserIKData_Site_CikMarch extends ParserIKData_Site_Abstract
     public function getTIKLinks($link)
     {
         return $this->_getLowerLinks($link);
-    }
-
-
-    /**
-     * @param string $page
-     * @return Ambigous <mixed, multitype:, multitype:Ambigous <Ambigous <string, false, boolean>> >
-     */
-    private function _getLowerLinks($page)
-    {
-        $page = $this->_getPageContent($page, $this->_getCValue('useCache'));
-        $select = $this->_lowerIKsSelect($page);
-        $options = $this->_getMiner()->extractOptions($select, 1000);
-        $optionData = $this->_getMiner()->getOptions($options);
-        $rData = array();
-        foreach ($optionData as $okrug => $link) {
-            if ($link != '') {
-                $rData[trim($okrug)] = $this->_excludeSiteFromLink(html_entity_decode($link));
-            }
-        }
-        return $rData;
-    }
-
-    /**
-     *
-     * Enter description here ...
-     * @param unknown_type $link
-     * @return mixed
-     */
-    private function _excludeSiteFromLink($link)
-    {
-        return str_replace($this->_getSite(), '', $link);
-    }
-
-    /**
-     * @param string $page
-     * @return Ambigous <string, false, boolean>
-     */
-    private function _lowerIKsSelect($page)
-    {
-        $form = $this->_getParser()->setPageSource($page)->findMinContainingTag($this->_getCValue('lowerIKIndicator'), 'form');
-        $select = $this->_getParser()->setPageSource($form)->findMinContainingTag($this->_getCValue('lowerIKSelectIndicator'), 'select');
-        return $select;
     }
 }

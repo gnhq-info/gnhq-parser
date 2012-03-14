@@ -10,11 +10,6 @@ class ParserIKData_Site_Res403 extends ParserIKData_Site_Abstract
         return 'res403.ini';
     }
 
-    protected function _getSiteEncoding()
-    {
-        return 'WINDOWS-1251';
-    }
-
 
     /**
      * @param ParserIKData_Model_UIKRussia $uikR

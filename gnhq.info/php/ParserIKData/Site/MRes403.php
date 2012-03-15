@@ -21,8 +21,14 @@ class ParserIKData_Site_MRes403 extends ParserIKData_Site_Cik
         foreach ($tikAs as $tikA) {
             $text = strip_tags($tikA);
             $text = trim(str_replace(
-                array($this->_getCValue('tikLinkPreffix'), $this->_getCValue('tikLinkPreffix2'), $this->_getCValue('tikLinkPostfix')),
-                array('', '', ''),
+                array(
+                    $this->_getCValue('tikLinkPreffix'),
+                    $this->_getCValue('tikLinkPreffix2'),
+                    $this->_getCValue('tikLinkPreffix3'),
+                    $this->_getCValue('tikLinkPostfix'),
+                    $this->_getCValue('tikLinkPostfix2'),
+                ),
+                array('', '', '', '', ''),
                 $text)
             );
             if ($text == $this->_getCValue('presidentLinkIndicator')) {
@@ -30,7 +36,7 @@ class ParserIKData_Site_MRes403 extends ParserIKData_Site_Cik
             }
             $link = html_entity_decode($this->_getMiner()->getHref($tikA));
             $links[$text] = $link;
-            //break; // @TEMP - for testing
+            // break; // @TEMP - for testing
         }
         return $links;
     }
@@ -76,7 +82,11 @@ class ParserIKData_Site_MRes403 extends ParserIKData_Site_Cik
             $cells = $this->_getMiner()->extractCells($row, 5);
             $num = trim(strip_tags($cells[0]));
             if (is_numeric($num) && $num >= $candidatsMin) {
-                $candidats[$num - $candidatsMin + 1] = trim(strip_tags($cells[1]));
+                $candidats[$num - $candidatsMin + 1] = str_replace(
+                    array('    ', '   ', '  '),
+                    array(' ', ' ', ' '),
+                    trim(strip_tags($cells[1]))
+                );
             }
         }
         return $candidats;
@@ -84,55 +94,14 @@ class ParserIKData_Site_MRes403 extends ParserIKData_Site_Cik
 
 
     /**
-     * @param ParserIKData_Model_UIKRussia $uik
-     * @param string $link
-     * @return ParserIKData_Model_Protocol403
-     */
-    public function getProtocol($uik, $link)
+    * @param string $link
+    * @return Ambigous <string, false, boolean>
+    */
+    public function getOkrugResults($oLink)
     {
-        $this->_getParser()->setPageSource($this->_getPageContent($link, $this->_getCValue('useCache')));
-        $resultTable = $this->_getParser()->findMinContainingTag($this->_getCValue('tableIndicator'), 'table');
-        $rows = $this->_getMiner()->extractRows($resultTable, 50);
-        $data = array();
-        foreach ($rows as $row) {
-            $cells = $this->_getMiner()->extractCells($row, 50);
-            $ind = strip_tags($cells[0]);
-            if ($ind) {
-                $val = $this->_prepareCellValue($cells[2], true);
-                $data[$ind] = $val;
-            }
-        }
-        $proto = ParserIKData_Model_Protocol403::create();
-        $proto->setResultType(ParserIKData_Model_Protocol403::TYPE_OF);
-        $proto->setData($data);
-        $proto->setProjectId(0);
-        $proto->setIkFullName($uik->getFullName());
-        $proto->setClaimCount(0);
-        $proto->setUpdateTime(date('Y-m-d H:i:s'));
-        return $proto;
-    }
-
-
-    /**
-     * @param html $cell
-     * @param boolean $skipPercent
-     * @return Ambigous <multitype:Ambigous, multitype:Ambigous <string, false, boolean> >
-     */
-    private function _prepareCellValue($cell, $skipPercent)
-    {
-        $bolds = $this->_getMiner()->extractBold($cell, 5);
-        if (!is_array($bolds) || count($bolds) == 1) {
-            $bold = $bolds[0];
-        } else {
-            $bold = '';
-        }
-        $remaining = str_replace($bold, '', $cell);
-        $numericValue = trim(strip_tags($bold));
-        $percentValue = trim(strip_tags($remaining));
-        if ($skipPercent) {
-            return $numericValue;
-        } else {
-            return array('numeric' => $numericValue, 'percent' => $percentValue);
-        }
+        $this->_getParser()->setPageSource($this->_getPageContent($oLink, $this->_getCValue('useCache')));
+        $resultTable = $this->_getParser()->findMinContainingTag($this->_getCValue('resultTableIndicator'), 'table');
+        $results = $this->getResultsFromTable($resultTable);
+        return $results;
     }
 }

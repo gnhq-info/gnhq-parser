@@ -8,6 +8,8 @@
  */
 class ParserIKData_Model_Region extends ParserIKData_Model
 {
+    const MOSCOW = 77;
+
     private $_discrepancyCount = 0;
 
     /**

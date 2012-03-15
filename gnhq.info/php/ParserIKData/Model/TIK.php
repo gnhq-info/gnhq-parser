@@ -99,6 +99,15 @@ class ParserIKData_Model_TIK extends ParserIKData_Model
      * @param string $name
      * @return string
      */
+    public static function normalizeName($name)
+    {
+        return self::_normalizeName($name);
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
     public static function _normalizeName($name)
     {
         $toBlanks = array(

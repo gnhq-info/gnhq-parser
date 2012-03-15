@@ -1,5 +1,5 @@
 <?php
-class ParserIKData_Site_Res403 extends ParserIKData_Site_Abstract
+class ParserIKData_Site_Res403 extends ParserIKData_Site_Cik
 {
     /**
      * (non-PHPdoc)
@@ -57,29 +57,5 @@ class ParserIKData_Site_Res403 extends ParserIKData_Site_Abstract
         $proto->setClaimCount(0);
         $proto->setUpdateTime(date('Y-m-d H:i:s'));
         return $proto;
-    }
-
-
-    /**
-     * @param html $cell
-     * @param boolean $skipPercent
-     * @return Ambigous <multitype:Ambigous, multitype:Ambigous <string, false, boolean> >
-     */
-    private function _prepareCellValue($cell, $skipPercent)
-    {
-        $bolds = $this->_getMiner()->extractBold($cell, 5);
-        if (!is_array($bolds) || count($bolds) == 1) {
-            $bold = $bolds[0];
-        } else {
-            $bold = '';
-        }
-        $remaining = str_replace($bold, '', $cell);
-        $numericValue = trim(strip_tags($bold));
-        $percentValue = trim(strip_tags($remaining));
-        if ($skipPercent) {
-            return $numericValue;
-        } else {
-            return array('numeric' => $numericValue, 'percent' => $percentValue);
-        }
     }
 }

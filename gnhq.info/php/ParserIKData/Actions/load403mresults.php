@@ -5,10 +5,11 @@
 
 include_once 'include.php';
 
-$processor = new ParserIKData_Site_MRes403();
-$mosOkrGateway = new ParserIKData_Gateway_MoscowOkrug();
+$processor      = new ParserIKData_Site_MRes403();
+$mosOkrGateway  = new ParserIKData_Gateway_MoscowOkrug();
+$mosCandGateway = new ParserIKData_Gateway_MoscowCand();
 /*
- * loading okrugs
+ * загрузка округов
  *
  *
 $tikRGateway = new ParserIKData_Gateway_TIKRussia();
@@ -51,36 +52,31 @@ foreach ($mosOkrugs as $id => $mosOkr) {
     $mosOkrGateway->save($mosOkr);
 }
 
-// end of loading okrugs
+// \загрузка округов
 */
+
+
+$mosOkrugs = $mosOkrGateway->getAllById();
+$oResults = array();
+foreach ($mosOkrugs as $id => $mosOkr) {
+    /* @var $mosOkr ParserIKData_Model_MoscowOkrug */
+    $okrugResults = $processor->getOkrugResults($mosOkr->getLink());
+    var_dump($okrugResults);die();
+}
 
 
 /*
-$oResults = array();
-foreach ($olinks as $tikName => $tikOkrugs) {
-    foreach ($tikOkrugs as $oName => $oLink) {
-        $okrugResults = $processor->getOkrugResults($oLink);
-        $oResults[$tikName][$oName] = $okrugResults;
+ * загрузка кандидатов
+ * /
+foreach ($mosOkrugs as $id => $mosOkr) {
+    /* @var $mosOkr ParserIKData_Model_MoscowOkrug * /
+    $okrugCandidats = $processor->getOkrugCandidats($mosOkr->getLink());
+    foreach ($okrugCandidats as $num => $name) {
+        $cand = ParserIKData_Model_MoscowCand::createFromPageInfo(
+            $name, '', array('okrId' => $mosOkr->getId(), 'num' => $num, 'isBlacklist' => 0)
+        );
+        $mosCandGateway->save($cand);
     }
 }
+print ('candidats loaded');
 */
-
-$mosOkrugs = $mosOkrGateway->getAllById();
-var_dump($mosOkrugs);die();
-
-$oCandidats = array();
-$maxPerOkrug = 0;
-$maxDescr = '';
-foreach ($olinks as $tikName => $tikOkrugs) {
-    foreach ($tikOkrugs as $oName => $oLink) {
-        $okrugCandidats = $processor->getOkrugCandidats($oLink);
-        if (count($okrugCandidats) > $maxPerOkrug) {
-            $maxPerOkrug = count($okrugCandidats);
-            $maxDescr = $tikName  . '-' . $oName;
-        }
-        $oCandidats[$tikName][$oName] = $okrugCandidats;
-    }
-}
-
-
-print ('official results loaded');

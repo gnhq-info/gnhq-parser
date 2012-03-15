@@ -16,6 +16,7 @@ include_once('Model/Violation.php');
 include_once('Model/Twit.php');
 include_once('Model/MoscowOkrug.php');
 include_once('Model/MoscowCand.php');
+include_once('Model/MoscowProtocol403.php');
 
 /**
  * @method string getFullName

@@ -84,8 +84,8 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 
 		<!-- /SEARCH FORM -->
 
+<?php /* ?>
 		<!-- RESULTS -->
-
 		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Предварительные
 			результаты</h4>
 		<table class="table table-striped" id="results">
@@ -100,7 +100,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 			<tbody>
 
 
-			<?php
+			< ?php
 			foreach($view->diagRows as $line) {
 			    include(rtrim(FRONTEND_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tpl' .DIRECTORY_SEPARATOR. 'protocolline.phtml');
 			}
@@ -114,8 +114,9 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 				</tr>
 			</tbody>
 		</table>
-		<!-- /RESULTS -->
 
+		<!-- /RESULTS -->
+*/ ?>
 
 		<div class="row" style="margin-top: 5px; border-top: 1px solid gray;">
 

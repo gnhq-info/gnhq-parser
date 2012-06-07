@@ -1,9 +1,10 @@
 <?php
 $dirParts = explode(DIRECTORY_SEPARATOR, trim(__DIR__, DIRECTORY_SEPARATOR));
 array_pop($dirParts);
+array_pop($dirParts);
 $pathToBasicInclude = implode(DIRECTORY_SEPARATOR, $dirParts);
 unset($dirParts);
-include_once $pathToBasicInclude . 'include.php';
+include_once $pathToBasicInclude . DIRECTORY_SEPARATOR. 'include.php';
 
 $projectCode = $argv[1];
 
@@ -26,8 +27,8 @@ if (!$sXml instanceof SimpleXMLElement) {
 }
 $timeEndLoad = microtime(true);
 
-$xmlProcessor = new ParserIKData_XMLProcessor_Violation($projectCode);
-$gateway = new ParserIKData_Gateway_Violation();
+$xmlProcessor = new ParserIKData_XMLProcessor_Violation_Krasnoyarsk($projectCode);
+$gateway = new ParserIKData_Gateway_Violation_Krasnoyarsk();
 
 $importCodes = array();
 foreach ($sXml->xpath('viol') as $vXml) {

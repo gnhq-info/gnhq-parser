@@ -70,8 +70,8 @@ var Viol = {
 		for (var regionNum in StaticData.Regions) {
 			$('<option>').val(regionNum).html(StaticData.Regions[regionNum]).appendTo($('#regionNum'));
 		}
-		$('#regionNum').val(77);
-		Viol.Filter.RedrawTiks(77);
+		$('#regionNum').val(ViolConfigData['DefaultRegion']);
+		Viol.Filter.RedrawTiks(ViolConfigData['DefaultRegion']);
 		
 		$('#filterForm').submit(function() {
 			Viol.Exchange.loadData();
@@ -123,7 +123,7 @@ var Viol = {
 				'loadViol':    Viol.Exchange.firstLoad ? 1 : 0
 			}; 
 			$.ajax(
-				'getViolData.php', 
+				ViolConfigData['BackendPoint'], 
 				{
 					'data'      : _data,
 					'dataType'  : 'json',
@@ -155,7 +155,7 @@ var Viol = {
 				'ProjectId':   projectId
 			}; 
 			$.ajax(
-				'getViolData.php', 
+				ViolConfigData['BackendPoint'], 
 				{
 					'data'      : _data,
 					'dataType'  : 'json',

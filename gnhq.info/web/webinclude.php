@@ -11,6 +11,7 @@ $dirParts = explode(DIRECTORY_SEPARATOR, __DIR__);
 unset($dirParts[count($dirParts)-1]);
 $dirParts[] = 'php';
 define('ERROR_LOG_FILE', implode(DIRECTORY_SEPARATOR, $dirParts) . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'error.log');
+define('FRONTEND_DIR', __DIR__);
 $dirParts[] = 'ParserIKData';
 $dirParts[] = 'Actions';
 $dirParts[] = 'include.php';

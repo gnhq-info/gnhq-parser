@@ -244,7 +244,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         return $this->_vtypeGateway;
     }
 
-    private function _getViolationGateway()
+    protected function _getViolationGateway()
     {
         return new ParserIKData_Gateway_Violation();
     }

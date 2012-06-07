@@ -1,0 +1,19 @@
+StaticData.Tiks = [];
+StaticData.TiksOrder = [];
+
+	StaticData.Tiks[24] = [];
+	StaticData.TiksOrder[24] = [];
+		StaticData.Tiks[24][32] = "Железнодорожная";
+		StaticData.TiksOrder[24][0] = 32;
+		StaticData.Tiks[24][33] = "Кировская";
+		StaticData.TiksOrder[24][1] = 33;
+		StaticData.Tiks[24][34] = "Ленинская";
+		StaticData.TiksOrder[24][2] = 34;
+		StaticData.Tiks[24][35] = "Октябрьская";
+		StaticData.TiksOrder[24][3] = 35;
+		StaticData.Tiks[24][36] = "Свердловская";
+		StaticData.TiksOrder[24][4] = 36;
+		StaticData.Tiks[24][37] = "Советская";
+		StaticData.TiksOrder[24][5] = 37;
+		StaticData.Tiks[24][38] = "Центральная";
+		StaticData.TiksOrder[24][6] = 38;

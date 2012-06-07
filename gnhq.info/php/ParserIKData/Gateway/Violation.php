@@ -1,8 +1,8 @@
 <?php
 class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
 {
-    private $_table = 'violation';
-    private $_reservTable = 'violation_copy';
+    protected $_table = 'violation';
+    protected $_reservTable = 'violation_copy';
     private $_modelClass = 'ParserIKData_Model_Violation';
 
     public function removeAll()

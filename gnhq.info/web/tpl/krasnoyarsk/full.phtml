@@ -3,8 +3,9 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 }
 
-$JS_SCRIPT_VERSION = 16;
-$CSS_VERSION = 6;
+$JS_SCRIPT_VERSION = 1;
+$CSS_VERSION = 1;
+
 ?>
 
 <html>
@@ -20,7 +21,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 }
 ?>
 
-<title>Гражданин Наблюдатель - Нарушения 4 марта 2012</title>
+<title>Гражданин Наблюдатель - Выборы мэра Красноярска. 10.06.2012</title>
 </head>
 <body>
 	<div class="container" style="margin-top: 5px; width: 96% !important;">
@@ -37,10 +38,8 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 				<div class="span10">
 					<div class="row">
 						<div class="span3">
-							<div>Регион:</div>
+							<div>Город:</div>
 							<select style="width: 180px" id="regionNum" name="regionNum">
-								<option value="">-- средневзвешенное по России --</option>
-								<option value="-77">-- средневзвешенное без Москвы --</option>
 							</select>
 						</div>
 						<div class="span5">
@@ -103,7 +102,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 
 			<?php
 			foreach($view->diagRows as $line) {
-			    include('protocolline.phtml');
+			    include(rtrim(FRONTEND_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tpl' .DIRECTORY_SEPARATOR. 'protocolline.phtml');
 			}
 			unset($line);
 			?>
@@ -189,14 +188,13 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 	<script>
 		var StaticData = {};
 		var ViolConfigData = {};
-		ViolConfigData['BackendPoint'] = 'getViolData.php';
-		ViolConfigData['DefaultRegion'] = 77;
+		ViolConfigData['BackendPoint'] = 'elections/<?php echo $folder;?>/getData.php';
+		ViolConfigData['DefaultRegion'] = 24;
 	</script>
 	<script type="text/javascript" src="js/violtypes_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
-	<script type="text/javascript" src="js/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
-	<script type="text/javascript" src="js/watchers_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
-	<script type="text/javascript" src="js/regions_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
-	<script type="text/javascript" src="js/okrug_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/<?php echo $folder;?>/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/<?php echo $folder;?>/watchers_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/<?php echo $folder;?>/regions_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/decoration.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/viol.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/statScreen.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>

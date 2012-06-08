@@ -2,7 +2,7 @@
 <violations projecturl="http://gnhq.info/xml/">
 
 	<viol>
-		<id>10</id>
+		<id>101</id>
 		<city>490</city>
 
 		<complaint>0</complaint>
@@ -23,17 +23,17 @@
 		<station>249</station>
 		<stationtype>1</stationtype>
 		<type>1</type>
-		<uik>214</uik>
+		<uik>2214</uik>
 
 		<updt>12-03-04 08:22</updt>
 		<version>1</version>
 	</viol>
 	<viol>
-		<id>11</id>
+		<id>111</id>
 		<city>490</city>
 		<complaint>0</complaint>
 
-		<description>2.6. Подвоз избирателей</description>
+		<description>2.8. Подвоз избирателей</description>
 		<hqcomment></hqcomment>
 		<impact>0</impact>
 		<is_latest>1</is_latest>

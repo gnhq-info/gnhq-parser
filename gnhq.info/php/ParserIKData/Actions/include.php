@@ -35,8 +35,6 @@ include_once LIB_DIR_ROOT. 'Cache/Interface.php';
 
 include_once APPLICATION_DIR_ROOT . 'ServiceLocator.php';
 
-include_once APPLICATION_DIR_ROOT . 'ProjectData.php';
-
 include_once APPLICATION_DIR_ROOT . 'Site/Abstract.php';
 
 include_once APPLICATION_DIR_ROOT . 'XML/Abstract.php';
@@ -50,3 +48,9 @@ include_once APPLICATION_DIR_ROOT . 'Gateway/include.php';
 include_once APPLICATION_DIR_ROOT . 'Cache/include.php';
 
 include_once APPLICATION_DIR_ROOT . 'Helper/403Average.php';
+
+include_once APPLICATION_DIR_ROOT . 'Krasnoyarsk/include.php';
+
+if (!isset($PROJECT_CONFIG)) {
+    include_once APPLICATION_DIR_ROOT . 'ProjectData.php';
+}

@@ -21,6 +21,9 @@ class Lib_Config_IniFile extends Lib_Config_Base
         if (!isset($fileName)) {
             throw new Exception('No config file!');
         }
+        if (!file_exists($fileName)) {
+            throw new Exception('File dont exist');
+        }
         $data = parse_ini_file($fileName);
         if (!$data || !is_array($data)) {
             throw new Exception('Bad config file');

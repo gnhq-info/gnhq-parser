@@ -6,7 +6,21 @@ require_once 'base.php';
 
 switch ($argv[1])
 {
-    case 'loadTiks':
+    case 'region':
+        $config = ParserIKData_ServiceLocator::getInstance()->getConfigForFile('krasnoyarsk.ini');
+        $data = array(
+        	0 => $config->getValue('num'),
+            1 => $config->getValue('fullName'),
+        	2 => $config->getValue('rootPage'),
+        	3 => $config->getValue('population')
+        );
+        $gateway = new ParserIKData_Gateway_Region_Krasnoyarsk();
+        $gateway->removeAll();
+        $region = ParserIKData_Model_Region::fromArray($data);
+        $gateway->save($region);
+        break;
+
+    case 'tik':
         $rGateway = new ParserIKData_Gateway_Region_Krasnoyarsk();
         $tGateway = new ParserIKData_Gateway_Tik_Krasnoyarsk();
         $regions = $rGateway->getAll();
@@ -33,7 +47,7 @@ switch ($argv[1])
 
         break;
 
-     case 'loadUiks':
+     case 'uik':
             $tGateway = new ParserIKData_Gateway_Tik_Krasnoyarsk();
             $uGateway = new ParserIKData_Gateway_Uik_Krasnoyarsk();
             $tiks = $tGateway->getAll();

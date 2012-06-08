@@ -38,7 +38,7 @@ class ParserIKData_Gateway_Region extends ParserIKData_Gateway_Abstract
         $data = $region->toArray();
         $data = $this->_getDriver()->escapeArray($data);
         return sprintf('insert into '.$this->_table.' (RegionNum, FullName, Link, Population)
-                	values(%d, "%s", "%s")', $data[0], $data[1], $data[2], $data[3]);
+                	values(%d, "%s", "%s", %d)', $data[0], $data[1], $data[2], $data[3]);
     }
 
     /**

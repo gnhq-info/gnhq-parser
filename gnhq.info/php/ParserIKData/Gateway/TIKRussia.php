@@ -1,7 +1,7 @@
 <?php
 class ParserIKData_Gateway_TIKRussia extends ParserIKData_Gateway_Abstract
 {
-    private $_table = 'tik_russia';
+    protected $_table = 'tik_russia';
     private $_modelClass = 'ParserIKData_Model_TIKRussia';
 
     public function removeAll()

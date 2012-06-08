@@ -1,12 +1,9 @@
 <?php
-$dirParts = explode(DIRECTORY_SEPARATOR, trim(__DIR__, DIRECTORY_SEPARATOR));
-array_pop($dirParts);
-array_pop($dirParts);
-$pathToBasicInclude = implode(DIRECTORY_SEPARATOR, $dirParts);
-unset($dirParts);
-include_once $pathToBasicInclude . DIRECTORY_SEPARATOR. 'Actions' . DIRECTORY_SEPARATOR . 'include.php';
-unset($pathToBasicInclude);
-
+/**
+ * action for (cron) tasks of importing violation feeds from various sources
+ * @argv[1] - projectCode
+ */
+require_once('base.php');
 
 $projectCode = $argv[1];
 

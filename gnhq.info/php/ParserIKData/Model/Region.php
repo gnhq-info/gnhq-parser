@@ -22,7 +22,7 @@ class ParserIKData_Model_Region extends ParserIKData_Model
 
     /**
      * @param int $cnt
-     * @return ParserIKData_Model_Okrug
+     * @return ParserIKData_Model_Region
      */
     public function setDiscrepancyCount($cnt)
     {

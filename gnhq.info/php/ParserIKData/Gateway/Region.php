@@ -1,7 +1,7 @@
 <?php
 class ParserIKData_Gateway_Region extends ParserIKData_Gateway_Abstract
 {
-    private $_table = 'region';
+    protected $_table = 'region';
 
     public function removeAll()
     {

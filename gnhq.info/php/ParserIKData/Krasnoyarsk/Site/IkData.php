@@ -10,7 +10,7 @@ class ParserIKData_Site_Krasnoyarsk_IkData extends ParserIKData_Site_Cik
      */
     protected function _getConfigFileName()
     {
-        return 'init403.ini';
+        return 'krasnoyarsk.ini';
     }
 
     /**

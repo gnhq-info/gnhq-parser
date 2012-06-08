@@ -1,7 +1,7 @@
 <?php
 class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
 {
-    private $_table = 'uik_russia';
+    protected $_table = 'uik_russia';
     private $_modelClass = 'ParserIKData_Model_UIKRussia';
 
     private $_tikNums = null; // caching for execution time
@@ -172,7 +172,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
                 $whereParts[] = '(1 = 1)';
             }
             if ($projectCodes) {
-                $protoGateway = new ParserIKData_Gateway_Protocol403();
+                $protoGateway = $this->_getProtocolGateway();
                 $whereParts[] = ' FullName ' . $protoGateway->getCondHasProto($projectCodes, $regionNum, $tikNum);
 
             }
@@ -272,5 +272,13 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
         		(RegionNum, TikNum,  UikNum, FullName, Link, Place, VotingPlace, BorderDescription)
           values (%d, %d, %d, %d, "%s", "%s", "%s", "%s")',
         $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
+    }
+
+    /**
+     * @return ParserIKData_Gateway_Protocol403
+     */
+    protected function _getProtocolGateway()
+    {
+        return new ParserIKData_Gateway_Protocol403();
     }
 }

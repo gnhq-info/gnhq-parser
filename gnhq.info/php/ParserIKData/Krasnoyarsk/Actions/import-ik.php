@@ -34,10 +34,10 @@ switch ($argv[1])
         break;
 
      case 'loadUiks':
-            $tGateway = new ParserIKData_Gateway_TIKRussia();
-            $uGateway = new ParserIKData_Gateway_UIKRussia();
+            $tGateway = new ParserIKData_Gateway_Tik_Krasnoyarsk();
+            $uGateway = new ParserIKData_Gateway_Uik_Krasnoyarsk();
             $tiks = $tGateway->getAll();
-            $parser = new ParserIKData_Site_CikMarch();
+            $parser = new ParserIKData_Site_Krasnoyarsk_IkData();
 
             $uGateway->removeAll();
             foreach ($tiks as $tik) {

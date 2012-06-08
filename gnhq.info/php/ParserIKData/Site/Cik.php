@@ -46,7 +46,7 @@ abstract class ParserIKData_Site_Cik extends ParserIKData_Site_Abstract
     {
         $page = $this->_getPageContent($page, $this->_getCValue('useCache'));
         $select = $this->_lowerIKsSelect($page);
-        $options = $this->_getMiner()->extractOptions($select, 50);
+        $options = $this->_getMiner()->extractOptions($select, 200);
         $optionData = $this->_getMiner()->getOptions($options);
         foreach ($optionData as $okrug => $link) {
             if ($link != '') {

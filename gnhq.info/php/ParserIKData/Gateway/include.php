@@ -14,7 +14,6 @@ include_once('TIKRussia.php');
 include_once('UIKRussia.php');
 include_once('ViolationType.php');
 include_once('Violation.php');
-include_once('Violation/Krasnoyarsk.php');
 include_once('Twit.php');
 include_once('MoscowOkrug.php');
 include_once('MoscowCand.php');

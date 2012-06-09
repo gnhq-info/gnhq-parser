@@ -37,25 +37,38 @@ abstract class ParserIKData_Model_Protocol extends ParserIKData_Model
     const INDEX_TOTAL_VOTED = 10;
     const INDEX_TOTAL = 1;
 
-    const ALLOWABLE_DISCREPANCY = 10;
-
     private $_uikCount = 1;
 
-    abstract public function getElectionType();
-
+    /**
+     * количество строк в протоколе
+     * @return int
+     */
     abstract public static function getLineAmount();
 
+    /**
+     * индексы строк протокола, по которым определяется наличие расхождений
+     * @return int[]
+     */
     abstract public static function getIndicesForCompare();
 
+    /**
+     * величина допустимого отличия, которое не считается расхождением
+     * @return int
+     */
     abstract public static function getAllowableDiscrepancy();
 
+    /**
+     * данные для диаграмы на фронтэнде
+     * @param true $inPercent
+     * @param int $digits
+     */
     abstract public function getDiagramData($inPercent, $digits = 0);
-
 
 
     public static function create()
     {
-        return new self();
+        $className = get_called_class();
+        return new $className();
     }
 
     public function getUikCount()

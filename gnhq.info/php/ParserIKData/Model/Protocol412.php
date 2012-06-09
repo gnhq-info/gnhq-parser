@@ -50,13 +50,6 @@ class ParserIKData_Model_Protocol412 extends ParserIKData_Model
         return ParserIKData_Model_UIK::getFromPool($this->getFullName());
     }
 
-    /**
-     * @return string
-     */
-    public function getElectionType()
-    {
-        return self::ELECTION_TYPE;
-    }
 
     /**
      * @return array()

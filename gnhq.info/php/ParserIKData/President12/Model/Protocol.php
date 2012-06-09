@@ -27,26 +27,11 @@
  */
 class ParserIKData_Model_Protocol403 extends ParserIKData_Model_Protocol
 {
-    private $_electionType = '403';
-
     const INDEX_VZ = 19;
     const INDEX_GZ = 20;
     const INDEX_SM = 21;
     const INDEX_MP = 22;
     const INDEX_VP = 23;
-
-    public static function create()
-    {
-        return new self();
-    }
-
-    /**
-     * @return string
-     */
-    public function getElectionType()
-    {
-        return $this->_electionType;
-    }
 
 
     public static function getLineAmount()
@@ -65,8 +50,7 @@ class ParserIKData_Model_Protocol403 extends ParserIKData_Model_Protocol
      */
     public static function getIndicesForCompare()
     {
-        return array(
-            self::INDEX_SPOILED, self::INDEX_TOTAL, self::INDEX_TOTAL_VOTED,
+        return array(self::INDEX_SPOILED, self::INDEX_TOTAL, self::INDEX_TOTAL_VOTED,
             self::INDEX_VZ, self::INDEX_GZ, self::INDEX_SM, self::INDEX_MP, self::INDEX_VP);
     }
 

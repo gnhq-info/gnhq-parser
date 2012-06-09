@@ -7,7 +7,6 @@ include_once('Model/UIK.php');
 include_once('Model/UIKRussia.php');
 include_once('Model/Protocol.php');
 include_once('Model/Protocol412.php');
-include_once('Model/Protocol403.php');
 include_once('Model/Report412.php');
 include_once('Model/Watch.php');
 include_once('Model/Watch403.php');

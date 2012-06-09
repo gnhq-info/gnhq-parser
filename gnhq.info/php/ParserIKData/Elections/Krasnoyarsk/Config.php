@@ -1,8 +1,4 @@
 <?php
-const PROJECT_GN = 'GN';
-const PROJECT_GL = 'CL';
-const PROJECT_GOLOS = 'AG';
-
 $PROJECT_CONFIG = array(
     PROJECT_GN => array(
             'Name'      => 'Гражданин наблюдатель',

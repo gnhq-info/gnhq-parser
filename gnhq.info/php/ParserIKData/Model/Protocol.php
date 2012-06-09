@@ -43,26 +43,34 @@ abstract class ParserIKData_Model_Protocol extends ParserIKData_Model
      * количество строк в протоколе
      * @return int
      */
-    abstract public static function getLineAmount();
+    public static function getLineAmount() {
+        throw new Exception('must be implemented');
+    }
 
     /**
      * индексы строк протокола, по которым определяется наличие расхождений
      * @return int[]
      */
-    abstract public static function getIndicesForCompare();
+    public static function getIndicesForCompare() {
+        throw new Exception('must be implemented');
+    }
 
     /**
      * величина допустимого отличия, которое не считается расхождением
      * @return int
      */
-    abstract public static function getAllowableDiscrepancy();
+    public static function getAllowableDiscrepancy() {
+        throw new Exception('must be implemented');
+    }
 
     /**
      * данные для диаграмы на фронтэнде
      * @param true $inPercent
      * @param int $digits
      */
-    abstract public function getDiagramData($inPercent, $digits = 0);
+    public function getDiagramData($inPercent, $digits = 0) {
+        throw new Exception('must be implemented');
+    }
 
 
     public static function create()

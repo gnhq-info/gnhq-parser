@@ -13,10 +13,11 @@ define('WEB_DIR', implode(DIRECTORY_SEPARATOR, $dirParts) . DIRECTORY_SEPARATOR 
 unset($dir);
 unset($dirParts);
 
-define('APPLICATION_DIR_ROOT', BASE_INCLUDE_DIR . 'ParserIKData/');
-define('LIB_DIR_ROOT', BASE_INCLUDE_DIR . 'Lib/');
-define('DATA_PATH', APPLICATION_DIR_ROOT . 'Data/');
+define('APPLICATION_DIR_ROOT', BASE_INCLUDE_DIR . 'ParserIKData' . DIRECTORY_SEPARATOR);
+define('LIB_DIR_ROOT', BASE_INCLUDE_DIR . 'Lib' . DIRECTORY_SEPARATOR);
+define('DATA_PATH', APPLICATION_DIR_ROOT . 'Data' . DIRECTORY_SEPARATOR);
 
+include_once APPLICATION_DIR_ROOT . 'Const.php';
 
 require_once LIB_DIR_ROOT . 'ZendConfig.php';
 

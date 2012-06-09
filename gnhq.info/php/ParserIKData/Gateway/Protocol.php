@@ -29,7 +29,7 @@ abstract class ParserIKData_Gateway_Protocol extends ParserIKData_Gateway_Abstra
      */
     protected function _getWatchGateway()
     {
-        return new ParserIKData_Gateway_Watch403();
+        return new ParserIKData_Gateway_Watch();
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class ParserIKData_Gateway_Protocol extends ParserIKData_Gateway_Abstra
      * @param int $uikNum
      * @param string[] $resultType
      * @param int $constrolRelTrue
-     * @return ParserIKData_Model_Protocol403|NULL
+     * @return ParserIKData_Model_Protocol|NULL
      */
     public function getMixedResult($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNum = null, $resultType = null,
         $controlRelTrue = false, $averageByUik = false )

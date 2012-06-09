@@ -1,22 +1,44 @@
 <?php
-class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Abstract
+abstract class ParserIKData_XMLProcessor_Protocol extends ParserIKData_XMLProcessor_Abstract
 {
     private $_projectCode;
 
     private $_updateData = array();
 
+    /**
+     * @return int
+     */
+    abstract protected function _getLineAmount();
+
+    /**
+    * @return ParserIKData_Gateway_Protocol
+    */
+    abstract protected function _getProtocolGateway();
+
+    /**
+     * @return ParserIKData_Model_Protocol
+     */
+    abstract protected function _getNewProtocol();
+
+    /**
+     * @return int[]
+     */
+    abstract protected function _getMandatoryIndices();
+
+
+
     public function __construct($projectCode)
     {
         $this->_projectCode = $projectCode;
         $current = $this->_getProtocolGateway()->findForProject($this->_projectCode);
-        /* @var $proto ParserIKData_Model_Protocol403  */
+        /* @var $proto ParserIKData_Model_Protocol  */
         foreach ($current as $proto) {
             $this->_protoToUpdateData($proto);
         }
     }
 
     /**
-     * @param ParserIKData_Model_Protocol403 $newProto
+     * @param ParserIKData_Model_Protocol $newProto
      * @return string
      */
     public function updateIfNecessary($newProto)
@@ -45,7 +67,7 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
 
     /**
      * @param string|SimpleXMLElement $xml
-     * @return ParserIKData_Model_Protocol403|string
+     * @return ParserIKData_Model_Protocol|string
      */
     public function createFromXml($sXml)
     {
@@ -62,7 +84,7 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
             return 'skipped - not current project';
         }
 
-        $proto = ParserIKData_Model_Protocol403::create();
+        $proto = $this->_getNewProtocol();
 
         // обязательные поля
         $proto->setResultType($this->_projectCode);
@@ -94,7 +116,7 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         $proto->setIkFullName($regionNum * ParserIKData_Model_UIK::UIKMODULE + $uikNum);
 
         // lines
-        $mandatoryIndices = array(9, 10, 19, 20, 21, 22, 23);
+        $mandatoryIndices = $this->_getMandatoryIndices();
         $lineData = array();
         for ($i = 1; $i < $this->_getLineAmount(); $i++) {
             $prtName = 'p' . $i;
@@ -127,11 +149,6 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         }
     }
 
-    protected function _getLineAmonut()
-    {
-        return ParserIKData_Model_Protocol403::getLineAmount();
-    }
-
     /**
      * в фиде-ретрансляторе могут быть данные от разных проектов (один фид <=> несколько проектов)
      * отбрасываем лишние
@@ -161,16 +178,9 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         return false;
     }
 
-    /**
-     * @return ParserIKData_Gateway_Protocol403
-     */
-    private function _getProtocolGateway()
-    {
-        return new ParserIKData_Gateway_Protocol403();
-    }
 
     /**
-     * @param ParserIKData_Model_Protocol403 $proto
+     * @param ParserIKData_Model_Protocol $proto
      */
     private function _protoToUpdateData($proto)
     {
@@ -179,4 +189,5 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         	'projectId' => $proto->getProjectId()
         );
     }
+
 }

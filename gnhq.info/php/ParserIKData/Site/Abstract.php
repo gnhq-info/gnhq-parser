@@ -3,7 +3,6 @@ include_once ('Cik.php');
 include_once ('CikMarch.php');
 include_once ('Mosgor.php');
 include_once ('Res412.php');
-include_once ('Res403.php');
 include_once ('MRes403.php');
 include_once ('Gn412.php');
 abstract class ParserIKData_Site_Abstract

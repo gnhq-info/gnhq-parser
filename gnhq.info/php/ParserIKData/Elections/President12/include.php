@@ -8,5 +8,6 @@ require_once ('Model/Protocol.php');
 require_once ('Model/Watch.php');
 
 require_once ('Site/Protocol.php');
+require_once ('Site/Res.php');
 
 require_once('Average.php');

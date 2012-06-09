@@ -49,9 +49,9 @@ include_once APPLICATION_DIR_ROOT . 'Cache/include.php';
 
 include_once APPLICATION_DIR_ROOT . 'Helper/403Average.php';
 
-include_once APPLICATION_DIR_ROOT . 'President12/include.php';
+include_once APPLICATION_DIR_ROOT . 'Elections/President12/include.php';
 
-include_once APPLICATION_DIR_ROOT . 'Krasnoyarsk/include.php';
+include_once APPLICATION_DIR_ROOT . 'Elections/Krasnoyarsk/include.php';
 
 if (!isset($PROJECT_CONFIG)) {
     include_once APPLICATION_DIR_ROOT . 'ProjectData.php';

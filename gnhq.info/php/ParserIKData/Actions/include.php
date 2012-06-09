@@ -48,8 +48,6 @@ include_once APPLICATION_DIR_ROOT . 'Gateway/include.php';
 
 include_once APPLICATION_DIR_ROOT . 'Cache/include.php';
 
-include_once APPLICATION_DIR_ROOT . 'Helper/403Average.php';
-
 include_once APPLICATION_DIR_ROOT . 'Elections/President12/include.php';
 
 include_once APPLICATION_DIR_ROOT . 'Elections/Krasnoyarsk/include.php';

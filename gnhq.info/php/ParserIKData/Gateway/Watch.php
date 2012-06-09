@@ -1,14 +1,26 @@
 <?php
 abstract class ParserIKData_Gateway_Watch extends ParserIKData_Gateway_Abstract
 {
-    private $_table = 'watch_412';
+    protected $_table = '';
+
+    /**
+    * @return ParserIKData_Gateway_Protocol
+    */
+    protected function _getProtocolGateway() {
+        throw new Exception('must be implemented');
+    }
+
+    protected function _getCacheLifetime()
+    {
+        return null;
+    }
 
     public function getCount($watchType, $okrugAbbr = null, $withDiscrepancy = false, $withProtocol = false)
     {
         $args = func_get_args();
-        if (false === ($count = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($count = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $conds = array();
-            $conds[] = 'WatchType = "'.$this->_escapeString($watchType).'"';
+            $conds[] = 'WatchType '.$this->_getWatchTypeString($watchType);
             if ($okrugAbbr) {
                 $conds[] = 'uik in (' . $this->_getUikGateway()->getCondOkrug($okrugAbbr) . ')';
             }
@@ -24,7 +36,7 @@ abstract class ParserIKData_Gateway_Watch extends ParserIKData_Gateway_Abstract
                 $count = $res[0];
             }
 
-            $this->_saveToCache(__CLASS__, __METHOD__, $args, $count);
+            $this->_saveToCache(get_called_class(), __METHOD__, $args, $count);
         }
 
         return $count;
@@ -36,7 +48,7 @@ abstract class ParserIKData_Gateway_Watch extends ParserIKData_Gateway_Abstract
      */
     public function getCondIn($watchType)
     {
-        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType = "'.$this->_escapeString($watchType).'"';
+        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType '.$this->_getWatchTypeString($watchType);
     }
 
     /**
@@ -45,6 +57,15 @@ abstract class ParserIKData_Gateway_Watch extends ParserIKData_Gateway_Abstract
     */
     public function getCondClear($watchType)
     {
-        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType = "'.$this->_escapeString($watchType).'" AND code = 1';
+        return 'SELECT uik FROM ' . $this->_table . ' WHERE WatchType '.$this->_getWatchTypeString($watchType).' AND code = 1';
+    }
+
+    private function _getWatchTypeString($watchType)
+    {
+        $parts = array();
+        foreach ($watchType as $wType) {
+            $parts[] = $this->_escapeString($wType);
+        }
+        return ' IN ("' . implode ('", "', $parts) . '")';
     }
 }

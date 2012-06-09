@@ -17,7 +17,7 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
     {
         $args = func_get_args();
 
-        if (false === ($uiks = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($uiks = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $conds = array();
             $conds[] =  'FullName IN (' . $this->_getCondOkrug($okrugAbbr) . ')';
             if ($watchType) {
@@ -44,7 +44,7 @@ class ParserIKData_Gateway_UIK extends ParserIKData_Gateway_Abstract
                 $uiks[$uik->getUniqueId()] = $uik;
             }
 
-            $this->_saveToCache(__CLASS__, __METHOD__, $args, $uiks);
+            $this->_saveToCache(get_called_class(), __METHOD__, $args, $uiks);
         }
         return $uiks;
     }

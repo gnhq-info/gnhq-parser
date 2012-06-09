@@ -82,7 +82,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     {
         if (empty($this->_tikNums)) {
             $args = func_get_args();
-            if (false === ($nums = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            if (false === ($nums = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
 
                 $nums = array();
                 $data = $this->_loadFromTable($this->_table, $this->_modelClass);
@@ -90,7 +90,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
                     /* @var $uikR ParserIKData_Model_UIKRussia */
                     $nums[$uikR->getRegionNum()][$uikR->getUikNum()] = $uikR->getTikNum();
                 }
-                $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $nums);
+                $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $nums);
 
                 //print 'not from cache'.PHP_EOL;
             } else {
@@ -113,7 +113,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     public function getCount($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNums = null)
     {
         $args = func_get_args();
-        if (false === ($uikCount = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($uikCount = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $whereParts = array();
             if ($regionNum) {
                 $whereParts[] = $this->_getCondRegionNum($regionNum);
@@ -134,7 +134,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
             $data = $this->_getDriver()->selectAssoc('Count(*) as CNT', $this->_table, $where);
             $uikCount =  $data[0]['CNT'];
 
-            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $uikCount);
+            $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $uikCount);
             //echo 'not from cache;';
         } else {
             //echo 'from cache';
@@ -154,7 +154,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
     public function getUiks($regionNum = null, $okrugAbbr = null, $tikNum = null, $uikNums = null, $projectCodes)
     {
         $args = func_get_args();
-        if (false === ($uiks = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($uiks = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $whereParts = array();
             if ($regionNum) {
                 $whereParts[] = $this->_getCondRegionNum($regionNum);
@@ -179,7 +179,7 @@ class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
             $where = implode(' AND ', $whereParts);
             $uiks = $this->_loadFromTable($this->_table, $this->_modelClass, $where);
 
-            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $uiks);
+            $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $uiks);
             //echo 'not from cache;';
         } else {
             //echo 'from cache';

@@ -33,10 +33,10 @@ class ParserIKData_Gateway_TIKRussia extends ParserIKData_Gateway_Abstract
     public function getForRegionAndOkrug($regionNum, $okrug)
     {
         $args = func_get_args();
-        if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($result = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $cond = sprintf('RegionNum = %d AND OkrugName = "%s"', $regionNum, $this->_getDriver()->escapeString($okrug));
             $result = $this->_loadFromTable($this->_table, $this->_modelClass, $cond, null, null);
-            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $result);
+            $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $result);
         }
         return $result;
     }

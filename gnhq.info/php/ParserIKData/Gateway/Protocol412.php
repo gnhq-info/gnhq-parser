@@ -20,12 +20,12 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
     public function getMixedResult($okrugAbbr = null, $uikNum = null, $resultType = null, $oProto = false, $oClean = false, $oDiscrep = false, $oReport = false)
     {
         $args = func_get_args();
-        if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($result = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $cond = $this->_buildCond($okrugAbbr, $uikNum, $resultType, $oProto, $oClean, $oDiscrep, $oReport);
             $query = $this->_buildSumQuery($cond);
             $result = $this->_fetchSumProtocol($query);
 
-            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $result);
+            $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $result);
         }
 
         return $result;

@@ -29,7 +29,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
     public function short($projectCode, $mergedTypeId, $regionNum, $tikNum, $uikNum)
     {
         $args = func_get_args();
-        if (false === ($violations = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($violations = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
 
             $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, $uikNum);
             $data = $this->_getDriver()->selectAssoc(
@@ -54,7 +54,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
                     ->setUIKNum($row['UIKNum']);
                 $violations[] = $viol;
             }
-            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $violations);
+            $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $violations);
             //print 'NOT FROM CACHE'.PHP_EOL;
         } else {
             //print 'FROM CACHE'.PHP_EOL;

@@ -57,7 +57,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
         if (empty($this->_typeCodes[$projectCode])) {
             $args = func_get_args();
             $args[] = 1;
-            if (false === ($codes = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+            if (false === ($codes = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
                 $whereCond = sprintf ('ProjectCode = "%s"', $this->_escapeString($projectCode));
 
                 $codes = array();
@@ -66,7 +66,7 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
                     /* @var $vType ParserIKData_Model_ViolationType */
                     $codes[$vType->getProjectType()] = $vType->getMergedType();
                 }
-                $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $codes);
+                $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $codes);
 
                 //print 'not from cache'.PHP_EOL;
             } else {
@@ -101,9 +101,9 @@ class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
             break;
         }
         $args = func_get_args();
-        if (false === ($result = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($result = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $result = $this->_loadFromTable($this->_table, $this->_model, 'FullName != ""', null, $order);
-            $this->_saveToCache(__CLASS__, __FUNCTION__, $args, $result);
+            $this->_saveToCache(get_called_class(), __FUNCTION__, $args, $result);
         }
         return $result;
     }

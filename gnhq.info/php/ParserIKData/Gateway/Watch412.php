@@ -6,7 +6,7 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
     public function getCount($watchType, $okrugAbbr = null, $withDiscrepancy = false, $withProtocol = false)
     {
         $args = func_get_args();
-        if (false === ($count = $this->_loadFromCache(__CLASS__, __FUNCTION__, $args)) ) {
+        if (false === ($count = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
             $conds = array();
             $conds[] = 'WatchType = "'.$this->_escapeString($watchType).'"';
             if ($okrugAbbr) {
@@ -24,7 +24,7 @@ class ParserIKData_Gateway_Watch412 extends ParserIKData_Gateway_Abstract
                 $count = $res[0];
             }
 
-            $this->_saveToCache(__CLASS__, __METHOD__, $args, $count);
+            $this->_saveToCache(get_called_class(), __METHOD__, $args, $count);
         }
 
         return $count;

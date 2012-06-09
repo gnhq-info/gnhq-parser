@@ -32,7 +32,7 @@ if (AUTH_NEEDED) {
 }
 
 
-define('WATCH_GN', ParserIKData_Model_Protocol412::TYPE_GN);
+define('WATCH_GN', ParserIKData_Model_Protocol::TYPE_GN);
 /**
 * @var ParserIKData_Warehouse_Interface
 */

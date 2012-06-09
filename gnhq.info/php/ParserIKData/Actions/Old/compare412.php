@@ -6,11 +6,11 @@ include_once 'include.php';
 */
 $warehouse = ParserIKData_ServiceLocator::getInstance()->getWarehouse();
 $warehouse->loadAllOkrugs()->loadAllTiks()->loadAllUiks();
-$warehouse->loadElectionResults('412', ParserIKData_Model_Protocol412::TYPE_GN);
+$warehouse->loadElectionResults('412', ParserIKData_Model_Protocol::TYPE_GN);
 $gnResults = ParserIKData_Model_Protocol412::getAllOBjects();
 usort($gnResults, function($a, $b){return ($a->getFullName() < $b->getFullName() ? '-1' : 1);});
 
-$warehouse->loadElectionResults('412', ParserIKData_Model_Protocol412::TYPE_OF);
+$warehouse->loadElectionResults('412', ParserIKData_Model_Protocol::TYPE_OF);
 
 $cnt = 1;
 foreach ($gnResults as $gnResult) {

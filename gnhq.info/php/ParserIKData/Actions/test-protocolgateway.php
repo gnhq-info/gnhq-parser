@@ -15,7 +15,7 @@ $gateway = new ParserIKData_Gateway_Protocol412();
 $okrugAbbr = 'ЗелАО';
 $uikNum = null;
 $watchOf = null;
-$watchGn = ParserIKData_Model_Protocol412::TYPE_GN;
+$watchGn = ParserIKData_Model_Protocol::TYPE_GN;
 
 $warehouse->loadAllOkrugs();
 

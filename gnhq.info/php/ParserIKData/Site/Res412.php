@@ -52,7 +52,7 @@ class ParserIKData_Site_Res412 extends ParserIKData_Site_Cik
     public function createResult($uikName, $data)
     {
         $uikNumber = str_replace('УИК №', '', $uikName);
-        $result = ParserIKData_Model_Protocol412::createFromPageInfo($uikNumber, '', array());
+        $result = ParserIKData_Model_Protocol::createFromPageInfo($uikNumber, '', array());
         /* @var $result ParserIKData_Model_Protocol412 */
         $result->setTypeOf();
         $result->setData($data);

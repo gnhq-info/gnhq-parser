@@ -38,8 +38,8 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
 
     public function getCondDiscrepancy($watchType = null, $maxAllowable = null, $indices = null)
     {
-        if ($watchType !== ParserIKData_Model_Protocol412::TYPE_GN) {
-            $watchType = ParserIKData_Model_Protocol412::TYPE_GN;
+        if ($watchType !== ParserIKData_Model_Protocol::TYPE_GN) {
+            $watchType = ParserIKData_Model_Protocol::TYPE_GN;
         }
         if (!$maxAllowable) {
             $maxAllowable = ParserIKData_Model_Protocol412::ALLOWABLE_DISCREPANCY;
@@ -168,7 +168,7 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
      */
     private function _getCondOfficial()
     {
-        return $this->_getCondResultType(ParserIKData_Model_Protocol412::TYPE_OF);
+        return $this->_getCondResultType(ParserIKData_Model_Protocol::TYPE_OF);
     }
 
     private function _getCondResultType($resultType)
@@ -225,7 +225,7 @@ class ParserIKData_Gateway_Protocol412 extends ParserIKData_Gateway_Abstract
      */
     private function _getCondTypeUik()
     {
-        return ' IkType = "'.$this->_escapeString(ParserIKData_Model_Protocol412::IkTYPE_UIK).'"';
+        return ' IkType = "'.$this->_escapeString(ParserIKData_Model_Protocol::IkTYPE_UIK).'"';
     }
 
     /**

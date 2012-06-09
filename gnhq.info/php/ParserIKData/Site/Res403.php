@@ -50,7 +50,7 @@ class ParserIKData_Site_Res403 extends ParserIKData_Site_Cik
             }
         }
         $proto = ParserIKData_Model_Protocol403::create();
-        $proto->setResultType(ParserIKData_Model_Protocol403::TYPE_OF);
+        $proto->setResultType(ParserIKData_Model_Protocol::TYPE_OF);
         $proto->setData($data);
         $proto->setProjectId(0);
         $proto->setIkFullName($uik->getFullName());

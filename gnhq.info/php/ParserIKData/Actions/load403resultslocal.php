@@ -16,9 +16,9 @@ while ($arr = fgetcsv($f, 0, ';', '"')) {
     }
 
     $proto = ParserIKData_Model_Protocol403::create();
-    $proto->setResultType(ParserIKData_Model_Protocol403::TYPE_OF);
+    $proto->setResultType(ParserIKData_Model_Protocol::TYPE_OF);
     $data = array();
-    for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
+    for ($i = 1; $i < ParserIKData_Model_Protocol403::getLineAmount(); $i++) {
         $data[$i] = 0;
     }
     $data[ParserIKData_Model_Protocol403::INDEX_VZ] = $arr[4];

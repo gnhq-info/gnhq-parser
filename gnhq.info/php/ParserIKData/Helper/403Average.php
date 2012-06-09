@@ -105,7 +105,7 @@ class ParserIKData_Helper_403Average
                 null,
                 null,
                 null,
-                ParserIKData_Model_Protocol403::TYPE_OF,
+                ParserIKData_Model_Protocol::TYPE_OF,
                 $this->_controlRelTrue,
                 $this->_averageByUik
         );

@@ -12,7 +12,7 @@ $gateway = new ParserIKData_Gateway_UIK();
 
 $okrugAbbr = 'ЦАО';
 $watchOf = null;
-$watchGn = ParserIKData_Model_Protocol412::TYPE_GN;
+$watchGn = ParserIKData_Model_Protocol::TYPE_GN;
 
 $uiks = $gateway->getForOkrug($okrugAbbr, $watchOf);
 foreach ($uiks as $uik) {

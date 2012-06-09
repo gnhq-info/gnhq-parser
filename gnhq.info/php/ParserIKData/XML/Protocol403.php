@@ -96,7 +96,7 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         // lines
         $mandatoryIndices = array(9, 10, 19, 20, 21, 22, 23);
         $lineData = array();
-        for ($i = 1; $i < ParserIKData_Model_Protocol403::LINE_AMOUNT; $i++) {
+        for ($i = 1; $i < $this->_getLineAmount(); $i++) {
             $prtName = 'p' . $i;
             if ($sXml->children()->$prtName) {
                 $lineData[$i] = (int)$sXml->children()->$prtName;
@@ -125,6 +125,11 @@ class ParserIKData_XMLProcessor_Protocol403 extends ParserIKData_XMLProcessor_Ab
         } else {
             return $proto;
         }
+    }
+
+    protected function _getLineAmonut()
+    {
+        return ParserIKData_Model_Protocol403::getLineAmount();
     }
 
     /**

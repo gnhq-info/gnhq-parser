@@ -3,6 +3,8 @@ class ParserIKData_ServiceLocator // implements Singleton
 {
     private $_configFileName = 'services.ini';
 
+    private $_services = array();
+
     /**
      * @var Lib_Config_Interface
      */
@@ -24,6 +26,17 @@ class ParserIKData_ServiceLocator // implements Singleton
             self::$_instance = $item;
         }
         return self::$_instance;
+    }
+
+    public function getService($key)
+    {
+        return isset($this->_services[$key]) ? $this->_services[$key] : null;
+    }
+
+    public function setService($key, $obj)
+    {
+        $this->_services[$key] = $obj;
+        return $this;
     }
 
     /**

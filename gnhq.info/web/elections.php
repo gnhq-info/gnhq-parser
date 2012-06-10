@@ -1,5 +1,7 @@
 <?php
-$electionsMap = array('krasnoyarsk' => 'krasnoyarsk');
+$electionsMap = array(
+	'krasnoyarsk' => 'krasnoyarsk'
+);
 
 
 $req = isset($_GET['el']) ? $_GET['el'] : '';

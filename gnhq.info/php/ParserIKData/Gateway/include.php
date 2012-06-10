@@ -1,21 +1,21 @@
 <?php
-require_once('Watch.php');
-require_once('Watch412.php');
-require_once('Protocol.php');
-require_once('Protocol412.php');
-require_once('Report412.php');
-require_once('UIK.php');
-require_once('TIK.php');
-require_once('Okrug.php');
-require_once('Region.php');
-require_once('TIKRussia.php');
-require_once('UIKRussia.php');
-require_once('ViolationType.php');
-require_once('Violation.php');
-require_once('Twit.php');
-require_once('MoscowOkrug.php');
-require_once('MoscowCand.php');
-require_once('MoscowProtocol403.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Watch.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Watch412.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Protocol.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Protocol412.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Report412.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'UIK.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'TIK.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Okrug.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Region.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'TIKRussia.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'UIKRussia.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'ViolationType.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Violation.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Twit.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'MoscowOkrug.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'MoscowCand.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'MoscowProtocol403.php');
 
 class ParserIKData_Gateway_Abstract
 {

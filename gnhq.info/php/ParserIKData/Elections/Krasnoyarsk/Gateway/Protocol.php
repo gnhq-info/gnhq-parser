@@ -39,7 +39,7 @@ class ParserIKData_Gateway_Protocol_Krasnoyarsk extends ParserIKData_Gateway_Pro
      */
     protected function _getAllowableDiscrepancy()
     {
-        return ParserIKData_Model_Protocol403::getAllowableDiscrepancy();
+        return ParserIKData_Model_Protocol_Krasnoyarsk::getAllowableDiscrepancy();
     }
 
 

@@ -3,7 +3,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 }
 
-$JS_SCRIPT_VERSION = 1;
+$JS_SCRIPT_VERSION = 2;
 $CSS_VERSION = 1;
 
 ?>
@@ -193,9 +193,9 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 		ViolConfigData['DefaultRegion'] = 24;
 	</script>
 	<script type="text/javascript" src="js/violtypes_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
-	<script type="text/javascript" src="js/<?php echo $folder;?>/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
-	<script type="text/javascript" src="js/<?php echo $folder;?>/watchers_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
-	<script type="text/javascript" src="js/<?php echo $folder;?>/regions_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="elections/<?php echo $folder;?>/js/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="elections/<?php echo $folder;?>/js/watchers_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="elections/<?php echo $folder;?>/js/regions_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/decoration.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/viol.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="js/statScreen.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>

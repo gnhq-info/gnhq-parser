@@ -4,6 +4,7 @@ $PROJECT_CONFIG = array(
             'Name'      => 'Гражданин наблюдатель',
 			//'ProtoLink' => '',
             'ProtoLink' => 'http://gnhq.info/export/protocols.xml',
+			'ProtoLink'  => 'https://gnhq.info/comm/protocols.xml',
             'ViolLink'  => 'http://gnhq.info/export/violations.xml',
 			'ViolLink'  => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\viol1.xml',
         ),

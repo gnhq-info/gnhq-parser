@@ -7,7 +7,7 @@ require_once ('Gateway/ProtocolOffile.php');
 require_once ('Model/Protocol.php');
 require_once ('Model/Watch.php');
 
-require_once ('Site/Protocol.php');
+require_once ('XMLProcessor/Protocol.php');
 require_once ('Site/Res.php');
 
-require_once('Average.php');
+require_once('Helper/Average.php');

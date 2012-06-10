@@ -27,18 +27,18 @@
  */
 class ParserIKData_Model_Protocol_Krasnoyarsk extends ParserIKData_Model_Protocol
 {
-    const INDEX_EA = 19;
-    const INDEX_MI = 20;
-    const INDEX_NK = 21;
-    const INDEX_AK = 22;
-    const INDEX_AM = 23;
-    const INDEX_MO = 24;
-    const INDEX_AP = 25;
+    const INDEX_EA = 13;
+    const INDEX_MI = 14;
+    const INDEX_NK = 15;
+    const INDEX_AK = 16;
+    const INDEX_AM = 17;
+    const INDEX_MO = 18;
+    const INDEX_AP = 19;
 
 
     public static function getLineAmount()
     {
-        return 26;
+        return 20;
     }
 
     public static function getAllowableDiscrepancy()

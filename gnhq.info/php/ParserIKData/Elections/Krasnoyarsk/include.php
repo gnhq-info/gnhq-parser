@@ -2,6 +2,7 @@
 require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Config.php');
 
 require_once('Gateway/Protocol.php');
+require_once('Gateway/ProtocolOf.php');
 require_once('Gateway/Watch.php');
 require_once('Gateway/Violation.php');
 require_once('Gateway/Region.php');

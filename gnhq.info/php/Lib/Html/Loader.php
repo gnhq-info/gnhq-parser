@@ -67,6 +67,9 @@ class Lib_Html_Loader
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function load()
     {
         if ($this->_useCache && ($result = $this->_loadFromCache())) {

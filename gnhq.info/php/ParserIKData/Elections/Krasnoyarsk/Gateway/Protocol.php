@@ -44,6 +44,14 @@ class ParserIKData_Gateway_Protocol_Krasnoyarsk extends ParserIKData_Gateway_Pro
 
 
     /**
+    * @return ParserIKData_Gateway_UIK
+    */
+    protected function _getUikGeneralGateway()
+    {
+        return new ParserIKData_Gateway_Uik_Krasnoyarsk();
+    }
+
+    /**
      * @return int[]
      */
     protected function _getIndicesForCompare()

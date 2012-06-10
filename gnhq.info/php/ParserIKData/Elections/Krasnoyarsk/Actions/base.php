@@ -1,5 +1,5 @@
 <?php
-$dirParts = explode(DIRECTORY_SEPARATOR, trim(__DIR__, DIRECTORY_SEPARATOR));
+$dirParts = explode(DIRECTORY_SEPARATOR, rtrim(__DIR__, DIRECTORY_SEPARATOR));
 array_pop($dirParts);
 array_pop($dirParts);
 array_pop($dirParts);

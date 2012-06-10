@@ -9,6 +9,6 @@ class ParserIKData_Gateway_Violation_Krasnoyarsk extends ParserIKData_Gateway_Vi
     */
     protected function _getCacheLifetime()
     {
-        return null;
+        return 1;
     }
 }

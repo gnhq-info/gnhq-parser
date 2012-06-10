@@ -18,7 +18,7 @@ $PROJECT_CONFIG = array(
             'Name'      => 'Голос',
 			'ProtoLink' => '',
             'ProtoLink' => 'http://sms.golos.org/export.xml',
-			'ViolLink'  => 'http://m.kartanarusheniy.org/messages/date/2012-06-10/56.0141053,92.8643491/56.0141053,92.8643491/geo',
+			'ViolLink'  => 'http://m.kartanarusheniy.org/messages/date/2012-06-10/56.0141053,92.8643491/56.0141053,92.8643491/geo?page=2',
             //'ViolLink'  => 'C:\git\gnhq.info\gnhq\gnhq.info\php\ParserIKData\Data\viol1.xml',
     ),
 );

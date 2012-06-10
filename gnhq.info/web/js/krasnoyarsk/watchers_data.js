@@ -1,7 +1,9 @@
 StaticData.Watchers = {
-	'GN': 'Гражданин наблюдатель'
+	'GN': 'Гражданин наблюдатель',
+	'AG': 'Ассоциация Голос'
 };
 
 StaticData.WatchersOnline = {
-	'GN': 1
+	'GN': 1,
+	'AG': 1
 };

@@ -61,6 +61,30 @@ class ParserIKData_XMLProcessor_Violation_Krasnoyarsk extends ParserIKData_XMLPr
     }
 
 
+    /**
+    * @param ParserIKData_Model_Violation $newViol
+    * @return string
+    */
+    public function updateIfNecessary($newViol)
+    {
+        if ($this->_projectCode == PROJECT_GOLOS) {
+
+            $ind = $newViol->getProjectId();
+            // новое нарушение
+            if (empty($this->_updateData[$ind])) {
+                $this->_getViolationGateway()->insert($newViol);
+                $this->_violToUpdateData($newViol);
+                return 'inserted';
+            }
+            return 'skipped id';
+
+        } else {
+
+            return parent::updateIfNecessary($newViol);
+
+        }
+    }
+
     private function _rowToXml($row)
     {
         return "

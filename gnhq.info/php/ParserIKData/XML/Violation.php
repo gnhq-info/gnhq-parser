@@ -3,11 +3,11 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
 {
     protected $_projectCode = null;
 
-    private $_updateData = array();
+    protected $_updateData = array();
 
-    private $_uikRGateway = null;
+    protected $_uikRGateway = null;
 
-    private $_vtypeGateway = null;
+    protected $_vtypeGateway = null;
 
     public function __construct($projectCode)
     {
@@ -304,7 +304,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
     /**
      * @param ParserIKData_Model_Violation $viol
      */
-    private function _violToUpdateData($viol)
+    protected function _violToUpdateData($viol)
     {
         $this->_updateData[$viol->getProjectId()] = array (
             	'time'    => strtotime($viol->getProjectUptime()),

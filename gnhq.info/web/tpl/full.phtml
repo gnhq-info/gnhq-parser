@@ -2,12 +2,7 @@
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 }
-
-$JS_SCRIPT_VERSION = 2;
-$CSS_VERSION = 1;
-
 ?>
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
@@ -21,7 +16,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 }
 ?>
 
-<title>Гражданин Наблюдатель - Выборы мэра Красноярска. 10.06.2012</title>
+<title>Гражданин Наблюдатель - <?php echo $view->electionsName;?></title>
 </head>
 <body>
 	<div class="container" style="margin-top: 5px; width: 96% !important;">
@@ -101,7 +96,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 
 			<?php
 			foreach($view->diagRows as $line) {
-			    include(rtrim(FRONTEND_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tpl' .DIRECTORY_SEPARATOR. 'protocolline.phtml');
+			    require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'protocolline.phtml');
 			}
 			unset($line);
 			?>

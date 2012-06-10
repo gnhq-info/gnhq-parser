@@ -1,8 +1,4 @@
 <?php
-
-$folder = 'krasnoyarsk';
-
-
 $view->diagRows = array(
 array('key' => 'EA',  'hdr' => 'Эдхам Акбулатов',         'title' => 'Эдхам Акбулатов',         'color' => 'yellow'),
 array('key' => 'MI',  'hdr' => 'Максим Иваныч',           'title' => 'Максим Иваныч',           'color' => 'orange'),
@@ -15,5 +11,9 @@ array('key' => 'AT', 'hdr' => 'Явка',             'title' => 'Явка', 'co
 array('key' => 'SP', 'hdr' => 'Недействительные', 'title' => 'Недействительные', 'color' => 'grey'),
 );
 
+$view->electionsName = 'Выборы мэра Красноярска. 10.06.2012';
+$JS_SCRIPT_VERSION = 2;
+$CSS_VERSION = 1;
+$folder = 'krasnoyarsk';
 
-require_once 'tpl/full.phtml';
+require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'full.phtml');

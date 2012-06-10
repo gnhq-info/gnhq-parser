@@ -4,13 +4,10 @@
  */
 require_once 'base.php';
 
-$uikGateway = new ParserIKData_Gateway_Uik_Krasnoyarsk();
-$protoGateway = new ParserIKData_Gateway_Protocol_KrasnoyarskOf();
-$uiks = $uikGateway->getAll();
-$site = new ParserIKData_Site_CikUIK_Krasnoyarsk();
+ParserIKData_ServiceLocator::getInstance()
+    ->setService('Gateway_Uik', new ParserIKData_Gateway_Uik_Krasnoyarsk())
+    ->setService('Gateway_ProtocolOf', new ParserIKData_Gateway_Protocol_KrasnoyarskOf())
+    ->setService('Site_CikUIK', new ParserIKData_Site_CikUIK_Krasnoyarsk());
 
-foreach ($uiks as $uik) {
-    $proto = $site->getOficialProtocol($uik);
-    $protoGateway->insert($proto);
-    print($uik->getFullName() . PHP_EOL);
-}
+require_once( APPLICATION_DIR_ROOT . '/Elections/Actions/import-of-result.php');
+

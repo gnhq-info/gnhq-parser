@@ -109,7 +109,7 @@ if ($modeSingleViolation) {
     }
 
     // uiks
-    $uikRGateway = new ParserIKData_Gateway_UIKRussia();
+    $uikRGateway = new ParserIKData_Gateway_Uik_Krasnoyarsk();
     $uikCount = $uikRGateway->setUseCache(true)->getCount($regionNum, $okrugAbbr, $tikNum, array($uikNum));
     $uiks = array();
     if ($tikNum && !$uikNum) {
@@ -152,24 +152,13 @@ if ($modeSingleViolation) {
     }
 
     if ($regionNum) {
-        $protocolGateway = new ParserIKData_Gateway_Protocol403();
-        $protocolGateway->setUseCache(true);
-        $ofGateway = new ParserIKData_Gateway_Protocol403Offile();
-        $ofGateway->setUseCache(true);
+        $protocolGateway = new ParserIKData_Gateway_Protocol_Krasnoyarsk();
+        $protocolGateway->setUseCache(false);
+        $ofGateway = new ParserIKData_Gateway_Protocol_KrasnoyarskOf();
+        $ofGateway->setUseCache(false);
         $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, $resultProjectCodes, $onlyControlRelTrue, true);
         $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, 'OF', $onlyControlRelTrue, true);
         // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);
-    } else {
-        $average = new ParserIKData_Helper_403Average($resultProjectCodes, $onlyControlRelTrue, true);
-        if (!empty($skippedRegionNums)) {
-            $average->setSkippedRegions($skippedRegionNums);
-        }
-        $average->calcProjectResults()->calcOfResults();
-        $ofResultData = $average->getOfDiagramData();
-        $ofResultUikCount = $average->getOfUikCount();
-        $watchersResultData = $average->getProjectDiagramData();
-        $watchersResultUikCount = $average->getProjectUikCount();
-        $usedRegionNums = $average->getRegionNums();
     }
 }
 
@@ -194,13 +183,7 @@ if ($modeSingleViolation) {
         $response->usedRegionNums = $usedRegionNums;
     }
 
-
-    // $response->watchersData = array('VZ' => 0, 'GZ' => 0, 'MP' => 0, 'VP' => 0, 'SM' => 0, 'AT' => 0, 'SP' => 0);
-    // $response->ofData = array('VZ' => 0, 'GZ' => 0, 'MP' => 0, 'VP' => 0, 'SM' => 0, 'AT' => 0, 'SP' => 0);
-    // $response->watchersUIKCount = 0;
-    // $response->ofUIKCount = 0;
-
-    if (!empty($watchersResult) && $watchersResult instanceof ParserIKData_Model_Protocol403) {
+    if (!empty($watchersResult) && $watchersResult instanceof ParserIKData_Model_Protocol) {
         $response->watchersData =  $watchersResult->getDiagramData(true, 2);
         $response->watchersUIKCount = $watchersResult->getUikCount();
         $response->ofData = $ofResult->getDiagramData(true, 2);

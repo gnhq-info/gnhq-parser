@@ -6,6 +6,8 @@ require_once (__DIR__ . DIRECTORY_SEPARATOR . 'Mosgor.php');
 require_once (__DIR__ . DIRECTORY_SEPARATOR . 'Res412.php');
 require_once (__DIR__ . DIRECTORY_SEPARATOR . 'MRes403.php');
 require_once (__DIR__ . DIRECTORY_SEPARATOR . 'Gn412.php');
+require_once (__DIR__ . DIRECTORY_SEPARATOR . 'KartaNarushenij.php');
+
 abstract class ParserIKData_Site_Abstract
 {
     /**

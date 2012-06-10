@@ -1,33 +1,21 @@
 <results projecturl="http://gnhq.info/xml/">
-	<prt>
-		<obsproject>3</obsproject>
-		<id>7</id>
-		<obsproject>2</obsproject>
-		<p10>2796</p10>
-		<p19>438</p19>
-		<p20>804</p20>
-		<p21>535</p21>
-		<p22>260</p22>
-		<p23>759</p23>
-		<p9>11</p9>
-		<region>25</region>
-		<test>1</test>
-		<uik>1728</uik>
-		<updt>12-02-26 14:56</updt>
-	</prt>
+	<prt><id>6282</id><campaign>3</campaign><obsid>0</obsid><p1>1</p1><p10>1</p10><p13>1</p13><p14>1</p14><p15>1</p15><p16>1</p16><p17>1</p17><p18>1</p18><p19>1</p19><p3>1</p3><p4>1</p4><p5>1</p5><p9>1</p9><recchannel>1</recchannel><region>24</region><station>197</station><uik>154</uik><updt>12-06-10 08:37</updt></prt>
 	<prt>
 		<id>8</id>
 		<obsproject>3</obsproject>
-		<p10>2228</p10>
+		<p10>2288</p10>
 		<p19>628</p19>
 		<p20>134</p20>
 		<p21>110</p21>
 		<p22>373</p22>
 		<p23>983</p23>
+		<p22>20</p22>
+		<p23>40</p23>
+		
 		<p9>12</p9>
-		<region>1</region>
+		<region>24</region>
 		<test>1</test>
-		<uik>82</uik>
-		<updt>12-02-26 14:56</updt>
+		<uik>298</uik>
+		<updt>12-06-10 14:56</updt>
 	</prt>
 </results>

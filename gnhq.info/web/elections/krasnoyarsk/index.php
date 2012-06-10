@@ -1,6 +1,4 @@
 <?php
-define('PROJECT_STARTED', 1);
-require_once 'webinclude.php';
 
 $folder = 'krasnoyarsk';
 

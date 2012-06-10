@@ -99,7 +99,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 			<tbody>
 
 
-			< ?php
+			<?php
 			foreach($view->diagRows as $line) {
 			    include(rtrim(FRONTEND_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'tpl' .DIRECTORY_SEPARATOR. 'protocolline.phtml');
 			}

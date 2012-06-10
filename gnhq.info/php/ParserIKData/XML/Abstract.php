@@ -1,7 +1,7 @@
 <?php
-include_once('Violation.php');
-include_once('Protocol.php');
-include_once('Twitter.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Violation.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Protocol.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Twitter.php');
 
 abstract class ParserIKData_XMLProcessor_Abstract
 {

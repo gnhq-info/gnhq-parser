@@ -1,7 +1,7 @@
 <?php
 class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abstract
 {
-    private $_projectCode = null;
+    protected $_projectCode = null;
 
     private $_updateData = array();
 
@@ -18,6 +18,15 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
             $this->_violToUpdateData($viol);
         }
 
+    }
+
+    /**
+     * @param string $src
+     * @return SimpleXMLElement
+     */
+    public function loadFromSource($src)
+    {
+        return simplexml_load_file($projectFeed);
     }
 
     /**

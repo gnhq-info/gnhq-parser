@@ -1,6 +1,6 @@
 <?php
-include_once ('Base.php');
-include_once('IniFile.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Base.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'IniFile.php');
 
 interface Lib_Config_Interface
 {

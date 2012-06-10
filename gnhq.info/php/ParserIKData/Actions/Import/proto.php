@@ -4,7 +4,7 @@ array_pop($dirParts);
 $pathToBasicInclude = implode(DIRECTORY_SEPARATOR, $dirParts);
 unset($dirParts);
 
-include_once $pathToBasicInclude . DIRECTORY_SEPARATOR . 'include.php';
+require_once $pathToBasicInclude . DIRECTORY_SEPARATOR . 'include.php';
 
 $projectCode = $argv[1];
 

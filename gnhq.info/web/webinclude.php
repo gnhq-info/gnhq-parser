@@ -22,7 +22,7 @@ ini_set('error_reporting', E_ALL);
 ini_set('error_log', ERROR_LOG_FILE);
 
 
-include_once $logicIncludeFilePath;
+require_once $logicIncludeFilePath;
 
 define('DEBUG', PHP_OS == 'WINNT' ? true : false);
 define('AUTH_NEEDED', strtolower($_SERVER['HTTP_HOST']) == 'gnhq.info' ? true : false);

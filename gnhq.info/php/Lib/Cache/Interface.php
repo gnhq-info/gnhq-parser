@@ -1,5 +1,5 @@
 <?php
-include_once('Basic.php');
+require_once('Basic.php');
 
 interface Lib_Cache_Interface
 {

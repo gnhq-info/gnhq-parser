@@ -5,12 +5,14 @@
  */
 require_once('base.php');
 
-$projectCode = $argv[1];
+// $projectCode = $argv[1];
+$projectCode = PROJECT_GOLOS;
 
 if (empty($PROJECT_CONFIG[$projectCode])) {
     print 'wrong code '.$projectCode;
     return;
 }
+
 
 $projectFeed = $PROJECT_CONFIG[$projectCode]['ViolLink'];
 
@@ -18,16 +20,20 @@ if (!$projectFeed) {
     print 'no feed link';
     return;
 }
+
+$xmlProcessor = new ParserIKData_XMLProcessor_Violation_Krasnoyarsk($projectCode);
+$gateway = new ParserIKData_Gateway_Violation_Krasnoyarsk();
+
 $timeStart = microtime(true);
-$sXml = simplexml_load_file($projectFeed);
+
+$sXml = $xmlProcessor->loadFromSource($projectFeed);
+
 if (!$sXml instanceof SimpleXMLElement) {
     print('bad xml');
     return;
 }
 $timeEndLoad = microtime(true);
 
-$xmlProcessor = new ParserIKData_XMLProcessor_Violation_Krasnoyarsk($projectCode);
-$gateway = new ParserIKData_Gateway_Violation_Krasnoyarsk();
 
 $importCodes = array();
 foreach ($sXml->xpath('viol') as $vXml) {

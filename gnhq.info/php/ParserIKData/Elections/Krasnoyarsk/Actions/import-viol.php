@@ -5,8 +5,8 @@
  */
 require_once('base.php');
 
-// $projectCode = $argv[1];
-$projectCode = PROJECT_GOLOS;
+$projectCode = $argv[1];
+
 
 if (empty($PROJECT_CONFIG[$projectCode])) {
     print 'wrong code '.$projectCode;

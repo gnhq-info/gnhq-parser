@@ -16,3 +16,4 @@ require_once('XMLProcessor/Violation.php');
 require_once('XMLProcessor/Protocol.php');
 
 require_once('Site/IkData.php');
+require_once('Site/IkResult.php');

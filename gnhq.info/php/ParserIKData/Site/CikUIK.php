@@ -1,12 +1,31 @@
 <?php
 class ParserIKData_Site_CikUIK extends ParserIKData_Site_Cik
 {
+    /**
+    * @param ParserIKData_Model_UIKRussia $uik
+    * @return ParserIKData_Model_Protocol
+    */
+    public function getOficialProtocol($uik)
+    {
+        $data = $this->_getProtocolData($uik->getLink());
+        $proto = $this->_createBlankProtocol();
+        $proto
+            ->setResultType(ParserIKData_Model_Protocol::TYPE_OF)
+            ->setProjectId($uik->getFullName())
+            ->setUpdateTime(date('y-m-d h:i:s'))
+            ->setIkFullName($uik->getFullName())
+            ->setData($data);
+        return $proto;
+    }
+
+
     protected function _getConfigFileName()
     {
         return '';
     }
 
-    public function getProtocolData($src)
+
+    protected function _getProtocolData($src)
     {
         $this->_getLoader()->setSource($src);
         $html = $this->_getLoader()->load();
@@ -24,5 +43,10 @@ class ParserIKData_Site_CikUIK extends ParserIKData_Site_Cik
             }
         }
         return $data;
+    }
+
+    protected function _createBlankProtocol()
+    {
+        throw new Exception('must be implemented');
     }
 }

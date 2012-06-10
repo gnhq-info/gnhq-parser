@@ -1,6 +1,6 @@
 <?php
 /**
- * action for (cron) tasks of importing violation feeds from various sources
+ * action for (cron) tasks of importing violation feeds from various sources (various observers projects)
  * @argv[1] - projectCode
  */
 require_once('base.php');

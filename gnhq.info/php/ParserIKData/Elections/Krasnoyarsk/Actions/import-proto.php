@@ -1,6 +1,6 @@
 <?php
 /**
- * action for (cron) tasks of importing protocol feeds
+ * action for (cron) tasks of importing protocol feeds from observers projects
  * @argv[1] - projectCode
  */
 require_once('base.php');

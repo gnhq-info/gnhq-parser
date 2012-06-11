@@ -65,11 +65,32 @@ abstract class ParserIKData_Model_Protocol extends ParserIKData_Model
 
     /**
      * данные для диаграмы на фронтэнде
-     * @param true $inPercent
+     * @param bool $inPercent
      * @param int $digits
      */
     public function getDiagramData($inPercent, $digits = 0) {
         throw new Exception('must be implemented');
+    }
+
+    /**
+     *
+     * Enter description here ...
+     * @param array $data
+     * @param bool $inPercent
+     * @param int $digits
+     * @return array
+     */
+    protected function _roundDiagramData($data, $inPercent, $digits)
+    {
+        foreach ($data as $k => $value) {
+            if ($inPercent) {
+                $val = 100 * $value;
+            } else {
+                $val = $value;
+            }
+            $data[$k] = round($val, $digits);
+        }
+        return $data;
     }
 
 

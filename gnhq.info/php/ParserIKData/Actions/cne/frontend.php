@@ -17,7 +17,6 @@ foreach ($dirs as $dir) {
 
 }
 
-
 foreach ($files as $fname => $content) {
     $nfname = getNewElectionFname($fname, $sampleName, $newName);
     file_put_contents($nfname, prepareFileContent($content, $fname, $sampleName, $newName));

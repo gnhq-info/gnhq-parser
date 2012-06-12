@@ -12,8 +12,9 @@ $view->diagRows = array(
 );
 
 $view->electionsName = 'Выборы мэра Красноярска. 10.06.2012';
-$JS_SCRIPT_VERSION = 2;
-$CSS_VERSION = 1;
 $folder = 'krasnoyarsk';
+
+$JS_SCRIPT_VERSION = 1;
+$CSS_VERSION = 1;
 
 require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'full.phtml');

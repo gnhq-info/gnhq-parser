@@ -1,33 +1,7 @@
 <?php
-$sampleName = 'Krasnoyarsk';
-$newName = ucfirst(strtolower($electionName));
-$fromDir = APPLICATION_DIR_ROOT . DIRECTORY_SEPARATOR . 'Elections' . DIRECTORY_SEPARATOR . $sampleName;
-
-$dirs = array($fromDir);
-$files = array();
-
-getDirectoryContents($fromDir, $dirs, $files);
-
-foreach ($dirs as $dir) {
-    $ndir = getNewElectionFname($dir, $sampleName, $newName);
-    if (!file_exists($ndir)) {
-        print 'created directory: '.$ndir . PHP_EOL;
-        mkdir($ndir);
-    }
-
-}
-
-foreach ($files as $fname => $content) {
-    $nfname = getNewElectionFname($fname, $sampleName, $newName);
-
-
-    file_put_contents($nfname, prepareFileContent($content, $fname, $sampleName, $newName));
-    print 'created file: ' . $nfname . PHP_EOL;
-}
-
-
 function prepareFileContent($content, $filename, $oldElection, $newElection)
 {
+    global $projects, $config, $electionTitle, $electionName, $candidats;
     $content = str_replace(strtolower($oldElection), strtolower($newElection), $content);
     $content = str_replace(ucfirst(strtolower($oldElection)), ucfirst(strtolower($newElection)), $content);
     $fileNameParts = explode(DIRECTORY_SEPARATOR, $filename);
@@ -47,6 +21,70 @@ function prepareFileContent($content, $filename, $oldElection, $newElection)
             default:
                 break;
         }
+    }
+    switch ($last) {
+
+        case 'Config.php' :
+            $content = '<?php '.PHP_EOL .
+            "\t\t" . '$PROJECT_CONFIG =';
+            $content .= var_export($projects, 1);
+            $content .= ';';
+            break;
+
+        case 'regions_data.js':
+            $content = '
+        		StaticData.Regions = {
+					\''.$config['num'].'\': \''.$config['name'].'\'
+				};
+        		';
+            break;
+
+        case 'tik_data.js':
+            $content = '';
+            break;
+
+        case 'watchers_data.js':
+            $parts = array();
+            $sparts = array();
+            foreach ($projects as $k => $pr) {
+                $parts[] = "'" . $k . "': '" . $pr['Name'] . "'";
+                $sparts[] = "'" . $k . "': 1";
+            }
+            $fcode = implode(','.PHP_EOL."\t", $parts);
+            $scode = implode(','.PHP_EOL."\t", $sparts);
+            $content = "
+StaticData.Watchers = {
+	".$fcode."
+};
+
+StaticData.WatchersOnline = {
+	".$scode."
+};";
+            break;
+
+        case 'index.php':
+            $content = '<?php
+$view->diagRows =';
+            $candForIndex = $candidats;
+            foreach ($candForIndex as $i => $pr) {
+                $candForIndex[$i]['hdr'] = $pr['name'];
+                $candForIndex[$i]['title'] = $pr['name'];
+            }
+            $content .= var_export($candForIndex, 1);
+            $content .= ';'.PHP_EOL;
+
+            $content .= '
+            	$view->electionsName = \''.$electionTitle.'\';
+				$folder = \''.$electionName.'\';
+            ';
+            $content .= '
+            $JS_SCRIPT_VERSION = 1;
+			$CSS_VERSION = 1;
+			require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. \'full.phtml\');';
+            break;
+
+        default:
+            break;
     }
     return $content;
 }

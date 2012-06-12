@@ -1,15 +1,16 @@
 <?php
-/* create config * /
 $confFileName = rtrim(INI_CONFIG_PATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $electionName . '.ini';
 if (!file_exists($confFileName)) {
-if ($f = fopen($confFileName, 'a+')) {
-fclose($f);
-} else {
-die('cant write to '.$confFileName);
+    if ($f = fopen($confFileName, 'a+')) {
+        fclose($f);
+    } else {
+        die('cant write to '.$confFileName);
+    }
 }
+
 $data = '';
 foreach ($config as $k => $v) {
-$data .= $k . '="' . $v . '"' . PHP_EOL;
+    $data .= $k . '="' . $v . '"' . PHP_EOL;
 }
 $data .= 'site=""
 
@@ -27,4 +28,3 @@ $f = fopen($confFileName, 'a+');
 fwrite($f, $data);
 fclose($f);
 unset($data);
-} */

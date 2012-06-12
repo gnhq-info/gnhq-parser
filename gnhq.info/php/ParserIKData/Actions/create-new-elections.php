@@ -1,6 +1,17 @@
 <?php
 include_once 'include.php';
 
+$projects = array(
+    PROJECT_GN => array(
+            'Name'      => 'Гражданин наблюдатель',
+			'ProtoLink'  => 'https://gnhq.info/comm/protocols.xml',
+        ),
+	PROJECT_GOLOS => array(
+            'Name'      => 'Голос',
+			'ViolLink'  => 'http://m.kartanarusheniy.org/messages/date/2012-06-10/56.0141053,92.8643491/56.0141053,92.8643491/geo',
+    ),
+);
+
 $candidats = array(
     array('pLine' => 13, 'key' => 'AI', 'name' => 'Антропов Игорь', 'color' => 'yellow'),
     array('pLine' => 14, 'key' => 'DV', 'name' => 'Двораковский Вячеслав', 'color' => 'orange'),
@@ -12,25 +23,30 @@ $candidats = array(
 );
 
 $electionName = 'omsk';
+$electionTitle = 'Выборы мэра Омска. 17.06.2012';
 $maxLines = 20;
 
 $config = array(
-    'rootPage' => 'http://www.omsk.vybory.izbirkom.ru/region/omsk?action=show&root_a=null&vrn=455422074946&region=55&global=&type=0&prver=0&pronetvd=null',
-    'name' => 'Омск',
-    'num'  => 55,
+    'rootPage'   => 'http://www.omsk.vybory.izbirkom.ru/region/omsk?action=show&root_a=null&vrn=455422074946&region=55&global=&type=0&prver=0&pronetvd=null',
+    'name'       => 'Омск',
+    'num'        => 55,
     'population' => 0
 );
 
+/* functions */
+require_once 'cne'.DIRECTORY_SEPARATOR.'functions.php';
 
-require_once('cne-config.php');
+/* create ini config */
+require_once('cne'.DIRECTORY_SEPARATOR.'config.php');
 
-require_once('cne-database.php');
-
-
-
+/* create tables in database */
+require_once('cne'.DIRECTORY_SEPARATOR.'database.php');
 
 /* create backend files */
-require_once('cne-backend.php');
+require_once('cne'.DIRECTORY_SEPARATOR.'backend.php');
+
+/* create backend files */
+require_once('cne'.DIRECTORY_SEPARATOR.'frontend.php');
 
 
 function getNewElectionFname($fname, $sampleName, $newName)

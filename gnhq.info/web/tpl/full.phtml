@@ -183,7 +183,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 		var StaticData = {};
 		var ViolConfigData = {};
 		ViolConfigData['BackendPoint'] = 'elections/<?php echo $folder;?>/getData.php';
-		ViolConfigData['DefaultRegion'] = 24;
+		ViolConfigData['DefaultRegion'] = <?php echo $defaultRegion;?>;
 	</script>
 	<script type="text/javascript" src="js/violtypes_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
 	<script type="text/javascript" src="elections/<?php echo $folder;?>/js/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>

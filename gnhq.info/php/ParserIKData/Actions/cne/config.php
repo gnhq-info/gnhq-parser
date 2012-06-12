@@ -24,7 +24,6 @@ lowerIKSelectIndicator="select name=\"gs\""
 totalTableIndicator="Число избирателей, внесенных в список избирателей"
 resultTableIndicator="cellpadding"
 useCache=1';
-$f = fopen($confFileName, 'a+');
-fwrite($f, $data);
-fclose($f);
+
+file_put_contents($confFileName, $data);
 unset($data);

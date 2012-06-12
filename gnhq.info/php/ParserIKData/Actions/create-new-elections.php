@@ -33,20 +33,20 @@ $config = array(
     'population' => 0
 );
 
-/* functions * /
+/* functions */
 require_once 'cne'.DIRECTORY_SEPARATOR.'functions.php';
 
-/* create ini config * /
+/* create ini config */
 require_once('cne'.DIRECTORY_SEPARATOR.'config.php');
 
-/* create tables in database * /
+/* create tables in database */
 require_once('cne'.DIRECTORY_SEPARATOR.'database.php');
 
-/* create backend files * /
+/* create backend files */
 require_once('cne'.DIRECTORY_SEPARATOR.'backend.php');
 
-/* create backend files * /
-require_once('cne'.DIRECTORY_SEPARATOR.'frontend.php'); */
+/* create backend files */
+require_once('cne'.DIRECTORY_SEPARATOR.'frontend.php');
 
 /* create backend files */
 require_once('cne'.DIRECTORY_SEPARATOR.'insert.php');

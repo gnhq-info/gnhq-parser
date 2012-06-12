@@ -13,7 +13,7 @@ $view->diagRows = array(
 
 $view->electionsName = 'Выборы мэра Красноярска. 10.06.2012';
 $folder = 'krasnoyarsk';
-
+$defaultRegion = '24';
 $JS_SCRIPT_VERSION = 1;
 $CSS_VERSION = 1;
 

@@ -76,6 +76,7 @@ $view->diagRows =';
             $content .= '
             	$view->electionsName = \''.$electionTitle.'\';
 				$folder = \''.$electionName.'\';
+				$defaultRegion = \''.$config['num'].'\';
             ';
             $content .= '
             $JS_SCRIPT_VERSION = 1;

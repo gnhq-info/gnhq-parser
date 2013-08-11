@@ -23,7 +23,7 @@ class ParserIKData_XMLProcessor_Protocol_Omsk extends ParserIKData_XMLProcessor_
      */
     protected function _getMandatoryIndices()
     {
-		return array(9, 10, 13, 14, 15, 16, 17, 18, 19);
+		return array(9, 10, 12, 13, 14, 15, 16, 17, 18);
 	}
 
     /**

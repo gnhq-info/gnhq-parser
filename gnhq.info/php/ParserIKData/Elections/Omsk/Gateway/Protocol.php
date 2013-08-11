@@ -21,7 +21,7 @@ class ParserIKData_Gateway_Protocol_Omsk extends ParserIKData_Gateway_Protocol
      */
     protected function _getCondControlRel()
     {
-		return '(Line10 = Line13 + Line14 + Line15 + Line16 + Line17 + Line18 + Line19 )';
+		return '(Line10 = Line12 + Line13 + Line14 + Line15 + Line16 + Line17 + Line18 )';
 	}
 
 

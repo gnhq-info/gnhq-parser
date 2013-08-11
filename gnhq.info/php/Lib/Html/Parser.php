@@ -16,7 +16,7 @@ class Lib_Html_Parser
      */
     public function findMinContainingTag($needle, $tag)
     {
-        $pos = mb_strpos($this->_pageSource, $needle, $this->_nextOffset, $this->_getEncoding());
+        $pos = mb_stripos($this->_pageSource, $needle, $this->_nextOffset, $this->_getEncoding());
         if ($pos === false) {
             return false;
         }
@@ -25,9 +25,9 @@ class Lib_Html_Parser
         $closeTag = '</'.$tag.'>';
         while ($openPos < $pos && $openPos !== false) {
             $prevPos = $openPos;
-            $openPos = mb_strpos($this->_pageSource, $openTag, $openPos+1, $this->_getEncoding());
+            $openPos = mb_stripos($this->_pageSource, $openTag, $openPos+1, $this->_getEncoding());
         }
-        $closePos = mb_strpos($this->_pageSource, $closeTag, $prevPos + 1, $this->_getEncoding());
+        $closePos = mb_stripos($this->_pageSource, $closeTag, $prevPos + 1, $this->_getEncoding());
         if ($closePos === false || $closePos < $pos) {
             return false;
         }
@@ -130,7 +130,7 @@ class Lib_Html_Parser
      */
     private function _findSurroundingTag($needle, $offset)
     {
-        $pos = mb_strpos($this->_pageSource, $needle, $offset);
+        $pos = mb_stripos($this->_pageSource, $needle, $offset);
         if ($pos === false) {
             return false;
         }

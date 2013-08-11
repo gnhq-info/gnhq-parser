@@ -2,7 +2,7 @@
 $view->diagRows =array (
   0 => 
   array (
-    'pLine' => 13,
+    'pLine' => 12,
     'key' => 'AI',
     'name' => 'Антропов Игорь',
     'color' => 'yellow',
@@ -11,7 +11,7 @@ $view->diagRows =array (
   ),
   1 => 
   array (
-    'pLine' => 14,
+    'pLine' => 13,
     'key' => 'DV',
     'name' => 'Двораковский Вячеслав',
     'color' => 'orange',
@@ -20,7 +20,7 @@ $view->diagRows =array (
   ),
   2 => 
   array (
-    'pLine' => 15,
+    'pLine' => 14,
     'key' => 'ZV',
     'name' => 'Жарков Виктор',
     'color' => '#ff77ff',
@@ -29,7 +29,7 @@ $view->diagRows =array (
   ),
   3 => 
   array (
-    'pLine' => 16,
+    'pLine' => 15,
     'key' => 'ZJ',
     'name' => 'Зелинский Ян',
     'color' => '#77ffff',
@@ -38,7 +38,7 @@ $view->diagRows =array (
   ),
   4 => 
   array (
-    'pLine' => 17,
+    'pLine' => 16,
     'key' => 'KA',
     'name' => 'Коротков Александр',
     'color' => '#ffff77',
@@ -47,7 +47,7 @@ $view->diagRows =array (
   ),
   5 => 
   array (
-    'pLine' => 18,
+    'pLine' => 17,
     'key' => 'MS',
     'name' => 'Масленков Сергей',
     'color' => 'red',
@@ -56,7 +56,7 @@ $view->diagRows =array (
   ),
   6 => 
   array (
-    'pLine' => 19,
+    'pLine' => 18,
     'key' => 'OI',
     'name' => 'Оверина Ирина',
     'color' => '#66ee00',

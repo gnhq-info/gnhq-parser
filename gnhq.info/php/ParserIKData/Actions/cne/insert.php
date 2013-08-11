@@ -1,6 +1,7 @@
 <?php
 $sampleName = 'krasnoyarsk';
 clearstatcache(true);
+/*
 $fname = APPLICATION_DIR_ROOT . 'Actions' . DIRECTORY_SEPARATOR . 'include.php';
 $content = file_get_contents($fname);
 
@@ -11,6 +12,7 @@ if (strpos($content, $newStr) === false) {
     $content = str_replace($sampleStr,  $newStr . PHP_EOL . PHP_EOL . $sampleStr, $content);
     file_put_contents($fname, $content);
 }
+ */
 
 
 $fname = WEB_DIR . 'elections.php';

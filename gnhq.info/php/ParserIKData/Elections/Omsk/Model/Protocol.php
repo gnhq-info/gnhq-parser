@@ -29,7 +29,7 @@ class ParserIKData_Model_Protocol_Omsk extends ParserIKData_Model_Protocol
 {
     public static function getLineAmount()
     {
-		return 20;
+		return 19;
 	}
 
     public static function getAllowableDiscrepancy()
@@ -42,7 +42,7 @@ class ParserIKData_Model_Protocol_Omsk extends ParserIKData_Model_Protocol
      */
     public static function getIndicesForCompare()
     {
-		 return array(self::INDEX_SPOILED, self::INDEX_TOTAL, self::INDEX_TOTAL_VOTED, 13, 14, 15, 16, 17, 18, 19);
+		 return array(self::INDEX_SPOILED, self::INDEX_TOTAL, self::INDEX_TOTAL_VOTED, 12, 13, 14, 15, 16, 17, 18);
 	}
 
 
@@ -59,13 +59,13 @@ class ParserIKData_Model_Protocol_Omsk extends ParserIKData_Model_Protocol
 		if ($_absAtt == 0) {
 			return $data;
 		}
-		$data['AI'] = $this->_getProtocolValue(13)/$_absAtt;
-		$data['DV'] = $this->_getProtocolValue(14)/$_absAtt;
-		$data['ZV'] = $this->_getProtocolValue(15)/$_absAtt;
-		$data['ZJ'] = $this->_getProtocolValue(16)/$_absAtt;
-		$data['KA'] = $this->_getProtocolValue(17)/$_absAtt;
-		$data['MS'] = $this->_getProtocolValue(18)/$_absAtt;
-		$data['OI'] = $this->_getProtocolValue(19)/$_absAtt;
+		$data['AI'] = $this->_getProtocolValue(12)/$_absAtt;
+		$data['DV'] = $this->_getProtocolValue(13)/$_absAtt;
+		$data['ZV'] = $this->_getProtocolValue(14)/$_absAtt;
+		$data['ZJ'] = $this->_getProtocolValue(15)/$_absAtt;
+		$data['KA'] = $this->_getProtocolValue(16)/$_absAtt;
+		$data['MS'] = $this->_getProtocolValue(17)/$_absAtt;
+		$data['OI'] = $this->_getProtocolValue(18)/$_absAtt;
 		$data['AT'] = intval($_total) != 0 ? $_absAtt/$_total : '?'; 
 		$data['SP'] = $this->_getSpoiledAmount()/$_absAtt;
 		$data = $this->_roundDiagramData($data, $inPercent, $digits);

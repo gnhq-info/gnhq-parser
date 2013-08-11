@@ -13,21 +13,22 @@ $projects = array(
 );
 
 $candidats = array(
-    array('pLine' => 13, 'key' => 'AI', 'name' => 'Антропов Игорь', 'color' => 'yellow'),
-    array('pLine' => 14, 'key' => 'DV', 'name' => 'Двораковский Вячеслав', 'color' => 'orange'),
-    array('pLine' => 15, 'key' => 'ZV', 'name' => 'Жарков Виктор', 'color' => '#ff77ff'),
-    array('pLine' => 16, 'key' => 'ZJ', 'name' => 'Зелинский Ян', 'color' => '#77ffff'),
-    array('pLine' => 17, 'key' => 'KA', 'name' => 'Коротков Александр', 'color' => '#ffff77'),
-    array('pLine' => 18, 'key' => 'MS', 'name' => 'Масленков Сергей', 'color' => 'red'),
-    array('pLine' => 19, 'key' => 'OI', 'name' => 'Оверина Ирина', 'color' => '#66ee00'),
+    array('pLine' => 12, 'key' => 'AI', 'name' => 'Антропов Игорь', 'color' => 'yellow'),
+    array('pLine' => 13, 'key' => 'DV', 'name' => 'Двораковский Вячеслав', 'color' => 'orange'),
+    array('pLine' => 14, 'key' => 'ZV', 'name' => 'Жарков Виктор', 'color' => '#ff77ff'),
+    array('pLine' => 15, 'key' => 'ZJ', 'name' => 'Зелинский Ян', 'color' => '#77ffff'),
+    array('pLine' => 16, 'key' => 'KA', 'name' => 'Коротков Александр', 'color' => '#ffff77'),
+    array('pLine' => 17, 'key' => 'MS', 'name' => 'Масленков Сергей', 'color' => 'red'),
+    array('pLine' => 18, 'key' => 'OI', 'name' => 'Оверина Ирина', 'color' => '#66ee00'),
 );
 
 $electionName = 'omsk';
 $electionTitle = 'Выборы мэра Омска. 17.06.2012';
-$maxLines = 20;
+$maxLines = 19;
 
 $config = array(
-    'rootPage'   => 'http://www.omsk.vybory.izbirkom.ru/region/omsk?action=show&root_a=null&vrn=455422074946&region=55&global=&type=0&prver=0&pronetvd=null',
+    //'rootPage'   => 'http://www.omsk.vybory.izbirkom.ru/region/omsk?action=show&root_a=null&vrn=455422074946&region=55&global=&type=0&prver=0&pronetvd=null',
+    'rootPage'   => 'http://www.omsk.vybory.izbirkom.ru/region/region/omsk?action=show&root=1&tvd=455422074950&vrn=455422074946&region=55&global=&sub_region=55&prver=0&pronetvd=null&vibid=455422074950&type=234',
     'name'       => 'Омск',
     'num'        => 55,
     'population' => 0

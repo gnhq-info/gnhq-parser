@@ -49,11 +49,21 @@ require_once APPLICATION_DIR_ROOT . 'Gateway/include.php';
 
 require_once APPLICATION_DIR_ROOT . 'Cache/include.php';
 
-require_once APPLICATION_DIR_ROOT . 'Elections/President12/include.php';
+clearstatcache();
+$dirIterator = new DirectoryIterator(APPLICATION_DIR_ROOT . 'Elections');
+foreach ($dirIterator as $d) {
+    /* @var $d SplFileInfo */
+    if ($d->isDir()) {
+        if ($d->isDot()) continue;
+        if ($d->getFilename() == 'Actions') continue;
 
-require_once APPLICATION_DIR_ROOT . 'Elections/Omsk/include.php';
-
-require_once APPLICATION_DIR_ROOT . 'Elections/Krasnoyarsk/include.php';
+        $includeFile = $d->getPathname() . DIRECTORY_SEPARATOR . 'include.php';
+        include_once($includeFile);
+    }
+}
+unset ($dirIterator);
+unset ($d);
+unset ($includeFile);
 
 if (!isset($PROJECT_CONFIG)) {
     require_once APPLICATION_DIR_ROOT . 'ProjectData.php';

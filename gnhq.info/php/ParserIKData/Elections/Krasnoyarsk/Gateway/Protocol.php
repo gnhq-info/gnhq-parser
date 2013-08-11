@@ -4,8 +4,8 @@
  */
 class ParserIKData_Gateway_Protocol_Krasnoyarsk extends ParserIKData_Gateway_Protocol
 {
-    protected $_table = 'krasnoyarsk_result';
-    protected $_reservTable = 'krasnoyarsk_result_copy';
+    protected $_table = 'gnhq_krasnoyarsk.result';
+    protected $_reservTable = 'gnhq_krasnoyarsk.result_copy';
     protected $_modelClass = 'ParserIKData_Model_Protocol_Krasnoyarsk';
 
     /**

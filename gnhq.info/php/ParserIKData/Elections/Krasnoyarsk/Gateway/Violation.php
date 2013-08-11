@@ -1,8 +1,8 @@
 <?php
 class ParserIKData_Gateway_Violation_Krasnoyarsk extends ParserIKData_Gateway_Violation
 {
-    protected $_table = 'krasnoyarsk_violation';
-    protected $_reservTable = 'krasnoyarsk_violation_copy';
+    protected $_table = 'gnhq_krasnoyarsk.violation';
+    protected $_reservTable = 'gnhq_krasnoyarsk.violation_copy';
 
     /**
     * @return null|int

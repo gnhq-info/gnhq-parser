@@ -1,13 +1,13 @@
 <?php
-require_once ('Gateway/Watch.php');
-require_once ('Gateway/Protocol.php');
-require_once ('Gateway/ProtocolOf.php');
-require_once ('Gateway/ProtocolOffile.php');
+require_once (__DIR__ . '/Gateway/Watch.php');
+require_once (__DIR__ . '/Gateway/Protocol.php');
+require_once (__DIR__ . '/Gateway/ProtocolOf.php');
+require_once (__DIR__ . '/Gateway/ProtocolOffile.php');
 
-require_once ('Model/Protocol.php');
-require_once ('Model/Watch.php');
+require_once (__DIR__ . '/Model/Protocol.php');
+require_once (__DIR__ . '/Model/Watch.php');
 
-require_once ('XMLProcessor/Protocol.php');
-require_once ('Site/Res.php');
+require_once (__DIR__ . '/XMLProcessor/Protocol.php');
+require_once (__DIR__ . '/Site/Res.php');
 
-require_once('Helper/Average.php');
+require_once (__DIR__ . '/Helper/Average.php');

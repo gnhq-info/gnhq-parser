@@ -51,6 +51,8 @@ require_once APPLICATION_DIR_ROOT . 'Cache/include.php';
 
 require_once APPLICATION_DIR_ROOT . 'Elections/President12/include.php';
 
+require_once APPLICATION_DIR_ROOT . 'Elections/Omsk/include.php';
+
 require_once APPLICATION_DIR_ROOT . 'Elections/Krasnoyarsk/include.php';
 
 if (!isset($PROJECT_CONFIG)) {

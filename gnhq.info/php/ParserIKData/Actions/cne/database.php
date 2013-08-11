@@ -8,7 +8,7 @@ foreach ($commands as $command) {
     if (!trim($command, "\r\n")) {
         continue;
     }
-    $command = str_replace('election-preffix_', $electionName . '_', $command);
+    $command = str_replace('_election-preffix', '_' . $electionName, $command);
 
     if (strpos($command, $lineTemplate) > 0) {
         $repl = array();

@@ -2,7 +2,7 @@
 SQLyog Community v9.30 
 MySQL - 5.5.17 : Database - gnhq
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -12,13 +12,17 @@ MySQL - 5.5.17 : Database - gnhq
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-USE `gnhq`;
 
-/*Table structure for table `election-preffix_region` */
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`gnhq_election-preffix` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-DROP TABLE IF EXISTS `election-preffix_region`;
 
-CREATE TABLE `election-preffix_region` (
+USE `gnhq_election-preffix`;
+
+/*Table structure for table `region` */
+
+DROP TABLE IF EXISTS `region`;
+
+CREATE TABLE `region` (
   `RegionNum` int(11) NOT NULL,
   `FullName` varchar(100) NOT NULL,
   `Link` varchar(255) DEFAULT NULL,
@@ -26,11 +30,11 @@ CREATE TABLE `election-preffix_region` (
   PRIMARY KEY (`RegionNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_result` */
+/*Table structure for table `result` */
 
-DROP TABLE IF EXISTS `election-preffix_result`;
+DROP TABLE IF EXISTS `result`;
 
-CREATE TABLE `election-preffix_result` (
+CREATE TABLE `result` (
   `IkFullName` varchar(100) NOT NULL,
   `IkType` varchar(5) NOT NULL,
   `ResultType` varchar(5) NOT NULL,
@@ -47,11 +51,11 @@ CREATE TABLE `election-preffix_result` (
   KEY `ik` (`IkType`,`IkFullName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_result_copy` */
+/*Table structure for table `result_copy` */
 
-DROP TABLE IF EXISTS `election-preffix_result_copy`;
+DROP TABLE IF EXISTS `result_copy`;
 
-CREATE TABLE `election-preffix_result_copy` (
+CREATE TABLE `result_copy` (
   `IkFullName` varchar(100) NOT NULL,
   `IkType` varchar(5) NOT NULL,
   `ResultType` varchar(5) NOT NULL,
@@ -66,11 +70,11 @@ CREATE TABLE `election-preffix_result_copy` (
   `Line1` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_result_of` */
+/*Table structure for table `result_of` */
 
-DROP TABLE IF EXISTS `election-preffix_result_of`;
+DROP TABLE IF EXISTS `result_of`;
 
-CREATE TABLE `election-preffix_result_of` (
+CREATE TABLE `result_of` (
   `IkFullName` varchar(100) NOT NULL,
   `IkType` varchar(5) NOT NULL,
   `ResultType` varchar(5) NOT NULL,
@@ -87,11 +91,11 @@ CREATE TABLE `election-preffix_result_of` (
   KEY `ik` (`IkType`,`IkFullName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_result_of_copy` */
+/*Table structure for table `result_of_copy` */
 
-DROP TABLE IF EXISTS `election-preffix_result_of_copy`;
+DROP TABLE IF EXISTS `result_of_copy`;
 
-CREATE TABLE `election-preffix_result_of_copy` (
+CREATE TABLE `result_of_copy` (
   `IkFullName` varchar(100) NOT NULL,
   `IkType` varchar(5) NOT NULL,
   `ResultType` varchar(5) NOT NULL,
@@ -106,11 +110,11 @@ CREATE TABLE `election-preffix_result_of_copy` (
   `Line1` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_tik` */
+/*Table structure for table `tik` */
 
-DROP TABLE IF EXISTS `election-preffix_tik`;
+DROP TABLE IF EXISTS `tik`;
 
-CREATE TABLE `election-preffix_tik` (
+CREATE TABLE `tik` (
   `RegionNum` int(11) NOT NULL,
   `TikNum` int(11) NOT NULL,
   `FullName` varchar(200) NOT NULL,
@@ -121,11 +125,11 @@ CREATE TABLE `election-preffix_tik` (
   KEY `RegionNum` (`RegionNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_uik` */
+/*Table structure for table `uik` */
 
-DROP TABLE IF EXISTS `election-preffix_uik`;
+DROP TABLE IF EXISTS `uik`;
 
-CREATE TABLE `election-preffix_uik` (
+CREATE TABLE `uik` (
   `RegionNum` int(11) NOT NULL,
   `TikNum` int(11) NOT NULL,
   `UikNum` int(11) NOT NULL,
@@ -140,11 +144,11 @@ CREATE TABLE `election-preffix_uik` (
   KEY `Uik` (`RegionNum`,`UikNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_violation` */
+/*Table structure for table `violation` */
 
-DROP TABLE IF EXISTS `election-preffix_violation`;
+DROP TABLE IF EXISTS `violation`;
 
-CREATE TABLE `election-preffix_violation` (
+CREATE TABLE `violation` (
   `ProjectId` varchar(50) NOT NULL COMMENT 'id в проекте наблюдателе',
   `ProjectCode` char(2) NOT NULL COMMENT 'код проекта наблюдателя',
   `ProjectUptime` datetime NOT NULL COMMENT 'время последнего обновления в проекте наблюдателе',
@@ -177,11 +181,11 @@ CREATE TABLE `election-preffix_violation` (
   KEY `uptime` (`ProjectUptime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_violation_copy` */
+/*Table structure for table `violation_copy` */
 
-DROP TABLE IF EXISTS `election-preffix_violation_copy`;
+DROP TABLE IF EXISTS `violation_copy`;
 
-CREATE TABLE `election-preffix_violation_copy` (
+CREATE TABLE `violation_copy` (
   `ProjectId` varchar(50) NOT NULL COMMENT 'id в проекте наблюдателе',
   `ProjectCode` char(2) NOT NULL COMMENT 'код проекта наблюдателя',
   `ProjectUptime` datetime NOT NULL COMMENT 'время последнего обновления в проекте наблюдателе',
@@ -214,11 +218,11 @@ CREATE TABLE `election-preffix_violation_copy` (
   KEY `uptime` (`ProjectUptime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `election-preffix_watch` */
+/*Table structure for table `watch` */
 
-DROP TABLE IF EXISTS `election-preffix_watch`;
+DROP TABLE IF EXISTS `watch`;
 
-CREATE TABLE `election-preffix_watch` (
+CREATE TABLE `watch` (
   `uik` int(11) DEFAULT NULL,
   `WatchType` char(2) DEFAULT NULL,
   `code` int(4) DEFAULT '0'

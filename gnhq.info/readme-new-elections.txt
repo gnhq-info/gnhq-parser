@@ -6,10 +6,10 @@
 
 3. запустить  
 php /Elections/{Omsk}/Actions/import-ik.php region
-/Actions/{Omsk}/import-ik tik
-/Actions/{Omsk}/import-ik uik
+php /Elections/{Omsk}/Actions/import-ik tik
+php /Elections/{Omsk}/Actions/import-ik uik
 
 4. запустить
-/Actions/{Omsk}/create-js tik
+php /Elections/{Omsk}/Actions/create-js tik
 
 5. прописать nginx.conf

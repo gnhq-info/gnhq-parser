@@ -1,8 +1,8 @@
 1. cd APPLICATION_DIR_ROOT
 
-2. занести нужную информацию в /Actions/create-new-elections.php
+2. создать файл INI_CONFIG_PATH . /Elections/ . {omsk}.ini.php по аналогии mosmer.ini.php
 
-3. php Actions/create-new-elections.php
+3. php Actions/create-new-elections.php mosmer
 
 3. запустить  
 php /Elections/{Omsk}/Actions/import-ik.php region

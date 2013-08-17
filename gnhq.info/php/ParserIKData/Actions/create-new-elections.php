@@ -1,38 +1,13 @@
 <?php
 include_once 'include.php';
 
-$projects = array(
-    PROJECT_GN => array(
-            'Name'      => 'Гражданин наблюдатель',
-			'ProtoLink'  => 'https://gnhq.info/comm/protocols.xml',
-        ),
-	PROJECT_GOLOS => array(
-            'Name'      => 'Голос',
-			'ViolLink'  => 'http://m.kartanarusheniy.org/messages/date/2012-06-10/56.0141053,92.8643491/56.0141053,92.8643491/geo',
-    ),
-);
+$code = $argv[1];
+if (!ctype_alpha($code)) {
+    die('bad elections code');
+}
+$electionsConfigFile = INI_CONFIG_PATH . DIRECTORY_SEPARATOR . 'Elections' . DIRECTORY_SEPARATOR . $code . '.ini.php';
 
-$candidats = array(
-    array('pLine' => 12, 'key' => 'AI', 'name' => 'Антропов Игорь', 'color' => 'yellow'),
-    array('pLine' => 13, 'key' => 'DV', 'name' => 'Двораковский Вячеслав', 'color' => 'orange'),
-    array('pLine' => 14, 'key' => 'ZV', 'name' => 'Жарков Виктор', 'color' => '#ff77ff'),
-    array('pLine' => 15, 'key' => 'ZJ', 'name' => 'Зелинский Ян', 'color' => '#77ffff'),
-    array('pLine' => 16, 'key' => 'KA', 'name' => 'Коротков Александр', 'color' => '#ffff77'),
-    array('pLine' => 17, 'key' => 'MS', 'name' => 'Масленков Сергей', 'color' => 'red'),
-    array('pLine' => 18, 'key' => 'OI', 'name' => 'Оверина Ирина', 'color' => '#66ee00'),
-);
-
-$electionName = 'omsk';
-$electionTitle = 'Выборы мэра Омска. 17.06.2012';
-$maxLines = 19;
-
-$config = array(
-    //'rootPage'   => 'http://www.omsk.vybory.izbirkom.ru/region/omsk?action=show&root_a=null&vrn=455422074946&region=55&global=&type=0&prver=0&pronetvd=null',
-    'rootPage'   => 'http://www.omsk.vybory.izbirkom.ru/region/region/omsk?action=show&root=1&tvd=455422074950&vrn=455422074946&region=55&global=&sub_region=55&prver=0&pronetvd=null&vibid=455422074950&type=234',
-    'name'       => 'Омск',
-    'num'        => 55,
-    'population' => 0
-);
+include $electionsConfigFile;
 
 /* functions */
 require_once 'cne'.DIRECTORY_SEPARATOR.'functions.php';

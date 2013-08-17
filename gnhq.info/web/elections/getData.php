@@ -94,10 +94,10 @@ if ($modeSingleViolation) {
             $violInnerCount++;
         }
     }
-
+    // $PRINT_QUERIES = 'WEB';
     // uiks
     $uikRGateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_Uik');
-    $uikCount = $uikRGateway->setUseCache(true)->getCount($regionNum, $okrugAbbr, $tikNum, array($uikNum));
+    $uikCount = $uikRGateway->setUseCache(false)->getCount($regionNum, $okrugAbbr, $tikNum, array($uikNum));
     $uiks = array();
     if ($tikNum && !$uikNum) {
         foreach ($uikRGateway->getUiks($regionNum, $okrugAbbr, $tikNum, null, $projectCode) as $uik) {

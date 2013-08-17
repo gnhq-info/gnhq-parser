@@ -6,10 +6,15 @@
 
 3. запустить  
 php /Elections/{Omsk}/Actions/import-ik.php region
-php /Elections/{Omsk}/Actions/import-ik tik
-php /Elections/{Omsk}/Actions/import-ik uik
+php /Elections/{Omsk}/Actions/import-ik.php tik
+php /Elections/{Omsk}/Actions/import-ik.php uik
 
 4. запустить
-php /Elections/{Omsk}/Actions/create-js tik
+php /Elections/{Omsk}/Actions/create-js.php tik
 
 5. прописать nginx.conf
+
+------
+
+6. загрузка результатов с сайта ЦИК 
+php /Elections/{Omsk}/Actions/import-of-result.php

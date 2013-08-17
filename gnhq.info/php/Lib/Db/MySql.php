@@ -153,7 +153,18 @@ class Lib_Db_MySql
         global $PRINT_QUERIES;
 
         if (!empty($PRINT_QUERIES)) {
-            print_r($query.PHP_EOL.str_repeat('=', 20) . PHP_EOL);
+            if ($PRINT_QUERIES == 'WEB') {
+                $sep = '<Br/>';
+            } else {
+                $sep = PHP_EOL;
+            }
+            print_r($query);
+            print_r($sep.str_repeat('=', 20) . $sep);
+            $backtrace = debug_backtrace();
+            foreach ($backtrace as $call) {
+                @print ($call['class'] . '::' . $call['function'] . ' (' . implode(', ', $call['args'])) . ')' . $sep. $sep;
+            }
+            print_r($sep.str_repeat('=', 20) . $sep);
         }
         $result = mysql_query($query, $this->_getConnection());
         if ($error = mysql_error($this->_connection)) {

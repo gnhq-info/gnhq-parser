@@ -11,4 +11,4 @@
 ------
 
 6. загрузка результатов с сайта ЦИК 
-php /Elections/{Omsk}/Actions/import-of-result.php
+php /Elections/{Electcode}/Actions/import-of-result.php

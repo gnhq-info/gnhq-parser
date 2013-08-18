@@ -2,6 +2,7 @@
 $electionsMap = array(
 	'omsk' => 'omsk',
 			'mosmer' => 'mosmer',
+			'mosobl' => 'mosobl',
 			'krasnoyarsk' => 'krasnoyarsk'
 );
 

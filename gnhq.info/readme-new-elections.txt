@@ -1,18 +1,12 @@
-1. cd APPLICATION_DIR_ROOT
+1. создать файл INI_CONFIG_PATH . /Elections/ . {Electcode}.ini.php по аналогии Mosmer.ini.php
 
-2. создать файл INI_CONFIG_PATH . /Elections/ . {omsk}.ini.php по аналогии mosmer.ini.php
+2. cd APPLICATION_DIR_ROOT/bin 
 
-3. php Actions/create-new-elections.php mosmer
+3. new-elections.bat {Electcode} 
 
-3. запустить  
-php /Elections/{Omsk}/Actions/import-ik.php region
-php /Elections/{Omsk}/Actions/import-ik.php tik
-php /Elections/{Omsk}/Actions/import-ik.php uik
+---
 
-4. запустить
-php /Elections/{Omsk}/Actions/create-js.php tik
-
-5. прописать nginx.conf
+4. прописать nginx.conf
 
 ------
 

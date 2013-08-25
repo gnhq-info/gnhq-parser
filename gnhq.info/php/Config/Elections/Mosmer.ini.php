@@ -6,12 +6,6 @@ $projects = array(
         PROJECT_GOLOS => array(
                 'Name'      => 'Голос',
         ),
-        PROJECT_ROSVYBORY => array(
-                'Name'      => 'Росвыборы',
-        ),
-        PROJECT_SONAR => array(
-                'Name'      => 'Сонар',
-        ),
 );
 
 $candidats = array(

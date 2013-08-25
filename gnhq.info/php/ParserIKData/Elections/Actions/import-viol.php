@@ -10,7 +10,7 @@ if (empty($PROJECT_CONFIG[$projectCode])) {
 $projectFeed = !empty($PROJECT_CONFIG[$projectCode]['ViolLink']) ? $PROJECT_CONFIG[$projectCode]['ViolLink'] : '';
 
 if (!$projectFeed) {
-    print 'no feed link';
+    print 'no feed link'.PHP_EOL;
     return;
 }
 

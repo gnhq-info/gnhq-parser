@@ -2,7 +2,7 @@
 $projects = array(
         PROJECT_GN => array(
                 'Name'      => 'Гражданин наблюдатель',
-                'ProtoLink' => 'https://gnhq.info/comm/protocols.xml'
+                'ProtoLink' => 'https://gnhq.info/comm/protocols.xml',
                 'ViolLink'  => ''
         ),
         PROJECT_GOLOS => array(

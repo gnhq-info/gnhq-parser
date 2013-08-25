@@ -2,7 +2,7 @@
 $projectCode = $argv[1];
 
 if (empty($PROJECT_CONFIG[$projectCode])) {
-    print 'wrong code '.$projectCode;
+    print 'wrong code '.$projectCode.PHP_EOL;
     return;
 }
 

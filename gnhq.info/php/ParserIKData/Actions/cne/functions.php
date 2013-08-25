@@ -26,9 +26,10 @@ function prepareFileContent($content, $filename, $oldElection, $newElection)
 
         case 'Config.php' :
             $content = '<?php '.PHP_EOL .
-            "\t\t" . '$PROJECT_CONFIG =';
+            "\t\t".' if (!isset($PROJECT_CONFIG)) {' . PHP_EOL.
+            "\t\t" . '$PROJECT_CONFIG ='. PHP_EOL ;
             $content .= var_export($projects, 1);
-            $content .= ';';
+            $content .= ';}';
             break;
 
         case 'regions_data.js':

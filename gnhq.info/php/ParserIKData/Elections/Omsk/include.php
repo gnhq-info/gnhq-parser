@@ -1,6 +1,4 @@
 <?php
-require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Config.php');
-
 require_once(__DIR__ . '/Gateway/Protocol.php');
 require_once(__DIR__ . '/Gateway/ProtocolOf.php');
 require_once(__DIR__ . '/Gateway/Watch.php');

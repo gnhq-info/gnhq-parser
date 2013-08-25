@@ -1,5 +1,7 @@
 <?php 
-		$PROJECT_CONFIG =array (
+		 if (!isset($PROJECT_CONFIG)) {
+		$PROJECT_CONFIG =
+array (
   'GN' => 
   array (
     'Name' => 'Гражданин наблюдатель',
@@ -8,4 +10,4 @@
   array (
     'Name' => 'Голос',
   ),
-);
+);}

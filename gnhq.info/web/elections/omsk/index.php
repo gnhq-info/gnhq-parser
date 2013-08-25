@@ -21,7 +21,7 @@ $view->diagRows =array (
   2 => 
   array (
     'pLine' => 14,
-    'key' => 'ZV',
+    'key' => 'GV',
     'name' => 'Жарков Виктор',
     'color' => '#ff77ff',
     'hdr' => 'Жарков Виктор',
@@ -30,7 +30,7 @@ $view->diagRows =array (
   3 => 
   array (
     'pLine' => 15,
-    'key' => 'ZJ',
+    'key' => 'ZY',
     'name' => 'Зелинский Ян',
     'color' => '#77ffff',
     'hdr' => 'Зелинский Ян',
@@ -59,13 +59,13 @@ $view->diagRows =array (
     'pLine' => 18,
     'key' => 'OI',
     'name' => 'Оверина Ирина',
-    'color' => '#66ee00',
+    'color' => 'red',
     'hdr' => 'Оверина Ирина',
     'title' => 'Оверина Ирина',
   ),
 );
 
-            	$view->electionsName = 'Выборы мэра Омска. 17.06.2012';
+            	$view->electionsName = 'Выборы мэра Омска.';
 				$folder = 'omsk';
 				$defaultRegion = '55';
             

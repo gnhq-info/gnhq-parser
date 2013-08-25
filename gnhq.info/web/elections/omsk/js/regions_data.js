@@ -1,3 +1,5 @@
-StaticData.Regions = {
-	'55': ''
-};
+
+        		StaticData.Regions = {
+					'55': 'Омск'
+				};
+        		

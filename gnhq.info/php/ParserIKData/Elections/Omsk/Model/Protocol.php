@@ -53,7 +53,7 @@ class ParserIKData_Model_Protocol_Omsk extends ParserIKData_Model_Protocol
      */
     public function getDiagramData($inPercent, $digits = 0)
     {
-		$data = array('AI' => 0,'DV' => 0,'ZV' => 0,'ZJ' => 0,'KA' => 0,'MS' => 0,'OI' => 0);
+		$data = array('AI' => 0,'DV' => 0,'GV' => 0,'ZY' => 0,'KA' => 0,'MS' => 0,'OI' => 0);
 		$_absAtt = $this->_getAbsoluteAttendance();
 		$_total = $this->_getPeopleAmount();
 		if ($_absAtt == 0) {
@@ -61,8 +61,8 @@ class ParserIKData_Model_Protocol_Omsk extends ParserIKData_Model_Protocol
 		}
 		$data['AI'] = $this->_getProtocolValue(12)/$_absAtt;
 		$data['DV'] = $this->_getProtocolValue(13)/$_absAtt;
-		$data['ZV'] = $this->_getProtocolValue(14)/$_absAtt;
-		$data['ZJ'] = $this->_getProtocolValue(15)/$_absAtt;
+		$data['GV'] = $this->_getProtocolValue(14)/$_absAtt;
+		$data['ZY'] = $this->_getProtocolValue(15)/$_absAtt;
 		$data['KA'] = $this->_getProtocolValue(16)/$_absAtt;
 		$data['MS'] = $this->_getProtocolValue(17)/$_absAtt;
 		$data['OI'] = $this->_getProtocolValue(18)/$_absAtt;

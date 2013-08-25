@@ -3,14 +3,14 @@ $projectCode = $argv[1];
 
 
 if (empty($PROJECT_CONFIG[$projectCode])) {
-    print 'wrong code '.$projectCode;
+    print 'wrong code '.$projectCode.PHP_EOL;
     return;
 }
 
-$projectFeed = $PROJECT_CONFIG[$projectCode]['ProtoLink'];
+$projectFeed = !empty($PROJECT_CONFIG[$projectCode]['ProtoLink']) ? $PROJECT_CONFIG[$projectCode]['ProtoLink'] : '';
 
 if (!$projectFeed) {
-    print 'no feed link';
+    print 'no feed link'.PHP_EOL;
     return;
 }
 $timeStart = microtime(true);

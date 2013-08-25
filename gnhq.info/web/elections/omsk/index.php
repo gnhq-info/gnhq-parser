@@ -1,6 +1,7 @@
 <?php
+$view = new stdClass();
 $view->diagRows =array (
-  0 => 
+  0 =>
   array (
     'pLine' => 12,
     'key' => 'AI',
@@ -9,7 +10,7 @@ $view->diagRows =array (
     'hdr' => 'Антропов Игорь',
     'title' => 'Антропов Игорь',
   ),
-  1 => 
+  1 =>
   array (
     'pLine' => 13,
     'key' => 'DV',
@@ -18,7 +19,7 @@ $view->diagRows =array (
     'hdr' => 'Двораковский Вячеслав',
     'title' => 'Двораковский Вячеслав',
   ),
-  2 => 
+  2 =>
   array (
     'pLine' => 14,
     'key' => 'GV',
@@ -27,7 +28,7 @@ $view->diagRows =array (
     'hdr' => 'Жарков Виктор',
     'title' => 'Жарков Виктор',
   ),
-  3 => 
+  3 =>
   array (
     'pLine' => 15,
     'key' => 'ZY',
@@ -36,7 +37,7 @@ $view->diagRows =array (
     'hdr' => 'Зелинский Ян',
     'title' => 'Зелинский Ян',
   ),
-  4 => 
+  4 =>
   array (
     'pLine' => 16,
     'key' => 'KA',
@@ -45,7 +46,7 @@ $view->diagRows =array (
     'hdr' => 'Коротков Александр',
     'title' => 'Коротков Александр',
   ),
-  5 => 
+  5 =>
   array (
     'pLine' => 17,
     'key' => 'MS',
@@ -54,7 +55,7 @@ $view->diagRows =array (
     'hdr' => 'Масленков Сергей',
     'title' => 'Масленков Сергей',
   ),
-  6 => 
+  6 =>
   array (
     'pLine' => 18,
     'key' => 'OI',
@@ -68,7 +69,7 @@ $view->diagRows =array (
             	$view->electionsName = 'Выборы мэра Омска.';
 				$folder = 'omsk';
 				$defaultRegion = '55';
-            
+
             $JS_SCRIPT_VERSION = 1;
 			$CSS_VERSION = 1;
 			require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'full.phtml');

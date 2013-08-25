@@ -1,6 +1,7 @@
 <?php
+$view = new stdClass();
 $view->diagRows =array (
-  0 => 
+  0 =>
   array (
     'pLine' => 13,
     'key' => 'EA',
@@ -9,7 +10,7 @@ $view->diagRows =array (
     'hdr' => 'Эдхам Акбулатов',
     'title' => 'Эдхам Акбулатов',
   ),
-  1 => 
+  1 =>
   array (
     'pLine' => 14,
     'key' => 'MI',
@@ -18,7 +19,7 @@ $view->diagRows =array (
     'hdr' => 'Максим Иваныч',
     'title' => 'Максим Иваныч',
   ),
-  2 => 
+  2 =>
   array (
     'pLine' => 15,
     'key' => 'NK',
@@ -27,7 +28,7 @@ $view->diagRows =array (
     'hdr' => 'Нина Коврова',
     'title' => 'Нина Коврова',
   ),
-  3 => 
+  3 =>
   array (
     'pLine' => 16,
     'key' => 'AK',
@@ -36,7 +37,7 @@ $view->diagRows =array (
     'hdr' => 'Александр Коропачинский',
     'title' => 'Александр Коропачинский',
   ),
-  4 => 
+  4 =>
   array (
     'pLine' => 17,
     'key' => 'AM',
@@ -45,7 +46,7 @@ $view->diagRows =array (
     'hdr' => 'Алексей Мещеряков',
     'title' => 'Алексей Мещеряков',
   ),
-  5 => 
+  5 =>
   array (
     'pLine' => 18,
     'key' => 'MO',
@@ -54,7 +55,7 @@ $view->diagRows =array (
     'hdr' => 'Михаил Осколков',
     'title' => 'Михаил Осколков',
   ),
-  6 => 
+  6 =>
   array (
     'pLine' => 19,
     'key' => 'AP',
@@ -68,7 +69,7 @@ $view->diagRows =array (
             	$view->electionsName = 'Выборы мэра Красноярска.';
 				$folder = 'krasnoyarsk';
 				$defaultRegion = '24';
-            
+
             $JS_SCRIPT_VERSION = 1;
 			$CSS_VERSION = 1;
 			require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'full.phtml');

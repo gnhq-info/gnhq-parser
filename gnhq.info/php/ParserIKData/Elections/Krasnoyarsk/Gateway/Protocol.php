@@ -21,8 +21,8 @@ class ParserIKData_Gateway_Protocol_Krasnoyarsk extends ParserIKData_Gateway_Pro
      */
     protected function _getCondControlRel()
     {
-        return '(Line10 = Line13 + Line14 + Line15 + Line16 + Line17 + Line18 + Line19)';
-    }
+		return '(Line10 = Line13 + Line14 + Line15 + Line16 + Line17 + Line18 + Line19 )';
+	}
 
 
     /**

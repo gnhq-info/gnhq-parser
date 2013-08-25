@@ -59,7 +59,7 @@ $view->diagRows =array (
     'pLine' => 18,
     'key' => 'OI',
     'name' => 'Оверина Ирина',
-    'color' => 'red',
+    'color' => 'blue',
     'hdr' => 'Оверина Ирина',
     'title' => 'Оверина Ирина',
   ),

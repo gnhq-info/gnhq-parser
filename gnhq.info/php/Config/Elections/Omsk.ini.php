@@ -15,7 +15,7 @@ $candidats = array(
         array('pLine' => 15, 'key' => 'ZY', 'name' => 'Зелинский Ян', 'color' => '#77ffff'),
         array('pLine' => 16, 'key' => 'KA', 'name' => 'Коротков Александр', 'color' => '#ffff77'),
         array('pLine' => 17, 'key' => 'MS', 'name' => 'Масленков Сергей', 'color' => 'red'),
-        array('pLine' => 18, 'key' => 'OI', 'name' => 'Оверина Ирина', 'color' => 'red'),
+        array('pLine' => 18, 'key' => 'OI', 'name' => 'Оверина Ирина', 'color' => 'blue'),
 );
 
 $electionName = 'omsk';

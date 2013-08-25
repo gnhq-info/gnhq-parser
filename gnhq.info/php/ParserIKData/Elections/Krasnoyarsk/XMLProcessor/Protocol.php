@@ -23,8 +23,8 @@ class ParserIKData_XMLProcessor_Protocol_Krasnoyarsk extends ParserIKData_XMLPro
      */
     protected function _getMandatoryIndices()
     {
-        return array(9, 10, 13, 14, 15, 16, 17, 18, 19);
-    }
+		return array(9, 10, 13, 14, 15, 16, 17, 18, 19);
+	}
 
     /**
      * (non-PHPdoc)

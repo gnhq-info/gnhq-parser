@@ -42,7 +42,7 @@ class ParserIKData_Model_Protocol_Omsk extends ParserIKData_Model_Protocol
      */
     public static function getIndicesForCompare()
     {
-		 return array(self::INDEX_SPOILED, self::INDEX_TOTAL, self::INDEX_TOTAL_VOTED, 12, 13, 14, 15, 16, 17, 18);
+		 return array(8, self::INDEX_TOTAL, 9, 12, 13, 14, 15, 16, 17, 18);
 	}
 
 
@@ -67,9 +67,26 @@ class ParserIKData_Model_Protocol_Omsk extends ParserIKData_Model_Protocol
 		$data['KA'] = $this->_getProtocolValue(16)/$_absAtt;
 		$data['MS'] = $this->_getProtocolValue(17)/$_absAtt;
 		$data['OI'] = $this->_getProtocolValue(18)/$_absAtt;
-		$data['AT'] = intval($_total) != 0 ? $_absAtt/$_total : '?'; 
+		$data['AT'] = intval($_total) != 0 ? $_absAtt/$_total : '?';
 		$data['SP'] = $this->_getSpoiledAmount()/$_absAtt;
 		$data = $this->_roundDiagramData($data, $inPercent, $digits);
 		return $data;
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see ParserIKData_Model_Protocol::_getVotedAmount()
+	 */
+	protected function _getVotedAmount()
+	{
+	    return $this->_getProtocolValue(9);
+	}
+
+	/**
+	 * @return int
+	 */
+	protected function _getSpoiledAmount()
+	{
+	    return $this->_getProtocolValue(8);
 	}
 }

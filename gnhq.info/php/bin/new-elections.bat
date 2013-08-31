@@ -4,6 +4,7 @@ SET ACTION_DIR=..\ParserIKData\Actions\
 SET ELECT_CODE=%1
 SET OUTPUT_FILE=out\install_%ELECT_CODE%.txt
 SET ELECT_ACTION_DIR=..\ParserIKData\Elections\%ELECT_CODE%\Actions\
+echo %ELECT_CODE%
 
 %PHP% %ACTION_DIR%/create-new-elections.php %ELECT_CODE%  >> %OUTPUT_FILE%
 echo ELECTIONS CREATED

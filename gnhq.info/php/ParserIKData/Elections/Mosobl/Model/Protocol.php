@@ -57,6 +57,7 @@ class ParserIKData_Model_Protocol_Mosobl extends ParserIKData_Model_Protocol
 		$_absAtt = $this->_getAbsoluteAttendance();
 		$_total = $this->_getPeopleAmount();
 		if ($_absAtt == 0) {
+			$data["SP"] = 0;
 			return $data;
 		}
 		$data['VA'] = $this->_getProtocolValue(12)/$_absAtt;

@@ -57,6 +57,7 @@ class ParserIKData_Model_Protocol_Krasnoyarsk extends ParserIKData_Model_Protoco
 		$_absAtt = $this->_getAbsoluteAttendance();
 		$_total = $this->_getPeopleAmount();
 		if ($_absAtt == 0) {
+			$data["SP"] = 0;
 			return $data;
 		}
 		$data['EA'] = $this->_getProtocolValue(13)/$_absAtt;

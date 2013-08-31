@@ -4,10 +4,6 @@
 
 3. new-elections.bat {Electcode} 
 
----
-
-4. прописать nginx.conf
-
 ------
 
 6. загрузка результатов с сайта ЦИК 

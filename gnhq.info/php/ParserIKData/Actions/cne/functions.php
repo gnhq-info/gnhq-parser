@@ -65,8 +65,10 @@ StaticData.WatchersOnline = {
 
         case 'index.php':
             $content = '<?php
+$view = new stdClass();
 $view->diagRows =';
             $candForIndex = $candidats;
+            $candForIndex[] = array('pLine' => 9, 'key' => 'SP', 'name' => 'Недействительные', 'color' => 'grey');
             foreach ($candForIndex as $i => $pr) {
                 $candForIndex[$i]['hdr'] = $pr['name'];
                 $candForIndex[$i]['title'] = $pr['name'];
@@ -128,6 +130,7 @@ function prepareModelProtocolCode($code)
         "\t\t" .'$_absAtt = $this->_getAbsoluteAttendance();'.PHP_EOL .
         "\t\t" .'$_total = $this->_getPeopleAmount();'.PHP_EOL .
         "\t\t" .'if ($_absAtt == 0) {'.PHP_EOL .
+        "\t\t\t" .'$data["SP"] = 0;'.PHP_EOL .
         "\t\t\t" .'return $data;'.PHP_EOL .
         "\t\t" . '}' . PHP_EOL;
 

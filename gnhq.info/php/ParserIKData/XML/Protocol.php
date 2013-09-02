@@ -1,7 +1,7 @@
 <?php
 abstract class ParserIKData_XMLProcessor_Protocol extends ParserIKData_XMLProcessor_Abstract
 {
-    private $_projectCode;
+    protected $_projectCode;
 
     private $_updateData = array();
 

@@ -5,17 +5,13 @@ array (
   'GN' => 
   array (
     'Name' => 'Гражданин наблюдатель',
+    'ProtoLink' => '',
+    'ViolLink' => '',
   ),
   'AG' => 
   array (
     'Name' => 'Голос',
-  ),
-  'RV' => 
-  array (
-    'Name' => 'Росвыборы',
-  ),
-  'SN' => 
-  array (
-    'Name' => 'Сонар',
+    'ProtoLink' => 'http://sms-cik.org/elections/111/export_json.json',
+    'ViolLink' => '',
   ),
 );}

@@ -10,14 +10,13 @@ if (empty($PROJECT_CONFIG[$projectCode])) {
 $projectFeed = !empty($PROJECT_CONFIG[$projectCode]['ProtoLink']) ? $PROJECT_CONFIG[$projectCode]['ProtoLink'] : '';
 
 if (!$projectFeed) {
-    print 'no feed link'.PHP_EOL;
+    print 'no feed link for '. $projectCode .PHP_EOL;
     return;
 }
 $timeStart = microtime(true);
-$sXml = simplexml_load_file($projectFeed);
-if (!$sXml instanceof SimpleXMLElement) {
-    print('bad xml');
-    return;
+$oData = json_decode(file_get_contents($projectFeed));
+if (!$oData || !$oData instanceof stdClass) {
+    print 'bad data: '.PHP_EOL;
 }
 $timeEndLoad = microtime(true);
 
@@ -25,9 +24,9 @@ $xmlProcessor = ParserIKData_ServiceLocator::getInstance()->getService('XmlProce
 $gateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_Protocol');
 
 $importCodes = array();
-foreach ($sXml->xpath('prt') as $pXml) {
+foreach ($oData->election_valid_results->valid_results as $result) {
 
-    $newProto = $xmlProcessor->createFromXml($pXml);
+    $newProto = $xmlProcessor->createFromXml($result);
 
     if (!$newProto instanceof ParserIKData_Model_Protocol) {
         @$importCodes[$newProto]++;

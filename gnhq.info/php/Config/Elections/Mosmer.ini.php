@@ -2,9 +2,11 @@
 $projects = array(
         PROJECT_GN => array(
                 'Name'      => 'Гражданин наблюдатель',
+
         ),
         PROJECT_GOLOS => array(
                 'Name'      => 'Голос',
+                'ProtoLink' => 'http://sms-cik.org/elections/151/export_json.json'
         ),
 );
 

@@ -1,7 +1,7 @@
 <?php
 $view = new stdClass();
 $view->diagRows =array (
-  0 => 
+  0 =>
   array (
     'pLine' => 12,
     'key' => 'VA',
@@ -10,7 +10,7 @@ $view->diagRows =array (
     'hdr' => 'Воробьёв Андрей',
     'title' => 'Воробьёв Андрей',
   ),
-  1 => 
+  1 =>
   array (
     'pLine' => 13,
     'key' => 'GG',
@@ -19,7 +19,7 @@ $view->diagRows =array (
     'hdr' => 'Гудков Геннадий',
     'title' => 'Гудков Геннадий',
   ),
-  2 => 
+  2 =>
   array (
     'pLine' => 14,
     'key' => 'KN',
@@ -28,7 +28,7 @@ $view->diagRows =array (
     'hdr' => 'Корнеева Надежда',
     'title' => 'Корнеева Надежда',
   ),
-  3 => 
+  3 =>
   array (
     'pLine' => 15,
     'key' => 'RA',
@@ -37,7 +37,7 @@ $view->diagRows =array (
     'hdr' => 'Романович Александр',
     'title' => 'Романович Александр',
   ),
-  4 => 
+  4 =>
   array (
     'pLine' => 16,
     'key' => 'CK',
@@ -46,7 +46,7 @@ $view->diagRows =array (
     'hdr' => 'Черемисов Константин',
     'title' => 'Черемисов Константин',
   ),
-  5 => 
+  5 =>
   array (
     'pLine' => 17,
     'key' => 'SM',
@@ -55,7 +55,7 @@ $view->diagRows =array (
     'hdr' => 'Шингаркин Максим',
     'title' => 'Шингаркин Максим',
   ),
-  6 => 
+  6 =>
   array (
     'pLine' => 9,
     'key' => 'SP',
@@ -69,7 +69,7 @@ $view->diagRows =array (
             	$view->electionsName = 'Выборы губернатора Москвоской области. 08.09.2013';
 				$folder = 'mosobl';
 				$defaultRegion = '50';
-            
+
             $JS_SCRIPT_VERSION = 1;
 			$CSS_VERSION = 1;
-			require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'full.phtml');
+			require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'fullnoprojectsplit.phtml');

@@ -53,12 +53,13 @@ class ParserIKData_XMLProcessor_Protocol_Mosobl extends ParserIKData_XMLProcesso
             foreach ($a as $k => $v) {
                 $rData[$k] = $v;
             }
+            $rData['r16'] = 0;
         }
         $rowData = $rData;
 
         for ($i = 1; $i < $this->_getLineAmount(); $i++) {
             $prtName = 'r' . $this->_mapIndices($i);
-            if (!empty($rowData[$prtName])) {
+            if (isset($rowData[$prtName])) {
                 $lineData[$i] = (int)$rowData[$prtName];
             } else {
                 if (in_array($i, $mandatoryIndices)) {
@@ -104,8 +105,6 @@ class ParserIKData_XMLProcessor_Protocol_Mosobl extends ParserIKData_XMLProcesso
      */
     protected function _getMandatoryIndices()
     {
-		//for testing
-        return array(9, 10, 11, 12, 13, 14, 15);
         return array(9, 10, 12, 13, 14, 15, 16, 17);
 	}
 
@@ -115,7 +114,7 @@ class ParserIKData_XMLProcessor_Protocol_Mosobl extends ParserIKData_XMLProcesso
 	 */
 	private function _mapIndices($i)
 	{
-	    $map = array(9 => 10, 10 => 9, 16 => 11);
+	    $map = array(9 => 10, 10 => 9, 12 => 11, 13 => 12, 14 => 13, 15 => 14, 16 => 15, 17 => 16);
 	    if (array_key_exists($i, $map)) {
 	        return $map[$i];
 	    } else {

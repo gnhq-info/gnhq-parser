@@ -7,7 +7,7 @@ $projects = array(
 		),
 		PROJECT_GOLOS => array(
 		    'Name' => 'Голос',
-			'ProtoLink' => 'http://sms-cik.org/elections/111/export_json.json',
+			'ProtoLink' => 'http://sms-cik.org/elections/152/export_json.json',
 			'ViolLink' => ''
 		)
     );

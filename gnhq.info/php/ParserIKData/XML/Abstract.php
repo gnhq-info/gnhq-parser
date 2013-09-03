@@ -2,6 +2,7 @@
 require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Violation.php');
 require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Protocol.php');
 require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Twitter.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'Twitter2.php');
 
 abstract class ParserIKData_XMLProcessor_Abstract
 {

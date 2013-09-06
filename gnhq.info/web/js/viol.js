@@ -342,7 +342,9 @@ var Viol = {
 				_uikFull += parseInt(row.UIKNum);
 			}
 			_tr = $('<tr>').attr('uikFull', _uikFull).attr('tikNum', row.TIKNum).attr('typeId', row.MergedTypeId).css('display','table-row');
-			$('<td>').html(Viol.Dict.Watchers.getName(row.ProjectCode)).appendTo(_tr);
+			if ($('#th-prj').length != 0) {
+				$('<td>').html(Viol.Dict.Watchers.getName(row.ProjectCode)).appendTo(_tr);
+			}
 			$('<td>').html(_time).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
 			$('<td>').html(_uikNum).appendTo(_tr);

@@ -72,4 +72,5 @@ $view->diagRows =array (
 
             $JS_SCRIPT_VERSION = 1;
 			$CSS_VERSION = 1;
+			$SHOW_RESULTS = FALSE;
 			require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'fullnoprojectsplit.phtml');

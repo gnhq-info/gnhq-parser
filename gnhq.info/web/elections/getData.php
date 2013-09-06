@@ -9,7 +9,9 @@ if (!defined('USE_UIK_CACHE')) {
 if (!defined('USE_VIOL_CACHE')) {
     define('USE_VIOL_CACHE', true);
 }
-
+if (!defined('SHOW_RESULTS')) {
+    define('SHOW_RESULTS', true);
+}
 
 /* validating input params */
 if (empty($_GET['loadViol'])) {
@@ -178,16 +180,18 @@ if ($modeSingleViolation) {
         $response->usedRegionNums = $usedRegionNums;
     }
 
-    if (!empty($watchersResult) && $watchersResult instanceof ParserIKData_Model_Protocol) {
-        $response->watchersData =  $watchersResult->getDiagramData(true, 2);
-        $response->watchersUIKCount = $watchersResult->getUikCount();
-        $response->ofData = $ofResult->getDiagramData(true, 2);
-        $response->ofUIKCount = $ofResult->getUikCount();
-    } else {
-        $response->watchersData =  $watchersResultData;
-        $response->watchersUIKCount = $watchersResultUikCount;
-        $response->ofData = $ofResultData;
-        $response->ofUIKCount = $ofResultUikCount;
+    if (SHOW_RESULTS) {
+        if (!empty($watchersResult) && $watchersResult instanceof ParserIKData_Model_Protocol) {
+            $response->watchersData =  $watchersResult->getDiagramData(true, 2);
+            $response->watchersUIKCount = $watchersResult->getUikCount();
+            $response->ofData = $ofResult->getDiagramData(true, 2);
+            $response->ofUIKCount = $ofResult->getUikCount();
+        } else {
+            $response->watchersData =  $watchersResultData;
+            $response->watchersUIKCount = $watchersResultUikCount;
+            $response->ofData = $ofResultData;
+            $response->ofUIKCount = $ofResultUikCount;
+        }
     }
 
     // если не только GN - явка некорректная

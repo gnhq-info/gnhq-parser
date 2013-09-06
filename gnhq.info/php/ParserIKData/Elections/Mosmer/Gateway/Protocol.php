@@ -13,7 +13,7 @@ class ParserIKData_Gateway_Protocol_Mosmer extends ParserIKData_Gateway_Protocol
     */
     protected function _getCacheLifetime()
     {
-        return null;
+        return 120;
     }
 
     /**

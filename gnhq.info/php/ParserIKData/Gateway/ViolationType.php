@@ -1,7 +1,7 @@
 <?php
 class ParserIKData_Gateway_ViolationType extends ParserIKData_Gateway_Abstract
 {
-    private $_table = 'violation_type';
+    private $_table = 'gnhq.violation_type';
     private $_model = 'ParserIKData_Model_ViolationType';
 
     private $_typeCodes = array();

@@ -3,6 +3,14 @@ require_once('../../webinclude.php');
 
 require_once('getDataObjects.php');
 
+if (!defined('USE_UIK_CACHE')) {
+    define('USE_UIK_CACHE', true);
+}
+if (!defined('USE_VIOL_CACHE')) {
+    define('USE_VIOL_CACHE', true);
+}
+
+
 /* validating input params */
 if (empty($_GET['loadViol'])) {
     $_GET['loadViol'] = 0;
@@ -82,7 +90,7 @@ if ($modeSingleViolation) {
     if ($_GET['loadViol'] == '1') {
         $vGateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_Violation');
 
-        $vshort = $vGateway->setUseCache(true)->short(null, null, null, null, null);
+        $vshort = $vGateway->setUseCache(USE_VIOL_CACHE)->short(null, null, null, null, null);
         $violInnerCount = 0;
 
         foreach ($vshort as $k => $viol) {
@@ -97,7 +105,7 @@ if ($modeSingleViolation) {
     // $PRINT_QUERIES = 'WEB';
     // uiks
     $uikRGateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_Uik');
-    $uikCount = $uikRGateway->setUseCache(false)->getCount($regionNum, $okrugAbbr, $tikNum, array($uikNum));
+    $uikCount = $uikRGateway->setUseCache(USE_UIK_CACHE)->getCount($regionNum, $okrugAbbr, $tikNum, array($uikNum));
     $uiks = array();
     if ($tikNum && !$uikNum) {
         foreach ($uikRGateway->getUiks($regionNum, $okrugAbbr, $tikNum, null, $projectCode) as $uik) {
@@ -140,9 +148,9 @@ if ($modeSingleViolation) {
 
     if ($regionNum) {
         $protocolGateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_Protocol');
-        $protocolGateway->setUseCache(false);
+        $protocolGateway->setUseCache(USE_UIK_CACHE);
         $ofGateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_ProtocolOf');
-        $ofGateway->setUseCache(false);
+        $ofGateway->setUseCache(USE_UIK_CACHE);
         $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, $resultProjectCodes, $onlyControlRelTrue, true);
         $ofResult = $ofGateway->getMixedResult($regionNum, $okrugAbbr, $tikNum, $uikNum, ParserIKData_Model_Protocol::TYPE_OF, $onlyControlRelTrue, true);
         // $watchersResult = $protocolGateway->getMixedResult($regionNum, $okrugAbbr, null, 'OF', false, false, false, false);

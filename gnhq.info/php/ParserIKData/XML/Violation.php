@@ -17,7 +17,6 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         foreach ($current as $viol) {
             $this->_violToUpdateData($viol);
         }
-
     }
 
     /**
@@ -26,7 +25,19 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
      */
     public function loadFromSource($src)
     {
-        return simplexml_load_file($projectFeed);
+        return simplexml_load_file($src);
+    }
+
+    /**
+     * @return stdClass|false
+     */
+    protected function _loadFromJsonSource($src)
+    {
+        $content = file_get_contents($src);
+        if (!$content) {
+            return false;
+        }
+        return json_decode($content, false);
     }
 
     /**
@@ -49,8 +60,8 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
             return 'skipped version';
         }
 
-        // версии совпадают, но у нас свежее время обновления (в т.ч. для проектов, не использующих версии) - не обновляем
-        if ($this->_updateData[$ind]['version'] == $newViol->getProjectVersion() && $this->_updateData[$ind]['time'] > strtotime($newViol->getProjectUptime()) ) {
+        // версии совпадают, но у нас свежЕе время обновления (в т.ч. для проектов, не использующих версии) - не обновляем
+        if ($this->_updateData[$ind]['version'] == $newViol->getProjectVersion() && $this->_updateData[$ind]['time'] >= strtotime($newViol->getProjectUptime()) ) {
             return 'skipped time';
         }
 
@@ -223,7 +234,117 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         }
     }
 
-    private function _getMergedType($projectCode, $projectType)
+    /**
+     * @param stdClass $dataObj
+     * @return ParserIKData_Model_Violation|string
+     */
+    protected function _createFromStdClass($dataObj, $regionNum)
+    {
+        $errors = array();
+
+        if (!$dataObj instanceof stdClass) {
+            return 'Bad data';
+        }
+
+        $viol = ParserIKData_Model_Violation::create();
+
+        // обязательные поля
+        $viol->setProjectCode($this->_projectCode);
+        // id in project
+        if (!$dataObj->id) {
+            $errors[] = 'Не указан id';
+        } else {
+            $viol->setProjectId($this->_filterString((string)$dataObj->id, 50));
+        }
+
+        // update time
+        if (!$dataObj->created_at) {
+            $errors[] = 'Не указано время обновления';
+        } else {
+            $viol->setProjectUptime($this->_prepareTime((string)$dataObj->created_at));
+        }
+
+        // region
+        $viol->setRegionNum($regionNum);
+
+        // тип нарушения
+        if (!$dataObj->violation_type) {
+            $errors[] = 'Нет типа нарушения';
+        } else {
+            $viol->setMergedTypeId($this->_getMergedType($this->_projectCode, (string)$dataObj->violation_type));
+        }
+        // description
+        if (!$dataObj->text) {
+            $viol->setDescription('');
+        } else {
+            $viol->setDescription($this->_filterString((string)$dataObj->text));
+        }
+
+        // необязательные поля с дефолтными значениями
+        // complaint status
+        $viol->setComplaintStatus('n');
+        // obsrole
+        $viol->setObsrole('n');
+        // version of the data
+        $viol->setProjectVersion(0);
+
+        $viol->setObstime($this->_prepareTime((string)$dataObj->created_at));
+
+        // defaults - for correct hash mapping
+        $viol
+            ->setObsrole(0)
+            ->setRectified(0)
+            ->setPoliceReaction(0)
+            ->setImpact(0);
+
+        // привязка к ИК
+        $viol->setUIKNum(0);
+        $viol->setTIKNum(0);
+        if ($whereText = (string)$dataObj->uic) {
+            if (!mb_strstr($whereText, ' ')) {
+                $placeText = $whereText;
+            } else {
+                list($whereType, $whereNum) = explode(' ', $whereText);
+                if (is_numeric($whereNum)) {
+                    switch (mb_strtoupper($whereType)) {
+                        case 'УИК':
+                            $uikNum = intval($whereNum);
+                            $tikNum = $this->_getUikRGateway()->findTikNumByRegionAndUik($viol->getRegionNum(), $uikNum);
+                            break;
+
+                        case 'ТИК':
+                            $tikNum = intval($whereNum);
+                            break;
+
+                        default:
+                            $placeText = $whereText;
+                            break;
+                    }
+                } else {
+                    $placeText = $whereText;
+                }
+            }
+
+            if (isset($placeText)) {
+                $viol->setPlace($placeText);
+            }
+            if (isset($uikNum)) {
+                $viol->setUIKNum($uikNum);
+            }
+            if (isset($tikNum)) {
+                $viol->setTIKNum($tikNum);
+            }
+        }
+
+        // returning
+        if (!empty($errors)) {
+            return implode(', ' , $errors);
+        } else {
+            return $viol;
+        }
+    }
+
+    protected function _getMergedType($projectCode, $projectType)
     {
         return $this->_getTypeGateway()->findMergedTypeByProjectType($projectCode, $projectType);
     }
@@ -232,7 +353,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
     /**
      * @return ParserIKData_Gateway_UIKRussia
      */
-    private function _getUikRGateway()
+    protected function _getUikRGateway()
     {
         if ($this->_uikRGateway === null) {
             $this->_uikRGateway = new ParserIKData_Gateway_UIKRussia();

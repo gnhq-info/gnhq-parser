@@ -131,9 +131,12 @@ class ParserIKData_Gateway_Abstract
     final protected function _loadFromCache($class, $method, $args)
     {
         if (!$this->useCache()) {
+            // error_log('dont use cache '.get_called_class());
             return false;
         }
-        return $this->_getCache()->read($this->_buildCacheKey($class, $method, $args));
+        $fromCache = $this->_getCache()->read($this->_buildCacheKey($class, $method, $args));
+        // error_log('cache '.get_called_class() . ' ' . ($fromCache ? ' hit ' : 'miss'));
+        return $fromCache;
     }
 
     /**
@@ -168,6 +171,7 @@ class ParserIKData_Gateway_Abstract
             $this->_cache = ParserIKData_ServiceLocator::getInstance()->getGatewayCache();
         }
         if ($this->_getCacheLifetime()) {
+            // error_log('setting cache lifetime: '.$this->_getCacheLifetime());
             $this->_cache->setLifetime($this->_getCacheLifetime());
         }
         return $this->_cache;

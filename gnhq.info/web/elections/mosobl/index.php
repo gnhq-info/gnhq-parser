@@ -1,4 +1,5 @@
 <?php
+require_once 'config.php';
 $view = new stdClass();
 $view->diagRows =array (
   0 =>
@@ -72,5 +73,5 @@ $view->diagRows =array (
 
             $JS_SCRIPT_VERSION = 1;
 			$CSS_VERSION = 1;
-			$SHOW_RESULTS = FALSE;
+			$SHOW_RESULTS = SHOW_RESULTS;
 			require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'fullnoprojectsplit.phtml');

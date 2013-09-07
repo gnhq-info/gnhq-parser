@@ -137,9 +137,9 @@ var Viol = {
 					'success'   : function(data, status, request) {
 										Viol.SetResult.processResult(data);
 										if (Viol.Exchange.firstLoad) {
-											Viol.SetResult.setTwits(data.twits);
 											Viol.Exchange.firstLoad = false;
 										}
+										Viol.SetResult.setTwits(data.twits);
 										if (data.usedRegionNums) {
 											Viol.SetResult.showRegionText(data.usedRegionNums);
 										} else {

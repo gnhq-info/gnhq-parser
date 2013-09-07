@@ -120,15 +120,11 @@ if ($modeSingleViolation) {
 
 
     // twitter feed
-    if ($_GET['loadViol'] == '1') {
-        $twitGateway = new ParserIKData_Gateway_Twit();
-        $newTwits = $twitGateway->getAll(20);
-        $twitData = array();
-        foreach ($newTwits as $twit) {
-            $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
-        }
-    } else {
-        $twitData = array();
+    $twitGateway = new ParserIKData_Gateway_Twit();
+    $newTwits = $twitGateway->getAll(20);
+    $twitData = array();
+    foreach ($newTwits as $twit) {
+        $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
     }
 
     // результаты

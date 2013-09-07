@@ -109,6 +109,12 @@ var Viol = {
 		
 		firstLoad: true,
 		
+		lastUpdated: null,
+		
+		violData: [],
+		
+		vTypeCnt: [],
+		
 		loadData: function () {
 			Decoration.SplashScreen.Show();
 			var _data = {
@@ -120,7 +126,7 @@ var Viol = {
 				'uikNum':      $('#uikNum').val(),
 				'onlyClean':   $('#onlyClean').is(':checked') ? 1 : 0,
 				'onlyControlRelTrue' : $('#onlyControlRel').is(':checked') ? 1 : 0,
-				'loadViol':    Viol.Exchange.firstLoad ? 1 : 0
+				'loadViol':    Viol.Exchange.firstLoad ? 1 : Viol.Exchange.lastUpdated 
 			}; 
 			$.ajax(
 				ViolConfigData['BackendPoint'], 
@@ -277,6 +283,7 @@ var Viol = {
 		},
 		
 		processResult: function(data) {
+			var _v;
 			// place
 			Viol.SetResult.setCurrentPlace();
 			Viol.SetResult.setUikCount(data.uikCnt);
@@ -293,38 +300,46 @@ var Viol = {
 			EResult.SetOfResult(data.ofData);
 			EResult.SetResultDiscrepancy(data.watchersData, data.ofData);
 			
+			// viol type counters
+			if (Viol.Exchange.firstLoad) {
+				for (var _j in StaticData.ViolationTypeGroupData) {
+					Viol.Exchange.vTypeCnt[_j] = 0;
+				}
+			}
 			
 			// violations
-			if (Viol.Exchange.firstLoad) {
+			if (data.vshort) {
+				for (var _j in data.vshort) {
+					Viol.Exchange.violData.push(data.vshort[_j]);
+				}
 				Viol.FeedFilters.ClearUik();
 			
 				// feed
 				Viol.Feed.clear();
-				for (var _i in data.vshort) {
-					Viol.Feed.add(Viol.SetResult.buildViolTr(data.vshort[_i]));
-					if (data.vshort[_i]['UIKNum'] && data.vshort[_i]['UIKNum'] != '0') {
-						Viol.FeedFilters.AddUik(data.vshort[_i]['RegionNum'], data.vshort[_i]['UIKNum']);
+				for (var _i in Viol.Exchange.violData) {
+					_v = Viol.Exchange.violData[_i];
+					Viol.Feed.add(Viol.SetResult.buildViolTr(_v));
+					if (_v['UIKNum'] && _v['UIKNum'] != '0') {
+						Viol.FeedFilters.AddUik(_v['RegionNum'], _v['UIKNum']);
 					}
 				}
 			
 				Viol.FeedFilters.SortUik();
 			
 				// violation types
-				var _grpCnt = [];
-				for (var _j in StaticData.ViolationTypeGroupData) {
-					_grpCnt[_j] = 0;
-				}
 			
 				for (var _k in data.vTypeCount) {
-					_grpCnt[Viol.Dict.ViolType.getGroup(_k)] += data.vTypeCount[_k];
+					Viol.Exchange.vTypeCnt[Viol.Dict.ViolType.getGroup(_k)] += data.vTypeCount[_k];
 				}
 			
-				for (_j in _grpCnt) {
-					Viol.Filter.SetVGrpCount(_j, _grpCnt[_j]);
+				for (_j in Viol.Exchange.vTypeCnt) {
+					Viol.Filter.SetVGrpCount(_j, Viol.Exchange.vTypeCnt[_j]);
 				}
 			
 				Viol.FeedTable.buildHeaders();
 				Viol.FeedTable.reSort();
+				
+				Viol.Exchange.lastUpdated = data.lastUpdated;
 			}
 		},
 		
@@ -619,4 +634,5 @@ $(document).ready(function() {
 	$.ajaxSetup({cache: false, ifModified: true});
 	
 	Viol.Init();
+	setInterval(function() {Viol.Exchange.loadData();}, 120000); // раз в минуту опрашиваем сервер
 });

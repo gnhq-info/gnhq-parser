@@ -6,12 +6,11 @@ array (
   array (
     'Name' => 'Гражданин наблюдатель',
     'ProtoLink' => '',
-    'ViolLink' => '',
+    'ViolLink' => ''
   ),
   'AG' =>
   array (
     'Name' => 'Голос',
-    //'ProtoLink' => 'http://sms-cik.org/elections/111/export_json.json',//@testing url
     'ProtoLink' => 'http://sms-cik.org/elections/152/export_json.json',
     'ViolLink' => '',
   ),

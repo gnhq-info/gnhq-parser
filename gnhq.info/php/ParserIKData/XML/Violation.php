@@ -251,10 +251,12 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         // обязательные поля
         $viol->setProjectCode($this->_projectCode);
         // id in project
-        if (!$dataObj->id) {
-            $errors[] = 'Не указан id';
-        } else {
+        if (!empty($dataObj->id)) {
             $viol->setProjectId($this->_filterString((string)$dataObj->id, 50));
+        } elseif($dataObj->{'id='}) {
+            $viol->setProjectId($this->_filterString((string)$dataObj->{'id='}, 50));
+        } else {
+            $errors[] = 'Не указан id';
         }
 
         // update time
@@ -268,10 +270,10 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         $viol->setRegionNum($regionNum);
 
         // тип нарушения
-        if (!$dataObj->violation_type) {
-            $errors[] = 'Нет типа нарушения';
+        if (!$dataObj->violation_type_id) {
+            $viol->setMergedTypeId(0);
         } else {
-            $viol->setMergedTypeId($this->_getMergedType($this->_projectCode, (string)$dataObj->violation_type));
+            $viol->setMergedTypeId($this->_getMergedType($this->_projectCode, (string)$dataObj->violation_type_id));
         }
         // description
         if (!$dataObj->text) {

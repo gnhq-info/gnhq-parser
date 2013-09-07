@@ -6,8 +6,8 @@ array (
   array (
     'Name' => 'Гражданин наблюдатель',
     'ProtoLink' => '',
-    'ViolLink' => 'C:\temp\viol.json', // @testing url
-    //'ViolLink' => 'http://rosvybory.org/api/violations.json'
+    //'ViolLink' => 'http://staging.rosvybory.org/api/violations.json', // @testing url
+    'ViolLink' => 'http://call.rosvybory.org/api/violations.json'
   ),
   'AG' =>
   array (

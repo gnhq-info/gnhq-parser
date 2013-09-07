@@ -26,12 +26,12 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         return $result;
     }
 
-    public function short($projectCode, $mergedTypeId, $regionNum, $tikNum, $uikNum)
+    public function short($projectCode, $mergedTypeId, $regionNum, $tikNum, $uikNum, $loadedAfter = null)
     {
         $args = func_get_args();
         if (false === ($violations = $this->_loadFromCache(get_called_class(), __FUNCTION__, $args)) ) {
 
-            $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, $uikNum);
+            $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, $uikNum, $loadedAfter);
             $data = $this->_getDriver()->selectAssoc(
             	'ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
                 $this->_table,
@@ -198,7 +198,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         return $query;
     }
 
-    private function _formWhere($projectCode, $notProjectCode, $mergedTypeId, $regionNum, $tikNum, $uikNum)
+    private function _formWhere($projectCode, $notProjectCode, $mergedTypeId, $regionNum, $tikNum, $uikNum, $loadedAfter = null)
     {
         $parts = array();
         if ($projectCode) {
@@ -218,6 +218,9 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
         }
         if ($uikNum) {
             $parts[] = $this->_getCondUik($uikNum);
+        }
+        if ($loadedAfter) {
+            $parts[] = $this->_getCondLoadedAfter($loadedAfter);
         }
         if (!$parts) {
             $parts[] = '1 = 1';
@@ -289,5 +292,10 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
             return '1 = 1';
         }
         return sprintf('UikNum = %d', $uikNum);
+    }
+
+    private function _getCondLoadedAfter($loadedAfter)
+    {
+        return sprintf('Loadtime > "%s"', $this->_escapeString($loadedAfter));
     }
 }

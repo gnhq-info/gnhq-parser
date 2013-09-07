@@ -13,17 +13,13 @@ if (!defined('SHOW_RESULTS')) {
     define('SHOW_RESULTS', true);
 }
 
-/* validating input params */
-if (empty($_GET['loadViol'])) {
-    $_GET['loadViol'] = 0;
-} else {
-    $_GET['loadViol'] = 1;
-}
-
-
 if (empty($_GET['ProjectCode'])) {
     $_GET['ProjectCode'] = null;
 }
+if (isset($_GET['loadViol']) && 'null' == $_GET['loadViol']) {
+    $_GET['loadViol'] = null;
+}
+
 if (is_array($_GET['ProjectCode'])) {
     if (empty($_GET['ProjectCode'])) {
         $projectCode = null;
@@ -88,12 +84,17 @@ if ($modeSingleViolation) {
 
     $vTypeCount = array();
     $vshort = array();
-    // загрузка нарушений (при первой загрузке страницы, без фильтров по регионам\проектам)
-    if ($_GET['loadViol'] == '1') {
+
+    if (!empty($_GET['loadViol'])) {
         $vGateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_Violation');
 
-        $vshort = $vGateway->setUseCache(USE_VIOL_CACHE)->short(null, null, null, null, null);
+        $loadedAfter = null;
+        if ($_GET['loadViol'] != 1) {
+            $loadedAfter = date('Y-m-d H:i:s', strtotime($_GET['loadViol']));
+        }
+        $vshort = $vGateway->setUseCache(USE_VIOL_CACHE)->short(null, null, null, null, null, $loadedAfter);
         $violInnerCount = 0;
+
 
         foreach ($vshort as $k => $viol) {
             if (!isset($vTypeCount[$viol->getMergedTypeId()])) {
@@ -104,6 +105,7 @@ if ($modeSingleViolation) {
             $violInnerCount++;
         }
     }
+
     // $PRINT_QUERIES = 'WEB';
     // uiks
     $uikRGateway = ParserIKData_ServiceLocator::getInstance()->getService('Gateway_Uik');
@@ -161,6 +163,7 @@ if ($modeSingleViolation) {
 
 // формат ответа
 $response = new stdClass();
+$response->lastUpdated = date('Y-m-d H:i:s');
 if ($modeSingleViolation) {
     $violParams = $viol->getParams();
     $violParams['Media'] = $viol->getMediaAsArray();

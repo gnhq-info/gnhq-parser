@@ -259,7 +259,7 @@ var Viol = {
 				$(this).remove();
 			});
 			for (var _twitNum in twits) {
-				$('<div>').html(Viol.Utility.formatTime(twits[_twitNum].time) + '&nbsp;&nbsp;' + twits[_twitNum].html).appendTo('#twitterFeed');
+				$('<div>').html('<a href="' + twits[_twitNum].link + '" target="_blank">'+Viol.Utility.formatTime(twits[_twitNum].time) + '</a>&nbsp;&nbsp;' + twits[_twitNum].html).appendTo('#twitterFeed');
 			}
 		},
 		

@@ -124,7 +124,7 @@ if ($modeSingleViolation) {
     $newTwits = $twitGateway->getAll(20);
     $twitData = array();
     foreach ($newTwits as $twit) {
-        $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml());
+        $twitData[] = array('time' => $twit->getTime(), 'html' => $twit->getHtml(), 'link' => $twit->getLink());
     }
 
     // результаты

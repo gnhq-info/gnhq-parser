@@ -9,6 +9,6 @@ class ParserIKData_Gateway_Violation_Mosobl extends ParserIKData_Gateway_Violati
     */
     protected function _getCacheLifetime()
     {
-        return 120;
+        return 60;
     }
 }

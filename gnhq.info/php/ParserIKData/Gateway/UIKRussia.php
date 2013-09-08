@@ -2,9 +2,9 @@
 class ParserIKData_Gateway_UIKRussia extends ParserIKData_Gateway_Abstract
 {
     protected $_table = 'uik_russia';
-    private $_modelClass = 'ParserIKData_Model_UIKRussia';
+    protected $_modelClass = 'ParserIKData_Model_UIKRussia';
 
-    private $_tikNums = null; // caching for execution time
+    protected $_tikNums = null; // caching for execution time
 
     /**
      * @return null|int

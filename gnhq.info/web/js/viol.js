@@ -126,7 +126,7 @@ var Viol = {
 				'uikNum':      $('#uikNum').val(),
 				'onlyClean':   $('#onlyClean').is(':checked') ? 1 : 0,
 				'onlyControlRelTrue' : $('#onlyControlRel').is(':checked') ? 1 : 0,
-				'loadViol':    Viol.Exchange.firstLoad ? 1 : Viol.Exchange.lastUpdated 
+				'loadViol':    1 
 			}; 
 			$.ajax(
 				ViolConfigData['BackendPoint'], 
@@ -301,14 +301,15 @@ var Viol = {
 			EResult.SetResultDiscrepancy(data.watchersData, data.ofData);
 			
 			// viol type counters
-			if (Viol.Exchange.firstLoad) {
+			// if (Viol.Exchange.firstLoad) {
 				for (var _j in StaticData.ViolationTypeGroupData) {
 					Viol.Exchange.vTypeCnt[_j] = 0;
 				}
-			}
+			//}
 			
 			// violations
 			if (data.vshort) {
+				Viol.Exchange.violData = [];
 				for (var _j in data.vshort) {
 					Viol.Exchange.violData.push(data.vshort[_j]);
 				}

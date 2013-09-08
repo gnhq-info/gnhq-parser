@@ -277,7 +277,7 @@ class ParserIKData_XMLProcessor_Violation extends ParserIKData_XMLProcessor_Abst
         }
         // description
         if (!$dataObj->text) {
-            $viol->setDescription('');
+            $errors[] = 'Нет описания';
         } else {
             $viol->setDescription($this->_filterString((string)$dataObj->text));
         }

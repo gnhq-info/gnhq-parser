@@ -138,6 +138,7 @@ var Viol = {
 					'data'      : _data,
 					'dataType'  : 'json',
 					'async'     : true,
+					'cache'     : true,
 					'success'   : function(data, status, request) {
 										Viol.SetResult.processResult(data);
 										if (Viol.Exchange.firstLoad) {

@@ -176,7 +176,7 @@ abstract class ParserIKData_Site_Abstract
     final protected function _getLoader()
     {
         if ($this->_loader === null) {
-            $this->_loader = new Lib_Html_Loader('', true);
+            $this->_loader = new Lib_Html_Loader('', false);
             if ($this->_getSiteEncoding()) {
                 $this->_loader->setInputEncoding($this->_getSiteEncoding());
             }

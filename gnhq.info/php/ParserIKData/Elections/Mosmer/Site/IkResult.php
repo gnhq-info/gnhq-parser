@@ -8,7 +8,7 @@ class ParserIKData_Site_CikUIK_Mosmer extends ParserIKData_Site_CikUIK
 
     protected function _getProtocolData($src)
     {
-        $this->_getLoader()->setSource($src);
+        $this->_getLoader()->setCache(false)->setSource($src);
         $html = $this->_getLoader()->load();
         $this->_getParser()->setPageSource($html);
         $resultTable = $this->_getParser()->findMinContainingTag('число избирателей', 'table');

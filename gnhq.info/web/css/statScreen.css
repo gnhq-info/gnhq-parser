@@ -28,7 +28,7 @@ form label {cursor: pointer;}
 
 #selectedPlace {font-weight: 700;}
 
-#vTypes, #violFeed {height: 430px; min-height: 430px; max-height: 430px; overflow-x: hidden; }
+#vTypes, #violFeed {height: 530px; min-height: 530px; max-height: 530px; overflow-x: hidden; }
 #vTypes {overflow-y: auto;}
 #violFeed {overflow-y: scroll;}
 

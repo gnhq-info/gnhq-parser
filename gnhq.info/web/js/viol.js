@@ -102,6 +102,10 @@ var Viol = {
 			Viol.Feed.applyFilters();
 		});
 		
+		$('#violFeedTikFilter').change(function(){
+			Viol.Feed.applyFilters();
+		});
+		
 		Viol.Exchange.loadData();
 	},
 	
@@ -208,22 +212,41 @@ var Viol = {
 			});
 		}, 
 		applyFilters: function() {
-			var _uikFull, _grps = [];
+			var _uikFull, _grps = [], _tik;
 			_uikFull = $('#violFeedUikFilter option:checked').val();
+			_tik = $('#violFeedTikFilter option:checked').val();
 			$('#vTypes input[type="checkbox"]').each(function(){
 				if ($(this).is(':checked')) {
 					_grps.push($(this).attr('grpid'));
 				}
 			});
+			if (_tik) {
+				$('#violFeedUikFilter option').each(function(){
+					if (parseInt($(this).attr('tiknum'), 10) != parseInt(_tik, 10) && !$(this).is(':first-child') ) {
+						$(this).hide();
+					} else {
+						$(this).show();
+					}
+				});
+			} else {
+				$('#violFeedUikFilter option').each(function() {
+					$(this).show();
+				});
+			}
+			
+			
 			$('#violFeed tbody tr').each(function() {
-				var _curGrp, _curUikFull, _isHidden;
+				var _curGrp, _curUikFull, _curTik, _isHidden;
 				_curGrp = Viol.Dict.ViolType.getGroup($(this).attr('typeId'))+""; //must be string
 				_curUikFull = $(this).attr('uikfull');
+				_curTik = $(this).attr('tiknum');
 				_isHidden = false;
 
 				if ( (_grps.length > 0) && ($.inArray(_curGrp, _grps) == -1) ) {
 					_isHidden = true;
 				} else if ( (_uikFull) && (parseInt(_curUikFull, 10) != parseInt(_uikFull, 10)) ) {
+					_isHidden = true;
+				} else if ( (_tik) && ( parseInt(_tik, 10) != parseInt(_curTik, 10)) ) {
 					_isHidden = true;
 				}
 				if (_isHidden) {
@@ -314,6 +337,7 @@ var Viol = {
 					Viol.Exchange.violData.push(data.vshort[_j]);
 				}
 				Viol.FeedFilters.ClearUik();
+				Viol.FeedFilters.ClearTik();
 			
 				// feed
 				Viol.Feed.clear();
@@ -321,11 +345,15 @@ var Viol = {
 					_v = Viol.Exchange.violData[_i];
 					Viol.Feed.add(Viol.SetResult.buildViolTr(_v));
 					if (_v['UIKNum'] && _v['UIKNum'] != '0') {
-						Viol.FeedFilters.AddUik(_v['RegionNum'], _v['UIKNum']);
+						Viol.FeedFilters.AddUik(_v['RegionNum'], _v['UIKNum'], _v['TIKNum']);
+					}
+					if (_v['TIKNum'] && _v['TIKNum'] != '0') {
+						Viol.FeedFilters.AddTik(_v['RegionNum'], _v['TIKNum']);
 					}
 				}
 			
 				Viol.FeedFilters.SortUik();
+				Viol.FeedFilters.SortTik();
 			
 				// violation types
 			
@@ -446,20 +474,21 @@ var Viol = {
 			});
 		},
 		
-		AddUik: function (regionNum, uikNum) {
+		AddUik: function (regionNum, uikNum, tikNum) {
 			regionNum = parseInt(regionNum, 10);
 			uikNum = parseInt(uikNum, 10);
-			$('<option>').val(regionNum * 10000 + uikNum).html(Viol.Dict.Region.getName(regionNum) + ': УИК ' + uikNum) 
-				.appendTo($('#violFeedUikFilter'));
+			$('<option>').val(regionNum * 10000 + uikNum).html(Viol.Dict.Region.getName(regionNum) + ': УИК ' + uikNum)
+				.attr('tiknum', tikNum).appendTo($('#violFeedUikFilter'));
 		},
 		
 		SortUik: function() {
-			var _buf = {};
+			var _buf = {}, _tiks = {};
 			var _ord = [];
 			$('#violFeedUikFilter').find('option').each(function(){
 				if(!$(this).is(':first-child')) {
 					if (typeof(_buf[parseInt($(this).val(),10)]) == 'undefined') {
 						_buf[parseInt($(this).val(),10)] = $(this).html();
+						_tiks[parseInt($(this).val(),10)] = $(this).attr('tiknum');
 						_ord.push(parseInt($(this).val(),10));
 					}
 					$(this).remove();
@@ -468,7 +497,41 @@ var Viol = {
 			_ord.sort();
 
 			for (var _i = 0; _i < _ord.length; _i++) {
-				$('<option>').val(_ord[_i]).html(_buf[_ord[_i]]).appendTo($('#violFeedUikFilter'));
+				$('<option>').attr('tiknum', _tiks[_ord[_i]]).val(_ord[_i]).html(_buf[_ord[_i]]).appendTo($('#violFeedUikFilter'));
+			}
+		},
+		
+		ClearTik: function () {
+			$('#violFeedTikFilter').find('option').each(function(){
+				if(!$(this).is(':first-child')) {
+					$(this).remove();
+				}
+			});
+		},
+		
+		AddTik: function (regionNum, tikNum) {
+			tikNum = parseInt(tikNum, 10);
+			regionNum = parseInt(regionNum, 10);
+			$('<option>').val(tikNum).html(StaticData.Tiks[regionNum][tikNum].replace('район', '').trim()) 
+				.appendTo($('#violFeedTikFilter'));
+		},
+		
+		SortTik: function() {
+			var _buf = {};
+			var _ord = [];
+			$('#violFeedTikFilter').find('option').each(function(){
+				if(!$(this).is(':first-child')) {
+					if (typeof(_buf[$(this).html()]) == 'undefined') {
+						_buf[$(this).html()] = parseInt($(this).val(),10);
+						_ord.push($(this).html());
+					}
+					$(this).remove();
+				}
+			});
+			_ord.sort();
+
+			for (var _i = 0; _i < _ord.length; _i++) {
+				$('<option>').val(_buf[_ord[_i]]).html(_ord[_i]).appendTo($('#violFeedTikFilter'));
 			}
 		}
 	},

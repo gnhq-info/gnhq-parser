@@ -122,10 +122,15 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 						id="violTypeNone">снять все</a>)
 				</div>
 				<div class="data"></div>
+				<div class="hdr" style="margin-top: 6px;">Фильтр по ТИК</div>
+				<select id="violFeedTikFilter" style="width: 320px;">
+					<option value="">--все--</option>
+				</select>
 				<div class="hdr" style="margin-top: 6px;">Фильтр по УИК</div>
 				<select id="violFeedUikFilter" style="width: 320px;">
 					<option value="">--все--</option>
 				</select>
+
 			</div>
 			<div id="violFeed">
 				<div class="hdr">Лента нарушений:</div>

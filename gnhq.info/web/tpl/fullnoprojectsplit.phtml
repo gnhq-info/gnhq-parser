@@ -150,7 +150,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 			новостей (twitter)</h4>
 		<?php
     	     $graphHeight = intval(!empty($_GET['height']) ? $_GET['height'] : 550) . 'px';
-    	     $graphWidth = intval(!empty($_GET['height']) ? $_GET['height'] : 45);
+    	     $graphWidth = intval(!empty($_GET['width']) ? $_GET['width'] : 45);
     	     if ($graphWidth > 100 || $graphWidth < 0) {
     	         $graphWidth = 45;
     	     }

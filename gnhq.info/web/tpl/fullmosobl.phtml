@@ -1,0 +1,206 @@
+<?php
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
+    echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+}
+?>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/statScreen.css?<?php echo $CSS_VERSION;?>" rel="stylesheet">
+
+
+<?php
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
+    echo '<link href="css/statScreenIe.css?'.$CSS_VERSION.'" rel="stylesheet">';
+}
+?>
+
+<title>Гражданин Наблюдатель - <?php echo $view->electionsName;?></title>
+</head>
+<body>
+	<div class="container" style="margin-top: 5px; width: 96% !important;">
+	    <h4 style="padding-bottom: 10px; margin-bottom: 5px;"><?php echo $view->electionsName;?></h4>
+
+		<!-- SEARCH FORM -->
+		<form id="filterForm" name="filterForm"
+			style="margin-bottom: 5px !important; <?php if (!$SHOW_RESULTS) echo 'display: none;';?>">
+			<div class="row">
+				<div class="span3" id="watchers" style="display: none;">
+					<div>
+						Проект-наблюдатель (<a href="javascript:;" id="watchersAll">выбрать
+							все</a>)
+					</div>
+				</div>
+				<div class="span10">
+					<div class="row">
+						<div class="span3">
+							<div>Город:</div>
+							<select style="width: 180px" id="regionNum" name="regionNum">
+							</select>
+						</div>
+						<div class="span5">
+							<div>ТИК:</div>
+							<select id="tik" name="tik" style="width: 300px">
+								<option value="">-- все --</option>
+							</select>
+						</div>
+						<div class="span2">
+							<div>УИК:</div>
+							<select id="uikNum" name="uikNum" style="width: 130px">
+								<option value="">-- все --</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span9">
+							<div style="display: none;"><label><input type="checkbox" id="onlyClean" name="onlyClean"
+								value="1" style="display: inline;" /> Учитывать только "чистые"
+								участки ГН</label></div>
+							<div><label><input type="checkbox" id="onlyControlRel" name="onlyControlRel"
+								value="1" style="display: inline;" /> Учитывать только участки без расхождений
+								</label></div>
+							<div id="averageComment" style="display: none; height: 30px; overflow-y: scroll;">Усреднены данные
+								по следующим регионам:
+								<span class="regionList"></span>.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span5">
+					<div id="selectedPlace"></div>
+					<div id="uikCount">
+						Всего участков: <span class="val"></span>
+					</div>
+					<br />
+					<button class="btn btn-primary btn-large">ОБНОВИТЬ</button>
+				</div>
+			</div>
+
+		</form>
+
+		<!-- /SEARCH FORM -->
+
+		<!-- RESULTS -->
+		<h4 style="margin-top: 5px; border-top: 1px solid gray; <?php if (!$SHOW_RESULTS) echo 'display: none;';?>">Предварительные
+			результаты</h4>
+		<table class="table table-striped" id="results" style="<?php if (!$SHOW_RESULTS) echo 'display: none;';?>">
+			<thead>
+				<tr>
+					<th width="15%"></th>
+					<th width="40%" colspan="2">Выборка</th>
+					<th width="40%" colspan="2">ЦИК</th>
+					<th width="5%">Разница</th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+			<?php
+			foreach($view->diagRows as $line) {
+			    require(rtrim(TPL_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR. 'protocolline.phtml');
+			}
+			unset($line);
+			?>
+				<tr>
+					<td>Всего участков</td>
+					<td colspan="2" id="watchersUikCount" style="font-weight: 700;"></td>
+					<td colspan="2" id="ofUikCount" style="font-weight: 700;"></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- /RESULTS -->
+
+		<div class="row" style="margin-top: 5px; border-top: 1px solid gray; display: none;">
+
+			<div id="vTypes" class="span6">
+				<div class="hdr">
+					Фильтр по типам (<a href="javascript:;" id="violTypeAll">выбрать
+						все</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;"
+						id="violTypeNone">снять все</a>)
+				</div>
+				<div class="data"></div>
+				<div class="hdr" style="margin-top: 6px;">Фильтр по ТИК</div>
+				<select id="violFeedTikFilter" style="width: 320px;">
+					<option value="">--все--</option>
+				</select>
+				<div class="hdr" style="margin-top: 6px;">Фильтр по УИК</div>
+				<select id="violFeedUikFilter" style="width: 320px;">
+					<option value="">--все--</option>
+				</select>
+
+			</div>
+			<div id="violFeed">
+				<div class="hdr">Лента нарушений:</div>
+				<table id="violFeedTable" style="margin-left: 5px; width: 100%;">
+					<thead>
+						<tr>
+							<th id="th-time" style="width: 80px;" class="sortable-text">Время</th>
+							<th id="th-loadtime" style="width: 80px;" class="sortable-text">Загружено</th>
+							<th id="th-place" style="width: 130px;" class="sortable-text">Место</th>
+							<th id="th-uik" style="width: 40px;" class="sortable-numeric">УИК</th>
+							<th id="th-txt" style="margin-right: 3px;" class="sortable-text">Подробности</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Лента
+			новостей (twitter)</h4>
+
+            <div id="twitterFeed"></div>
+		</table>
+
+
+	</div>
+
+	<div class="modal" id="violationModel" style="display: none;">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3 class="place"></h3>
+		</div>
+		<div class="modal-body">
+			<p class="violationType">
+				<u>Тип нарушения</u>: <span></span>
+			</p>
+			<p class="description">
+				<u>Описание</u>: <span></span>
+			</p>
+			<p class="hqcomment">
+				<u>Комментарий штаба</u>: <span></span>
+			</p>
+			<p class="mobilegroup">
+				<u>Мобильная группа</u>: <span></span>
+			</p>
+			<p class="police">
+				<u>Полиция</u>: <span></span>
+			</p>
+		</div>
+		<div class="modal-footer">
+			<div class="media"></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/tablesort.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script>
+		var StaticData = {};
+		var ViolConfigData = {};
+		ViolConfigData['BackendPoint'] = 'elections/<?php echo $folder;?>/getData.php';
+		ViolConfigData['DefaultRegion'] = <?php echo $defaultRegion;?>;
+	</script>
+	<script type="text/javascript" src="js/violtypes_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="elections/<?php echo $folder;?>/js/tik_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="elections/<?php echo $folder;?>/js/watchers_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="elections/<?php echo $folder;?>/js/regions_data.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/decoration.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/viol.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+	<script type="text/javascript" src="js/statScreen.js?<?php echo $JS_SCRIPT_VERSION;?>"></script>
+</body>
+</html>

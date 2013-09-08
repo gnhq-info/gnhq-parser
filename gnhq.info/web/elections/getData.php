@@ -200,6 +200,23 @@ if ($modeSingleViolation) {
     }
 }
 
+if (!empty($_GET['violcsv'])) {
+    header('Content-Type: text/csv; charset=UTF-8');
+    header('Content-disposition: attachment;filename=violations.csv');
 
-header('Content-Type: application/json');
-print json_encode($response);
+    foreach ($response->vshort as $v) {
+        if (!isset($fldHeaders)) {
+            $fldHeaders = array_keys($v);
+            $fldHeaders = array_map(function ($str) {
+                return str_replace('"', '\\"', $str);
+            }, $fldHeaders);
+            print '"' . implode ('","', $fldHeaders) . '"' . PHP_EOL;
+        }
+        $flds = array_values($v);
+        $flds = array_map(function ($str) {return str_replace('"', '\\"', $str);}, $flds);
+        print '"' . implode ('","', $flds) . '"' . PHP_EOL;
+    }
+} else {
+    header('Content-Type: application/json');
+    print json_encode($response);
+}

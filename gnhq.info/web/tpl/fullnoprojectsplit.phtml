@@ -150,10 +150,14 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 			новостей (twitter)</h4>
 		<?php
     	     $graphHeight = intval(!empty($_GET['height']) ? $_GET['height'] : 550) . 'px';
+    	     $graphWidth = intval(!empty($_GET['height']) ? $_GET['height'] : 45);
+    	     if ($graphWidth > 100 || $graphWidth < 0) {
+    	         $graphWidth = 45;
+    	     }
 		?>
-            <div id="twitterFeed" style="width: 57%; float: left;"></div>
+            <div id="twitterFeed" style="width: <?php echo (99 - $graphWidth);?>%; float: left;"></div>
             <div style="float: left;">&nbsp;</div>
-            <div style="width: 40%; float: left;
+            <div style="width: <?php echo $graphWidth;?>%; float: left;
                 min-height: <?php echo $graphHeight;?>; max-height: <?php echo $graphHeight;?>; height: <?php echo $graphHeight;?>;
                 vertical-align: top; overflow: hidden;"
                 >

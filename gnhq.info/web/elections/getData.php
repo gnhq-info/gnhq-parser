@@ -186,10 +186,11 @@ if ($modeSingleViolation) {
             $response->ofData = $ofResult->getDiagramData(true, 2);
             $response->ofUIKCount = $ofResult->getUikCount();
         } else {
-            $response->watchersData =  $watchersResultData;
-            $response->watchersUIKCount = $watchersResultUikCount;
-            $response->ofData = $ofResultData;
-            $response->ofUIKCount = $ofResultUikCount;
+            error_log('empty watchers result');
+            $response->watchersData =  array();//$watchersResultData;
+            $response->watchersUIKCount = array();//$watchersResultUikCount;
+            $response->ofData = array();//$ofResultData;
+            $response->ofUIKCount = array();//$ofResultUikCount;
         }
     }
 

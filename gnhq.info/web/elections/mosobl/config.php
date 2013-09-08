@@ -4,4 +4,4 @@ if (!defined('PROJECT_STARTED')) {
 }
 define('USE_UIK_CACHE', false);
 define('USE_VIOL_CACHE', false);
-define('SHOW_RESULTS', (time() > strtotime('08.09.2013 20:00')));
+define('SHOW_RESULTS', true);

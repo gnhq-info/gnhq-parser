@@ -33,7 +33,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
 
             $cond = $this->_formWhere($projectCode, null, $mergedTypeId, $regionNum, $tikNum, $uikNum, $loadedAfter);
             $data = $this->_getDriver()->selectAssoc(
-            	'ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime',
+            	'ProjectId, ProjectCode, RegionNum, MergedTypeId, Description, Place, TIKNum, UIKNum, Obstime, Loadtime',
                 $this->_table,
                 $cond,
                 null,
@@ -50,6 +50,7 @@ class ParserIKData_Gateway_Violation extends ParserIKData_Gateway_Abstract
                     ->setDescription($row['Description'])
                     ->setPlace($row['Place'])
                     ->setObstime($row['Obstime'])
+                    ->setLoadtime(date('Y-m-d H:i:s', strtotime($row['Loadtime']  . ' + 4 hours')))
                     ->setTIKNum($row['TIKNum'])
                     ->setUIKNum($row['UIKNum']);
                 $violations[] = $viol;

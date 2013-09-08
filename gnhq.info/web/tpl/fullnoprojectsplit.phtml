@@ -133,6 +133,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 					<thead>
 						<tr>
 							<th id="th-time" style="width: 80px;" class="sortable-text">Время</th>
+							<th id="th-loadtime" style="width: 80px;" class="sortable-text">Загружено</th>
 							<th id="th-place" style="width: 130px;" class="sortable-text">Место</th>
 							<th id="th-uik" style="width: 40px;" class="sortable-numeric">УИК</th>
 							<th id="th-txt" style="margin-right: 3px;" class="sortable-text">Подробности</th>
@@ -147,7 +148,21 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') > 0) {
 
 		<h4 style="margin-top: 5px; border-top: 1px solid gray;">Лента
 			новостей (twitter)</h4>
-		<div id="twitterFeed"></div>
+		<?php
+    	     $graphHeight = intval(!empty($_GET['height']) ? $_GET['height'] : 550) . 'px';
+		?>
+            <div id="twitterFeed" style="width: 57%; float: left;"></div>
+            <div style="float: left;">&nbsp;</div>
+            <div style="width: 40%; float: left;
+                min-height: <?php echo $graphHeight;?>; max-height: <?php echo $graphHeight;?>; height: <?php echo $graphHeight;?>;
+                vertical-align: top; overflow: hidden;"
+                >
+		            <iframe frameborder="0" style="width: 100%; overflow: none; height: 100%;" src="http://call-dev.gnhq.info/graphs.html">
+		            </iframe>
+		    </div>
+		    <div style="clear:both;"></div>
+		</table>
+
 
 	</div>
 

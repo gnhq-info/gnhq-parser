@@ -347,10 +347,11 @@ var Viol = {
 		
 		
 		buildViolTr: function(row) {
-			var _place, _time, _descrHtml, _tr, _vtypeHdr, _uikNum, _uikFull;
+			var _place, _time, _loadtime, _descrHtml, _tr, _vtypeHdr, _uikNum, _uikFull;
 			_place = Viol.Utility.buildPlace(row);
 			_uikNum = Viol.Utility.buildUiknum(row);
 			_time = Viol.Utility.formatTime(row.Obstime);
+			_loadtime = Viol.Utility.formatTime(row.Loadtime);
 			_vtypeHdr = $('<span>').addClass('vhdr').html(Viol.Dict.ViolType.getName(row.MergedTypeId) + ': ');
 			_descrHtml =  row.Description.replace('\\r\\n', "<br/>");
 			_uikFull = parseInt(row.RegionNum) * 10000;
@@ -362,6 +363,7 @@ var Viol = {
 				$('<td>').html(Viol.Dict.Watchers.getName(row.ProjectCode)).appendTo(_tr);
 			}
 			$('<td>').html(_time).appendTo(_tr);
+			$('<td>').html(_loadtime).appendTo(_tr);
 			$('<td>').html(_place).appendTo(_tr);
 			$('<td>').html(_uikNum).appendTo(_tr);
 			$('<td>').addClass('description').append(_vtypeHdr).append($('<a>').html(_descrHtml).click(function() {
@@ -423,6 +425,7 @@ var Viol = {
 		buildHeaders: function () {
 			$('#th-prj').html('Проект');
 			$('#th-time').html('Время');
+			$('#th-loadtime').html('Загружено');
 			$('#th-place').html('Место');
 			$('#th-uik').html('УИК');
 			$('#th-txt').html('Подробности');

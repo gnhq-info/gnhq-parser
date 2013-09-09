@@ -31,5 +31,5 @@ $electionTitle = 'Выборы губернатора Москвоской об�
 $maxLines = 18;
 
 $config = array(
-		'rootPage' => 'http://www.moscow_reg.vybory.izbirkom.ru/region/moscow_reg?action=show&root_a=504001001&vrn=75070001571767&region=50&global=null&type=0&prver=0&pronetvd=null',
+        'rootPage' => 'http://www.moscow_reg.vybory.izbirkom.ru/region/region/moscow_reg?action=show&root=1&tvd=75070001571771&vrn=75070001571767&region=50&global=null&sub_region=50&prver=0&pronetvd=null&vibid=75070001571771&type=234'
 		'name' => 'Московская область', 'num' => 50, 'population' => 0);
